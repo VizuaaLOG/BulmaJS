@@ -1,0 +1,18 @@
+{
+  "name": "bulmajs",
+  "version": "0.1.0",
+  "description": "Javascript integrations for the Bulma CSS framework",
+  "main": "index.js",
+  "author": "Thomas Erbe <vizuaalog@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "bulma": "^0.5.1",
+    "laravel-mix": "^1.4.2"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  }
+}

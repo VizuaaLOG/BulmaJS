@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BulmaJS test</title>
+
+    <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
+</head>
+<body>
+    <div class="container">
+        <div class="notification is-primary" data-bulma="notification" data-hide="5000">
+            <button class="delete" data-bulma="delete"></button>
+            Primar lorem ipsum dolor sit amet, consectetur
+            adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
+            consectetur adipiscing elit
+        </div>
+    </div>
+
+    <script src="dist/notification.js"></script>
+    <script>
+        new Bulma.Notification('This is my notification', {
+            parent: document.querySelector('.container'),
+            color: 'primary',
+            isDismissable: true,
+            destroyOnDismiss: false
+        }).show();
+    </script>
+</body>
+</html>
