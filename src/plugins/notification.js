@@ -204,17 +204,22 @@ class Notification {
 
         elements.forEach(function(element) {
             let closeBtn = element.querySelector('.delete');
-            let dismissInterval = element.getAttribute('data-hide');
+            let dismissInterval = element.getAttribute('data-dismiss-interval');
 
-            new Notification({
+            let options = {
                 body: null,
                 parent: element.parentNode,
                 element: element,
                 closeButton: closeBtn,
-                dismissInterval: dismissInterval,
                 isDismissable: !!closeBtn,
                 destroyOnDismiss: true
-            });
+            }
+
+            if(dismissInterval) {
+                options['dismissInterval'] = parseInt(dismissInterval)
+            }
+
+            new Notification(options);
         });
     }
 }
