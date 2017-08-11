@@ -411,7 +411,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_notification__ = __webpack_require__(1);
 
 
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('Notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
 
 /***/ })
 /******/ ]);
