@@ -11,4 +11,5 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('src/notification.js', 'dist/');
+mix.js('src/bulma.js', 'dist/bulma.js')
+    .js('src/notification.js', 'dist/');

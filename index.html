@@ -16,9 +16,10 @@
         </div>
     </div>
 
-    <script src="dist/notification.js"></script>
+    <script src="dist/bulma.js"></script>
     <script>
-        new Bulma.Notification('This is my notification', {
+        Bulma.create('Notification', {
+            body: 'This is my notification',
             parent: document.querySelector('.container'),
             color: 'primary',
             isDismissable: true,
