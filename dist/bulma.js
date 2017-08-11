@@ -372,17 +372,22 @@ var Notification = function () {
 
             elements.forEach(function (element) {
                 var closeBtn = element.querySelector('.delete');
-                var dismissInterval = element.getAttribute('data-hide');
+                var dismissInterval = element.getAttribute('data-dismiss-interval');
 
-                new Notification({
+                var options = {
                     body: null,
                     parent: element.parentNode,
                     element: element,
                     closeButton: closeBtn,
-                    dismissInterval: dismissInterval,
                     isDismissable: !!closeBtn,
                     destroyOnDismiss: true
-                });
+                };
+
+                if (dismissInterval) {
+                    options['dismissInterval'] = parseInt(dismissInterval);
+                }
+
+                new Notification(options);
             });
         }
     }]);
