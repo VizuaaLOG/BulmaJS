@@ -30,10 +30,14 @@ const Bulma = {
         }
 
         this[key] = plugin;
+    },
 
-        if(plugin.hasOwnProperty('afterRegister')) {
-            plugin.afterRegister();
-        }
+    traverseDOM() {
+        let elements = document.querySelectorAll('[data-bulma]');
+
+        elements.forEach(function(element) {
+            Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
+        });
     }
 }
 

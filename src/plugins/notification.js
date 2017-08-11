@@ -92,13 +92,6 @@ class Notification {
     }
 
     /**
-     * Method that gets called after this plugin has been registered.
-     */
-    static afterRegister() {
-        document.addEventListener('DOMContentLoaded', Notification.handleDomParsing);
-    }
-
-    /**
      * Create the main notification element.
      */
     createRootElement() {
@@ -201,28 +194,24 @@ class Notification {
     /**
      * Handle parsing the DOMs data attribute API.
      */
-    static handleDomParsing() {
-        let elements = document.querySelectorAll('[data-bulma="notification"]');
+    static handleDomParsing(element) {
+        let closeBtn = element.querySelector('.delete');
+        let dismissInterval = element.getAttribute('data-dismiss-interval');
 
-        elements.forEach(function(element) {
-            let closeBtn = element.querySelector('.delete');
-            let dismissInterval = element.getAttribute('data-dismiss-interval');
+        let options = {
+            body: null,
+            parent: element.parentNode,
+            element: element,
+            closeButton: closeBtn,
+            isDismissable: !!closeBtn,
+            destroyOnDismiss: true
+        }
 
-            let options = {
-                body: null,
-                parent: element.parentNode,
-                element: element,
-                closeButton: closeBtn,
-                isDismissable: !!closeBtn,
-                destroyOnDismiss: true
-            }
+        if(dismissInterval) {
+            options['dismissInterval'] = parseInt(dismissInterval)
+        }
 
-            if(dismissInterval) {
-                options['dismissInterval'] = parseInt(dismissInterval)
-            }
-
-            new Notification(options);
-        });
+        new Notification(options);
     }
 }
 

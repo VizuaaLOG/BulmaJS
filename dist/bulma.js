@@ -101,10 +101,13 @@ var Bulma = {
         }
 
         this[key] = plugin;
+    },
+    traverseDOM: function traverseDOM() {
+        var elements = document.querySelectorAll('[data-bulma]');
 
-        if (plugin.hasOwnProperty('afterRegister')) {
-            plugin.afterRegister();
-        }
+        elements.forEach(function (element) {
+            Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
+        });
     }
 };
 
@@ -357,40 +360,26 @@ var Notification = function () {
         value: function create(options) {
             return new Notification(options);
         }
-
-        /**
-         * Method that gets called after this plugin has been registered.
-         */
-
-    }, {
-        key: 'afterRegister',
-        value: function afterRegister() {
-            document.addEventListener('DOMContentLoaded', Notification.handleDomParsing);
-        }
     }, {
         key: 'handleDomParsing',
-        value: function handleDomParsing() {
-            var elements = document.querySelectorAll('[data-bulma="notification"]');
+        value: function handleDomParsing(element) {
+            var closeBtn = element.querySelector('.delete');
+            var dismissInterval = element.getAttribute('data-dismiss-interval');
 
-            elements.forEach(function (element) {
-                var closeBtn = element.querySelector('.delete');
-                var dismissInterval = element.getAttribute('data-dismiss-interval');
+            var options = {
+                body: null,
+                parent: element.parentNode,
+                element: element,
+                closeButton: closeBtn,
+                isDismissable: !!closeBtn,
+                destroyOnDismiss: true
+            };
 
-                var options = {
-                    body: null,
-                    parent: element.parentNode,
-                    element: element,
-                    closeButton: closeBtn,
-                    isDismissable: !!closeBtn,
-                    destroyOnDismiss: true
-                };
+            if (dismissInterval) {
+                options['dismissInterval'] = parseInt(dismissInterval);
+            }
 
-                if (dismissInterval) {
-                    options['dismissInterval'] = parseInt(dismissInterval);
-                }
-
-                new Notification(options);
-            });
+            new Notification(options);
         }
     }]);
 
@@ -419,6 +408,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
 
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
 window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
 
 /***/ })
