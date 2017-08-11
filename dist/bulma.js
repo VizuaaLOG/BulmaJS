@@ -410,7 +410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('Notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
 
 window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
 
