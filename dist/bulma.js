@@ -337,7 +337,9 @@ var Notification = function () {
     }, {
         key: 'destroy',
         value: function destroy() {
-            this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+            if (this.closeButton) {
+                this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+            }
 
             clearInterval(this.dismissInterval);
 
