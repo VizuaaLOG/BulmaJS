@@ -1,0 +1,11 @@
+.docs-notice {
+    margin-top: 1.5rem;
+}
+
+pre {
+    white-space: normal;
+}
+
+pre code {
+    white-space: pre-wrap;
+}
