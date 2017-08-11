@@ -187,7 +187,9 @@ class Notification {
      * Destroy the notification, removing the event listener, interval and element.
      */
     destroy() {
-        this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+        if(this.closeButton) {
+            this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+        }
 
         clearInterval(this.dismissInterval);
 
