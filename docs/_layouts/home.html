@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="hero is-primary is-fullheight">
+<div class="hero is-primary is-medium">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">Documentation</h1>
@@ -10,3 +10,57 @@ layout: default
         </div>
     </div>
 </div>
+
+{% include notice.html %}
+
+<section class="section">
+    <div class="container">
+        <h3 class="title">Using ES6 versions</h3>
+        <h4 class="subtitle">This requires a build process to be in-place to transpile the ES6 code to ES5.</h4>
+
+        <div class="content">
+            <p>BulmaJS has a flexible system for using only the component you need in your project. If you would like to build you own library of BulmaJS plugins, you can use the below syntax.</p>
+        </div>
+
+        {% highlight javascript %}
+            {%- include code/import-src.js -%}
+        {% endhighlight %}
+
+        <div class="content">
+            <p>If you only need a single plugin and have your own method of transpiling the ES6 code you can do the following.</p>
+        </div>
+
+        <div class="notification is-warning">
+            Please do not use this method if you are using more than one plugin. Each singular plugin import sets up the core and triggers the <code>traverseDOM</code> method, that looks through the DOM to find <code>data-bulma</code> attributes.
+        </div>
+
+        {% highlight javascript %}
+            {%- include code/import-singular.js -%}
+        {% endhighlight %}
+
+        <h3 class="title">Using ES5 versions</h3>
+        <h4 class="subtitle">Useful if you do not have a build process in place.</h4>
+
+        <div class="content">
+            <p>If you would prefer to include the JS files directly in your HTML, without any transpiling you can still do this through the <code>dist</code> folder. This method provides limited flexability and so is not the recommended way for production.</p>
+
+            <p>If you would like to include a single plugin you can include that plugin using the below syntax. This should be placed in the closing body of your page, so that the DOM has loaded ready for the plugin to search for any DOM apis.</p>
+        </div>
+
+        <div class="notification is-warning">
+            This method is not recommended if you are using more than one plugin, as there will be conflicts. It is recommended to instead use the ES6 method to build your own collection.
+        </div>
+
+        {% highlight html %}
+            {%- include code/import-es5-singular.html -%}
+        {% endhighlight %}
+
+        <div class="content">
+            <p>Finally, to include all of the BulmaJS plugins, you include the <code>bulma.js</code> file inside the <code>dist</code> folder.</p>
+        </div>
+
+        {% highlight html %}
+            {%- include code/import-es5-all.html -%}
+        {% endhighlight %}
+    </div>
+</section>
