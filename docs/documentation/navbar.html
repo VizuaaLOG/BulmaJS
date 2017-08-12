@@ -1,0 +1,77 @@
+---
+layout: default
+title: Navbar | BulmaJS Documentation
+---
+
+<div class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Navbar</h1>
+        </div>
+    </div>
+</div>
+
+{% include notice.html %}
+
+<section class="section">
+    <div class="container">
+        <h2 class="title">Navbar mobile toggle</h2>
+        <h3 class="subtitle">Add the toggles to the navbar mobile toggle, to show and hide the menu.</h3>
+        <div class="message is-info">
+            <div class="message-body">
+                Resize your browser to test the mobile nav.
+            </div>
+        </div>
+        <div class="columns is-multiline">
+            <div id="dismissable-notification" class="column is-12">
+                {% include code/navbar/markup.html %}
+            </div>
+
+            <div class="column is-12">
+                {% highlight javascript %}
+                    {%- include code/notification/dismissable.js -%}
+                {% endhighlight %}
+            </div>
+        </div>
+
+        <hr>
+
+        <h2 class="title">DOM options</h2>
+        <table class="table is-striped is-fullwidth">
+            <thead>
+                <tr>
+                   <th>Option name</th>
+                   <th>Required</th>
+                   <th>Default</th>
+                   <th>Type</th>
+                   <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>data-bulma</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>This is the component type, to enable the navbar functionality this should be <code>navbar</code>.</td>
+                </tr>
+
+                <tr>
+                    <td>data-trigger</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>The element you would like to be used as the trigger. This will assign the <code>click</code> event listener.</td>
+                </tr>
+
+                <tr>
+                    <td>data-target</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>This is applied to the same element the <code>data-trigger</code> attribute is applied to. This is a string containing the ID of the navigation menu.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
