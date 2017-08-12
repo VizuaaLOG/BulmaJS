@@ -36,7 +36,15 @@ const Bulma = {
         let elements = document.querySelectorAll('[data-bulma]');
 
         elements.forEach(function(element) {
-            Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
+            let plugin = element.getAttribute('data-bulma');
+
+            if(!Bulma.hasOwnProperty(plugin)) {
+                return console.warn('[BulmaJS] Plugin with the key \''+plugin+'\' has not been registered.')
+            }
+
+            if(Bulma[plugin].hasOwnProperty('handleDomParsing')) {
+                Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
+            }
         });
     }
 }
