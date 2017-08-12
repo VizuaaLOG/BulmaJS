@@ -17,8 +17,8 @@ title: BulmaJS Documentation
 email: vizuaalog@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   BulmaJS documentaion.
-baseurl: "/BulmaJS" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://vizuaalog.github.io/BulmaJS" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: vizuaalog
 github_username:  vizuaalog
 
