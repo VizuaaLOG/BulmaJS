@@ -17,6 +17,11 @@ title: Navbar | BulmaJS Documentation
     <div class="container">
         <h2 class="title">Navbar mobile toggle</h2>
         <h3 class="subtitle">Add the toggles to the navbar mobile toggle, to show and hide the menu.</h3>
+
+        <div class="content">
+            <p>All you need to do is add <code>data-bulma="navbar"</code> to the main navbar div, and then add <code>data-trigger</code> and <code>data-target="navID"</code> to the navbar burger.</p>
+        </div>
+
         <div class="message is-info">
             <div class="message-body">
                 Resize your browser to test the mobile nav.
@@ -28,8 +33,8 @@ title: Navbar | BulmaJS Documentation
             </div>
 
             <div class="column is-12">
-                {% highlight javascript %}
-                    {%- include code/notification/dismissable.js -%}
+                {% highlight html %}
+                    {%- include code/navbar/markup.html -%}
                 {% endhighlight %}
             </div>
         </div>
