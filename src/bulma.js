@@ -6,5 +6,8 @@ Bulma.registerPlugin('notification', Notification);
 import Navbar from './plugins/navbar';
 Bulma.registerPlugin('navbar', Navbar);
 
+import Message from './plugins/message';
+Bulma.registerPlugin('message', Message);
+
 Bulma.traverseDOM();
 window.Bulma = Bulma;
