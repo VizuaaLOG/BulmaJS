@@ -1,12 +1,11 @@
 /**
- * Message module
  * @module Message
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 class Message {
     /**
-     * Module constructor
+     * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */

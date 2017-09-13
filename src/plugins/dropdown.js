@@ -1,19 +1,29 @@
 /**
- * Dropdown module
  * @module Dropdown
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 class Dropdown {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     constructor(options) {
         if(!options.element || !options.trigger) {
             throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root dropdown element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element to trigger when clicked.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
 
         this.registerEvents();
@@ -31,10 +41,10 @@ class Dropdown {
      * @param  {Object} event
      */
     handleTriggerClick(event) {
-        if(this.element.classList.contains('is-active')) {
-            this.element.classList.remove('is-active');
+        if(this.root.classList.contains('is-active')) {
+            this.root.classList.remove('is-active');
         } else {
-            this.element.classList.add('is-active');
+            this.root.classList.add('is-active');
         }
     }
 

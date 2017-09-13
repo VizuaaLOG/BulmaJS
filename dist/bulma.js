@@ -131,14 +131,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Notification module
  * @module Notification
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var Notification = function () {
     /**
-     * Module constructor
+     * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
@@ -406,14 +405,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Navbar module
  * @module Navbar
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var Navbar = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function Navbar(options) {
         _classCallCheck(this, Navbar);
@@ -422,8 +422,22 @@ var Navbar = function () {
             throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root navbar element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element used for the trigger.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
+
+        /**
+         * The target element.
+         * @type {HTMLELement}
+         */
         this.target = options.target;
 
         this.registerEvents();
@@ -531,14 +545,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Message module
  * @module Message
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var Message = function () {
     /**
-     * Module constructor
+     * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
@@ -861,14 +874,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Dropdown module
  * @module Dropdown
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var Dropdown = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function Dropdown(options) {
         _classCallCheck(this, Dropdown);
@@ -877,7 +891,16 @@ var Dropdown = function () {
             throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root dropdown element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element to trigger when clicked.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
 
         this.registerEvents();
@@ -902,10 +925,10 @@ var Dropdown = function () {
     }, {
         key: 'handleTriggerClick',
         value: function handleTriggerClick(event) {
-            if (this.element.classList.contains('is-active')) {
-                this.element.classList.remove('is-active');
+            if (this.root.classList.contains('is-active')) {
+                this.root.classList.remove('is-active');
             } else {
-                this.element.classList.add('is-active');
+                this.root.classList.add('is-active');
             }
         }
 
@@ -944,130 +967,133 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Modal module
  * @module Modal
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var Modal = function () {
+  /**
+   * Plugin constructor
+   * @param  {Object} options
+   * @return {this}
+   */
+  function Modal(options) {
+    _classCallCheck(this, Modal);
+
+    if (!options) options = {};
+
     /**
-     * Module constructor
-     * @param  {Object} options
-     * @return {this}
+     * Message body text.
+     * @type {string}
      */
-    function Modal(options) {
-        _classCallCheck(this, Modal);
+    this.root = options.hasOwnProperty('element') ? options.element : '';
 
-        if (!options) options = {};
+    /**
+     * The element used to close the message.
+     * @type {HTMLElement}
+     */
+    this.closeButton = this.findCloseButton();
 
-        /**
-         * Message body text.
-         * @type {string}
-         */
-        this.root = options.hasOwnProperty('element') ? options.element : '';
+    this.setupCloseEvent();
+  }
 
-        this.card = options.card ? options.card : false;
+  /**
+   * Helper method used by the Bulma core to create a new instance.
+   * @param  {Object} options
+   * @return {Modal}
+   */
 
-        /**
-         * The element used to close the message.
-         * @type {HTMLElement}
-         */
-        this.closeButton = this.findCloseButton();
 
-        this.setupCloseEvent();
+  _createClass(Modal, [{
+    key: 'open',
+
+
+    /**
+     * Show the message.
+     */
+    value: function open() {
+      this.root.classList.add('is-active');
     }
 
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Modal}
+     * Hide the message.
      */
 
+  }, {
+    key: 'close',
+    value: function close() {
+      this.root.classList.remove('is-active');
+    }
 
-    _createClass(Modal, [{
-        key: 'open',
+    /**
+     * Find the close button.
+     * @return {HTMLElement}
+     */
 
+  }, {
+    key: 'findCloseButton',
+    value: function findCloseButton() {
+      var element = this.root.querySelector('.modal-close');
 
-        /**
-         * Show the message.
-         */
-        value: function open() {
-            this.root.classList.add('is-active');
-        }
+      if (!element) {
+        return this.root.querySelector('.delete');
+      }
 
-        /**
-         * Hide the message.
-         */
+      return element;
+    }
 
-    }, {
-        key: 'close',
-        value: function close() {
-            this.root.classList.remove('is-active');
-        }
-    }, {
-        key: 'findCloseButton',
-        value: function findCloseButton() {
-            var element = this.root.querySelector('.modal-close');
+    /**
+     * Setup the event listener for the close button.
+     */
 
-            if (!element) {
-                return this.root.querySelector('.delete');
-            }
+  }, {
+    key: 'setupCloseEvent',
+    value: function setupCloseEvent() {
+      this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
+    }
 
-            return element;
-        }
+    /**
+     * Handle the event when our close button is clicked.
+     */
 
-        /**
-         * Setup the event listener for the close button.
-         */
+  }, {
+    key: 'handleCloseEvent',
+    value: function handleCloseEvent() {
+      this.close();
+    }
 
-    }, {
-        key: 'setupCloseEvent',
-        value: function setupCloseEvent() {
-            this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
-        }
+    /**
+     * Destroy the message, removing the event listener, interval and element.
+     */
 
-        /**
-         * Handle the event when our close button is clicked.
-         */
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      if (this.closeButton) {
+        this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+      }
 
-    }, {
-        key: 'handleCloseEvent',
-        value: function handleCloseEvent() {
-            this.close();
-        }
+      this.root = null;
+      this.closeButton = null;
+    }
 
-        /**
-         * Destroy the message, removing the event listener, interval and element.
-         */
+    /**
+     * Handle parsing the DOMs data attribute API.
+     */
 
-    }, {
-        key: 'destroy',
-        value: function destroy() {
-            if (this.closeButton) {
-                this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
-            }
+  }], [{
+    key: 'create',
+    value: function create(options) {
+      return new Modal(options);
+    }
+  }, {
+    key: 'handleDomParsing',
+    value: function handleDomParsing(element) {
+      return;
+    }
+  }]);
 
-            this.root = null;
-            this.closeButton = null;
-        }
-
-        /**
-         * Handle parsing the DOMs data attribute API.
-         */
-
-    }], [{
-        key: 'create',
-        value: function create(options) {
-            return new Modal(options);
-        }
-    }, {
-        key: 'handleDomParsing',
-        value: function handleDomParsing(element) {
-            return;
-        }
-    }]);
-
-    return Modal;
+  return Modal;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Modal);
@@ -1082,14 +1108,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * File module
  * @module File
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var File = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function File(options) {
         _classCallCheck(this, File);
@@ -1098,9 +1125,23 @@ var File = function () {
             throw new Error('[BulmaJS] The file component requires an element to function.');
         }
 
-        this.element = options.element;
-        this.trigger = this.element.querySelector('input');
-        this.target = this.element.querySelector('.file-name');
+        /**
+         * The root file element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element to use as the trigger.
+         * @type {HTMLELement}
+         */
+        this.trigger = this.root.querySelector('input');
+
+        /**
+         * The element to show the file name.
+         * @type {HTMLElement}
+         */
+        this.target = this.root.querySelector('.file-name');
 
         this.registerEvents();
     }
@@ -1136,11 +1177,22 @@ var File = function () {
                 this.setFileName(event.target.files.length + ' files');
             }
         }
+
+        /**
+         * Clear the file name element.
+         */
+
     }, {
         key: 'clearFileName',
         value: function clearFileName() {
             this.target.innerHTML = '';
         }
+
+        /**
+         * Set the text for the file name element.
+         * @param {string} value
+         */
+
     }, {
         key: 'setFileName',
         value: function setFileName(value) {
