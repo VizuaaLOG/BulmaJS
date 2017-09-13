@@ -1,36 +1,67 @@
 <div class="container">
-    <nav class="navbar">
+    <nav class="navbar" data-bulma="navbar">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://vizuaalog.github.io/BulmaJS">
                 <img src="{{ site.url }}/assets/images/bulmajs-logo.png" alt="BulmaJS" width="112" height="28">
             </a>
-            <div class="navbar-burger burger" data-target="navMenuExample">
+            <div class="navbar-burger burger" data-trigger data-target="navbar">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
-        <div id="navMenuExample" class="navbar-menu">
+        <div id="navbar" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{{ site.url }}/documentation/dropdown.html">
-                    Dropdown
+                <a class="navbar-item" href="{{ site.url }}">
+                    Overview
+                    &nbsp;
+                    <span class="tag is-primary">0.1.0</span>
                 </a>
-                <a class="navbar-item" href="{{ site.url }}/documentation/file.html">
-                    File
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Components
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{{ site.url }}/documentation/dropdown.html">
+                            Dropdown
+                        </a>
+                        <a class="navbar-item" href="{{ site.url }}/documentation/message.html">
+                            Message
+                        </a>
+                        <a class="navbar-item" href="{{ site.url }}/documentation/modal.html">
+                            Modal
+                        </a>
+                        <a class="navbar-item" href="{{ site.url }}/documentation/navbar.html">
+                            Navbar
+                        </a>
+                        <a class="navbar-item" href="{{ site.url }}/documentation/notification.html">
+                            Notification
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Form
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{{ site.url }}/documentation/file.html">
+                            File
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-end">
+                <a class="navbar-item is-hidden-desktop-only" href="https://github.com/vizuaalog/bulmajs" target="_blank">
+                    <span class="icon" style="color: #333;">
+                        <i class="fa fa-lg fa-github"></i>
+                    </span>
                 </a>
-                <a class="navbar-item" href="{{ site.url }}/documentation/message.html">
-                    Message
-                </a>
-                <a class="navbar-item" href="{{ site.url }}/documentation/modal.html">
-                    Modal
-                </a>
-                <a class="navbar-item" href="{{ site.url }}/documentation/navbar.html">
-                    Navbar
-                </a>
-                <a class="navbar-item" href="{{ site.url }}/documentation/notification.html">
-                    Notification
+                <a class="navbar-item is-hidden-desktop-only" href="https://twitter.com/vizuaalog" target="_blank">
+                    <span class="icon" style="color: #55acee;">
+                        <i class="fa fa-lg fa-twitter"></i>
+                    </span>
                 </a>
             </div>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
