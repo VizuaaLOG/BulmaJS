@@ -495,6 +495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_notification__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins_navbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_message__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__ = __webpack_require__(6);
 
 
 
@@ -505,6 +506,9 @@ __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', 
 
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('message', __WEBPACK_IMPORTED_MODULE_3__plugins_message__["a" /* default */]);
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
 window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
@@ -838,6 +842,85 @@ var Message = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Message);
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Dropdown module
+ * @module Dropdown
+ * @since  0.1.0
+ * @author  Thomas Erbe <vizuaalog@gmail.com>
+ */
+var Dropdown = function () {
+    /**
+     * Module constructor
+     */
+    function Dropdown(options) {
+        _classCallCheck(this, Dropdown);
+
+        if (!options.element || !options.trigger) {
+            throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
+        }
+
+        this.element = options.element;
+        this.trigger = options.trigger;
+
+        this.registerEvents();
+    }
+
+    /**
+     * Register all the events this module needs.
+     */
+
+
+    _createClass(Dropdown, [{
+        key: 'registerEvents',
+        value: function registerEvents() {
+            this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
+        }
+
+        /**
+         * Handle the click event on the trigger.
+         * @param  {Object} event
+         */
+
+    }, {
+        key: 'handleTriggerClick',
+        value: function handleTriggerClick(event) {
+            if (this.element.classList.contains('is-active')) {
+                this.element.classList.remove('is-active');
+            } else {
+                this.element.classList.add('is-active');
+            }
+        }
+
+        /**
+         * Handle parsing the DOMs data attribute API.
+         */
+
+    }], [{
+        key: 'handleDomParsing',
+        value: function handleDomParsing(element) {
+            var trigger = element.querySelector('[data-trigger]');
+
+            new Dropdown({
+                element: element,
+                trigger: trigger
+            });
+        }
+    }]);
+
+    return Dropdown;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Dropdown);
 
 /***/ })
 /******/ ]);
