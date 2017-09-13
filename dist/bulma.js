@@ -497,6 +497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_message__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__plugins_modal__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__plugins_file__ = __webpack_require__(12);
 
 
 
@@ -513,6 +514,9 @@ __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown'
 
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', __WEBPACK_IMPORTED_MODULE_5__plugins_modal__["a" /* default */]);
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('file', __WEBPACK_IMPORTED_MODULE_6__plugins_file__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
 window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
@@ -1067,6 +1071,99 @@ var Modal = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Modal);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * File module
+ * @module File
+ * @since  0.1.0
+ * @author  Thomas Erbe <vizuaalog@gmail.com>
+ */
+var File = function () {
+    /**
+     * Module constructor
+     */
+    function File(options) {
+        _classCallCheck(this, File);
+
+        if (!options.element) {
+            throw new Error('[BulmaJS] The file component requires an element to function.');
+        }
+
+        this.element = options.element;
+        this.trigger = this.element.querySelector('input');
+        this.target = this.element.querySelector('.file-name');
+
+        this.registerEvents();
+    }
+
+    /**
+     * Register all the events this module needs.
+     */
+
+
+    _createClass(File, [{
+        key: 'registerEvents',
+        value: function registerEvents() {
+            this.trigger.addEventListener('change', this.handleTriggerChange.bind(this));
+        }
+
+        /**
+         * Handle the click event on the trigger.
+         * @param  {Object} event
+         */
+
+    }, {
+        key: 'handleTriggerChange',
+        value: function handleTriggerChange(event) {
+            if (event.target.files.length === 0) {
+                this.clearFileName();
+            }
+
+            if (event.target.files.length === 1) {
+                this.setFileName(event.target.files[0].name);
+            }
+
+            if (event.target.files.length > 1) {
+                this.setFileName(event.target.files.length + ' files');
+            }
+        }
+    }, {
+        key: 'clearFileName',
+        value: function clearFileName() {
+            this.target.innerHTML = '';
+        }
+    }, {
+        key: 'setFileName',
+        value: function setFileName(value) {
+            this.target.innerHTML = value;
+        }
+
+        /**
+         * Handle parsing the DOMs data attribute API.
+         */
+
+    }], [{
+        key: 'handleDomParsing',
+        value: function handleDomParsing(element) {
+            new File({
+                element: element
+            });
+        }
+    }]);
+
+    return File;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (File);
 
 /***/ })
 /******/ ]);
