@@ -496,6 +496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins_navbar__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_message__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__plugins_modal__ = __webpack_require__(7);
 
 
 
@@ -509,6 +510,9 @@ __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('message',
 
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__["a" /* default */]);
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', __WEBPACK_IMPORTED_MODULE_5__plugins_modal__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
 window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
@@ -921,6 +925,144 @@ var Dropdown = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Dropdown);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Modal module
+ * @module Modal
+ * @since  0.1.0
+ * @author  Thomas Erbe <vizuaalog@gmail.com>
+ */
+var Modal = function () {
+    /**
+     * Module constructor
+     * @param  {Object} options
+     * @return {this}
+     */
+    function Modal(options) {
+        _classCallCheck(this, Modal);
+
+        if (!options) options = {};
+
+        /**
+         * Message body text.
+         * @type {string}
+         */
+        this.root = options.hasOwnProperty('element') ? options.element : '';
+
+        this.card = options.card ? options.card : false;
+
+        /**
+         * The element used to close the message.
+         * @type {HTMLElement}
+         */
+        this.closeButton = this.findCloseButton();
+
+        this.setupCloseEvent();
+    }
+
+    /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options
+     * @return {Modal}
+     */
+
+
+    _createClass(Modal, [{
+        key: 'open',
+
+
+        /**
+         * Show the message.
+         */
+        value: function open() {
+            this.root.classList.add('is-active');
+        }
+
+        /**
+         * Hide the message.
+         */
+
+    }, {
+        key: 'close',
+        value: function close() {
+            this.root.classList.remove('is-active');
+        }
+    }, {
+        key: 'findCloseButton',
+        value: function findCloseButton() {
+            var element = this.root.querySelector('.modal-close');
+
+            if (!element) {
+                return this.root.querySelector('.delete');
+            }
+
+            return element;
+        }
+
+        /**
+         * Setup the event listener for the close button.
+         */
+
+    }, {
+        key: 'setupCloseEvent',
+        value: function setupCloseEvent() {
+            this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
+        }
+
+        /**
+         * Handle the event when our close button is clicked.
+         */
+
+    }, {
+        key: 'handleCloseEvent',
+        value: function handleCloseEvent() {
+            this.close();
+        }
+
+        /**
+         * Destroy the message, removing the event listener, interval and element.
+         */
+
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+            if (this.closeButton) {
+                this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+            }
+
+            this.root = null;
+            this.closeButton = null;
+        }
+
+        /**
+         * Handle parsing the DOMs data attribute API.
+         */
+
+    }], [{
+        key: 'create',
+        value: function create(options) {
+            return new Modal(options);
+        }
+    }, {
+        key: 'handleDomParsing',
+        value: function handleDomParsing(element) {
+            return;
+        }
+    }]);
+
+    return Modal;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Modal);
 
 /***/ })
 /******/ ]);
