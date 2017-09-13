@@ -1,0 +1,61 @@
+---
+layout: default
+title: File | BulmaJS Documentation
+---
+
+<div class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">File</h1>
+        </div>
+    </div>
+</div>
+
+{% include notice.html %}
+
+<section class="section">
+    <div class="container">
+        <h2 class="title">File name updating</h2>
+        <h3 class="subtitle">The Bulma file form element contains a place for the file name to be placed. This plugin adds the functionality to update the <code>file-name</code> element.</h3>
+
+        <div class="content">
+            <p>If no file is selected, i.e. the open dialog is cancelled, the file name element will be cleared. If a single file is selected then the name of the file will be inserted. If multiple files are selected then the the text will be updated with <code>x files</code>.</p>
+        </div>
+
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                {% include code/file/markup.html %}
+            </div>
+
+            <div class="column is-12">
+                {% highlight html %}
+                    {%- include code/file/snippet.html -%}
+                {% endhighlight %}
+            </div>
+        </div>
+
+        <hr>
+
+        <h2 class="title">DOM options</h2>
+        <table class="table is-striped is-fullwidth">
+            <thead>
+                <tr>
+                   <th>Option name</th>
+                   <th>Required</th>
+                   <th>Default</th>
+                   <th>Type</th>
+                   <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>data-bulma</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>This is the component type, to enable the file functionality this should be <code>file</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
