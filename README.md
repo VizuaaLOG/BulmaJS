@@ -1,3 +1,5 @@
+![BulmaJS Logo](https://github.com/VizuaaLOG/BulmaJS/blob/master/docs/assets/images/bulmajs-logo.png)
+
 BulmaJS
 ========
 This is an unofficial Javascript extension for the [Bulma CSS framework](http://bulma.io).
