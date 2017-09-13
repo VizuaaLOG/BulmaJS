@@ -15,5 +15,8 @@ Bulma.registerPlugin('dropdown', Dropdown);
 import Modal from './plugins/modal';
 Bulma.registerPlugin('modal', Modal);
 
+import File from './plugins/file';
+Bulma.registerPlugin('file', File);
+
 Bulma.traverseDOM();
 window.Bulma = Bulma;
