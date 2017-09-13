@@ -132,14 +132,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Navbar module
  * @module Navbar
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 var Navbar = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function Navbar(options) {
         _classCallCheck(this, Navbar);
@@ -148,8 +149,22 @@ var Navbar = function () {
             throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root navbar element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element used for the trigger.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
+
+        /**
+         * The target element.
+         * @type {HTMLELement}
+         */
         this.target = options.target;
 
         this.registerEvents();

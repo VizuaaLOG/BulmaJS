@@ -1,12 +1,11 @@
 /**
- * Modal module
  * @module Modal
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 class Modal {
     /**
-     * Module constructor
+     * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
@@ -18,8 +17,6 @@ class Modal {
          * @type {string}
          */
         this.root = options.hasOwnProperty('element') ? options.element : '';
-
-        this.card = options.card ? options.card : false;
 
         /**
          * The element used to close the message.
@@ -53,6 +50,10 @@ class Modal {
         this.root.classList.remove('is-active');
     }
 
+    /**
+     * Find the close button.
+     * @return {HTMLElement}
+     */
     findCloseButton() {
         let element = this.root.querySelector('.modal-close');
 

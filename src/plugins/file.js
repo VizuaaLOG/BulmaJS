@@ -1,21 +1,36 @@
 /**
- * File module
  * @module File
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 class File {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     constructor(options) {
         if(!options.element) {
             throw new Error('[BulmaJS] The file component requires an element to function.');
         }
 
-        this.element = options.element;
-        this.trigger = this.element.querySelector('input');
-        this.target = this.element.querySelector('.file-name');
+        /**
+         * The root file element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element to use as the trigger.
+         * @type {HTMLELement}
+         */
+        this.trigger = this.root.querySelector('input');
+
+        /**
+         * The element to show the file name.
+         * @type {HTMLElement}
+         */
+        this.target = this.root.querySelector('.file-name');
 
         this.registerEvents();
     }
@@ -45,10 +60,17 @@ class File {
         }
     }
 
+    /**
+     * Clear the file name element.
+     */
     clearFileName() {
         this.target.innerHTML = '';
     }
 
+    /**
+     * Set the text for the file name element.
+     * @param {string} value
+     */
     setFileName(value) {
         this.target.innerHTML = value;
     }

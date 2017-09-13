@@ -1,20 +1,35 @@
 /**
- * Navbar module
  * @module Navbar
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 class Navbar {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     constructor(options) {
         if(!options.element || !options.trigger || !options.target) {
             throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root navbar element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element used for the trigger.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
+
+        /**
+         * The target element.
+         * @type {HTMLELement}
+         */
         this.target = options.target;
 
         this.registerEvents();
