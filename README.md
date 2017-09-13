@@ -2,10 +2,10 @@ BulmaJS
 ========
 This is an unofficial Javascript extension for the [Bulma CSS framework](http://bulma.io).
 
-*tl;dr*
+**tl;dr**
 GIMME THE DOCS! [Well here you go](https://vizuaalog.github.io/BulmaJS/).
 
-Bulma is an excellent CSS framework and the perfect alternative to Bootstrap. One of the great things is it is *JUST* CSS, there is no Javascript included, this makes it super lightweight. Some components to require Javascript however. That is where BulmaJS comes in.
+Bulma is an excellent CSS framework and the perfect alternative to Bootstrap. One of the great things is it is **JUST** CSS, there is no Javascript included, this makes it super lightweight. Some components to require Javascript however. That is where BulmaJS comes in.
 
 BulmaJS is written in ES6 and provides a plugin based system for adding interaction to the CSS components. BulmaJS is an ongoing project and as new components are added to Bulma, if they require Javascript then they will also be added to BulmaJS. We are not limited to the core components though. If you have a plugin you would like incorporated, please submit a PR, or if you have written a CSS extension to Bulma and would like some JS written please submit an issue and we may write the JS functionality for you.
 
