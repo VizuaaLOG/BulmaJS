@@ -1,0 +1,69 @@
+---
+layout: default
+title: Dropdown | BulmaJS Documentation
+---
+
+<div class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Dropdown</h1>
+        </div>
+    </div>
+</div>
+
+{% include notice.html %}
+
+<section class="section">
+    <div class="container">
+        <h2 class="title">Dropdown toggle</h2>
+        <h3 class="subtitle">Adds the toggle functionality to a dropdown component. If you are using <code>is-hover</code> this is not required.</h3>
+
+        <div class="content">
+            <p>To add the JS magic to a dropdown component, add a <code>data-bulma="dropdown"</code> attribute to the main dropdown element. Also add <code>data-trigger</code> to the button element. The rest will be taken care off behind the scenes.</p>
+        </div>
+
+        <div class="columns is-multiline">
+            <div id="dismissable-notification" class="column is-12">
+                {% include code/dropdown/markup.html %}
+            </div>
+
+            <div class="column is-12">
+                {% highlight html %}
+                    {%- include code/dropdown/snippet.html -%}
+                {% endhighlight %}
+            </div>
+        </div>
+
+        <hr>
+
+        <h2 class="title">DOM options</h2>
+        <table class="table is-striped is-fullwidth">
+            <thead>
+                <tr>
+                   <th>Option name</th>
+                   <th>Required</th>
+                   <th>Default</th>
+                   <th>Type</th>
+                   <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>data-bulma</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>This is the component type, to enable the dropdown functionality this should be <code>dropdown</code>.</td>
+                </tr>
+
+                <tr>
+                    <td>data-trigger</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>The element you would like to be used as the trigger. This will assign the <code>click</code> event listener.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
