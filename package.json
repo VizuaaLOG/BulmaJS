@@ -1,8 +1,8 @@
 {
   "name": "bulmajs",
   "version": "0.1.0",
-  "description": "Javascript integrations for the Bulma CSS framework",
-  "main": "index.js",
+  "description": "Unofficial javascript extension to the awesome Bulma CSS framework.",
+  "main": "src/bulma.js",
   "author": "Thomas Erbe <vizuaalog@gmail.com>",
   "license": "MIT",
   "devDependencies": {
