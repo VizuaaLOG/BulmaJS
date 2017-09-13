@@ -7,6 +7,29 @@ title: Modal | BulmaJS Documentation
     <div class="hero-body">
         <div class="container">
             <h1 class="title">Modal</h1>
+
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">since</span>
+                        <span class="tag is-info">0.1.0</span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">DOM API</span>
+                        <span class="tag is-danger">No</span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">JS API</span>
+                        <span class="tag is-success">Yes</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -40,7 +63,7 @@ title: Modal | BulmaJS Documentation
         </div>
 
         <div class="columns is-multiline">
-            <div class="column is-12">
+            <div class="column is-3">
                 <button id="toggle" class="button is-primary is-large">Open modal</button>
                 <div class="modal">
                     <div class="modal-background"></div>
@@ -72,7 +95,7 @@ title: Modal | BulmaJS Documentation
                 </script>
             </div>
 
-            <div class="column is-12">
+            <div class="column is-9">
                 {% highlight javascript %}
                     {%- include code/modal/open-snippet.js -%}
                 {% endhighlight %}
@@ -88,7 +111,7 @@ title: Modal | BulmaJS Documentation
         </div>
 
         <div class="columns is-multiline">
-            <div class="column is-12">
+            <div class="column is-3">
                 <button id="toggle-two" class="button is-primary is-large">Open modal</button>
                 <div id="close-modal" class="modal">
                     <div class="modal-background"></div>
@@ -126,7 +149,7 @@ title: Modal | BulmaJS Documentation
                 </script>
             </div>
 
-            <div class="column is-12">
+            <div class="column is-9">
                 {% highlight javascript %}
                     {%- include code/modal/close-snippet.js -%}
                 {% endhighlight %}
