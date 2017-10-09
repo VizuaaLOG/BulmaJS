@@ -1,3 +1,5 @@
+import Bulma from '../core';
+
 /**
  * @module Dropdown
  * @since  0.1.0
@@ -60,5 +62,7 @@ class Dropdown {
         });
     }
 }
+
+Bulma.registerPlugin('dropdown', Dropdown);
 
 export default Dropdown;

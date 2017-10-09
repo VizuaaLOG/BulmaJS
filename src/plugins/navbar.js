@@ -1,3 +1,5 @@
+import Bulma from '../core';
+
 /**
  * @module Navbar
  * @since  0.1.0
@@ -68,5 +70,7 @@ class Navbar {
         });
     }
 }
+
+Bulma.registerPlugin('navbar', Navbar);
 
 export default Navbar;

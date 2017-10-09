@@ -1,8 +1,11 @@
 // Import BulmaJS plugin
-import Notification from 'path/to/bulmajs/src/Notification';
+import Notification from 'path/to/bulmajs/src/plugins/Notification';
+import Navbar from 'path/to/bulmajs/src/plugins/Navbar';
 
-// You will now have access to the Bulma global.
-// Any notifications created in the DOM with the data-bulma API
-// Will have been initialised.
+// Everything is now setup. One document ready the DOM will be parsed.
+// If you would like to register a Bulma global, you can import Bulma
+import Bulma from 'path/to/bulmajs/src/core';
 
-// No more setup is required.
+// This will allow you to assign Bulma to the window. Your ES6 transpiling
+// system should only include the core in your output once.
+window.Bulma = Bulma;

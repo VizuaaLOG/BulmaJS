@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.1.0',
+    VERSION: '0.2.0',
 
     /**
      * Helper method to create a new plugin.
@@ -119,26 +119,63 @@ var Bulma = {
     }
 };
 
+document.addEventListener('DOMContentLoaded', function (event) {
+    Bulma.traverseDOM();
+});
+
 /* harmony default export */ __webpack_exports__["a"] = (Bulma);
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(2);
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_notification__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins_navbar__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_message__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__plugins_modal__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__plugins_file__ = __webpack_require__(8);
+
+
+
+
+
+
+
+
+window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * Notification module
  * @module Notification
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var Notification = function () {
     /**
-     * Module constructor
+     * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
@@ -394,26 +431,33 @@ var Notification = function () {
     return Notification;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (Notification);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', Notification);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (Notification);
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * Navbar module
  * @module Navbar
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var Navbar = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function Navbar(options) {
         _classCallCheck(this, Navbar);
@@ -422,8 +466,22 @@ var Navbar = function () {
             throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root navbar element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element used for the trigger.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
+
+        /**
+         * The target element.
+         * @type {HTMLELement}
+         */
         this.target = options.target;
 
         this.registerEvents();
@@ -476,69 +534,31 @@ var Navbar = function () {
     return Navbar;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (Navbar);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', Navbar);
 
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(4);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_notification__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins_navbar__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins_message__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__plugins_modal__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__plugins_file__ = __webpack_require__(8);
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', __WEBPACK_IMPORTED_MODULE_2__plugins_navbar__["a" /* default */]);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('message', __WEBPACK_IMPORTED_MODULE_3__plugins_message__["a" /* default */]);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__["a" /* default */]);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', __WEBPACK_IMPORTED_MODULE_5__plugins_modal__["a" /* default */]);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('file', __WEBPACK_IMPORTED_MODULE_6__plugins_file__["a" /* default */]);
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
-window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+/* unused harmony default export */ var _unused_webpack_default_export = (Navbar);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * Message module
  * @module Message
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var Message = function () {
     /**
-     * Module constructor
+     * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
@@ -849,26 +869,33 @@ var Message = function () {
     return Message;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (Message);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('message', Message);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (Message);
 
 /***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * Dropdown module
  * @module Dropdown
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var Dropdown = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function Dropdown(options) {
         _classCallCheck(this, Dropdown);
@@ -877,7 +904,16 @@ var Dropdown = function () {
             throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root dropdown element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element to trigger when clicked.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
 
         this.registerEvents();
@@ -902,10 +938,10 @@ var Dropdown = function () {
     }, {
         key: 'handleTriggerClick',
         value: function handleTriggerClick(event) {
-            if (this.element.classList.contains('is-active')) {
-                this.element.classList.remove('is-active');
+            if (this.root.classList.contains('is-active')) {
+                this.root.classList.remove('is-active');
             } else {
-                this.element.classList.add('is-active');
+                this.root.classList.add('is-active');
             }
         }
 
@@ -928,164 +964,180 @@ var Dropdown = function () {
     return Dropdown;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (Dropdown);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', Dropdown);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (Dropdown);
 
 /***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * Modal module
  * @module Modal
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var Modal = function () {
+  /**
+   * Plugin constructor
+   * @param  {Object} options
+   * @return {this}
+   */
+  function Modal(options) {
+    _classCallCheck(this, Modal);
+
+    if (!options) options = {};
+
     /**
-     * Module constructor
-     * @param  {Object} options
-     * @return {this}
+     * Message body text.
+     * @type {string}
      */
-    function Modal(options) {
-        _classCallCheck(this, Modal);
+    this.root = options.hasOwnProperty('element') ? options.element : '';
 
-        if (!options) options = {};
+    /**
+     * The element used to close the message.
+     * @type {HTMLElement}
+     */
+    this.closeButton = this.findCloseButton();
 
-        /**
-         * Message body text.
-         * @type {string}
-         */
-        this.root = options.hasOwnProperty('element') ? options.element : '';
+    this.setupCloseEvent();
+  }
 
-        this.card = options.card ? options.card : false;
+  /**
+   * Helper method used by the Bulma core to create a new instance.
+   * @param  {Object} options
+   * @return {Modal}
+   */
 
-        /**
-         * The element used to close the message.
-         * @type {HTMLElement}
-         */
-        this.closeButton = this.findCloseButton();
 
-        this.setupCloseEvent();
+  _createClass(Modal, [{
+    key: 'open',
+
+
+    /**
+     * Show the message.
+     */
+    value: function open() {
+      this.root.classList.add('is-active');
     }
 
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Modal}
+     * Hide the message.
      */
 
+  }, {
+    key: 'close',
+    value: function close() {
+      this.root.classList.remove('is-active');
+    }
 
-    _createClass(Modal, [{
-        key: 'open',
+    /**
+     * Find the close button.
+     * @return {HTMLElement}
+     */
 
+  }, {
+    key: 'findCloseButton',
+    value: function findCloseButton() {
+      var element = this.root.querySelector('.modal-close');
 
-        /**
-         * Show the message.
-         */
-        value: function open() {
-            this.root.classList.add('is-active');
-        }
+      if (!element) {
+        return this.root.querySelector('.delete');
+      }
 
-        /**
-         * Hide the message.
-         */
+      return element;
+    }
 
-    }, {
-        key: 'close',
-        value: function close() {
-            this.root.classList.remove('is-active');
-        }
-    }, {
-        key: 'findCloseButton',
-        value: function findCloseButton() {
-            var element = this.root.querySelector('.modal-close');
+    /**
+     * Setup the event listener for the close button.
+     */
 
-            if (!element) {
-                return this.root.querySelector('.delete');
-            }
+  }, {
+    key: 'setupCloseEvent',
+    value: function setupCloseEvent() {
+      this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
+    }
 
-            return element;
-        }
+    /**
+     * Handle the event when our close button is clicked.
+     */
 
-        /**
-         * Setup the event listener for the close button.
-         */
+  }, {
+    key: 'handleCloseEvent',
+    value: function handleCloseEvent() {
+      this.close();
+    }
 
-    }, {
-        key: 'setupCloseEvent',
-        value: function setupCloseEvent() {
-            this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
-        }
+    /**
+     * Destroy the message, removing the event listener, interval and element.
+     */
 
-        /**
-         * Handle the event when our close button is clicked.
-         */
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      if (this.closeButton) {
+        this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+      }
 
-    }, {
-        key: 'handleCloseEvent',
-        value: function handleCloseEvent() {
-            this.close();
-        }
+      this.root = null;
+      this.closeButton = null;
+    }
 
-        /**
-         * Destroy the message, removing the event listener, interval and element.
-         */
+    /**
+     * Handle parsing the DOMs data attribute API.
+     */
 
-    }, {
-        key: 'destroy',
-        value: function destroy() {
-            if (this.closeButton) {
-                this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
-            }
+  }], [{
+    key: 'create',
+    value: function create(options) {
+      return new Modal(options);
+    }
+  }, {
+    key: 'handleDomParsing',
+    value: function handleDomParsing(element) {
+      return;
+    }
+  }]);
 
-            this.root = null;
-            this.closeButton = null;
-        }
-
-        /**
-         * Handle parsing the DOMs data attribute API.
-         */
-
-    }], [{
-        key: 'create',
-        value: function create(options) {
-            return new Modal(options);
-        }
-    }, {
-        key: 'handleDomParsing',
-        value: function handleDomParsing(element) {
-            return;
-        }
-    }]);
-
-    return Modal;
+  return Modal;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (Modal);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', Modal);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (Modal);
 
 /***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * File module
  * @module File
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var File = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function File(options) {
         _classCallCheck(this, File);
@@ -1094,9 +1146,23 @@ var File = function () {
             throw new Error('[BulmaJS] The file component requires an element to function.');
         }
 
-        this.element = options.element;
-        this.trigger = this.element.querySelector('input');
-        this.target = this.element.querySelector('.file-name');
+        /**
+         * The root file element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element to use as the trigger.
+         * @type {HTMLELement}
+         */
+        this.trigger = this.root.querySelector('input');
+
+        /**
+         * The element to show the file name.
+         * @type {HTMLElement}
+         */
+        this.target = this.root.querySelector('.file-name');
 
         this.registerEvents();
     }
@@ -1132,11 +1198,22 @@ var File = function () {
                 this.setFileName(event.target.files.length + ' files');
             }
         }
+
+        /**
+         * Clear the file name element.
+         */
+
     }, {
         key: 'clearFileName',
         value: function clearFileName() {
             this.target.innerHTML = '';
         }
+
+        /**
+         * Set the text for the file name element.
+         * @param {string} value
+         */
+
     }, {
         key: 'setFileName',
         value: function setFileName(value) {
@@ -1159,7 +1236,9 @@ var File = function () {
     return File;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (File);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('file', File);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (File);
 
 /***/ })
 /******/ ]);

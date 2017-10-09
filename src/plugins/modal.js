@@ -1,3 +1,5 @@
+import Bulma from '../core';
+
 /**
  * @module Modal
  * @since  0.1.0
@@ -97,5 +99,7 @@ class Modal {
         return;
     }
 }
+
+Bulma.registerPlugin('modal', Modal);
 
 export default Modal;

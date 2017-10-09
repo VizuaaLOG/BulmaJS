@@ -119,6 +119,10 @@ var Bulma = {
     }
 };
 
+document.addEventListener('DOMContentLoaded', function (event) {
+    Bulma.traverseDOM();
+});
+
 /* harmony default export */ __webpack_exports__["a"] = (Bulma);
 
 /***/ }),
@@ -127,19 +131,24 @@ var Bulma = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+
+
 /**
- * Navbar module
  * @module Navbar
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var Navbar = function () {
     /**
-     * Module constructor
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
      */
     function Navbar(options) {
         _classCallCheck(this, Navbar);
@@ -148,8 +157,22 @@ var Navbar = function () {
             throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
         }
 
-        this.element = options.element;
+        /**
+         * The root navbar element.
+         * @type {HTMLElement}
+         */
+        this.root = options.element;
+
+        /**
+         * The element used for the trigger.
+         * @type {HTMLElement}
+         */
         this.trigger = options.trigger;
+
+        /**
+         * The target element.
+         * @type {HTMLELement}
+         */
         this.target = options.target;
 
         this.registerEvents();
@@ -201,6 +224,8 @@ var Navbar = function () {
 
     return Navbar;
 }();
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', Navbar);
 
 /* harmony default export */ __webpack_exports__["a"] = (Navbar);
 
