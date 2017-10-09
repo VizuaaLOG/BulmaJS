@@ -73,7 +73,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.1.0',
+    VERSION: '0.2.0',
 
     /**
      * Helper method to create a new plugin.
