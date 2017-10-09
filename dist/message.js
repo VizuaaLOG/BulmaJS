@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -74,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.1.0',
+    VERSION: '0.2.0',
 
     /**
      * Helper method to create a new plugin.
@@ -128,124 +128,85 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(18);
-
-
-/***/ }),
-
-/***/ 18:
+/***/ 1:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_message__ = __webpack_require__(3);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('message', __WEBPACK_IMPORTED_MODULE_1__plugins_message__["a" /* default */]);
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
-window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
 /**
- * @module Message
- * @since  0.1.0
+ * @module DismissableComponent
+ * @since  0.2.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-
-var Message = function () {
+var DismissableComponent = function () {
     /**
      * Plugin constructor
+     * @param  {string} name
      * @param  {Object} options
      * @return {this}
      */
-    function Message(options) {
-        _classCallCheck(this, Message);
-
-        if (!options) options = {};
+    function DismissableComponent(name, options) {
+        _classCallCheck(this, DismissableComponent);
 
         /**
-         * Message body text.
+         * The name of this component, this will be used as the root class
          * @type {string}
          */
+        this.name = name;
+
+        /**
+        * Body text.
+        * @type {string}
+        */
         this.body = options.hasOwnProperty('body') ? options.body : '';
 
         /**
-         * The parent element to inject message
-         */
+        * The parent element to inject HTML
+        */
         this.parent = options.hasOwnProperty('parent') ? options.parent : document.body;
 
         /**
-         * Message color modifier.
-         * @type {string} Possible values are null, primary, info, success, warning, danger
-         */
+        * Color modifier.
+        * @type {string} Possible values are null, primary, info, success, warning, danger
+        */
         this.color = options.hasOwnProperty('color') ? options.color : '';
 
         /**
-         * How long to wait before auto dismissing the message.
-         * @type {int|null} If null message must be dismissed manually.
-         */
+        * How long to wait before auto dismissing the component.
+        * @type {int|null} If null component must be dismissed manually.
+        */
         this.dismissInterval = options.hasOwnProperty('dismissInterval') ? this.createDismissInterval(options.dismissInterval) : null;
 
         /**
-         * Does this message had a dismiss button?
-         * @type {Boolean}
-         */
+        * Does this component have a dismiss button?
+        * @type {Boolean}
+        */
         this.isDismissable = options.hasOwnProperty('isDismissable') ? options.isDismissable : false;
 
         /**
-         * Should this message be destroyed when it is dismissed.
-         * @type {Boolean}
-         */
+        * Should this component be destroyed when it is dismissed.
+        * @type {Boolean}
+        */
         this.destroyOnDismiss = options.hasOwnProperty('destroyOnDismiss') ? options.destroyOnDismiss : true;
 
         /**
-         * The root message element.
-         * @type {HTMLElement|null} If this is not provided a new message element will be created.
-         */
+        * The root element.
+        * @type {HTMLElement|null} If this is not provided a new element will be created.
+        */
         this.root = options.hasOwnProperty('element') ? options.element : null;
 
         /**
-         * The element used to close the message.
-         * @type {HTMLElement}
-         */
+        * The element used to close the component.
+        * @type {HTMLElement}
+        */
         this.closeButton = options.hasOwnProperty('closeButton') ? options.closeButton : this.createCloseButton();
-
-        /**
-         * The size of the message
-         * @type {String} Possible values are small, normal, medium or large
-         */
-        this.size = options.hasOwnProperty('size') ? options.size : '';
-
-        /**
-         * The title of the message
-         * @type {String}
-         */
-        this.title = options.hasOwnProperty('title') ? options.title : '';
 
         if (!this.root) {
             this.createRootElement();
             this.parent.appendChild(this.root);
-        }
-
-        if (this.title) {
-            this.createMessageHeader();
         }
 
         if (this.body) {
@@ -263,52 +224,24 @@ var Message = function () {
         if (this.color) {
             this.setColor();
         }
-
-        if (this.size) {
-            this.setSize();
-        }
     }
 
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Message}
+     * Create the main element.
      */
 
 
-    _createClass(Message, [{
+    _createClass(DismissableComponent, [{
         key: 'createRootElement',
-
-
-        /**
-         * Create the main message element.
-         */
         value: function createRootElement() {
             this.root = document.createElement('div');
-            this.root.classList.add('message');
 
+            this.root.classList.add(this.name);
             this.hide();
         }
 
         /**
-         * Create the message header
-         */
-
-    }, {
-        key: 'createMessageHeader',
-        value: function createMessageHeader() {
-            var header = document.createElement('div');
-            header.classList.add('message-header');
-
-            header.innerHTML = '<p>' + this.title + '</p>';
-
-            this.title = header;
-
-            this.root.insertBefore(this.title, this.root.firstChild);
-        }
-
-        /**
-         * Show the message.
+         * Show the component.
          */
 
     }, {
@@ -318,7 +251,7 @@ var Message = function () {
         }
 
         /**
-         * Hide the message.
+         * Hide the component.
          */
 
     }, {
@@ -328,41 +261,17 @@ var Message = function () {
         }
 
         /**
-         * Insert the body text into the message.
+         * Insert the body text into the component.
          */
 
     }, {
         key: 'insertBody',
         value: function insertBody() {
-            var body = document.createElement('div');
-            body.classList.add('message-body');
-            body.innerHTML = this.body;
-
-            this.root.appendChild(body);
+            this.root.innerHTML = this.body;
         }
 
         /**
-         * Set the colour of the message.
-         */
-
-    }, {
-        key: 'setColor',
-        value: function setColor() {
-            this.root.classList.add('is-' + this.color);
-        }
-
-        /**
-         * Set the size of the message.
-         */
-
-    }, {
-        key: 'setSize',
-        value: function setSize() {
-            this.root.classList.add('is-' + this.size);
-        }
-
-        /**
-         * Create the element that will be used to close the message.
+         * Create the element that will be used to close the component.
          * @return {HTMLElement}
          */
 
@@ -377,7 +286,7 @@ var Message = function () {
         }
 
         /**
-         * Create an interval to dismiss the message after the set number of ms.
+         * Create an interval to dismiss the component after the set number of ms.
          * @param  {int}
          */
 
@@ -398,11 +307,7 @@ var Message = function () {
     }, {
         key: 'prependCloseButton',
         value: function prependCloseButton() {
-            if (!this.title) {
-                this.createMessageHeader();
-            }
-
-            this.title.appendChild(this.closeButton);
+            this.root.insertBefore(this.closeButton, this.root.firstChild);
         }
 
         /**
@@ -430,7 +335,17 @@ var Message = function () {
         }
 
         /**
-         * Destroy the message, removing the event listener, interval and element.
+         * Set the colour of the component.
+         */
+
+    }, {
+        key: 'setColor',
+        value: function setColor() {
+            this.root.classList.add('is-' + this.color);
+        }
+
+        /**
+         * Destroy the component, removing the event listener, interval and element.
          */
 
     }, {
@@ -445,6 +360,118 @@ var Message = function () {
             this.parent.removeChild(this.root);
             this.parent = null;
             this.root = null;
+        }
+    }]);
+
+    return DismissableComponent;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (DismissableComponent);
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(4);
+
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dismissableComponent__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+/**
+ * @module Message
+ * @since  0.1.0
+ * @author  Thomas Erbe <vizuaalog@gmail.com>
+ */
+
+var Message = function (_DismissableComponent) {
+    _inherits(Message, _DismissableComponent);
+
+    /**
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
+     */
+    function Message(options) {
+        _classCallCheck(this, Message);
+
+        if (!options) options = {};
+
+        /**
+         * The size of the message
+         * @type {String} Possible values are small, normal, medium or large
+         */
+        var _this = _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).call(this, 'message', options));
+
+        _this.size = options.hasOwnProperty('size') ? options.size : '';
+
+        /**
+         * The title of the message
+         * @type {String}
+         */
+        _this.title = options.hasOwnProperty('title') ? options.title : '';
+
+        if (_this.title) {
+            _this.createMessageHeader();
+        }
+
+        if (_this.size) {
+            _this.setSize();
+        }
+        return _this;
+    }
+
+    /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options
+     * @return {Message}
+     */
+
+
+    _createClass(Message, [{
+        key: 'createMessageHeader',
+
+
+        /**
+         * Create the message header
+         */
+        value: function createMessageHeader() {
+            var header = document.createElement('div');
+            header.classList.add('message-header');
+
+            header.innerHTML = '<p>' + this.title + '</p>';
+
+            this.title = header;
+
+            this.root.insertBefore(this.title, this.root.firstChild);
+        }
+
+        /**
+         * Set the size of the message.
+         */
+
+    }, {
+        key: 'setSize',
+        value: function setSize() {
+            this.root.classList.add('is-' + this.size);
         }
 
         /**
@@ -480,11 +507,11 @@ var Message = function () {
     }]);
 
     return Message;
-}();
+}(__WEBPACK_IMPORTED_MODULE_1__dismissableComponent__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('message', Message);
 
-/* harmony default export */ __webpack_exports__["a"] = (Message);
+/* harmony default export */ __webpack_exports__["default"] = (Message);
 
 /***/ })
 

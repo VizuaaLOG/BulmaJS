@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -74,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.1.0',
+    VERSION: '0.2.0',
 
     /**
      * Helper method to create a new plugin.
@@ -128,34 +128,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 /***/ }),
 
-/***/ 13:
+/***/ 10:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(14);
+module.exports = __webpack_require__(5);
 
 
 /***/ }),
 
-/***/ 14:
+/***/ 5:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_dropdown__ = __webpack_require__(4);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', __WEBPACK_IMPORTED_MODULE_1__plugins_dropdown__["a" /* default */]);
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
-window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -244,7 +229,7 @@ var Dropdown = function () {
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', Dropdown);
 
-/* harmony default export */ __webpack_exports__["a"] = (Dropdown);
+/* harmony default export */ __webpack_exports__["default"] = (Dropdown);
 
 /***/ })
 
