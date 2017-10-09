@@ -60,11 +60,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.1.0',
+    VERSION: '0.2.0',
 
     /**
      * Helper method to create a new plugin.
@@ -126,79 +127,81 @@ document.addEventListener('DOMContentLoaded', function (event) {
 /* harmony default export */ __webpack_exports__["a"] = (Bulma);
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
 /**
- * @module Notification
- * @since  0.1.0
+ * @module DismissableComponent
+ * @since  0.2.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-
-var Notification = function () {
+var DismissableComponent = function () {
     /**
      * Plugin constructor
+     * @param  {string} name
      * @param  {Object} options
      * @return {this}
      */
-    function Notification(options) {
-        _classCallCheck(this, Notification);
-
-        if (!options) options = {};
+    function DismissableComponent(name, options) {
+        _classCallCheck(this, DismissableComponent);
 
         /**
-         * Notifications body text.
+         * The name of this component, this will be used as the root class
          * @type {string}
          */
+        this.name = name;
+
+        /**
+        * Body text.
+        * @type {string}
+        */
         this.body = options.hasOwnProperty('body') ? options.body : '';
 
         /**
-         * The parent element to inject notification
-         */
+        * The parent element to inject HTML
+        */
         this.parent = options.hasOwnProperty('parent') ? options.parent : document.body;
 
         /**
-         * Notifications color modifier.
-         * @type {string} Possible values are null, primary, info, success, warning, danger
-         */
+        * Color modifier.
+        * @type {string} Possible values are null, primary, info, success, warning, danger
+        */
         this.color = options.hasOwnProperty('color') ? options.color : '';
 
         /**
-         * How long to wait before auto dismissing the notification.
-         * @type {int|null} If null notification must be dismissed manually.
-         */
+        * How long to wait before auto dismissing the component.
+        * @type {int|null} If null component must be dismissed manually.
+        */
         this.dismissInterval = options.hasOwnProperty('dismissInterval') ? this.createDismissInterval(options.dismissInterval) : null;
 
         /**
-         * Does this notification had a dismiss button?
-         * @type {Boolean}
-         */
+        * Does this component have a dismiss button?
+        * @type {Boolean}
+        */
         this.isDismissable = options.hasOwnProperty('isDismissable') ? options.isDismissable : false;
 
         /**
-         * Should this notification be destroyed when it is dismissed.
-         * @type {Boolean}
-         */
+        * Should this component be destroyed when it is dismissed.
+        * @type {Boolean}
+        */
         this.destroyOnDismiss = options.hasOwnProperty('destroyOnDismiss') ? options.destroyOnDismiss : true;
 
         /**
-         * The root notification element.
-         * @type {HTMLElement|null} If this is not provided a new notification element will be created.
-         */
+        * The root element.
+        * @type {HTMLElement|null} If this is not provided a new element will be created.
+        */
         this.root = options.hasOwnProperty('element') ? options.element : null;
 
         /**
-         * The element used to close the notification.
-         * @type {HTMLElement}
-         */
+        * The element used to close the component.
+        * @type {HTMLElement}
+        */
         this.closeButton = options.hasOwnProperty('closeButton') ? options.closeButton : this.createCloseButton();
 
         if (!this.root) {
@@ -224,28 +227,21 @@ var Notification = function () {
     }
 
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Notification}
+     * Create the main element.
      */
 
 
-    _createClass(Notification, [{
+    _createClass(DismissableComponent, [{
         key: 'createRootElement',
-
-
-        /**
-         * Create the main notification element.
-         */
         value: function createRootElement() {
             this.root = document.createElement('div');
 
-            this.root.classList.add('notification');
+            this.root.classList.add(this.name);
             this.hide();
         }
 
         /**
-         * Show the notification.
+         * Show the component.
          */
 
     }, {
@@ -255,7 +251,7 @@ var Notification = function () {
         }
 
         /**
-         * Hide the notification.
+         * Hide the component.
          */
 
     }, {
@@ -265,7 +261,7 @@ var Notification = function () {
         }
 
         /**
-         * Insert the body text into the notification.
+         * Insert the body text into the component.
          */
 
     }, {
@@ -275,17 +271,7 @@ var Notification = function () {
         }
 
         /**
-         * Set the colour of the notification.
-         */
-
-    }, {
-        key: 'setColor',
-        value: function setColor() {
-            this.root.classList.add('is-' + this.color);
-        }
-
-        /**
-         * Create the element that will be used to close the notification.
+         * Create the element that will be used to close the component.
          * @return {HTMLElement}
          */
 
@@ -300,7 +286,7 @@ var Notification = function () {
         }
 
         /**
-         * Create an interval to dismiss the notification after the set number of ms.
+         * Create an interval to dismiss the component after the set number of ms.
          * @param  {int}
          */
 
@@ -349,7 +335,17 @@ var Notification = function () {
         }
 
         /**
-         * Destroy the notification, removing the event listener, interval and element.
+         * Set the colour of the component.
+         */
+
+    }, {
+        key: 'setColor',
+        value: function setColor() {
+            this.root.classList.add('is-' + this.color);
+        }
+
+        /**
+         * Destroy the component, removing the event listener, interval and element.
          */
 
     }, {
@@ -365,16 +361,80 @@ var Notification = function () {
             this.parent = null;
             this.root = null;
         }
+    }]);
+
+    return DismissableComponent;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (DismissableComponent);
+
+/***/ }),
+
+/***/ 15:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(2);
+
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dismissableComponent__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+/**
+ * @module Notification
+ * @since  0.1.0
+ * @author  Thomas Erbe <vizuaalog@gmail.com>
+ */
+
+var Notification = function (_DismissableComponent) {
+    _inherits(Notification, _DismissableComponent);
+
+    /**
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
+     */
+    function Notification(options) {
+        _classCallCheck(this, Notification);
+
+        if (!options) options = {};
+
+        return _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, 'notification', options));
+    }
+
+    /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options
+     * @return {Notification}
+     */
+
+
+    _createClass(Notification, null, [{
+        key: 'create',
+        value: function create(options) {
+            return new Notification(options);
+        }
 
         /**
          * Handle parsing the DOMs data attribute API.
          */
 
-    }], [{
-        key: 'create',
-        value: function create(options) {
-            return new Notification(options);
-        }
     }, {
         key: 'handleDomParsing',
         value: function handleDomParsing(element) {
@@ -399,40 +459,12 @@ var Notification = function () {
     }]);
 
     return Notification;
-}();
+}(__WEBPACK_IMPORTED_MODULE_1__dismissableComponent__["a" /* default */]);
 
 __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', Notification);
 
-/* harmony default export */ __webpack_exports__["a"] = (Notification);
-
-/***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(10);
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_notification__ = __webpack_require__(1);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('notification', __WEBPACK_IMPORTED_MODULE_1__plugins_notification__["a" /* default */]);
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
-window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+/* harmony default export */ __webpack_exports__["default"] = (Notification);
 
 /***/ })
-/******/ ]);
+
+/******/ });
