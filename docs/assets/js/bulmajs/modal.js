@@ -60,11 +60,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -126,8 +127,32 @@ document.addEventListener('DOMContentLoaded', function (event) {
 /* harmony default export */ __webpack_exports__["a"] = (Bulma);
 
 /***/ }),
-/* 1 */,
-/* 2 */
+
+/***/ 19:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(20);
+
+
+/***/ }),
+
+/***/ 20:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_modal__ = __webpack_require__(5);
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', __WEBPACK_IMPORTED_MODULE_1__plugins_modal__["a" /* default */]);
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
+window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+
+/***/ }),
+
+/***/ 5:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -139,125 +164,140 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 /**
- * @module Navbar
+ * @module Modal
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 
-var Navbar = function () {
+var Modal = function () {
+  /**
+   * Plugin constructor
+   * @param  {Object} options
+   * @return {this}
+   */
+  function Modal(options) {
+    _classCallCheck(this, Modal);
+
+    if (!options) options = {};
+
     /**
-     * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * Message body text.
+     * @type {string}
      */
-    function Navbar(options) {
-        _classCallCheck(this, Navbar);
+    this.root = options.hasOwnProperty('element') ? options.element : '';
 
-        if (!options.element || !options.trigger || !options.target) {
-            throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
-        }
+    /**
+     * The element used to close the message.
+     * @type {HTMLElement}
+     */
+    this.closeButton = this.findCloseButton();
 
-        /**
-         * The root navbar element.
-         * @type {HTMLElement}
-         */
-        this.root = options.element;
+    this.setupCloseEvent();
+  }
 
-        /**
-         * The element used for the trigger.
-         * @type {HTMLElement}
-         */
-        this.trigger = options.trigger;
+  /**
+   * Helper method used by the Bulma core to create a new instance.
+   * @param  {Object} options
+   * @return {Modal}
+   */
 
-        /**
-         * The target element.
-         * @type {HTMLELement}
-         */
-        this.target = options.target;
 
-        this.registerEvents();
+  _createClass(Modal, [{
+    key: 'open',
+
+
+    /**
+     * Show the message.
+     */
+    value: function open() {
+      this.root.classList.add('is-active');
     }
 
     /**
-     * Register all the events this module needs.
+     * Hide the message.
      */
 
+  }, {
+    key: 'close',
+    value: function close() {
+      this.root.classList.remove('is-active');
+    }
 
-    _createClass(Navbar, [{
-        key: 'registerEvents',
-        value: function registerEvents() {
-            this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
-        }
+    /**
+     * Find the close button.
+     * @return {HTMLElement}
+     */
 
-        /**
-         * Handle the click event on the trigger.
-         * @param  {Object} event
-         */
+  }, {
+    key: 'findCloseButton',
+    value: function findCloseButton() {
+      var element = this.root.querySelector('.modal-close');
 
-    }, {
-        key: 'handleTriggerClick',
-        value: function handleTriggerClick(event) {
-            if (this.target.classList.contains('is-active')) {
-                this.target.classList.remove('is-active');
-            } else {
-                this.target.classList.add('is-active');
-            }
-        }
+      if (!element) {
+        return this.root.querySelector('.delete');
+      }
 
-        /**
-         * Handle parsing the DOMs data attribute API.
-         */
+      return element;
+    }
 
-    }], [{
-        key: 'handleDomParsing',
-        value: function handleDomParsing(element) {
-            var trigger = element.querySelector('[data-trigger]'),
-                target = trigger.getAttribute('data-target');
+    /**
+     * Setup the event listener for the close button.
+     */
 
-            new Navbar({
-                element: element,
-                trigger: trigger,
-                target: element.querySelector('#' + target)
-            });
-        }
-    }]);
+  }, {
+    key: 'setupCloseEvent',
+    value: function setupCloseEvent() {
+      this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
+    }
 
-    return Navbar;
+    /**
+     * Handle the event when our close button is clicked.
+     */
+
+  }, {
+    key: 'handleCloseEvent',
+    value: function handleCloseEvent() {
+      this.close();
+    }
+
+    /**
+     * Destroy the message, removing the event listener, interval and element.
+     */
+
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      if (this.closeButton) {
+        this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+      }
+
+      this.root = null;
+      this.closeButton = null;
+    }
+
+    /**
+     * Handle parsing the DOMs data attribute API.
+     */
+
+  }], [{
+    key: 'create',
+    value: function create(options) {
+      return new Modal(options);
+    }
+  }, {
+    key: 'handleDomParsing',
+    value: function handleDomParsing(element) {
+      return;
+    }
+  }]);
+
+  return Modal;
 }();
 
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', Navbar);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', Modal);
 
-/* harmony default export */ __webpack_exports__["a"] = (Navbar);
-
-/***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(12);
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_navbar__ = __webpack_require__(2);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', __WEBPACK_IMPORTED_MODULE_1__plugins_navbar__["a" /* default */]);
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
-window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+/* harmony default export */ __webpack_exports__["a"] = (Modal);
 
 /***/ })
-/******/ ]);
+
+/******/ });

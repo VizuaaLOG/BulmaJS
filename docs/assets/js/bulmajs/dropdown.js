@@ -60,11 +60,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -126,8 +127,32 @@ document.addEventListener('DOMContentLoaded', function (event) {
 /* harmony default export */ __webpack_exports__["a"] = (Bulma);
 
 /***/ }),
-/* 1 */,
-/* 2 */
+
+/***/ 13:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(14);
+
+
+/***/ }),
+
+/***/ 14:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_dropdown__ = __webpack_require__(4);
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', __WEBPACK_IMPORTED_MODULE_1__plugins_dropdown__["a" /* default */]);
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
+window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+
+/***/ }),
+
+/***/ 4:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -139,41 +164,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 /**
- * @module Navbar
+ * @module Dropdown
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 
-var Navbar = function () {
+var Dropdown = function () {
     /**
      * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
-    function Navbar(options) {
-        _classCallCheck(this, Navbar);
+    function Dropdown(options) {
+        _classCallCheck(this, Dropdown);
 
-        if (!options.element || !options.trigger || !options.target) {
-            throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
+        if (!options.element || !options.trigger) {
+            throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
         }
 
         /**
-         * The root navbar element.
+         * The root dropdown element.
          * @type {HTMLElement}
          */
         this.root = options.element;
 
         /**
-         * The element used for the trigger.
+         * The element to trigger when clicked.
          * @type {HTMLElement}
          */
         this.trigger = options.trigger;
-
-        /**
-         * The target element.
-         * @type {HTMLELement}
-         */
-        this.target = options.target;
 
         this.registerEvents();
     }
@@ -183,7 +202,7 @@ var Navbar = function () {
      */
 
 
-    _createClass(Navbar, [{
+    _createClass(Dropdown, [{
         key: 'registerEvents',
         value: function registerEvents() {
             this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
@@ -197,10 +216,10 @@ var Navbar = function () {
     }, {
         key: 'handleTriggerClick',
         value: function handleTriggerClick(event) {
-            if (this.target.classList.contains('is-active')) {
-                this.target.classList.remove('is-active');
+            if (this.root.classList.contains('is-active')) {
+                this.root.classList.remove('is-active');
             } else {
-                this.target.classList.add('is-active');
+                this.root.classList.add('is-active');
             }
         }
 
@@ -211,53 +230,22 @@ var Navbar = function () {
     }], [{
         key: 'handleDomParsing',
         value: function handleDomParsing(element) {
-            var trigger = element.querySelector('[data-trigger]'),
-                target = trigger.getAttribute('data-target');
+            var trigger = element.querySelector('[data-trigger]');
 
-            new Navbar({
+            new Dropdown({
                 element: element,
-                trigger: trigger,
-                target: element.querySelector('#' + target)
+                trigger: trigger
             });
         }
     }]);
 
-    return Navbar;
+    return Dropdown;
 }();
 
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', Navbar);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', Dropdown);
 
-/* harmony default export */ __webpack_exports__["a"] = (Navbar);
-
-/***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(12);
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__plugins_navbar__ = __webpack_require__(2);
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('navbar', __WEBPACK_IMPORTED_MODULE_1__plugins_navbar__["a" /* default */]);
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].traverseDOM();
-window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
+/* harmony default export */ __webpack_exports__["a"] = (Dropdown);
 
 /***/ })
-/******/ ]);
+
+/******/ });
