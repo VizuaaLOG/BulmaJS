@@ -1,4 +1,6 @@
 let mix = require('laravel-mix');
+let path = require('path');
+let fs = require('fs');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,10 +13,15 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('src/bulma.js', 'dist/bulma.js')
-    .js('src/notification.js', 'dist/')
-    .js('src/navbar.js', 'dist/')
-    .js('src/dropdown.js', 'dist/')
-    .js('src/file.js', 'dist/')
-    .js('src/message.js', 'dist/')
-    .js('src/modal.js', 'dist/');
+mix.js('src/bulma.js', 'dist/bulma.js');
+
+fs.readdir('./src/plugins', (err, files) => {
+    if(err) {
+        console.error( "Could not list the directory.", err );
+        process.exit( 1 );
+    }
+
+    files.forEach((file, index) => {
+        mix.js(path.join('./src/plugins', file), 'dist/');
+    });
+});

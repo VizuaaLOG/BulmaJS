@@ -1,3 +1,5 @@
+import Bulma from '../core';
+
 /**
  * @module File
  * @since  0.1.0
@@ -84,5 +86,7 @@ class File {
         });
     }
 }
+
+Bulma.registerPlugin('file', File);
 
 export default File;

@@ -1,3 +1,5 @@
+import Bulma from '../core';
+
 /**
  * @module Notification
  * @since  0.1.0
@@ -213,5 +215,7 @@ class Notification {
         new Notification(options);
     }
 }
+
+Bulma.registerPlugin('notification', Notification);
 
 export default Notification;

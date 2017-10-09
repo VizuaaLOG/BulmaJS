@@ -1,3 +1,5 @@
+import Bulma from '../core';
+
 /**
  * @module Message
  * @since  0.1.0
@@ -262,5 +264,7 @@ class Message {
         new Message(options);
     }
 }
+
+Bulma.registerPlugin('message', Message);
 
 export default Message;
