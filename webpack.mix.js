@@ -13,15 +13,10 @@ let fs = require('fs');
  |
  */
 
-mix.js('src/bulma.js', 'dist/bulma.js');
-
-fs.readdir('./src/plugins', (err, files) => {
-    if(err) {
-        console.error( "Could not list the directory.", err );
-        process.exit( 1 );
-    }
-
-    files.forEach((file, index) => {
-        mix.js(path.join('./src/plugins', file), 'dist/');
-    });
-});
+mix.js('src/bulma.js', 'dist/bulma.js')
+    .js('./src/plugins/dropdown.js', 'dist/')
+    .js('./src/plugins/file.js', 'dist/')
+    .js('./src/plugins/message.js', 'dist/')
+    .js('./src/plugins/modal.js', 'dist/')
+    .js('./src/plugins/navbar.js', 'dist/')
+    .js('./src/plugins/notification.js', 'dist/');
