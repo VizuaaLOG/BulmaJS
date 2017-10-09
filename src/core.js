@@ -49,4 +49,8 @@ const Bulma = {
     }
 }
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    Bulma.traverseDOM();
+});
+
 export default Bulma;

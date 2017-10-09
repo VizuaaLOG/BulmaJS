@@ -120,6 +120,10 @@ var Bulma = {
     }
 };
 
+document.addEventListener('DOMContentLoaded', function (event) {
+    Bulma.traverseDOM();
+});
+
 /* harmony default export */ __webpack_exports__["a"] = (Bulma);
 
 /***/ }),
@@ -152,15 +156,19 @@ window.Bulma = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 /**
  * @module File
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
+
 var File = function () {
     /**
      * Plugin constructor
@@ -263,6 +271,8 @@ var File = function () {
 
     return File;
 }();
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('file', File);
 
 /* harmony default export */ __webpack_exports__["a"] = (File);
 
