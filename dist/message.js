@@ -400,6 +400,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @module Message
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
+ * @extends DismissableComponent
  */
 
 var Message = function (_DismissableComponent) {
