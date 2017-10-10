@@ -5,6 +5,7 @@ import DismissableComponent from '../dismissableComponent';
  * @module Message
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
+ * @extends DismissableComponent
  */
 class Message extends DismissableComponent {
     /**
