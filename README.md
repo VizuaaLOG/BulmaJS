@@ -2,6 +2,8 @@
 
 BulmaJS
 ========
+[![Build Status](https://travis-ci.org/VizuaaLOG/BulmaJS.svg?branch=master)](https://travis-ci.org/VizuaaLOG/BulmaJS)
+
 This is an unofficial Javascript extension for the [Bulma CSS framework](http://bulma.io).
 
 **tl;dr**
