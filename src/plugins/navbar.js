@@ -48,7 +48,7 @@ class Navbar {
      * Handle the click event on the trigger.
      * @param  {Object} event
      */
-    handleTriggerClick(event) {
+    handleTriggerClick() {
         if(this.target.classList.contains('is-active')) {
             this.target.classList.remove('is-active');
         } else {

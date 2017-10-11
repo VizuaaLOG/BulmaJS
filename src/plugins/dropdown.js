@@ -42,7 +42,7 @@ class Dropdown {
      * Handle the click event on the trigger.
      * @param  {Object} event
      */
-    handleTriggerClick(event) {
+    handleTriggerClick() {
         if(this.root.classList.contains('is-active')) {
             this.root.classList.remove('is-active');
         } else {
