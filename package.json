@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "bulma": "^0.5.1",
+    "eslint": "^4.8.0",
     "laravel-mix": "^1.4.2"
   },
   "scripts": {
@@ -14,6 +15,7 @@
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "docs-js": "npm run dev && rm -rf docs/assets/js/bulmajs && mkdir -p docs/assets/js/bulmajs && cp dist/* docs/assets/js/bulmajs"
+    "docs-js": "npm run dev && rm -rf docs/assets/js/bulmajs && mkdir -p docs/assets/js/bulmajs && cp dist/* docs/assets/js/bulmajs",
+    "lint": "eslint ./src"
   }
 }
