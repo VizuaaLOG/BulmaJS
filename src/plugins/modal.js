@@ -95,7 +95,7 @@ class Modal {
     /**
      * Handle parsing the DOMs data attribute API.
      */
-    static handleDomParsing(element) {
+    static handleDomParsing() {
         return;
     }
 }

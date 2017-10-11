@@ -26,7 +26,7 @@ const Bulma = {
      */
     registerPlugin(key, plugin) {
         if(!key) {
-            throw new Error('[BulmaJS] Key attribute is required.')
+            throw new Error('[BulmaJS] Key attribute is required.');
         }
 
         this[key] = plugin;
@@ -39,7 +39,7 @@ const Bulma = {
             let plugin = element.getAttribute('data-bulma');
 
             if(!Bulma.hasOwnProperty(plugin)) {
-                return console.warn('[BulmaJS] Plugin with the key \''+plugin+'\' has not been registered.')
+                throw new Error('[BulmaJS] Plugin with the key \''+plugin+'\' has not been registered.');
             }
 
             if(Bulma[plugin].hasOwnProperty('handleDomParsing')) {
@@ -47,9 +47,9 @@ const Bulma = {
             }
         });
     }
-}
+};
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     Bulma.traverseDOM();
 });
 

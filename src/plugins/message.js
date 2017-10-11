@@ -83,10 +83,10 @@ class Message extends DismissableComponent {
             closeButton: closeBtn,
             isDismissable: !!closeBtn,
             destroyOnDismiss: true
-        }
+        };
 
         if(dismissInterval) {
-            options['dismissInterval'] = parseInt(dismissInterval)
+            options['dismissInterval'] = parseInt(dismissInterval);
         }
 
         new Message(options);

@@ -182,7 +182,7 @@ export default class DismissableComponent {
         clearInterval(this.dismissInterval);
 
         this.parent.removeChild(this.root);
-        this.parent = null
+        this.parent = null;
         this.root = null;
     }
 }
