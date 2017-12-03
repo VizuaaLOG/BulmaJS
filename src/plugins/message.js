@@ -34,6 +34,17 @@ class Message extends DismissableComponent {
             this.createMessageHeader();
         }
 
+        // TODO: Move this into the DismissableComponent class. Due to the required
+        // changes between different components, we may need a way to trigger this
+        // when the component is ready.
+        if(this.isDismissable) {
+            if(!options.hasOwnProperty('closeButton')) {
+                this.prependCloseButton();
+            }
+
+            this.setupCloseEvent();
+        }
+
         if(this.size) {
             this.setSize();
         }
@@ -70,6 +81,17 @@ class Message extends DismissableComponent {
     }
 
     /**
+     * Insert the body text into the component.
+     */
+    insertBody() {
+        let body = document.createElement('div');
+        body.classList.add('message-body');
+        body.innerHTML = this.body;
+
+        this.root.appendChild(body);
+    }
+
+    /**
      * Handle parsing the DOMs data attribute API.
      */
     static handleDomParsing(element) {
@@ -90,6 +112,14 @@ class Message extends DismissableComponent {
         }
 
         new Message(options);
+    }
+
+    /**
+     * Insert the close button before our content.
+     */
+    prependCloseButton() {
+        console.log(this.title);
+        this.title.appendChild(this.closeButton);
     }
 }
 

@@ -74,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.2.0',
+    VERSION: '0.2.1',
 
     /**
      * Helper method to create a new plugin.
@@ -110,7 +110,7 @@ var Bulma = {
             var plugin = element.getAttribute('data-bulma');
 
             if (!Bulma.hasOwnProperty(plugin)) {
-                return console.warn('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
+                throw new Error('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
             }
 
             if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {
@@ -120,7 +120,7 @@ var Bulma = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function () {
     Bulma.traverseDOM();
 });
 
@@ -211,14 +211,6 @@ var DismissableComponent = function () {
 
         if (this.body) {
             this.insertBody();
-        }
-
-        if (this.isDismissable) {
-            if (!options.hasOwnProperty('closeButton')) {
-                this.prependCloseButton();
-            }
-
-            this.setupCloseEvent();
         }
 
         if (this.color) {
@@ -416,7 +408,19 @@ var Notification = function (_DismissableComponent) {
 
         if (!options) options = {};
 
-        return _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, 'notification', options));
+        // TODO: Move this into the DismissableComponent class. Due to the required
+        // changes between different components, we may need a way to trigger this
+        // when the component is ready.
+        var _this = _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, 'notification', options));
+
+        if (_this.isDismissable) {
+            if (!options.hasOwnProperty('closeButton')) {
+                _this.prependCloseButton();
+            }
+
+            _this.setupCloseEvent();
+        }
+        return _this;
     }
 
     /**
