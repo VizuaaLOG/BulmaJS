@@ -73,7 +73,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.2.0',
+    VERSION: '0.2.1',
 
     /**
      * Helper method to create a new plugin.
@@ -109,7 +109,7 @@ var Bulma = {
             var plugin = element.getAttribute('data-bulma');
 
             if (!Bulma.hasOwnProperty(plugin)) {
-                return console.warn('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
+                throw new Error('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
             }
 
             if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {
@@ -119,7 +119,7 @@ var Bulma = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function () {
     Bulma.traverseDOM();
 });
 
@@ -209,14 +209,6 @@ var DismissableComponent = function () {
 
         if (this.body) {
             this.insertBody();
-        }
-
-        if (this.isDismissable) {
-            if (!options.hasOwnProperty('closeButton')) {
-                this.prependCloseButton();
-            }
-
-            this.setupCloseEvent();
         }
 
         if (this.color) {
@@ -405,7 +397,19 @@ var Notification = function (_DismissableComponent) {
 
         if (!options) options = {};
 
-        return _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, 'notification', options));
+        // TODO: Move this into the DismissableComponent class. Due to the required
+        // changes between different components, we may need a way to trigger this
+        // when the component is ready.
+        var _this = _possibleConstructorReturn(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, 'notification', options));
+
+        if (_this.isDismissable) {
+            if (!options.hasOwnProperty('closeButton')) {
+                _this.prependCloseButton();
+            }
+
+            _this.setupCloseEvent();
+        }
+        return _this;
     }
 
     /**
@@ -526,7 +530,7 @@ var Navbar = function () {
 
     }, {
         key: 'handleTriggerClick',
-        value: function handleTriggerClick(event) {
+        value: function handleTriggerClick() {
             if (this.target.classList.contains('is-active')) {
                 this.target.classList.remove('is-active');
             } else {
@@ -616,6 +620,17 @@ var Message = function (_DismissableComponent) {
             _this.createMessageHeader();
         }
 
+        // TODO: Move this into the DismissableComponent class. Due to the required
+        // changes between different components, we may need a way to trigger this
+        // when the component is ready.
+        if (_this.isDismissable) {
+            if (!options.hasOwnProperty('closeButton')) {
+                _this.prependCloseButton();
+            }
+
+            _this.setupCloseEvent();
+        }
+
         if (_this.size) {
             _this.setSize();
         }
@@ -658,9 +673,34 @@ var Message = function (_DismissableComponent) {
         }
 
         /**
+         * Insert the body text into the component.
+         */
+
+    }, {
+        key: 'insertBody',
+        value: function insertBody() {
+            var body = document.createElement('div');
+            body.classList.add('message-body');
+            body.innerHTML = this.body;
+
+            this.root.appendChild(body);
+        }
+
+        /**
          * Handle parsing the DOMs data attribute API.
          */
 
+    }, {
+        key: 'prependCloseButton',
+
+
+        /**
+         * Insert the close button before our content.
+         */
+        value: function prependCloseButton() {
+            console.log(this.title);
+            this.title.appendChild(this.closeButton);
+        }
     }], [{
         key: 'create',
         value: function create(options) {
@@ -761,7 +801,7 @@ var Dropdown = function () {
 
     }, {
         key: 'handleTriggerClick',
-        value: function handleTriggerClick(event) {
+        value: function handleTriggerClick() {
             if (this.root.classList.contains('is-active')) {
                 this.root.classList.remove('is-active');
             } else {
@@ -928,7 +968,7 @@ var Modal = function () {
     }
   }, {
     key: 'handleDomParsing',
-    value: function handleDomParsing(element) {
+    value: function handleDomParsing() {
       return;
     }
   }]);
