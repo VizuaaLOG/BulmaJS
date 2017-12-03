@@ -74,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.2.0',
+    VERSION: '0.2.1',
 
     /**
      * Helper method to create a new plugin.
@@ -110,7 +110,7 @@ var Bulma = {
             var plugin = element.getAttribute('data-bulma');
 
             if (!Bulma.hasOwnProperty(plugin)) {
-                return console.warn('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
+                throw new Error('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
             }
 
             if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {
@@ -120,7 +120,7 @@ var Bulma = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function () {
     Bulma.traverseDOM();
 });
 
@@ -206,7 +206,7 @@ var Navbar = function () {
 
     }, {
         key: 'handleTriggerClick',
-        value: function handleTriggerClick(event) {
+        value: function handleTriggerClick() {
             if (this.target.classList.contains('is-active')) {
                 this.target.classList.remove('is-active');
             } else {
