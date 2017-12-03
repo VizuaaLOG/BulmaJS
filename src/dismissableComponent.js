@@ -73,14 +73,6 @@ export default class DismissableComponent {
             this.insertBody();
         }
 
-        if(this.isDismissable) {
-            if(!options.hasOwnProperty('closeButton')) {
-                this.prependCloseButton();
-            }
-
-            this.setupCloseEvent();
-        }
-
         if(this.color) {
             this.setColor();
         }

@@ -17,6 +17,17 @@ class Notification extends DismissableComponent {
         if(!options) options = {};
 
         super('notification', options);
+
+        // TODO: Move this into the DismissableComponent class. Due to the required
+        // changes between different components, we may need a way to trigger this
+        // when the component is ready.
+        if(this.isDismissable) {
+            if(!options.hasOwnProperty('closeButton')) {
+                this.prependCloseButton();
+            }
+
+            this.setupCloseEvent();
+        }
     }
 
     /**
