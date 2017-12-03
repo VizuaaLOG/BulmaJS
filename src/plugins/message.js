@@ -118,7 +118,6 @@ class Message extends DismissableComponent {
      * Insert the close button before our content.
      */
     prependCloseButton() {
-        console.log(this.title);
         this.title.appendChild(this.closeButton);
     }
 }
