@@ -81,18 +81,6 @@ title: Modal | BulmaJS Documentation
                         </footer>
                     </div>
                 </div>
-
-                <script>
-                    window.onload = function() {
-                        var modal = Bulma.create('modal', {
-                            element: document.querySelector('.modal')
-                        });
-
-                        document.getElementById('toggle').addEventListener('click', function() {
-                            modal.open();
-                        });
-                    }
-                </script>
             </div>
 
             <div class="column is-9">
@@ -129,24 +117,6 @@ title: Modal | BulmaJS Documentation
                         </footer>
                     </div>
                 </div>
-
-                <script>
-                    window.onload = function() {
-                        var modal = Bulma.create('modal', {
-                            element: document.querySelector('#close-modal')
-                        });
-
-                        document.getElementById('toggle-two').addEventListener('click', function() {
-                            modal.open();
-                        });
-
-                        document.querySelectorAll('.modal-button').forEach(function(button) {
-                            button.addEventListener('click', function() {
-                                modal.close();
-                            })
-                        });
-                    }
-                </script>
             </div>
 
             <div class="column is-9">
@@ -183,3 +153,33 @@ title: Modal | BulmaJS Documentation
         </table>
     </div>
 </section>
+
+
+
+<script>
+    window.onload = function() {
+        // Modal open
+        var modal = Bulma.create('modal', {
+            element: document.querySelector('.modal')
+        });
+
+        document.getElementById('toggle').addEventListener('click', function() {
+            modal.open();
+        });
+
+        // Modal close
+        var modal = Bulma.create('modal', {
+            element: document.querySelector('#close-modal')
+        });
+
+        document.getElementById('toggle-two').addEventListener('click', function() {
+            modal.open();
+        });
+
+        document.querySelectorAll('.modal-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                modal.close();
+            })
+        });
+    }
+</script>
