@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -698,7 +698,6 @@ var Message = function (_DismissableComponent) {
          * Insert the close button before our content.
          */
         value: function prependCloseButton() {
-            console.log(this.title);
             this.title.appendChild(this.closeButton);
         }
     }], [{
@@ -1108,13 +1107,151 @@ __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('file', Fi
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__(9);
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+/**
+ * @module Accordion
+ * @since  0.3.0
+ * @author  Thomas Erbe <vizuaalog@gmail.com>
+ */
+
+var Accordion = function () {
+    /**
+     * Plugin constructor
+     * @param  {Object} options
+     * @return {this}
+     */
+    function Accordion(options) {
+        _classCallCheck(this, Accordion);
+
+        if (!options) options = {};
+
+        /**
+         * Message body text.
+         * @type {string}
+         */
+        this.root = options.hasOwnProperty('element') ? options.element : '';
+
+        this.accordions = this.findAccordions();
+
+        this.toggleButtons = this.findToggleButtons();
+
+        this.addToggleButtonEvents();
+    }
+
+    _createClass(Accordion, [{
+        key: 'findAccordions',
+        value: function findAccordions() {
+            return this.root.querySelectorAll('.accordion');
+        }
+    }, {
+        key: 'findToggleButtons',
+        value: function findToggleButtons() {
+            var buttons = [];
+
+            for (var i = 0; i < this.accordions.length; i++) {
+                buttons.push(this.accordions[i].querySelector('button.toggle'));
+            }
+
+            return buttons;
+        }
+    }, {
+        key: 'addToggleButtonEvents',
+        value: function addToggleButtonEvents() {
+            var _this = this;
+
+            var _loop = function _loop(i) {
+                // If the button is null, the accordion item has no toggle button
+                if (_this.toggleButtons[i] !== null) {
+                    _this.toggleButtons[i].addEventListener('click', function (event) {
+                        _this.handleToggleClick(event, i);
+                    });
+                }
+            };
+
+            for (var i = 0; i < this.toggleButtons.length; i++) {
+                _loop(i);
+            }
+        }
+    }, {
+        key: 'handleToggleClick',
+        value: function handleToggleClick(event, index) {
+            this.toggleAccordionVisibility(this.accordions[index]);
+        }
+    }, {
+        key: 'toggleAccordionVisibility',
+        value: function toggleAccordionVisibility(accordion) {
+            this.accordions.forEach(function (a) {
+                a.classList.remove('is-active');
+            });
+
+            if (accordion.classList.contains('is-active')) {
+                accordion.classList.remove('is-active');
+            } else {
+                accordion.classList.add('is-active');
+            }
+        }
+
+        /**
+         * Helper method used by the Bulma core to create a new instance.
+         * @param  {Object} options
+         * @return {Accordion}
+         */
+
+    }, {
+        key: 'destroy',
+
+
+        /**
+         * Destroy the message, removing the event listener, interval and element.
+         */
+        value: function destroy() {
+            this.root = null;
+        }
+
+        /**
+         * Handle parsing the DOMs data attribute API.
+         */
+
+    }], [{
+        key: 'create',
+        value: function create(options) {
+            return new Accordion(options);
+        }
+    }, {
+        key: 'handleDomParsing',
+        value: function handleDomParsing(element) {
+            new Accordion({
+                element: element
+            });
+        }
+    }]);
+
+    return Accordion;
+}();
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('accordion', Accordion);
+
+/* harmony default export */ __webpack_exports__["default"] = (Accordion);
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(10);
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1126,6 +1263,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__plugins_dropdown__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__plugins_modal__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__plugins_file__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__plugins_accordion__ = __webpack_require__(8);
+
 
 
 

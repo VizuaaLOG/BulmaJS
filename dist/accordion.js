@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -128,15 +128,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 11:
+/***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(8);
 
 
 /***/ }),
 
-/***/ 5:
+/***/ 8:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -149,63 +149,103 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 /**
- * @module Dropdown
- * @since  0.1.0
+ * @module Accordion
+ * @since  0.3.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 
-var Dropdown = function () {
+var Accordion = function () {
     /**
      * Plugin constructor
      * @param  {Object} options
      * @return {this}
      */
-    function Dropdown(options) {
-        _classCallCheck(this, Dropdown);
+    function Accordion(options) {
+        _classCallCheck(this, Accordion);
 
-        if (!options.element || !options.trigger) {
-            throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
-        }
+        if (!options) options = {};
 
         /**
-         * The root dropdown element.
-         * @type {HTMLElement}
+         * Message body text.
+         * @type {string}
          */
-        this.root = options.element;
+        this.root = options.hasOwnProperty('element') ? options.element : '';
 
-        /**
-         * The element to trigger when clicked.
-         * @type {HTMLElement}
-         */
-        this.trigger = options.trigger;
+        this.accordions = this.findAccordions();
 
-        this.registerEvents();
+        this.toggleButtons = this.findToggleButtons();
+
+        this.addToggleButtonEvents();
     }
 
-    /**
-     * Register all the events this module needs.
-     */
+    _createClass(Accordion, [{
+        key: 'findAccordions',
+        value: function findAccordions() {
+            return this.root.querySelectorAll('.accordion');
+        }
+    }, {
+        key: 'findToggleButtons',
+        value: function findToggleButtons() {
+            var buttons = [];
 
+            for (var i = 0; i < this.accordions.length; i++) {
+                buttons.push(this.accordions[i].querySelector('button.toggle'));
+            }
 
-    _createClass(Dropdown, [{
-        key: 'registerEvents',
-        value: function registerEvents() {
-            this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
+            return buttons;
+        }
+    }, {
+        key: 'addToggleButtonEvents',
+        value: function addToggleButtonEvents() {
+            var _this = this;
+
+            var _loop = function _loop(i) {
+                // If the button is null, the accordion item has no toggle button
+                if (_this.toggleButtons[i] !== null) {
+                    _this.toggleButtons[i].addEventListener('click', function (event) {
+                        _this.handleToggleClick(event, i);
+                    });
+                }
+            };
+
+            for (var i = 0; i < this.toggleButtons.length; i++) {
+                _loop(i);
+            }
+        }
+    }, {
+        key: 'handleToggleClick',
+        value: function handleToggleClick(event, index) {
+            this.toggleAccordionVisibility(this.accordions[index]);
+        }
+    }, {
+        key: 'toggleAccordionVisibility',
+        value: function toggleAccordionVisibility(accordion) {
+            this.accordions.forEach(function (a) {
+                a.classList.remove('is-active');
+            });
+
+            if (accordion.classList.contains('is-active')) {
+                accordion.classList.remove('is-active');
+            } else {
+                accordion.classList.add('is-active');
+            }
         }
 
         /**
-         * Handle the click event on the trigger.
-         * @param  {Object} event
+         * Helper method used by the Bulma core to create a new instance.
+         * @param  {Object} options
+         * @return {Accordion}
          */
 
     }, {
-        key: 'handleTriggerClick',
-        value: function handleTriggerClick() {
-            if (this.root.classList.contains('is-active')) {
-                this.root.classList.remove('is-active');
-            } else {
-                this.root.classList.add('is-active');
-            }
+        key: 'destroy',
+
+
+        /**
+         * Destroy the message, removing the event listener, interval and element.
+         */
+        value: function destroy() {
+            this.root = null;
         }
 
         /**
@@ -213,23 +253,25 @@ var Dropdown = function () {
          */
 
     }], [{
+        key: 'create',
+        value: function create(options) {
+            return new Accordion(options);
+        }
+    }, {
         key: 'handleDomParsing',
         value: function handleDomParsing(element) {
-            var trigger = element.querySelector('[data-trigger]');
-
-            new Dropdown({
-                element: element,
-                trigger: trigger
+            new Accordion({
+                element: element
             });
         }
     }]);
 
-    return Dropdown;
+    return Accordion;
 }();
 
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('dropdown', Dropdown);
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('accordion', Accordion);
 
-/* harmony default export */ __webpack_exports__["default"] = (Dropdown);
+/* harmony default export */ __webpack_exports__["default"] = (Accordion);
 
 /***/ })
 
