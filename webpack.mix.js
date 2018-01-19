@@ -17,4 +17,5 @@ mix.js('src/bulma.js', 'dist/bulma.js')
     .js('./src/plugins/message.js', 'dist/')
     .js('./src/plugins/modal.js', 'dist/')
     .js('./src/plugins/navbar.js', 'dist/')
-    .js('./src/plugins/notification.js', 'dist/');
+    .js('./src/plugins/notification.js', 'dist/')
+    .js('./src/plugins/accordion.js', 'dist/');
