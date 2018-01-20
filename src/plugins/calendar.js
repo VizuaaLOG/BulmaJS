@@ -57,6 +57,12 @@ class Calendar {
          */
         this.month = this.date.getMonth();
 
+        /**
+         * Show the navigating buttons
+         * @type {boolean}
+         */
+        this.navButtons = options.hasOwnProperty('navButtons') ? options.navButtons : true;
+
         if(isLeapYear(this.year)) {
             monthDays[1]++;
         } else {
@@ -69,52 +75,52 @@ class Calendar {
     buildNav() {
         let prevIcon, nextIcon;
         let nav = Bulma.createElement('div', 'calendar-nav');
+        let navLeft = Bulma.createElement('div', 'calendar-nav-left');
+        let navRight = Bulma.createElement('div', 'calendar-nav-right');
         
         // Left side of nav (prev year/month buttons)
-        let navLeft = Bulma.createElement('div', 'calendar-nav-left');
+        if(this.navButtons) {
+            this.prevYearButton = Bulma.createElement('button', ['button', 'is-text']);
+            prevIcon = Bulma.createElement('i', ['fa', 'fa-backward']);
+            this.prevYearButton.appendChild(prevIcon);
 
-        this.prevYearButton = Bulma.createElement('button', ['button', 'is-text']);
-        prevIcon = Bulma.createElement('i', ['fa', 'fa-backward']);
-        this.prevYearButton.appendChild(prevIcon);
+            this.prevYearButton.addEventListener('click', (event) => {
+                this.handlePrevYearClick(event);
+            });
 
-        this.prevYearButton.addEventListener('click', (event) => {
-            this.handlePrevYearClick(event);
-        });
+            navLeft.appendChild(this.prevYearButton);
 
-        navLeft.appendChild(this.prevYearButton);
+            this.prevMonthButton = Bulma.createElement('button', ['button', 'is-text']);
+            prevIcon = Bulma.createElement('i', ['fa', 'fa-chevron-left']);
+            this.prevMonthButton.appendChild(prevIcon);
 
-        this.prevMonthButton = Bulma.createElement('button', ['button', 'is-text']);
-        prevIcon = Bulma.createElement('i', ['fa', 'fa-chevron-left']);
-        this.prevMonthButton.appendChild(prevIcon);
+            this.prevMonthButton.addEventListener('click', (event) => {
+                this.handlePrevMonthClick(event);
+            });
 
-        this.prevMonthButton.addEventListener('click', (event) => {
-            this.handlePrevMonthClick(event);
-        });
+            navLeft.appendChild(this.prevMonthButton);
 
-        navLeft.appendChild(this.prevMonthButton);
+            // Right side of nav (next year/month buttons)
+            this.nextMonthButton = Bulma.createElement('button', ['button', 'is-text']);
+            nextIcon = Bulma.createElement('i', ['fa', 'fa-chevron-right']);
+            this.nextMonthButton.appendChild(nextIcon);
 
-        // Right side of nav (next year/month buttons)
-        let navRight = Bulma.createElement('div', 'calendar-nav-right');
+            this.nextMonthButton.addEventListener('click', (event) => {
+                this.handleNextMonthClick(event);
+            });
 
-        this.nextMonthButton = Bulma.createElement('button', ['button', 'is-text']);
-        nextIcon = Bulma.createElement('i', ['fa', 'fa-chevron-right']);
-        this.nextMonthButton.appendChild(nextIcon);
+            navRight.appendChild(this.nextMonthButton);
 
-        this.nextMonthButton.addEventListener('click', (event) => {
-            this.handleNextMonthClick(event);
-        });
+            this.nextYearButton = Bulma.createElement('button', ['button', 'is-text']);
+            prevIcon = Bulma.createElement('i', ['fa', 'fa-forward']);
+            this.nextYearButton.appendChild(prevIcon);
 
-        navRight.appendChild(this.nextMonthButton);
+            this.nextYearButton.addEventListener('click', (event) => {
+                this.handleNextYearClick(event);
+            });
 
-        this.nextYearButton = Bulma.createElement('button', ['button', 'is-text']);
-        prevIcon = Bulma.createElement('i', ['fa', 'fa-forward']);
-        this.nextYearButton.appendChild(prevIcon);
-
-        this.nextYearButton.addEventListener('click', (event) => {
-            this.handleNextYearClick(event);
-        });
-
-        navRight.appendChild(this.nextYearButton);
+            navRight.appendChild(this.nextYearButton);
+        }
 
         // Month/year label
         this.monthYearLabel = Bulma.createElement('div');
