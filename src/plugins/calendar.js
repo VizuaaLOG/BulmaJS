@@ -33,7 +33,6 @@ class Calendar {
 
         this.year = this.date.getFullYear();
         this.month = this.date.getMonth();
-        this.day = this.date.getDate();
 
         this.render();
     }
@@ -46,6 +45,10 @@ class Calendar {
         let prevIcon = Bulma.createElement('i', ['fa', 'fa-chevron-left']);
         this.prevMonthButton.appendChild(prevIcon);
 
+        this.prevMonthButton.addEventListener('click', (event) => {
+            this.handlePrevClick(event);
+        });
+
         navLeft.appendChild(this.prevMonthButton);
 
         let navRight = Bulma.createElement('div', 'calendar-nav-right');
@@ -53,6 +56,10 @@ class Calendar {
         this.nextMonthButton = Bulma.createElement('button', ['button', 'is-text']);
         let nextIcon = Bulma.createElement('i', ['fa', 'fa-chevron-right']);
         this.nextMonthButton.appendChild(nextIcon);
+
+        this.nextMonthButton.addEventListener('click', (event) => {
+            this.handleNextClick(event);
+        });
 
         navRight.appendChild(this.nextMonthButton);
 
@@ -86,22 +93,31 @@ class Calendar {
         let calendarBody = Bulma.createElement('div', 'calendar-body');
 
         let daysInMonth = monthDays[this.now.getMonth()];
-        let monthStartsOnDay = new Date(this.year, this.month, 1).getDay();
-        let monthEndsOnDay = new Date(this.year, this.month, daysInMonth).getDay();
+        let daysBefore = new Date(this.year, this.month, 1).getDay();
+        let daysAfter;
 
-        let startAt = -monthStartsOnDay + 1;
-        let endAt = daysInMonth + monthEndsOnDay + 1;
-        
-        if(endAt > 32) {
-            while (endAt > 32) {
-                endAt--;
-            }
+        if (daysBefore < 0) {
+            daysBefore += 7;
         }
+
+        let numDays = daysInMonth + daysBefore;
+
+        daysAfter = numDays;
+        while(daysAfter > 7) {
+            daysAfter -= 7;
+        }
+
+        console.log('Num days: ' + numDays);
+        console.log('Days after: ' + daysAfter);
+
+        numDays += (7 - daysAfter);
+
+        console.log('Num days after: ' + numDays);
 
         let cells = [];
 
-        for(let i = startAt; i < endAt; i++) {
-            let d = new Date(this.year, this.month, i);
+        for(let i = 0; i < numDays; i++) {
+            let d = new Date(this.year, this.month, 1 + (i - daysBefore));
 
             let today = false;
             let thisMonth = false;
@@ -142,6 +158,28 @@ class Calendar {
         });
 
         return calendarBody;
+    }
+
+    handlePrevClick(event) {
+        this.month--;
+
+        if(this.month < 0) {
+            this.year--;
+            this.month = 11;
+        }
+
+        this.render();
+    }
+
+    handleNextClick(event) {
+        this.month++;
+
+        if(this.month > 11) {
+            this.year++;
+            this.month = 0;
+        }
+
+        this.render();
     }
 
     clearCalendar() {
