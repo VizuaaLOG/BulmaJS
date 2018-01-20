@@ -1141,52 +1141,86 @@ var Accordion = function () {
          */
         this.root = options.hasOwnProperty('element') ? options.element : '';
 
+        /**
+         * Accordion items
+         * @type {Array}
+         */
         this.accordions = this.findAccordions();
 
+        /**
+         * Toggle buttons for each accordion item
+         * @type {Array}
+         */
         this.toggleButtons = this.findToggleButtons();
 
         this.addToggleButtonEvents();
     }
+
+    /**
+     * Find the accordion items within this accordions element
+     * @returns {Array}
+     */
+
 
     _createClass(Accordion, [{
         key: 'findAccordions',
         value: function findAccordions() {
             return this.root.querySelectorAll('.accordion');
         }
+
+        /**
+         * Find the toggle buttons within this accordions element
+         * @returns {Array}
+         */
+
     }, {
         key: 'findToggleButtons',
         value: function findToggleButtons() {
             var buttons = [];
 
-            for (var i = 0; i < this.accordions.length; i++) {
-                buttons.push(this.accordions[i].querySelector('button.toggle'));
-            }
+            this.accordions.forEach(function (accordion) {
+                buttons.push(accordion.querySelector('button.toggle'));
+            });
 
             return buttons;
         }
+
+        /**
+         * Add click events to toggle buttons
+         */
+
     }, {
         key: 'addToggleButtonEvents',
         value: function addToggleButtonEvents() {
             var _this = this;
 
-            var _loop = function _loop(i) {
+            this.toggleButtons.forEach(function (toggleButton, index) {
                 // If the button is null, the accordion item has no toggle button
-                if (_this.toggleButtons[i] !== null) {
-                    _this.toggleButtons[i].addEventListener('click', function (event) {
-                        _this.handleToggleClick(event, i);
+                if (toggleButton !== null) {
+                    toggleButton.addEventListener('click', function (event) {
+                        _this.handleToggleClick(event, index);
                     });
                 }
-            };
-
-            for (var i = 0; i < this.toggleButtons.length; i++) {
-                _loop(i);
-            }
+            });
         }
+
+        /**
+         * Handle the click
+         * @param {Object} event 
+         * @param {number} index 
+         */
+
     }, {
         key: 'handleToggleClick',
         value: function handleToggleClick(event, index) {
             this.toggleAccordionVisibility(this.accordions[index]);
         }
+
+        /**
+         * Show or hide the accordion
+         * @param {HTMLElement} accordion The accordion element
+         */
+
     }, {
         key: 'toggleAccordionVisibility',
         value: function toggleAccordionVisibility(accordion) {
