@@ -20,17 +20,33 @@ class Accordion {
          */
         this.root = options.hasOwnProperty('element') ? options.element : '';
 
+        /**
+         * Accordion items
+         * @type {Array}
+         */
         this.accordions = this.findAccordions();
 
+        /**
+         * Toggle buttons for each accordion item
+         * @type {Array}
+         */
         this.toggleButtons = this.findToggleButtons();
 
         this.addToggleButtonEvents();
     }
 
+    /**
+     * Find the accordion items within this accordions element
+     * @returns {Array}
+     */
     findAccordions() {
         return this.root.querySelectorAll('.accordion');
     }
 
+    /**
+     * Find the toggle buttons within this accordions element
+     * @returns {Array}
+     */
     findToggleButtons() {
         let buttons = [];
 
@@ -41,6 +57,9 @@ class Accordion {
         return buttons;
     }
 
+    /**
+     * Add click events to toggle buttons
+     */
     addToggleButtonEvents() {
         for(let i = 0; i < this.toggleButtons.length; i++) {
             // If the button is null, the accordion item has no toggle button
@@ -52,10 +71,19 @@ class Accordion {
         }
     }
 
+    /**
+     * Handle the click
+     * @param {Object} event 
+     * @param {number} index 
+     */
     handleToggleClick(event, index) {
         this.toggleAccordionVisibility(this.accordions[index]);
     }
 
+    /**
+     * Show or hide the accordion
+     * @param {HTMLElement} accordion The accordion element
+     */
     toggleAccordionVisibility(accordion) {
         this.accordions.forEach(function(a) {
             a.classList.remove('is-active');
