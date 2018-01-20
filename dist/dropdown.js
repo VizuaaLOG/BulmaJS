@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -74,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.2.1',
+    VERSION: '0.3.0',
 
     /**
      * Helper method to create a new plugin.
@@ -103,6 +103,12 @@ var Bulma = {
 
         this[key] = plugin;
     },
+
+
+    /**
+     * Parse the HTML DOM searching for data-bulma attributes. We will then pass
+     * each element to the appropriate plugin to handle the required processing.
+     */
     traverseDOM: function traverseDOM() {
         var elements = document.querySelectorAll('[data-bulma]');
 
@@ -128,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(5);
