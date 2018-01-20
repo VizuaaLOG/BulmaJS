@@ -50,9 +50,9 @@ class Accordion {
     findToggleButtons() {
         let buttons = [];
 
-        for(let i = 0; i < this.accordions.length; i++) {
-            buttons.push(this.accordions[i].querySelector('button.toggle'));
-        }
+        this.accordions.forEach((accordion) => {
+            buttons.push(accordion.querySelector('button.toggle'));
+        });
 
         return buttons;
     }
@@ -61,14 +61,14 @@ class Accordion {
      * Add click events to toggle buttons
      */
     addToggleButtonEvents() {
-        for(let i = 0; i < this.toggleButtons.length; i++) {
+        this.toggleButtons.forEach((toggleButton, index) => {
             // If the button is null, the accordion item has no toggle button
-            if(this.toggleButtons[i] !== null) {
-                this.toggleButtons[i].addEventListener('click', (event) => {
-                    this.handleToggleClick(event, i);
+            if(toggleButton !== null) {
+                toggleButton.addEventListener('click', (event) => {
+                    this.handleToggleClick(event, index);
                 });
             }
-        }
+        });
     }
 
     /**
