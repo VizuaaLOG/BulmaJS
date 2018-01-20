@@ -32,6 +32,10 @@ const Bulma = {
         this[key] = plugin;
     },
 
+    /**
+     * Parse the HTML DOM searching for data-bulma attributes. We will then pass
+     * each element to the appropriate plugin to handle the required processing.
+     */
     traverseDOM() {
         let elements = document.querySelectorAll('[data-bulma]');
 
