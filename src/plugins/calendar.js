@@ -26,10 +26,6 @@ class Calendar {
             throw new Error('[BulmaJS] The Calendar component requires an element.');
         }
 
-        this.now = new Date();
-
-        this.date = options.hasOwnProperty('date') ? options.date : this.now;
-
         /**
          * The root Calendar element.
          * @type {HTMLElement}
@@ -37,7 +33,28 @@ class Calendar {
         this.root = options.element;
         this.root.classList.add('calendar');
 
+        /**
+         * The current date for today tests
+         * @type {Date}
+         */
+        this.now = new Date();
+
+        /**
+         * The date this calendar starts at
+         * @type {Date}
+         */
+        this.date = options.hasOwnProperty('date') ? options.date : this.now;
+
+        /**
+         * The current year for the calendar
+         * @type {int}
+         */
         this.year = this.date.getFullYear();
+
+        /**
+         * The current month for the calendar
+         * @type {int}
+         */
         this.month = this.date.getMonth();
 
         if(isLeapYear(this.year)) {
@@ -51,8 +68,9 @@ class Calendar {
 
     buildNav() {
         let prevIcon, nextIcon;
-
         let nav = Bulma.createElement('div', 'calendar-nav');
+        
+        // Left side of nav (prev year/month buttons)
         let navLeft = Bulma.createElement('div', 'calendar-nav-left');
 
         this.prevYearButton = Bulma.createElement('button', ['button', 'is-text']);
@@ -75,6 +93,7 @@ class Calendar {
 
         navLeft.appendChild(this.prevMonthButton);
 
+        // Right side of nav (next year/month buttons)
         let navRight = Bulma.createElement('div', 'calendar-nav-right');
 
         this.nextMonthButton = Bulma.createElement('button', ['button', 'is-text']);
@@ -97,6 +116,7 @@ class Calendar {
 
         navRight.appendChild(this.nextYearButton);
 
+        // Month/year label
         this.monthYearLabel = Bulma.createElement('div');
         this.monthYearLabel.innerHTML = months[this.month] + ' ' + this.year;
 
