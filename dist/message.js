@@ -123,6 +123,25 @@ var Bulma = {
                 Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
             }
         });
+    },
+
+
+    /**
+     * Create an element and assign classes
+     * @param {string} name The name of the element to create
+     * @param {array} classes An array of classes to add to the element
+     */
+    createElement: function createElement(name, classes) {
+        if (!classes) classes = [];
+        if (typeof classes === 'string') classes = [classes];
+
+        var elem = document.createElement(name);
+
+        classes.forEach(function (className) {
+            elem.classList.add(className);
+        });
+
+        return elem;
     }
 };
 

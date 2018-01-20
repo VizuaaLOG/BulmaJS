@@ -31,6 +31,18 @@ class Calendar {
          * @type {HTMLElement}
          */
         this.root = options.element;
+
+        /**
+         * The input element this calendar belongs to.
+         * @type {HTMLElement|null}
+         */
+        this.inputElement = null;
+
+        if(this.root.nodeName === 'INPUT') {
+            this.inputElement = this.root;
+            this.root = Bulma.createElement('div');
+        }
+
         this.root.classList.add('calendar');
 
         /**
@@ -69,7 +81,17 @@ class Calendar {
             monthDays[1] = 28;
         }
 
+        if(this.inputElement !== null) {
+            this.inputElement.addEventListener('focus', (event) => {
+                this.handleInputFocus(event);
+            });
+        }
+
         this.render();
+    }
+
+    handleInputFocus(event) {
+        this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
     }
 
     buildNav() {
@@ -201,6 +223,12 @@ class Calendar {
 
             let button = Bulma.createElement('button', 'date-item');
 
+            if(this.inputElement !== null) {
+                button.addEventListener('click', (event) => {
+                    this.handleDayClick(event, day);
+                });
+            }
+
             if(day.isToday) {
                 button.classList.add('is-today');
             }
@@ -213,6 +241,14 @@ class Calendar {
         });
 
         return calendarBody;
+    }
+
+    handleDayClick(event, day) {
+        day = new Date(this.year, this.month, day.day);
+
+        let dateString = day.getFullYear() + '-' + day.getMonth() + '-' + day.getDate();
+
+        this.inputElement.value = dateString;
     }
 
     handlePrevMonthClick(event) {

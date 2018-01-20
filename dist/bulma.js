@@ -122,6 +122,25 @@ var Bulma = {
                 Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
             }
         });
+    },
+
+
+    /**
+     * Create an element and assign classes
+     * @param {string} name The name of the element to create
+     * @param {array} classes An array of classes to add to the element
+     */
+    createElement: function createElement(name, classes) {
+        if (!classes) classes = [];
+        if (typeof classes === 'string') classes = [classes];
+
+        var elem = document.createElement(name);
+
+        classes.forEach(function (className) {
+            elem.classList.add(className);
+        });
+
+        return elem;
     }
 };
 
@@ -1296,6 +1315,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function isLeapYear(year) {
+    // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
+    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+}
+
 /**
  * @module Calendar
  * @since  0.3.0
@@ -1309,6 +1337,8 @@ var Calendar = function () {
      * @return {this}
      */
     function Calendar(options) {
+        var _this = this;
+
         _classCallCheck(this, Calendar);
 
         if (!options.element) {
@@ -1321,112 +1351,185 @@ var Calendar = function () {
          */
         this.root = options.element;
 
+        /**
+         * The input element this calendar belongs to.
+         * @type {HTMLElement|null}
+         */
+        this.inputElement = null;
+
+        if (this.root.nodeName === 'INPUT') {
+            this.inputElement = this.root;
+            this.root = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div');
+        }
+
         this.root.classList.add('calendar');
+
+        /**
+         * The current date for today tests
+         * @type {Date}
+         */
         this.now = new Date();
 
-        this.weekStart = 1;
-        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        this.shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        this.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        this.shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        this.monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        /**
+         * The date this calendar starts at
+         * @type {Date}
+         */
+        this.date = options.hasOwnProperty('date') ? options.date : this.now;
 
-        this.year = this.now.getFullYear();
-        this.month = this.now.getMonth();
-        this.day = this.now.getDate();
+        /**
+         * The current year for the calendar
+         * @type {int}
+         */
+        this.year = this.date.getFullYear();
 
-        this.buildNav();
-        this.buildCalendarContainer();
-        this.buildCalendarHeader();
-        this.buildCalendarBody();
+        /**
+         * The current month for the calendar
+         * @type {int}
+         */
+        this.month = this.date.getMonth();
+
+        /**
+         * Show the navigating buttons
+         * @type {boolean}
+         */
+        this.navButtons = options.hasOwnProperty('navButtons') ? options.navButtons : true;
+
+        if (isLeapYear(this.year)) {
+            monthDays[1]++;
+        } else {
+            monthDays[1] = 28;
+        }
+
+        if (this.inputElement !== null) {
+            this.inputElement.addEventListener('focus', function (event) {
+                _this.handleInputFocus(event);
+            });
+        }
 
         this.render();
     }
 
     _createClass(Calendar, [{
+        key: 'handleInputFocus',
+        value: function handleInputFocus(event) {
+            this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
+        }
+    }, {
         key: 'buildNav',
         value: function buildNav() {
-            this.nav = document.createElement('div');
-            this.nav.classList.add('calendar-nav');
-
-            var navLeft = document.createElement('div');
-            navLeft.classList.add('calendar-nav-left');
-
-            this.prevMonthButton = document.createElement('button');
-            this.prevMonthButton.classList.add('button', 'is-text');
-
-            var prevIcon = document.createElement('i');
-            prevIcon.classList.add('fa', 'fa-chevron-left');
-
-            this.prevMonthButton.appendChild(prevIcon);
-
-            navLeft.appendChild(this.prevMonthButton);
-
-            var navRight = document.createElement('div');
-            navRight.classList.add('calendar-nav-right');
-
-            this.nextMonthButton = document.createElement('button');
-            this.nextMonthButton.classList.add('button', 'is-text');
-
-            var nextIcon = document.createElement('i');
-            nextIcon.classList.add('fa', 'fa-chevron-right');
-
-            this.nextMonthButton.appendChild(nextIcon);
-
-            navRight.appendChild(this.nextMonthButton);
-
-            this.monthYearLabel = document.createElement('div');
-            this.monthYearLabel.innerHTML = this.months[this.month] + ' ' + this.year;
-
-            this.nav.appendChild(navLeft);
-            this.nav.appendChild(this.monthYearLabel);
-            this.nav.appendChild(navRight);
-        }
-    }, {
-        key: 'buildCalendarContainer',
-        value: function buildCalendarContainer() {
-            this.calendarContainer = document.createElement('div');
-            this.calendarContainer.classList.add('calendar-container');
-        }
-    }, {
-        key: 'buildCalendarHeader',
-        value: function buildCalendarHeader() {
-            var _this = this;
-
-            this.calendarHeader = document.createElement('div');
-            this.calendarHeader.classList.add('calendar-header');
-
-            this.shortDays.forEach(function (dayName) {
-                var day = document.createElement('div');
-                day.classList.add('calendar-date');
-                day.innerHTML = dayName;
-                _this.calendarHeader.appendChild(day);
-            });
-        }
-    }, {
-        key: 'buildCalendarBody',
-        value: function buildCalendarBody() {
             var _this2 = this;
 
-            this.calendarBody = document.createElement('div');
-            this.calendarBody.classList.add('calendar-body');
+            var prevIcon = void 0,
+                nextIcon = void 0;
+            var nav = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-nav');
+            var navLeft = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-nav-left');
+            var navRight = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-nav-right');
 
-            var daysInMonth = this.monthDays[this.now.getMonth()];
-            var monthStartsOnDay = new Date(null, null, 1).getDay();
-            var monthEndsOnDay = new Date(null, null, daysInMonth).getDay();
+            // Left side of nav (prev year/month buttons)
+            if (this.navButtons) {
+                this.prevYearButton = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', ['button', 'is-text']);
+                prevIcon = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('i', ['fa', 'fa-backward']);
+                this.prevYearButton.appendChild(prevIcon);
 
-            var startAt = -monthStartsOnDay + 1;
-            var endAt = daysInMonth + monthEndsOnDay + 1;
+                this.prevYearButton.addEventListener('click', function (event) {
+                    _this2.handlePrevYearClick(event);
+                });
+
+                navLeft.appendChild(this.prevYearButton);
+
+                this.prevMonthButton = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', ['button', 'is-text']);
+                prevIcon = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('i', ['fa', 'fa-chevron-left']);
+                this.prevMonthButton.appendChild(prevIcon);
+
+                this.prevMonthButton.addEventListener('click', function (event) {
+                    _this2.handlePrevMonthClick(event);
+                });
+
+                navLeft.appendChild(this.prevMonthButton);
+
+                // Right side of nav (next year/month buttons)
+                this.nextMonthButton = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', ['button', 'is-text']);
+                nextIcon = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('i', ['fa', 'fa-chevron-right']);
+                this.nextMonthButton.appendChild(nextIcon);
+
+                this.nextMonthButton.addEventListener('click', function (event) {
+                    _this2.handleNextMonthClick(event);
+                });
+
+                navRight.appendChild(this.nextMonthButton);
+
+                this.nextYearButton = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', ['button', 'is-text']);
+                prevIcon = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('i', ['fa', 'fa-forward']);
+                this.nextYearButton.appendChild(prevIcon);
+
+                this.nextYearButton.addEventListener('click', function (event) {
+                    _this2.handleNextYearClick(event);
+                });
+
+                navRight.appendChild(this.nextYearButton);
+            }
+
+            // Month/year label
+            this.monthYearLabel = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div');
+            this.monthYearLabel.innerHTML = months[this.month] + ' ' + this.year;
+
+            nav.appendChild(navLeft);
+            nav.appendChild(this.monthYearLabel);
+            nav.appendChild(navRight);
+
+            return nav;
+        }
+    }, {
+        key: 'buildContainer',
+        value: function buildContainer() {
+            return __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-container');
+        }
+    }, {
+        key: 'buildHeader',
+        value: function buildHeader() {
+            var calendarHeader = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-header');
+
+            shortDays.forEach(function (dayName) {
+                var day = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-date');
+                day.innerHTML = dayName;
+                calendarHeader.appendChild(day);
+            });
+
+            return calendarHeader;
+        }
+    }, {
+        key: 'buildBody',
+        value: function buildBody() {
+            var _this3 = this;
+
+            var calendarBody = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-body');
+
+            var daysInMonth = monthDays[this.now.getMonth()];
+            var daysBefore = new Date(this.year, this.month, 1).getDay();
+            var daysAfter = void 0;
+
+            if (daysBefore < 0) {
+                daysBefore += 7;
+            }
+
+            var numDays = daysInMonth + daysBefore;
+
+            daysAfter = numDays;
+            while (daysAfter > 7) {
+                daysAfter -= 7;
+            }
+
+            numDays += 7 - daysAfter;
 
             var cells = [];
 
-            for (var i = startAt; i < endAt; i++) {
-                var d = new Date(this.year, this.now.getMonth(), i);
+            for (var i = 0; i < numDays; i++) {
+                var d = new Date(this.year, this.month, 1 + (i - daysBefore));
 
                 var today = false;
                 var thisMonth = false;
 
-                if (d.getFullYear() === this.year && d.getMonth() === this.month && d.getDate() === this.day) {
+                if (d.getFullYear() === this.now.getFullYear() && d.getMonth() === this.now.getMonth() && d.getDate() === this.now.getDate()) {
                     today = true;
                 }
 
@@ -1442,15 +1545,19 @@ var Calendar = function () {
             }
 
             cells.forEach(function (day) {
-                var d = document.createElement('div');
-                d.classList.add('calendar-date');
+                var d = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-date');
 
                 if (!day.isThisMonth) {
                     d.classList.add('is-disabled');
                 }
 
-                var button = document.createElement('button');
-                button.classList.add('date-item');
+                var button = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', 'date-item');
+
+                if (_this3.inputElement !== null) {
+                    button.addEventListener('click', function (event) {
+                        _this3.handleDayClick(event, day);
+                    });
+                }
 
                 if (day.isToday) {
                     button.classList.add('is-today');
@@ -1460,32 +1567,99 @@ var Calendar = function () {
 
                 d.appendChild(button);
 
-                _this2.calendarBody.appendChild(d);
+                calendarBody.appendChild(d);
             });
+
+            return calendarBody;
+        }
+    }, {
+        key: 'handleDayClick',
+        value: function handleDayClick(event, day) {
+            day = new Date(this.year, this.month, day.day);
+
+            var dateString = day.getFullYear() + '-' + day.getMonth() + '-' + day.getDate();
+
+            this.inputElement.value = dateString;
+        }
+    }, {
+        key: 'handlePrevMonthClick',
+        value: function handlePrevMonthClick(event) {
+            this.month--;
+
+            if (this.month < 0) {
+                this.year--;
+                this.month = 11;
+            }
+
+            this.render();
+        }
+    }, {
+        key: 'handleNextMonthClick',
+        value: function handleNextMonthClick(event) {
+            this.month++;
+
+            if (this.month > 11) {
+                this.year++;
+                this.month = 0;
+            }
+
+            this.render();
+        }
+    }, {
+        key: 'handlePrevYearClick',
+        value: function handlePrevYearClick(event) {
+            this.year--;
+
+            this.render();
+        }
+    }, {
+        key: 'handleNextYearClick',
+        value: function handleNextYearClick(event) {
+            this.year++;
+
+            this.render();
+        }
+    }, {
+        key: 'clearCalendar',
+        value: function clearCalendar() {
+            while (this.root.firstChild) {
+                this.root.removeChild(this.root.firstChild);
+            }
         }
     }, {
         key: 'render',
         value: function render() {
-            this.root.appendChild(this.nav);
+            this.clearCalendar();
 
-            this.calendarContainer.appendChild(this.calendarHeader);
-            this.calendarContainer.appendChild(this.calendarBody);
+            this.root.appendChild(this.buildNav());
 
-            this.root.appendChild(this.calendarContainer);
+            var container = this.buildContainer();
+            container.appendChild(this.buildHeader());
+            container.appendChild(this.buildBody());
+
+            this.root.appendChild(container);
+        }
+
+        /**
+         * Helper method used by the Bulma core to create a new instance.
+         * @param  {Object} options
+         * @return {Calendar}
+         */
+
+    }], [{
+        key: 'create',
+        value: function create(options) {
+            return new Calendar(options);
         }
 
         /**
          * Handle parsing the DOMs data attribute API.
          */
 
-    }], [{
+    }, {
         key: 'handleDomParsing',
         value: function handleDomParsing(element) {
-            var test = new Calendar({
-                element: element
-            });
-
-            console.log(test);
+            return;
         }
     }]);
 
