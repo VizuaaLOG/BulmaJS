@@ -1,8 +1,14 @@
 import Bulma from '../core';
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+
+function isLeapYear(year) {
+    // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
+    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+}
 
 /**
  * @module Calendar
@@ -34,19 +40,37 @@ class Calendar {
         this.year = this.date.getFullYear();
         this.month = this.date.getMonth();
 
+        if(isLeapYear(this.year)) {
+            monthDays[1]++;
+        } else {
+            monthDays[1] = 28;
+        }
+
         this.render();
     }
 
     buildNav() {
+        let prevIcon, nextIcon;
+
         let nav = Bulma.createElement('div', 'calendar-nav');
         let navLeft = Bulma.createElement('div', 'calendar-nav-left');
 
+        this.prevYearButton = Bulma.createElement('button', ['button', 'is-text']);
+        prevIcon = Bulma.createElement('i', ['fa', 'fa-backward']);
+        this.prevYearButton.appendChild(prevIcon);
+
+        this.prevYearButton.addEventListener('click', (event) => {
+            this.handlePrevYearClick(event);
+        });
+
+        navLeft.appendChild(this.prevYearButton);
+
         this.prevMonthButton = Bulma.createElement('button', ['button', 'is-text']);
-        let prevIcon = Bulma.createElement('i', ['fa', 'fa-chevron-left']);
+        prevIcon = Bulma.createElement('i', ['fa', 'fa-chevron-left']);
         this.prevMonthButton.appendChild(prevIcon);
 
         this.prevMonthButton.addEventListener('click', (event) => {
-            this.handlePrevClick(event);
+            this.handlePrevMonthClick(event);
         });
 
         navLeft.appendChild(this.prevMonthButton);
@@ -54,14 +78,24 @@ class Calendar {
         let navRight = Bulma.createElement('div', 'calendar-nav-right');
 
         this.nextMonthButton = Bulma.createElement('button', ['button', 'is-text']);
-        let nextIcon = Bulma.createElement('i', ['fa', 'fa-chevron-right']);
+        nextIcon = Bulma.createElement('i', ['fa', 'fa-chevron-right']);
         this.nextMonthButton.appendChild(nextIcon);
 
         this.nextMonthButton.addEventListener('click', (event) => {
-            this.handleNextClick(event);
+            this.handleNextMonthClick(event);
         });
 
         navRight.appendChild(this.nextMonthButton);
+
+        this.nextYearButton = Bulma.createElement('button', ['button', 'is-text']);
+        prevIcon = Bulma.createElement('i', ['fa', 'fa-forward']);
+        this.nextYearButton.appendChild(prevIcon);
+
+        this.nextYearButton.addEventListener('click', (event) => {
+            this.handleNextYearClick(event);
+        });
+
+        navRight.appendChild(this.nextYearButton);
 
         this.monthYearLabel = Bulma.createElement('div');
         this.monthYearLabel.innerHTML = months[this.month] + ' ' + this.year;
@@ -107,12 +141,7 @@ class Calendar {
             daysAfter -= 7;
         }
 
-        console.log('Num days: ' + numDays);
-        console.log('Days after: ' + daysAfter);
-
         numDays += (7 - daysAfter);
-
-        console.log('Num days after: ' + numDays);
 
         let cells = [];
 
@@ -160,7 +189,7 @@ class Calendar {
         return calendarBody;
     }
 
-    handlePrevClick(event) {
+    handlePrevMonthClick(event) {
         this.month--;
 
         if(this.month < 0) {
@@ -171,13 +200,25 @@ class Calendar {
         this.render();
     }
 
-    handleNextClick(event) {
+    handleNextMonthClick(event) {
         this.month++;
 
         if(this.month > 11) {
             this.year++;
             this.month = 0;
         }
+
+        this.render();
+    }
+
+    handlePrevYearClick(event) {
+        this.year--;
+
+        this.render();
+    }
+
+    handleNextYearClick(event) {
+        this.year++;
 
         this.render();
     }
