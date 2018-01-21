@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -74,7 +74,7 @@ var Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.2.1',
+    VERSION: '0.3.0',
 
     /**
      * Helper method to create a new plugin.
@@ -103,6 +103,12 @@ var Bulma = {
 
         this[key] = plugin;
     },
+
+
+    /**
+     * Parse the HTML DOM searching for data-bulma attributes. We will then pass
+     * each element to the appropriate plugin to handle the required processing.
+     */
     traverseDOM: function traverseDOM() {
         var elements = document.querySelectorAll('[data-bulma]');
 
@@ -117,6 +123,25 @@ var Bulma = {
                 Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
             }
         });
+    },
+
+
+    /**
+     * Create an element and assign classes
+     * @param {string} name The name of the element to create
+     * @param {array} classes An array of classes to add to the element
+     */
+    createElement: function createElement(name, classes) {
+        if (!classes) classes = [];
+        if (typeof classes === 'string') classes = [classes];
+
+        var elem = document.createElement(name);
+
+        classes.forEach(function (className) {
+            elem.classList.add(className);
+        });
+
+        return elem;
     }
 };
 
@@ -128,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(6);

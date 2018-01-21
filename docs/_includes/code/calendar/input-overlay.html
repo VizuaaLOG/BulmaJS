@@ -1,0 +1,12 @@
+<input type="text" id="calendar-demo3">
+
+<script>
+    window.addEventListener('load', function() {
+        Bulma.create('calendar', {
+            element: document.getElementById('calendar-demo3'),
+            navButtons: true,
+            format: 'dd/mm/yy',
+            overlay: true
+        });
+    });
+</script>
