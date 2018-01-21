@@ -1362,7 +1362,9 @@ var Calendar = function () {
             this.root = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div');
         }
 
-        this.root.classList.add('calendar');
+        this.wrapper = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', ['calendar']);
+
+        // this.root.classList.add('calendar');
 
         /**
          * The current date for today tests
@@ -1396,6 +1398,12 @@ var Calendar = function () {
 
         this.format = options.hasOwnProperty('format') ? options.format : 'yyyy-mm-dd';
 
+        this.overlay = options.hasOwnProperty('overlay') ? options.overlay : false;
+
+        if (this.overlay) {
+            this.buildModal();
+        }
+
         if (isLeapYear(this.year)) {
             monthDays[1] = 29;
         } else {
@@ -1414,12 +1422,37 @@ var Calendar = function () {
     _createClass(Calendar, [{
         key: 'handleInputFocus',
         value: function handleInputFocus(event) {
+            if (this.overlay) {
+                this.modal.classList.add('is-active');
+            }
+
             this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
+        }
+    }, {
+        key: 'buildModal',
+        value: function buildModal() {
+            var _this2 = this;
+
+            this.modal = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', ['modal']);
+            this.modalBackground = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', ['modal-background']);
+
+            var modalClose = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', ['modal-close']);
+
+            modalClose.addEventListener('click', function (event) {
+                _this2.modal.classList.remove('is-active');
+            });
+
+            this.modal.appendChild(this.modalBackground);
+            this.modal.appendChild(modalClose);
+
+            this.root.appendChild(this.modal);
+
+            this.wrapper.style.zIndex = 40;
         }
     }, {
         key: 'buildNav',
         value: function buildNav() {
-            var _this2 = this;
+            var _this3 = this;
 
             var prevIcon = void 0,
                 nextIcon = void 0;
@@ -1434,7 +1467,7 @@ var Calendar = function () {
                 this.prevYearButton.appendChild(prevIcon);
 
                 this.prevYearButton.addEventListener('click', function (event) {
-                    _this2.handlePrevYearClick(event);
+                    _this3.handlePrevYearClick(event);
                 });
 
                 navLeft.appendChild(this.prevYearButton);
@@ -1444,7 +1477,7 @@ var Calendar = function () {
                 this.prevMonthButton.appendChild(prevIcon);
 
                 this.prevMonthButton.addEventListener('click', function (event) {
-                    _this2.handlePrevMonthClick(event);
+                    _this3.handlePrevMonthClick(event);
                 });
 
                 navLeft.appendChild(this.prevMonthButton);
@@ -1455,7 +1488,7 @@ var Calendar = function () {
                 this.nextMonthButton.appendChild(nextIcon);
 
                 this.nextMonthButton.addEventListener('click', function (event) {
-                    _this2.handleNextMonthClick(event);
+                    _this3.handleNextMonthClick(event);
                 });
 
                 navRight.appendChild(this.nextMonthButton);
@@ -1465,7 +1498,7 @@ var Calendar = function () {
                 this.nextYearButton.appendChild(prevIcon);
 
                 this.nextYearButton.addEventListener('click', function (event) {
-                    _this2.handleNextYearClick(event);
+                    _this3.handleNextYearClick(event);
                 });
 
                 navRight.appendChild(this.nextYearButton);
@@ -1502,7 +1535,7 @@ var Calendar = function () {
     }, {
         key: 'buildBody',
         value: function buildBody() {
-            var _this3 = this;
+            var _this4 = this;
 
             var calendarBody = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-body');
 
@@ -1555,9 +1588,9 @@ var Calendar = function () {
 
                 var button = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', 'date-item');
 
-                if (_this3.inputElement !== null) {
+                if (_this4.inputElement !== null) {
                     button.addEventListener('click', function (event) {
-                        _this3.handleDayClick(event, day);
+                        _this4.handleDayClick(event, day);
                     });
                 }
 
@@ -1582,6 +1615,12 @@ var Calendar = function () {
             var dateString = this.formatDateString(day);
 
             this.inputElement.value = dateString;
+
+            if (this.overlay) {
+                this.modal.classList.remove('is-active');
+            } else {
+                this.inputElement.parentNode.removeChild(this.root);
+            }
         }
     }, {
         key: 'formatDateString',
@@ -1667,13 +1706,22 @@ var Calendar = function () {
         value: function render() {
             this.clearCalendar();
 
-            this.root.appendChild(this.buildNav());
+            this.wrapper.appendChild(this.buildNav());
 
             var container = this.buildContainer();
             container.appendChild(this.buildHeader());
             container.appendChild(this.buildBody());
 
-            this.root.appendChild(container);
+            this.wrapper.appendChild(container);
+
+            console.log(this.modal);
+
+            if (this.overlay) {
+                this.modal.insertBefore(this.wrapper, this.modalBackground.nextSibling);
+                this.root.appendChild(this.modal);
+            } else {
+                this.root.appendChild(this.wrapper);
+            }
         }
 
         /**

@@ -43,7 +43,9 @@ class Calendar {
             this.root = Bulma.createElement('div');
         }
 
-        this.root.classList.add('calendar');
+        this.wrapper = Bulma.createElement('div', ['calendar']);
+
+        // this.root.classList.add('calendar');
 
         /**
          * The current date for today tests
@@ -77,6 +79,12 @@ class Calendar {
 
         this.format = options.hasOwnProperty('format') ? options.format : 'yyyy-mm-dd';
 
+        this.overlay = options.hasOwnProperty('overlay') ? options.overlay : false;
+
+        if(this.overlay) {
+            this.buildModal();
+        }
+
         if(isLeapYear(this.year)) {
             monthDays[1] = 29;
         } else {
@@ -93,7 +101,29 @@ class Calendar {
     }
 
     handleInputFocus(event) {
+        if(this.overlay) {
+            this.modal.classList.add('is-active');
+        }
+        
         this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
+    }
+
+    buildModal() {
+        this.modal = Bulma.createElement('div', ['modal']);
+        this.modalBackground = Bulma.createElement('div', ['modal-background']);
+
+        let modalClose = Bulma.createElement('button', ['modal-close']);
+
+        modalClose.addEventListener('click', (event) => {
+            this.modal.classList.remove('is-active');
+        });
+
+        this.modal.appendChild(this.modalBackground);
+        this.modal.appendChild(modalClose);
+
+        this.root.appendChild(this.modal);
+
+        this.wrapper.style.zIndex = 40;
     }
 
     buildNav() {
@@ -251,6 +281,12 @@ class Calendar {
         let dateString = this.formatDateString(day);
 
         this.inputElement.value = dateString;
+
+        if(this.overlay) {
+            this.modal.classList.remove('is-active');
+        } else {
+            this.inputElement.parentNode.removeChild(this.root);
+        }
     }
 
     formatDateString(day) {
@@ -329,13 +365,22 @@ class Calendar {
     render() {
         this.clearCalendar();
 
-        this.root.appendChild(this.buildNav());
+        this.wrapper.appendChild(this.buildNav());
 
         let container = this.buildContainer();
         container.appendChild(this.buildHeader());
         container.appendChild(this.buildBody());
 
-        this.root.appendChild(container);
+        this.wrapper.appendChild(container);
+
+        console.log(this.modal);
+
+        if(this.overlay) {
+            this.modal.insertBefore(this.wrapper, this.modalBackground.nextSibling);
+            this.root.appendChild(this.modal);
+        } else {
+            this.root.appendChild(this.wrapper);
+        }
     }
 
     /**
