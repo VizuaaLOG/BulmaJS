@@ -316,7 +316,7 @@ class Calendar {
             }
             dateString = dateString.replace('dd', date);
         } else {
-            dateString = dateString.replace('d', day.getDate() + 1);
+            dateString = dateString.replace('d', day.getDate());
         }
 
         return dateString;
