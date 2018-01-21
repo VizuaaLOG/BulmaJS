@@ -17,7 +17,7 @@
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "docs-js": "npm run dev && rm -rf docs/assets/js/bulmajs && mkdir -p docs/assets/js/bulmajs && cp dist/* docs/assets/js/bulmajs",
     "lint": "eslint ./src",
-    "test": "npm run lint",
+    "test": "npm run lint && npm run dev && cd ./docs && bundle exec jekyll build",
     "serve-docs": "cd ./docs && bundle exec jekyll serve"
   }
 }
