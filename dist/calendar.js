@@ -220,9 +220,11 @@ var Calendar = function () {
             this.root = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div');
         }
 
+        /**
+         * The wrapper for the calendar
+         * @type {HTMLElement}
+         */
         this.wrapper = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', ['calendar']);
-
-        // this.root.classList.add('calendar');
 
         /**
          * The current date for today tests
@@ -254,8 +256,16 @@ var Calendar = function () {
          */
         this.navButtons = options.hasOwnProperty('navButtons') ? options.navButtons : true;
 
+        /**
+         * The format string for the date output. Used when attached to an input element.
+         * @type {string}
+         */
         this.format = options.hasOwnProperty('format') ? options.format : 'yyyy-mm-dd';
 
+        /**
+         * Should the calendar be shown as a modal. Used when attached to an input element
+         * @type {boolean}
+         */
         this.overlay = options.hasOwnProperty('overlay') ? options.overlay : false;
 
         if (this.overlay) {
@@ -277,16 +287,12 @@ var Calendar = function () {
         this.render();
     }
 
-    _createClass(Calendar, [{
-        key: 'handleInputFocus',
-        value: function handleInputFocus(event) {
-            if (this.overlay) {
-                this.modal.classList.add('is-active');
-            }
+    /**
+     * If we are to show as an overlay, build the modal's HTML
+     */
 
-            this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
-        }
-    }, {
+
+    _createClass(Calendar, [{
         key: 'buildModal',
         value: function buildModal() {
             var _this2 = this;
@@ -307,6 +313,11 @@ var Calendar = function () {
 
             this.wrapper.style.zIndex = 40;
         }
+
+        /**
+         * Build the calendars nav HTML
+         */
+
     }, {
         key: 'buildNav',
         value: function buildNav() {
@@ -372,11 +383,21 @@ var Calendar = function () {
 
             return nav;
         }
+
+        /**
+         * Build the calendar's container HTML
+         */
+
     }, {
         key: 'buildContainer',
         value: function buildContainer() {
             return __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-container');
         }
+
+        /**
+         * Build the calendar's header HTML
+         */
+
     }, {
         key: 'buildHeader',
         value: function buildHeader() {
@@ -390,6 +411,11 @@ var Calendar = function () {
 
             return calendarHeader;
         }
+
+        /**
+         * Build the calendar's body. This includes all days.
+         */
+
     }, {
         key: 'buildBody',
         value: function buildBody() {
@@ -398,7 +424,11 @@ var Calendar = function () {
             var calendarBody = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-body');
 
             var daysInMonth = monthDays[this.now.getMonth()];
+
+            // Number of days to show from the previous month.
             var daysBefore = new Date(this.year, this.month, 1).getDay();
+
+            // Number of days to show from the next month
             var daysAfter = void 0;
 
             if (daysBefore < 0) {
@@ -465,6 +495,28 @@ var Calendar = function () {
 
             return calendarBody;
         }
+
+        /**
+         * Called when the input box is in focus.
+         * @param {Object} event 
+         */
+
+    }, {
+        key: 'handleInputFocus',
+        value: function handleInputFocus(event) {
+            if (this.overlay) {
+                this.modal.classList.add('is-active');
+            }
+
+            this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
+        }
+
+        /**
+         * Event hander for when a day is clicked.
+         * @param {Object} event 
+         * @param {Object} day 
+         */
+
     }, {
         key: 'handleDayClick',
         value: function handleDayClick(event, day) {
@@ -480,6 +532,13 @@ var Calendar = function () {
                 this.inputElement.parentNode.removeChild(this.root);
             }
         }
+
+        /**
+         * Format the date based on the supplied format string.
+         * @param {Object} day
+         * @returns {string} 
+         */
+
     }, {
         key: 'formatDateString',
         value: function formatDateString(day) {
@@ -514,6 +573,12 @@ var Calendar = function () {
 
             return dateString;
         }
+
+        /**
+         * Event handler for the previous month button.
+         * @param {Object} event 
+         */
+
     }, {
         key: 'handlePrevMonthClick',
         value: function handlePrevMonthClick(event) {
@@ -526,6 +591,12 @@ var Calendar = function () {
 
             this.render();
         }
+
+        /**
+         * Event handler for the next month button.
+         * @param {Object} event 
+         */
+
     }, {
         key: 'handleNextMonthClick',
         value: function handleNextMonthClick(event) {
@@ -538,6 +609,12 @@ var Calendar = function () {
 
             this.render();
         }
+
+        /**
+         * Event handler for the previous year button.
+         * @param {Object} event 
+         */
+
     }, {
         key: 'handlePrevYearClick',
         value: function handlePrevYearClick(event) {
@@ -545,6 +622,12 @@ var Calendar = function () {
 
             this.render();
         }
+
+        /**
+         * Event handler for the next year button.
+         * @param {Object} event 
+         */
+
     }, {
         key: 'handleNextYearClick',
         value: function handleNextYearClick(event) {
@@ -552,6 +635,11 @@ var Calendar = function () {
 
             this.render();
         }
+
+        /**
+         * Clear the calendar HTML, ready for a re-render.
+         */
+
     }, {
         key: 'clearCalendar',
         value: function clearCalendar() {
@@ -559,6 +647,11 @@ var Calendar = function () {
                 this.root.removeChild(this.root.firstChild);
             }
         }
+
+        /**
+         * Render/build the calendar's HTML.
+         */
+
     }, {
         key: 'render',
         value: function render() {

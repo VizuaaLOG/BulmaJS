@@ -43,9 +43,11 @@ class Calendar {
             this.root = Bulma.createElement('div');
         }
 
+        /**
+         * The wrapper for the calendar
+         * @type {HTMLElement}
+         */
         this.wrapper = Bulma.createElement('div', ['calendar']);
-
-        // this.root.classList.add('calendar');
 
         /**
          * The current date for today tests
@@ -77,8 +79,16 @@ class Calendar {
          */
         this.navButtons = options.hasOwnProperty('navButtons') ? options.navButtons : true;
 
+        /**
+         * The format string for the date output. Used when attached to an input element.
+         * @type {string}
+         */
         this.format = options.hasOwnProperty('format') ? options.format : 'yyyy-mm-dd';
 
+        /**
+         * Should the calendar be shown as a modal. Used when attached to an input element
+         * @type {boolean}
+         */
         this.overlay = options.hasOwnProperty('overlay') ? options.overlay : false;
 
         if(this.overlay) {
@@ -100,14 +110,9 @@ class Calendar {
         this.render();
     }
 
-    handleInputFocus(event) {
-        if(this.overlay) {
-            this.modal.classList.add('is-active');
-        }
-        
-        this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
-    }
-
+    /**
+     * If we are to show as an overlay, build the modal's HTML
+     */
     buildModal() {
         this.modal = Bulma.createElement('div', ['modal']);
         this.modalBackground = Bulma.createElement('div', ['modal-background']);
@@ -126,6 +131,9 @@ class Calendar {
         this.wrapper.style.zIndex = 40;
     }
 
+    /**
+     * Build the calendars nav HTML
+     */
     buildNav() {
         let prevIcon, nextIcon;
         let nav = Bulma.createElement('div', 'calendar-nav');
@@ -187,10 +195,16 @@ class Calendar {
         return nav;
     }
 
+    /**
+     * Build the calendar's container HTML
+     */
     buildContainer() {
         return Bulma.createElement('div', 'calendar-container');
     }
 
+    /**
+     * Build the calendar's header HTML
+     */
     buildHeader() {
         let calendarHeader = Bulma.createElement('div', 'calendar-header');
 
@@ -203,11 +217,18 @@ class Calendar {
         return calendarHeader;
     }
 
+    /**
+     * Build the calendar's body. This includes all days.
+     */
     buildBody() {
         let calendarBody = Bulma.createElement('div', 'calendar-body');
 
         let daysInMonth = monthDays[this.now.getMonth()];
+
+        // Number of days to show from the previous month.
         let daysBefore = new Date(this.year, this.month, 1).getDay();
+
+        // Number of days to show from the next month
         let daysAfter;
 
         if (daysBefore < 0) {
@@ -275,6 +296,23 @@ class Calendar {
         return calendarBody;
     }
 
+    /**
+     * Called when the input box is in focus.
+     * @param {Object} event 
+     */
+    handleInputFocus(event) {
+        if(this.overlay) {
+            this.modal.classList.add('is-active');
+        }
+        
+        this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
+    }
+
+    /**
+     * Event hander for when a day is clicked.
+     * @param {Object} event 
+     * @param {Object} day 
+     */
     handleDayClick(event, day) {
         day = new Date(this.year, this.month, day.day);
 
@@ -289,6 +327,11 @@ class Calendar {
         }
     }
 
+    /**
+     * Format the date based on the supplied format string.
+     * @param {Object} day
+     * @returns {string} 
+     */
     formatDateString(day) {
         let dateString = this.format;
         
@@ -322,6 +365,10 @@ class Calendar {
         return dateString;
     }
 
+    /**
+     * Event handler for the previous month button.
+     * @param {Object} event 
+     */
     handlePrevMonthClick(event) {
         this.month--;
 
@@ -333,6 +380,10 @@ class Calendar {
         this.render();
     }
 
+    /**
+     * Event handler for the next month button.
+     * @param {Object} event 
+     */
     handleNextMonthClick(event) {
         this.month++;
 
@@ -344,24 +395,38 @@ class Calendar {
         this.render();
     }
 
+    /**
+     * Event handler for the previous year button.
+     * @param {Object} event 
+     */
     handlePrevYearClick(event) {
         this.year--;
 
         this.render();
     }
 
+    /**
+     * Event handler for the next year button.
+     * @param {Object} event 
+     */
     handleNextYearClick(event) {
         this.year++;
 
         this.render();
     }
 
+    /**
+     * Clear the calendar HTML, ready for a re-render.
+     */
     clearCalendar() {
         while (this.root.firstChild) {
             this.root.removeChild(this.root.firstChild);
         }
     }
 
+    /**
+     * Render/build the calendar's HTML.
+     */
     render() {
         this.clearCalendar();
 
