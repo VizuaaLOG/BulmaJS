@@ -1573,10 +1573,6 @@ var Calendar = function () {
             // Number of days to show from the next month
             var daysAfter = void 0;
 
-            if (daysBefore < 0) {
-                daysBefore += 7;
-            }
-
             var numDays = daysInMonth + daysBefore;
 
             daysAfter = numDays;
@@ -1618,7 +1614,7 @@ var Calendar = function () {
 
                 var button = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', 'date-item');
 
-                if (_this4.inputElement !== null) {
+                if (_this4.inputElement !== null && d.isThisMonth) {
                     button.addEventListener('click', function (event) {
                         _this4.handleDayClick(event, day);
                     });

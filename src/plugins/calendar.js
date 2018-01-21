@@ -231,10 +231,6 @@ class Calendar {
         // Number of days to show from the next month
         let daysAfter;
 
-        if (daysBefore < 0) {
-            daysBefore += 7;
-        }
-
         let numDays = daysInMonth + daysBefore;
 
         daysAfter = numDays;
@@ -276,7 +272,7 @@ class Calendar {
 
             let button = Bulma.createElement('button', 'date-item');
 
-            if(this.inputElement !== null) {
+            if(this.inputElement !== null && d.isThisMonth) {
                 button.addEventListener('click', (event) => {
                     this.handleDayClick(event, day);
                 });
