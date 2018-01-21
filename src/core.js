@@ -50,6 +50,24 @@ const Bulma = {
                 Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
             }
         });
+    },
+
+    /**
+     * Create an element and assign classes
+     * @param {string} name The name of the element to create
+     * @param {array} classes An array of classes to add to the element
+     */
+    createElement(name, classes) {
+        if(!classes) classes = [];
+        if(typeof classes === 'string') classes = [classes];
+
+        let elem = document.createElement(name);
+
+        classes.forEach((className) => {
+            elem.classList.add(className);
+        });
+
+        return elem;
     }
 };
 
