@@ -6,10 +6,9 @@ before_install:
   - rvm install 2.3.3
 
 install:
-  - gem install jekyll
   - npm install
 
 script:
   - npm run lint
   - npm run dev
-  - cd ./docs && bundle exec jekyll build
+  - cd ./docs && bundle install && bundle exec jekyll build
