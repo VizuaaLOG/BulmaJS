@@ -110,6 +110,10 @@ class Calendar {
         this.render();
     }
 
+    ////////////////////////////////////////
+    ///// HELPER METHODS TO BUILD HTML /////
+    ////////////////////////////////////////
+
     /**
      * If we are to show as an overlay, build the modal's HTML
      */
@@ -292,6 +296,10 @@ class Calendar {
         return calendarBody;
     }
 
+    //////////////////////////
+    ///// EVENT HANDLERS /////
+    //////////////////////////
+
     /**
      * Called when the input box is in focus.
      * @param {Object} event 
@@ -321,44 +329,6 @@ class Calendar {
         } else {
             this.inputElement.parentNode.removeChild(this.root);
         }
-    }
-
-    /**
-     * Format the date based on the supplied format string.
-     * @param {Object} day
-     * @returns {string} 
-     */
-    formatDateString(day) {
-        let dateString = this.format;
-        
-        // May be a better/faster way of doing this?
-        if(dateString.indexOf('yyyy') !== -1) {
-            dateString = this.format.replace('yyyy', day.getFullYear());
-        } else {
-            dateString = this.format.replace('yy', day.getFullYear().toString().substr(-2));
-        }
-
-        if(dateString.indexOf('mm') !== -1) {
-            let month = day.getMonth() + 1;
-            if(month < 10) {
-                month = '0' + month.toString();
-            }
-            dateString = dateString.replace('mm', month);
-        } else {
-            dateString = dateString.replace('m', day.getMonth() + 1);
-        }
-
-        if(dateString.indexOf('dd') !== -1) {
-            let date = day.getDate();
-            if(date < 10) {
-                date = '0' + date.toString();
-            }
-            dateString = dateString.replace('dd', date);
-        } else {
-            dateString = dateString.replace('d', day.getDate());
-        }
-
-        return dateString;
     }
 
     /**
@@ -409,6 +379,44 @@ class Calendar {
         this.year++;
 
         this.render();
+    }
+
+    /**
+     * Format the date based on the supplied format string.
+     * @param {Object} day
+     * @returns {string} 
+     */
+    formatDateString(day) {
+        let dateString = this.format;
+        
+        // May be a better/faster way of doing this?
+        if(dateString.indexOf('yyyy') !== -1) {
+            dateString = this.format.replace('yyyy', day.getFullYear());
+        } else {
+            dateString = this.format.replace('yy', day.getFullYear().toString().substr(-2));
+        }
+
+        if(dateString.indexOf('mm') !== -1) {
+            let month = day.getMonth() + 1;
+            if(month < 10) {
+                month = '0' + month.toString();
+            }
+            dateString = dateString.replace('mm', month);
+        } else {
+            dateString = dateString.replace('m', day.getMonth() + 1);
+        }
+
+        if(dateString.indexOf('dd') !== -1) {
+            let date = day.getDate();
+            if(date < 10) {
+                date = '0' + date.toString();
+            }
+            dateString = dateString.replace('dd', date);
+        } else {
+            dateString = dateString.replace('d', day.getDate());
+        }
+
+        return dateString;
     }
 
     /**
