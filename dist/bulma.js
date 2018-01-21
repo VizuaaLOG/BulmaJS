@@ -1315,15 +1315,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-var shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-function isLeapYear(year) {
-    // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
-    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-}
-
 /**
  * @module Calendar
  * @since  0.3.0
@@ -1393,6 +1384,24 @@ var Calendar = function () {
         this.month = this.date.getMonth();
 
         /**
+         * Month names
+         * @type {Array}
+         */
+        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        /**
+         * Short day names
+         * @type {Array}
+         */
+        this.shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        /**
+         * Number of days in each month
+         * @type {Array}
+         */
+        this.monthDays = [31, this.isLeapYear(this.year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        /**
          * Show the navigating buttons
          * @type {boolean}
          */
@@ -1412,12 +1421,6 @@ var Calendar = function () {
 
         if (this.overlay) {
             this.buildModal();
-        }
-
-        if (isLeapYear(this.year)) {
-            monthDays[1] = 29;
-        } else {
-            monthDays[1] = 28;
         }
 
         if (this.inputElement !== null) {
@@ -1521,7 +1524,7 @@ var Calendar = function () {
 
             // Month/year label
             this.monthYearLabel = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div');
-            this.monthYearLabel.innerHTML = months[this.month] + ' ' + this.year;
+            this.monthYearLabel.innerHTML = this.months[this.month] + ' ' + this.year;
 
             nav.appendChild(navLeft);
             nav.appendChild(this.monthYearLabel);
@@ -1549,7 +1552,7 @@ var Calendar = function () {
         value: function buildHeader() {
             var calendarHeader = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-header');
 
-            shortDays.forEach(function (dayName) {
+            this.shortDays.forEach(function (dayName) {
                 var day = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-date');
                 day.innerHTML = dayName;
                 calendarHeader.appendChild(day);
@@ -1569,7 +1572,7 @@ var Calendar = function () {
 
             var calendarBody = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('div', 'calendar-body');
 
-            var daysInMonth = monthDays[this.now.getMonth()];
+            var daysInMonth = this.monthDays[this.now.getMonth()];
 
             // Number of days to show from the previous month.
             var daysBefore = new Date(this.year, this.month, 1).getDay();
@@ -1618,7 +1621,7 @@ var Calendar = function () {
 
                 var button = __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].createElement('button', 'date-item');
 
-                if (_this4.inputElement !== null && d.isThisMonth) {
+                if (_this4.inputElement !== null && day.isThisMonth) {
                     button.addEventListener('click', function (event) {
                         _this4.handleDayClick(event, day);
                     });
@@ -1792,6 +1795,12 @@ var Calendar = function () {
             while (this.wrapper.firstChild) {
                 this.wrapper.removeChild(this.wrapper.firstChild);
             }
+        }
+    }, {
+        key: 'isLeapYear',
+        value: function isLeapYear(year) {
+            // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
+            return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
         }
 
         /**

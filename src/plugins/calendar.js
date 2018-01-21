@@ -1,15 +1,5 @@
 import Bulma from '../core';
 
-let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-let shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-
-function isLeapYear(year) {
-    // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
-    return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-}
-
 /**
  * @module Calendar
  * @since  0.3.0
@@ -74,6 +64,24 @@ class Calendar {
         this.month = this.date.getMonth();
 
         /**
+         * Month names
+         * @type {Array}
+         */
+        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        /**
+         * Short day names
+         * @type {Array}
+         */
+        this.shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        /**
+         * Number of days in each month
+         * @type {Array}
+         */
+        this.monthDays = [31, this.isLeapYear(this.year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        /**
          * Show the navigating buttons
          * @type {boolean}
          */
@@ -93,12 +101,6 @@ class Calendar {
 
         if(this.overlay) {
             this.buildModal();
-        }
-
-        if(isLeapYear(this.year)) {
-            monthDays[1] = 29;
-        } else {
-            monthDays[1] = 28;
         }
 
         if(this.inputElement !== null) {
@@ -190,7 +192,7 @@ class Calendar {
 
         // Month/year label
         this.monthYearLabel = Bulma.createElement('div');
-        this.monthYearLabel.innerHTML = months[this.month] + ' ' + this.year;
+        this.monthYearLabel.innerHTML = this.months[this.month] + ' ' + this.year;
 
         nav.appendChild(navLeft);
         nav.appendChild(this.monthYearLabel);
@@ -212,7 +214,7 @@ class Calendar {
     buildHeader() {
         let calendarHeader = Bulma.createElement('div', 'calendar-header');
 
-        shortDays.forEach((dayName) => {
+        this.shortDays.forEach((dayName) => {
             let day = Bulma.createElement('div', 'calendar-date');
             day.innerHTML = dayName;
             calendarHeader.appendChild(day);
@@ -227,7 +229,7 @@ class Calendar {
     buildBody() {
         let calendarBody = Bulma.createElement('div', 'calendar-body');
 
-        let daysInMonth = monthDays[this.now.getMonth()];
+        let daysInMonth = this.monthDays[this.now.getMonth()];
 
         // Number of days to show from the previous month.
         let daysBefore = new Date(this.year, this.month, 1).getDay();
@@ -276,7 +278,7 @@ class Calendar {
 
             let button = Bulma.createElement('button', 'date-item');
 
-            if(this.inputElement !== null && d.isThisMonth) {
+            if(this.inputElement !== null && day.isThisMonth) {
                 button.addEventListener('click', (event) => {
                     this.handleDayClick(event, day);
                 });
@@ -426,6 +428,11 @@ class Calendar {
         while (this.wrapper.firstChild) {
             this.wrapper.removeChild(this.wrapper.firstChild);
         }
+    }
+
+    isLeapYear(year) {
+        // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
+        return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
     }
 
     /**
