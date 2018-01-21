@@ -252,8 +252,10 @@ var Calendar = function () {
          */
         this.navButtons = options.hasOwnProperty('navButtons') ? options.navButtons : true;
 
+        this.format = options.hasOwnProperty('format') ? options.format : 'yyyy-mm-dd';
+
         if (isLeapYear(this.year)) {
-            monthDays[1]++;
+            monthDays[1] = 29;
         } else {
             monthDays[1] = 28;
         }
@@ -435,9 +437,43 @@ var Calendar = function () {
         value: function handleDayClick(event, day) {
             day = new Date(this.year, this.month, day.day);
 
-            var dateString = day.getFullYear() + '-' + day.getMonth() + '-' + day.getDate();
+            var dateString = this.formatDateString(day);
 
             this.inputElement.value = dateString;
+        }
+    }, {
+        key: 'formatDateString',
+        value: function formatDateString(day) {
+            var dateString = this.format;
+
+            // May be a better/faster way of doing this?
+            if (dateString.indexOf('yyyy') !== -1) {
+                dateString = this.format.replace('yyyy', day.getFullYear());
+            } else {
+                dateString = this.format.replace('yy', day.getFullYear().toString().substr(-2));
+            }
+
+            if (dateString.indexOf('mm') !== -1) {
+                var month = day.getMonth() + 1;
+                if (month < 10) {
+                    month = '0' + month.toString();
+                }
+                dateString = dateString.replace('mm', month);
+            } else {
+                dateString = dateString.replace('m', day.getMonth() + 1);
+            }
+
+            if (dateString.indexOf('dd') !== -1) {
+                var date = day.getDate();
+                if (date < 10) {
+                    date = '0' + date.toString();
+                }
+                dateString = dateString.replace('dd', date);
+            } else {
+                dateString = dateString.replace('d', day.getDate() + 1);
+            }
+
+            return dateString;
         }
     }, {
         key: 'handlePrevMonthClick',
