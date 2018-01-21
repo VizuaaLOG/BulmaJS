@@ -419,8 +419,8 @@ class Calendar {
      * Clear the calendar HTML, ready for a re-render.
      */
     clearCalendar() {
-        while (this.root.firstChild) {
-            this.root.removeChild(this.root.firstChild);
+        while (this.wrapper.firstChild) {
+            this.wrapper.removeChild(this.wrapper.firstChild);
         }
     }
 
@@ -437,8 +437,6 @@ class Calendar {
         container.appendChild(this.buildBody());
 
         this.wrapper.appendChild(container);
-
-        console.log(this.modal);
 
         if(this.overlay) {
             this.modal.insertBefore(this.wrapper, this.modalBackground.nextSibling);

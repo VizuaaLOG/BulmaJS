@@ -1785,8 +1785,8 @@ var Calendar = function () {
     }, {
         key: 'clearCalendar',
         value: function clearCalendar() {
-            while (this.root.firstChild) {
-                this.root.removeChild(this.root.firstChild);
+            while (this.wrapper.firstChild) {
+                this.wrapper.removeChild(this.wrapper.firstChild);
             }
         }
 
@@ -1806,8 +1806,6 @@ var Calendar = function () {
             container.appendChild(this.buildBody());
 
             this.wrapper.appendChild(container);
-
-            console.log(this.modal);
 
             if (this.overlay) {
                 this.modal.insertBefore(this.wrapper, this.modalBackground.nextSibling);
