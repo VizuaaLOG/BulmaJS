@@ -1,6 +1,6 @@
 // Import BulmaJS plugin
-import Notification from 'path/to/bulmajs/src/plugins/Notification';
-import Navbar from 'path/to/bulmajs/src/plugins/Navbar';
+import Notification from 'path/to/bulmajs/src/plugins/notification';
+import Navbar from 'path/to/bulmajs/src/plugins/navbar';
 
 // Everything is now setup. One document ready the DOM will be parsed.
 // If you would like to register a Bulma global, you can import Bulma
