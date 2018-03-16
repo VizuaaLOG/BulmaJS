@@ -898,7 +898,7 @@ var Modal = function () {
      */
     this.closeButton = this.findCloseButton();
 
-    this.setupCloseEvent();
+    if (this.closeButton || options.hasOwnProperty('closable') && options.closable) this.setupCloseEvent();
   }
 
   /**
