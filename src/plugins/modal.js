@@ -32,7 +32,7 @@ class Modal {
          */
         this.closeButton = this.findCloseButton();
 
-        if(this.closeButton || this.closable ) {
+        if(this.closeButton && this.closable ) {
             this.setupCloseEvent();
         }
     }
@@ -92,7 +92,7 @@ class Modal {
      * Destroy the message, removing the event listener, interval and element.
      */
     destroy() {
-        if(this.closeButton) {
+        if(this.closable && this.closeButton) {
             this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
         }
 
