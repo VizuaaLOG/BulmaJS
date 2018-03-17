@@ -21,13 +21,20 @@ class Modal {
         this.root = options.hasOwnProperty('element') ? options.element : '';
 
         /**
+         * Closable toggle switch.
+         * @type {bool}
+         */
+        this.closable = options.hasOwnProperty('closable') ? options.closable : true ;
+
+        /**
          * The element used to close the message.
          * @type {HTMLElement}
          */
         this.closeButton = this.findCloseButton();
 
-        if(this.closeButton || (options.hasOwnProperty('closable') && options.closable))
+        if(this.closeButton || this.closable ) {
             this.setupCloseEvent();
+        }
     }
 
     /**
