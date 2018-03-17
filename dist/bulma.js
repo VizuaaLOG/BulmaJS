@@ -893,12 +893,20 @@ var Modal = function () {
     this.root = options.hasOwnProperty('element') ? options.element : '';
 
     /**
+     * Closable toggle switch.
+     * @type {bool}
+     */
+    this.closable = options.hasOwnProperty('closable') ? options.closable : true;
+    console.log(this);
+    /**
      * The element used to close the message.
      * @type {HTMLElement}
      */
     this.closeButton = this.findCloseButton();
 
-    this.setupCloseEvent();
+    if (this.closeButton && this.closable) {
+      this.setupCloseEvent();
+    }
   }
 
   /**

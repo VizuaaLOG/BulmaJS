@@ -21,12 +21,20 @@ class Modal {
         this.root = options.hasOwnProperty('element') ? options.element : '';
 
         /**
+         * Closable toggle switch.
+         * @type {bool}
+         */
+        this.closable = options.hasOwnProperty('closable') ? options.closable : true ;
+
+        /**
          * The element used to close the message.
          * @type {HTMLElement}
          */
         this.closeButton = this.findCloseButton();
 
-        this.setupCloseEvent();
+        if(this.closeButton && this.closable ) {
+            this.setupCloseEvent();
+        }
     }
 
     /**
@@ -84,7 +92,7 @@ class Modal {
      * Destroy the message, removing the event listener, interval and element.
      */
     destroy() {
-        if(this.closeButton) {
+        if(this.closable && this.closeButton) {
             this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
         }
 
