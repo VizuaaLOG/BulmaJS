@@ -1,5 +1,5 @@
 # 0.4.0
-+ 
++ Add the option to disable the modal being closable (#28)
 
 # 0.3.1
 + This changelog was added
