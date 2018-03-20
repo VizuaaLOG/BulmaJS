@@ -44,6 +44,11 @@
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -59,262 +64,34 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/plugins/modal.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 0:
+/***/ "./src/core.js":
+/*!*********************!*\
+  !*** ./src/core.js ***!
+  \*********************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var Bulma = {
-    /**
-     * Current BulmaJS version.
-     * @type {String}
-     */
-    VERSION: '0.4.0',
-
-    /**
-     * Helper method to create a new plugin.
-     * @param  {String} key
-     * @param  {Object} options
-     * @return {Object}
-     */
-    create: function create(key, options) {
-        if (!key || !Bulma.hasOwnProperty(key)) {
-            throw new Error('[BulmaJS] A plugin with the key \'' + key + '\' has not been registered.');
-        }
-
-        return Bulma[key].create(options);
-    },
-
-
-    /**
-     * Register a new plugin
-     * @param  {String} key
-     * @param  {Object} plugin
-     */
-    registerPlugin: function registerPlugin(key, plugin) {
-        if (!key) {
-            throw new Error('[BulmaJS] Key attribute is required.');
-        }
-
-        this[key] = plugin;
-    },
-
-
-    /**
-     * Parse the HTML DOM searching for data-bulma attributes. We will then pass
-     * each element to the appropriate plugin to handle the required processing.
-     */
-    traverseDOM: function traverseDOM() {
-        var elements = document.querySelectorAll('[data-bulma]');
-
-        elements.forEach(function (element) {
-            var plugin = element.getAttribute('data-bulma');
-
-            if (!Bulma.hasOwnProperty(plugin)) {
-                throw new Error('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
-            }
-
-            if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {
-                Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
-            }
-        });
-    },
-
-
-    /**
-     * Create an element and assign classes
-     * @param {string} name The name of the element to create
-     * @param {array} classes An array of classes to add to the element
-     */
-    createElement: function createElement(name, classes) {
-        if (!classes) classes = [];
-        if (typeof classes === 'string') classes = [classes];
-
-        var elem = document.createElement(name);
-
-        classes.forEach(function (className) {
-            elem.classList.add(className);
-        });
-
-        return elem;
-    }
-};
-
-document.addEventListener('DOMContentLoaded', function () {
-    Bulma.traverseDOM();
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (Bulma);
+eval("__webpack_require__.r(__webpack_exports__);\nconst Bulma = {\n    /**\n     * Current BulmaJS version.\n     * @type {String}\n     */\n    VERSION: '0.4.0',\n\n    /**\n     * Helper method to create a new plugin.\n     * @param  {String} key The plugin's key\n     * @param  {Object} options The options to be passed to the plugin\n     * @return {Object} The newly created plugin instance\n     */\n    create(key, options) {\n        if (!key || !Bulma.hasOwnProperty(key)) {\n            throw new Error('[BulmaJS] A plugin with the key \\'' + key + '\\' has not been registered.');\n        }\n\n        return Bulma[key].create(options);\n    },\n\n    /**\n     * Register a new plugin\n     * @param  {String} key The key to register the plugin under\n     * @param  {Object} plugin The plugin's main constructor\n     * @return {undefined}\n     */\n    registerPlugin(key, plugin) {\n        if (!key) {\n            throw new Error('[BulmaJS] Key attribute is required.');\n        }\n\n        this[key] = plugin;\n    },\n\n    /**\n     * Parse the HTML DOM searching for data-bulma attributes. We will then pass\n     * each element to the appropriate plugin to handle the required processing.\n     * \n     * @return {undefined}\n     */\n    traverseDOM() {\n        let elements = document.querySelectorAll('[data-bulma]');\n\n        elements.forEach(function (element) {\n            let plugin = element.getAttribute('data-bulma');\n\n            if (!Bulma.hasOwnProperty(plugin)) {\n                throw new Error('[BulmaJS] Plugin with the key \\'' + plugin + '\\' has not been registered.');\n            }\n\n            if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {\n                Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);\n            }\n        });\n    },\n\n    /**\n     * Create an element and assign classes\n     * @param {string} name The name of the element to create\n     * @param {array} classes An array of classes to add to the element\n     * @return {HTMLElement} The newly created element\n     */\n    createElement(name, classes) {\n        if (!classes) {\n            classes = [];\n        }\n\n        if (typeof classes === 'string') {\n            classes = [classes];\n        }\n\n        let elem = document.createElement(name);\n\n        classes.forEach(className => {\n            elem.classList.add(className);\n        });\n\n        return elem;\n    }\n};\n\ndocument.addEventListener('DOMContentLoaded', () => {\n    Bulma.traverseDOM();\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Bulma);\n\n//# sourceURL=webpack:///./src/core.js?");
 
 /***/ }),
 
-/***/ 15:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(6);
-
-
-/***/ }),
-
-/***/ 6:
+/***/ "./src/plugins/modal.js":
+/*!******************************!*\
+  !*** ./src/plugins/modal.js ***!
+  \******************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-/**
- * @module Modal
- * @since  0.1.0
- * @author  Thomas Erbe <vizuaalog@gmail.com>
- */
-
-var Modal = function () {
-  /**
-   * Plugin constructor
-   * @param  {Object} options
-   * @return {this}
-   */
-  function Modal(options) {
-    _classCallCheck(this, Modal);
-
-    if (!options) options = {};
-
-    /**
-     * Message body text.
-     * @type {string}
-     */
-    this.root = options.hasOwnProperty('element') ? options.element : '';
-
-    /**
-     * Closable toggle switch.
-     * @type {bool}
-     */
-    this.closable = options.hasOwnProperty('closable') ? options.closable : true;
-
-    /**
-     * The element used to close the message.
-     * @type {HTMLElement}
-     */
-    this.closeButton = this.findCloseButton();
-
-    if (this.closeButton && this.closable) {
-      this.setupCloseEvent();
-    }
-  }
-
-  /**
-   * Helper method used by the Bulma core to create a new instance.
-   * @param  {Object} options
-   * @return {Modal}
-   */
-
-
-  _createClass(Modal, [{
-    key: 'open',
-
-
-    /**
-     * Show the message.
-     */
-    value: function open() {
-      this.root.classList.add('is-active');
-    }
-
-    /**
-     * Hide the message.
-     */
-
-  }, {
-    key: 'close',
-    value: function close() {
-      this.root.classList.remove('is-active');
-    }
-
-    /**
-     * Find the close button.
-     * @return {HTMLElement}
-     */
-
-  }, {
-    key: 'findCloseButton',
-    value: function findCloseButton() {
-      var element = this.root.querySelector('.modal-close');
-
-      if (!element) {
-        return this.root.querySelector('.delete');
-      }
-
-      return element;
-    }
-
-    /**
-     * Setup the event listener for the close button.
-     */
-
-  }, {
-    key: 'setupCloseEvent',
-    value: function setupCloseEvent() {
-      this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
-    }
-
-    /**
-     * Handle the event when our close button is clicked.
-     */
-
-  }, {
-    key: 'handleCloseEvent',
-    value: function handleCloseEvent() {
-      this.close();
-    }
-
-    /**
-     * Destroy the message, removing the event listener, interval and element.
-     */
-
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      if (this.closable && this.closeButton) {
-        this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
-      }
-
-      this.root = null;
-      this.closeButton = null;
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     */
-
-  }], [{
-    key: 'create',
-    value: function create(options) {
-      return new Modal(options);
-    }
-  }, {
-    key: 'handleDomParsing',
-    value: function handleDomParsing() {
-      return;
-    }
-  }]);
-
-  return Modal;
-}();
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('modal', Modal);
-
-/* harmony default export */ __webpack_exports__["default"] = (Modal);
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ \"./src/core.js\");\n\n\n/**\n * @module Modal\n * @since  0.1.0\n * @author  Thomas Erbe <vizuaalog@gmail.com>\n */\nclass Modal {\n    /**\n     * Plugin constructor\n     * @param  {Object} options The options object for this plugin\n     * @return {this} The newly created plugin instance\n     */\n    constructor(options) {\n        if (!options) {\n            options = {};\n        }\n\n        /**\n         * Message body text.\n         * @type {string}\n         */\n        this.root = options.hasOwnProperty('element') ? options.element : '';\n\n        /**\n         * Closable toggle switch.\n         * @type {bool}\n         */\n        this.closable = options.hasOwnProperty('closable') ? options.closable : true;\n\n        /**\n         * The element used to close the message.\n         * @type {HTMLElement}\n         */\n        this.closeButton = this.findCloseButton();\n\n        if (this.closeButton && this.closable) {\n            this.setupCloseEvent();\n        }\n    }\n\n    /**\n     * Helper method used by the Bulma core to create a new instance.\n     * @param  {Object} options THe options object for the new instance\n     * @return {Modal} The newly created instance\n     */\n    static create(options) {\n        return new Modal(options);\n    }\n\n    /**\n     * Show the message.\n     * @return {undefined}\n     */\n    open() {\n        this.root.classList.add('is-active');\n    }\n\n    /**\n     * Hide the message.\n     * @return {undefined}\n     */\n    close() {\n        this.root.classList.remove('is-active');\n    }\n\n    /**\n     * Find the close button.\n     * @return {HTMLElement} The newly created element\n     */\n    findCloseButton() {\n        let element = this.root.querySelector('.modal-close');\n\n        if (!element) {\n            return this.root.querySelector('.delete');\n        }\n\n        return element;\n    }\n\n    /**\n     * Setup the event listener for the close button.\n     * @return {undefined}\n     */\n    setupCloseEvent() {\n        this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));\n    }\n\n    /**\n     * Handle the event when our close button is clicked.\n     * @return {undefined}\n     */\n    handleCloseEvent() {\n        this.close();\n    }\n\n    /**\n     * Destroy the message, removing the event listener, interval and element.\n     * @return {undefined}\n     */\n    destroy() {\n        if (this.closable && this.closeButton) {\n            this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));\n        }\n\n        this.root = null;\n        this.closeButton = null;\n    }\n\n    /**\n     * Handle parsing the DOMs data attribute API.\n     * @return {undefined}\n     */\n    static handleDomParsing() {\n        return;\n    }\n}\n\n_core__WEBPACK_IMPORTED_MODULE_0__[\"default\"].registerPlugin('modal', Modal);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Modal);\n\n//# sourceURL=webpack:///./src/plugins/modal.js?");
 
 /***/ })
 
