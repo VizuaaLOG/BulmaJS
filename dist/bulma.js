@@ -897,7 +897,7 @@ var Modal = function () {
      * @type {bool}
      */
     this.closable = options.hasOwnProperty('closable') ? options.closable : true;
-    console.log(this);
+
     /**
      * The element used to close the message.
      * @type {HTMLElement}
@@ -981,7 +981,7 @@ var Modal = function () {
   }, {
     key: 'destroy',
     value: function destroy() {
-      if (this.closeButton) {
+      if (this.closable && this.closeButton) {
         this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
       }
 
