@@ -8,8 +8,8 @@ import Bulma from '../core';
 class Dropdown {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created instance
      */
     constructor(options) {
         if(!options.element || !options.trigger) {
@@ -33,6 +33,7 @@ class Dropdown {
 
     /**
      * Register all the events this module needs.
+     * @return {undefined}
      */
     registerEvents() {
         this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
@@ -40,7 +41,7 @@ class Dropdown {
 
     /**
      * Handle the click event on the trigger.
-     * @param  {Object} event
+     * @return {undefined}
      */
     handleTriggerClick() {
         if(this.root.classList.contains('is-active')) {
@@ -52,6 +53,8 @@ class Dropdown {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @param {HtmlElement} element The root element for this instance
+     * @return {undefined}
      */
     static handleDomParsing(element) {
         let trigger = element.querySelector('[data-trigger]');
