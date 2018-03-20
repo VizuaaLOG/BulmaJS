@@ -7,7 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "bulma": "^0.6.2",
-    "eslint": "^4.8.0",
+    "eslint": "^4.19.0",
     "laravel-mix": "^1.4.2"
   },
   "scripts": {
