@@ -12,12 +12,9 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "docs-js": "npm run dev && rm -rf docs/assets/js/bulmajs && mkdir -p docs/assets/js/bulmajs && cp dist/* docs/assets/js/bulmajs",
-    "lint": "eslint ./src",
-    "test": "npm run lint",
+    "lint": "eslint 'src/**'",
     "serve-docs": "cd ./docs && bundle exec jekyll serve"
   }
 }
