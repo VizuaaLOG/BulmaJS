@@ -6,15 +6,21 @@
   "author": "Thomas Erbe <vizuaalog@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "bulma": "^0.6.2",
     "eslint": "^4.19.0",
-    "laravel-mix": "^1.4.2"
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10",
+    "webpack-glob-entry": "^2.1.1"
   },
   "scripts": {
-    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "docs-js": "npm run dev && rm -rf docs/assets/js/bulmajs && mkdir -p docs/assets/js/bulmajs && cp dist/* docs/assets/js/bulmajs",
     "lint": "eslint 'src/**'",
-    "serve-docs": "cd ./docs && bundle exec jekyll serve"
+    "serve-docs": "cd ./docs && bundle exec jekyll serve",
+    "dev": "webpack --config webpack.config.js --mode development",
+    "production": "webpack --config webpack.config.js --mode production --output ./dist/plugin.min.js",
+    "watch": "webpack --config webpack.config.js --mode development --watch"
   }
 }

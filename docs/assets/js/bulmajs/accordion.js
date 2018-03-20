@@ -44,6 +44,11 @@
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -59,278 +64,34 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/plugins/accordion.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 0:
+/***/ "./src/core.js":
+/*!*********************!*\
+  !*** ./src/core.js ***!
+  \*********************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var Bulma = {
-    /**
-     * Current BulmaJS version.
-     * @type {String}
-     */
-    VERSION: '0.3.1',
-
-    /**
-     * Helper method to create a new plugin.
-     * @param  {String} key
-     * @param  {Object} options
-     * @return {Object}
-     */
-    create: function create(key, options) {
-        if (!key || !Bulma.hasOwnProperty(key)) {
-            throw new Error('[BulmaJS] A plugin with the key \'' + key + '\' has not been registered.');
-        }
-
-        return Bulma[key].create(options);
-    },
-
-
-    /**
-     * Register a new plugin
-     * @param  {String} key
-     * @param  {Object} plugin
-     */
-    registerPlugin: function registerPlugin(key, plugin) {
-        if (!key) {
-            throw new Error('[BulmaJS] Key attribute is required.');
-        }
-
-        this[key] = plugin;
-    },
-
-
-    /**
-     * Parse the HTML DOM searching for data-bulma attributes. We will then pass
-     * each element to the appropriate plugin to handle the required processing.
-     */
-    traverseDOM: function traverseDOM() {
-        var elements = document.querySelectorAll('[data-bulma]');
-
-        elements.forEach(function (element) {
-            var plugin = element.getAttribute('data-bulma');
-
-            if (!Bulma.hasOwnProperty(plugin)) {
-                throw new Error('[BulmaJS] Plugin with the key \'' + plugin + '\' has not been registered.');
-            }
-
-            if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {
-                Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
-            }
-        });
-    },
-
-
-    /**
-     * Create an element and assign classes
-     * @param {string} name The name of the element to create
-     * @param {array} classes An array of classes to add to the element
-     */
-    createElement: function createElement(name, classes) {
-        if (!classes) classes = [];
-        if (typeof classes === 'string') classes = [classes];
-
-        var elem = document.createElement(name);
-
-        classes.forEach(function (className) {
-            elem.classList.add(className);
-        });
-
-        return elem;
-    }
-};
-
-document.addEventListener('DOMContentLoaded', function () {
-    Bulma.traverseDOM();
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (Bulma);
+eval("__webpack_require__.r(__webpack_exports__);\nconst Bulma = {\n    /**\n     * Current BulmaJS version.\n     * @type {String}\n     */\n    VERSION: '0.4.0',\n\n    /**\n     * Helper method to create a new plugin.\n     * @param  {String} key The plugin's key\n     * @param  {Object} options The options to be passed to the plugin\n     * @return {Object} The newly created plugin instance\n     */\n    create(key, options) {\n        if (!key || !Bulma.hasOwnProperty(key)) {\n            throw new Error('[BulmaJS] A plugin with the key \\'' + key + '\\' has not been registered.');\n        }\n\n        return Bulma[key].create(options);\n    },\n\n    /**\n     * Register a new plugin\n     * @param  {String} key The key to register the plugin under\n     * @param  {Object} plugin The plugin's main constructor\n     * @return {undefined}\n     */\n    registerPlugin(key, plugin) {\n        if (!key) {\n            throw new Error('[BulmaJS] Key attribute is required.');\n        }\n\n        this[key] = plugin;\n    },\n\n    /**\n     * Parse the HTML DOM searching for data-bulma attributes. We will then pass\n     * each element to the appropriate plugin to handle the required processing.\n     * \n     * @return {undefined}\n     */\n    traverseDOM() {\n        let elements = document.querySelectorAll('[data-bulma]');\n\n        elements.forEach(function (element) {\n            let plugin = element.getAttribute('data-bulma');\n\n            if (!Bulma.hasOwnProperty(plugin)) {\n                throw new Error('[BulmaJS] Plugin with the key \\'' + plugin + '\\' has not been registered.');\n            }\n\n            if (Bulma[plugin].hasOwnProperty('handleDomParsing')) {\n                Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);\n            }\n        });\n    },\n\n    /**\n     * Create an element and assign classes\n     * @param {string} name The name of the element to create\n     * @param {array} classes An array of classes to add to the element\n     * @return {HTMLElement} The newly created element\n     */\n    createElement(name, classes) {\n        if (!classes) {\n            classes = [];\n        }\n\n        if (typeof classes === 'string') {\n            classes = [classes];\n        }\n\n        let elem = document.createElement(name);\n\n        classes.forEach(className => {\n            elem.classList.add(className);\n        });\n\n        return elem;\n    }\n};\n\ndocument.addEventListener('DOMContentLoaded', () => {\n    Bulma.traverseDOM();\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Bulma);\n\n//# sourceURL=webpack:///./src/core.js?");
 
 /***/ }),
 
-/***/ 18:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(8);
-
-
-/***/ }),
-
-/***/ 8:
+/***/ "./src/plugins/accordion.js":
+/*!**********************************!*\
+  !*** ./src/plugins/accordion.js ***!
+  \**********************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(0);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-/**
- * @module Accordion
- * @since  0.3.0
- * @author  Thomas Erbe <vizuaalog@gmail.com>
- */
-
-var Accordion = function () {
-    /**
-     * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
-     */
-    function Accordion(options) {
-        _classCallCheck(this, Accordion);
-
-        if (!options) options = {};
-
-        /**
-         * Message body text.
-         * @type {string}
-         */
-        this.root = options.hasOwnProperty('element') ? options.element : '';
-
-        /**
-         * Accordion items
-         * @type {Array}
-         */
-        this.accordions = this.findAccordions();
-
-        /**
-         * Toggle buttons for each accordion item
-         * @type {Array}
-         */
-        this.toggleButtons = this.findToggleButtons();
-
-        this.addToggleButtonEvents();
-    }
-
-    /**
-     * Find the accordion items within this accordions element
-     * @returns {Array}
-     */
-
-
-    _createClass(Accordion, [{
-        key: 'findAccordions',
-        value: function findAccordions() {
-            return this.root.querySelectorAll('.accordion');
-        }
-
-        /**
-         * Find the toggle buttons within this accordions element
-         * @returns {Array}
-         */
-
-    }, {
-        key: 'findToggleButtons',
-        value: function findToggleButtons() {
-            var buttons = [];
-
-            this.accordions.forEach(function (accordion) {
-                buttons.push(accordion.querySelector('button.toggle'));
-            });
-
-            return buttons;
-        }
-
-        /**
-         * Add click events to toggle buttons
-         */
-
-    }, {
-        key: 'addToggleButtonEvents',
-        value: function addToggleButtonEvents() {
-            var _this = this;
-
-            this.toggleButtons.forEach(function (toggleButton, index) {
-                // If the button is null, the accordion item has no toggle button
-                if (toggleButton !== null) {
-                    toggleButton.addEventListener('click', function (event) {
-                        _this.handleToggleClick(event, index);
-                    });
-                }
-            });
-        }
-
-        /**
-         * Handle the click
-         * @param {Object} event 
-         * @param {number} index 
-         */
-
-    }, {
-        key: 'handleToggleClick',
-        value: function handleToggleClick(event, index) {
-            this.toggleAccordionVisibility(this.accordions[index]);
-        }
-
-        /**
-         * Show or hide the accordion
-         * @param {HTMLElement} accordion The accordion element
-         */
-
-    }, {
-        key: 'toggleAccordionVisibility',
-        value: function toggleAccordionVisibility(accordion) {
-            this.accordions.forEach(function (a) {
-                a.classList.remove('is-active');
-            });
-
-            if (accordion.classList.contains('is-active')) {
-                accordion.classList.remove('is-active');
-            } else {
-                accordion.classList.add('is-active');
-            }
-        }
-
-        /**
-         * Helper method used by the Bulma core to create a new instance.
-         * @param  {Object} options
-         * @return {Accordion}
-         */
-
-    }, {
-        key: 'destroy',
-
-
-        /**
-         * Destroy the message, removing the event listener, interval and element.
-         */
-        value: function destroy() {
-            this.root = null;
-        }
-
-        /**
-         * Handle parsing the DOMs data attribute API.
-         */
-
-    }], [{
-        key: 'create',
-        value: function create(options) {
-            return new Accordion(options);
-        }
-    }, {
-        key: 'handleDomParsing',
-        value: function handleDomParsing(element) {
-            new Accordion({
-                element: element
-            });
-        }
-    }]);
-
-    return Accordion;
-}();
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].registerPlugin('accordion', Accordion);
-
-/* harmony default export */ __webpack_exports__["default"] = (Accordion);
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ \"./src/core.js\");\n\n\n/**\n * @module Accordion\n * @since  0.3.0\n * @author  Thomas Erbe <vizuaalog@gmail.com>\n */\nclass Accordion {\n    /**\n     * Plugin constructor\n     * @param  {Object} options The plugin's options\n     * @return {this} The new plugin instance\n     */\n    constructor(options) {\n        if (!options) {\n            options = {};\n        }\n\n        /**\n         * Message body text.\n         * @type {string}\n         */\n        this.root = options.hasOwnProperty('element') ? options.element : '';\n\n        /**\n         * Accordion items\n         * @type {Array}\n         */\n        this.accordions = this.findAccordions();\n\n        /**\n         * Toggle buttons for each accordion item\n         * @type {Array}\n         */\n        this.toggleButtons = this.findToggleButtons();\n\n        this.addToggleButtonEvents();\n    }\n\n    /**\n     * Find the accordion items within this accordions element\n     * @returns {Array} The accordion elements found\n     */\n    findAccordions() {\n        return this.root.querySelectorAll('.accordion');\n    }\n\n    /**\n     * Find the toggle buttons within this accordions element\n     * @returns {Array} The toggle buttons found\n     */\n    findToggleButtons() {\n        let buttons = [];\n\n        this.accordions.forEach(accordion => {\n            buttons.push(accordion.querySelector('button.toggle'));\n        });\n\n        return buttons;\n    }\n\n    /**\n     * Add click events to toggle buttons\n     * @return {undefined}\n     */\n    addToggleButtonEvents() {\n        this.toggleButtons.forEach((toggleButton, index) => {\n            // If the button is null, the accordion item has no toggle button\n            if (toggleButton !== null) {\n                toggleButton.addEventListener('click', event => {\n                    this.handleToggleClick(event, index);\n                });\n            }\n        });\n    }\n\n    /**\n     * Handle the click\n     * @param {Object} event The event object\n     * @param {number} index Index of the accordion to toggle\n     * @return {undefined}\n     */\n    handleToggleClick(event, index) {\n        this.toggleAccordionVisibility(this.accordions[index]);\n    }\n\n    /**\n     * Show or hide the accordion\n     * @param {HTMLElement} accordion The accordion element\n     * @return {undefined}\n     */\n    toggleAccordionVisibility(accordion) {\n        this.accordions.forEach(function (a) {\n            a.classList.remove('is-active');\n        });\n\n        if (accordion.classList.contains('is-active')) {\n            accordion.classList.remove('is-active');\n        } else {\n            accordion.classList.add('is-active');\n        }\n    }\n\n    /**\n     * Helper method used by the Bulma core to create a new instance.\n     * @param  {Object} options The plugin's options\n     * @return {Accordion} The newly created instance\n     */\n    static create(options) {\n        return new Accordion(options);\n    }\n\n    /**\n     * Destroy the message, removing the event listener, interval and element.\n     * @return {undefined}\n     */\n    destroy() {\n        this.root = null;\n    }\n\n    /**\n     * Handle parsing the DOMs data attribute API.\n     * @param {HTMLElement} element The root element for this accordion\n     * @return {undefined}\n     */\n    static handleDomParsing(element) {\n        new Accordion({\n            element\n        });\n    }\n}\n\n_core__WEBPACK_IMPORTED_MODULE_0__[\"default\"].registerPlugin('accordion', Accordion);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Accordion);\n\n//# sourceURL=webpack:///./src/plugins/accordion.js?");
 
 /***/ })
 
