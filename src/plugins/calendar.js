@@ -8,8 +8,8 @@ import Bulma from '../core';
 class Calendar {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options Plugin instance's options
+     * @return {this} The newly created instance
      */
     constructor(options) {
         if(!options.element) {
@@ -118,6 +118,7 @@ class Calendar {
 
     /**
      * If we are to show as an overlay, build the modal's HTML
+     * @return {undefined}
      */
     buildModal() {
         this.modal = Bulma.createElement('div', ['modal']);
@@ -125,7 +126,7 @@ class Calendar {
 
         let modalClose = Bulma.createElement('button', ['modal-close']);
 
-        modalClose.addEventListener('click', (event) => {
+        modalClose.addEventListener('click', () => {
             this.modal.classList.remove('is-active');
         });
 
@@ -139,6 +140,7 @@ class Calendar {
 
     /**
      * Build the calendars nav HTML
+     * @return {undefined}
      */
     buildNav() {
         let prevIcon, nextIcon;
@@ -203,6 +205,7 @@ class Calendar {
 
     /**
      * Build the calendar's container HTML
+     * @return {HTMLElement} The calendar's container
      */
     buildContainer() {
         return Bulma.createElement('div', 'calendar-container');
@@ -210,6 +213,7 @@ class Calendar {
 
     /**
      * Build the calendar's header HTML
+     * @return {HTMLElement} The calendar's header element
      */
     buildHeader() {
         let calendarHeader = Bulma.createElement('div', 'calendar-header');
@@ -225,6 +229,7 @@ class Calendar {
 
     /**
      * Build the calendar's body. This includes all days.
+     * @return {HTMLElement} The calendar's body element
      */
     buildBody() {
         let calendarBody = Bulma.createElement('div', 'calendar-body');
@@ -304,9 +309,9 @@ class Calendar {
 
     /**
      * Called when the input box is in focus.
-     * @param {Object} event 
+     * @return {undefined}
      */
-    handleInputFocus(event) {
+    handleInputFocus() {
         if(this.overlay) {
             this.modal.classList.add('is-active');
         }
@@ -316,8 +321,9 @@ class Calendar {
 
     /**
      * Event hander for when a day is clicked.
-     * @param {Object} event 
-     * @param {Object} day 
+     * @param {Object} event The event object
+     * @param {Object} day The day that was clicked
+     * @return {undefined}
      */
     handleDayClick(event, day) {
         day = new Date(this.year, this.month, day.day);
@@ -335,9 +341,9 @@ class Calendar {
 
     /**
      * Event handler for the previous month button.
-     * @param {Object} event 
+     * @return {undefined}
      */
-    handlePrevMonthClick(event) {
+    handlePrevMonthClick() {
         this.month--;
 
         if(this.month < 0) {
@@ -350,9 +356,9 @@ class Calendar {
 
     /**
      * Event handler for the next month button.
-     * @param {Object} event 
+     * @return {undefined}
      */
-    handleNextMonthClick(event) {
+    handleNextMonthClick() {
         this.month++;
 
         if(this.month > 11) {
@@ -365,9 +371,9 @@ class Calendar {
 
     /**
      * Event handler for the previous year button.
-     * @param {Object} event 
+     * @return {undefined}
      */
-    handlePrevYearClick(event) {
+    handlePrevYearClick() {
         this.year--;
 
         this.render();
@@ -375,9 +381,9 @@ class Calendar {
 
     /**
      * Event handler for the next year button.
-     * @param {Object} event 
+     * @return {undefined}
      */
-    handleNextYearClick(event) {
+    handleNextYearClick() {
         this.year++;
 
         this.render();
@@ -385,8 +391,8 @@ class Calendar {
 
     /**
      * Format the date based on the supplied format string.
-     * @param {Object} day
-     * @returns {string} 
+     * @param {Object} day Date object representing the day to format
+     * @returns {string} The formatted date string
      */
     formatDateString(day) {
         let dateString = this.format;
@@ -423,6 +429,7 @@ class Calendar {
 
     /**
      * Clear the calendar HTML, ready for a re-render.
+     * @return {undefined}
      */
     clearCalendar() {
         while (this.wrapper.firstChild) {
@@ -430,6 +437,11 @@ class Calendar {
         }
     }
 
+    /**
+     * Check if the passed year is a leap year.
+     * @param {int} year The year to check against
+     * @return {boolean} Is the year a leap year or not
+     */
     isLeapYear(year) {
         // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
         return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
@@ -437,6 +449,7 @@ class Calendar {
 
     /**
      * Render/build the calendar's HTML.
+     * @return {undefined}
      */
     render() {
         this.clearCalendar();
@@ -459,8 +472,8 @@ class Calendar {
 
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Calendar}
+     * @param  {Object} options The new calendar's options
+     * @return {Calendar} The newly created calendar instance
      */
     static create(options) {
         return new Calendar(options);
@@ -468,8 +481,9 @@ class Calendar {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @return {undefined}
      */
-    static handleDomParsing(element) {
+    static handleDomParsing() {
         return;
     }
 }

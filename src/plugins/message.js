@@ -10,11 +10,13 @@ import DismissableComponent from '../dismissableComponent';
 class Message extends DismissableComponent {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created instance
      */
     constructor(options) {
-        if(!options) options = {};
+        if(!options) {
+            options = {};
+        }
 
         super('message', options);
 
@@ -52,8 +54,8 @@ class Message extends DismissableComponent {
 
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Message}
+     * @param  {Object} options THe options object for this instance
+     * @return {Message} The newly created message instance
      */
     static create(options) {
         return new Message(options);
@@ -61,6 +63,7 @@ class Message extends DismissableComponent {
 
     /**
      * Create the message header
+     * @return {undefined}
      */
     createMessageHeader() {
         let header = document.createElement('div');
@@ -75,6 +78,7 @@ class Message extends DismissableComponent {
 
     /**
      * Set the size of the message.
+     * @return {undefined}
      */
     setSize() {
         this.root.classList.add('is-' + this.size);
@@ -82,6 +86,7 @@ class Message extends DismissableComponent {
 
     /**
      * Insert the body text into the component.
+     * @return {undefined}
      */
     insertBody() {
         let body = document.createElement('div');
@@ -93,6 +98,8 @@ class Message extends DismissableComponent {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @param {HTMLElement} element The root element for this plugin
+     * @return {undefined}
      */
     static handleDomParsing(element) {
         let closeBtn = element.querySelector('.delete');
@@ -116,6 +123,7 @@ class Message extends DismissableComponent {
 
     /**
      * Insert the close button before our content.
+     * @return {undefined}
      */
     prependCloseButton() {
         this.title.appendChild(this.closeButton);

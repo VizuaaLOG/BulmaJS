@@ -8,11 +8,13 @@ import Bulma from '../core';
 class Modal {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created plugin instance
      */
     constructor(options) {
-        if(!options) options = {};
+        if(!options) {
+            options = {};
+        }
 
         /**
          * Message body text.
@@ -39,8 +41,8 @@ class Modal {
 
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Modal}
+     * @param  {Object} options THe options object for the new instance
+     * @return {Modal} The newly created instance
      */
     static create(options) {
         return new Modal(options);
@@ -48,6 +50,7 @@ class Modal {
 
     /**
      * Show the message.
+     * @return {undefined}
      */
     open() {
         this.root.classList.add('is-active');
@@ -55,6 +58,7 @@ class Modal {
 
     /**
      * Hide the message.
+     * @return {undefined}
      */
     close() {
         this.root.classList.remove('is-active');
@@ -62,7 +66,7 @@ class Modal {
 
     /**
      * Find the close button.
-     * @return {HTMLElement}
+     * @return {HTMLElement} The newly created element
      */
     findCloseButton() {
         let element = this.root.querySelector('.modal-close');
@@ -76,6 +80,7 @@ class Modal {
 
     /**
      * Setup the event listener for the close button.
+     * @return {undefined}
      */
     setupCloseEvent() {
         this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
@@ -83,6 +88,7 @@ class Modal {
 
     /**
      * Handle the event when our close button is clicked.
+     * @return {undefined}
      */
     handleCloseEvent() {
         this.close();
@@ -90,6 +96,7 @@ class Modal {
 
     /**
      * Destroy the message, removing the event listener, interval and element.
+     * @return {undefined}
      */
     destroy() {
         if(this.closable && this.closeButton) {
@@ -102,6 +109,7 @@ class Modal {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @return {undefined}
      */
     static handleDomParsing() {
         return;

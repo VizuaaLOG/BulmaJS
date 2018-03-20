@@ -6,9 +6,9 @@
 export default class DismissableComponent {
     /**
      * Plugin constructor
-     * @param  {string} name
-     * @param  {Object} options
-     * @return {this}
+     * @param  {string} name Plugin's name
+     * @param  {Object} options Plugin's options
+     * @return {this} The new plugin instance
      */
     constructor(name, options) {
         /**
@@ -80,6 +80,7 @@ export default class DismissableComponent {
 
     /**
      * Create the main element.
+     * @return {undefined}
      */
     createRootElement() {
         this.root = document.createElement('div');
@@ -90,6 +91,7 @@ export default class DismissableComponent {
 
     /**
      * Show the component.
+     * @return {undefined}
      */
     show() {
         this.root.classList.remove('is-hidden');
@@ -97,6 +99,7 @@ export default class DismissableComponent {
 
     /**
      * Hide the component.
+     * @return {undefined}
      */
     hide() {
         this.root.classList.add('is-hidden');
@@ -104,6 +107,7 @@ export default class DismissableComponent {
 
     /**
      * Insert the body text into the component.
+     * @return {undefined}
      */
     insertBody() {
         this.root.innerHTML = this.body;
@@ -111,7 +115,7 @@ export default class DismissableComponent {
 
     /**
      * Create the element that will be used to close the component.
-     * @return {HTMLElement}
+     * @return {HTMLElement} The newly created close button
      */
     createCloseButton() {
         var closeButton = document.createElement('button');
@@ -123,7 +127,8 @@ export default class DismissableComponent {
 
     /**
      * Create an interval to dismiss the component after the set number of ms.
-     * @param  {int}
+     * @param  {int} interval The time to wait before dismissing the component
+     * @return {undefined}
      */
     createDismissInterval(interval) {
         return setInterval(() => {
@@ -133,6 +138,7 @@ export default class DismissableComponent {
 
     /**
      * Insert the close button before our content.
+     * @return {undefined}
      */
     prependCloseButton() {
         this.root.insertBefore(this.closeButton, this.root.firstChild);
@@ -140,6 +146,7 @@ export default class DismissableComponent {
 
     /**
      * Setup the event listener for the close button.
+     * @return {undefined}
      */
     setupCloseEvent() {
         this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
@@ -147,6 +154,7 @@ export default class DismissableComponent {
 
     /**
      * Handle the event when our close button is clicked.
+     * @return {undefined}
      */
     handleCloseEvent() {
         if(this.destroyOnDismiss) {
@@ -158,6 +166,7 @@ export default class DismissableComponent {
 
     /**
      * Set the colour of the component.
+     * @return {undefined}
      */
     setColor() {
         this.root.classList.add('is-' + this.color);
@@ -165,6 +174,7 @@ export default class DismissableComponent {
 
     /**
      * Destroy the component, removing the event listener, interval and element.
+     * @return {undefined}
      */
     destroy() {
         if(this.closeButton) {

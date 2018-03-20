@@ -8,8 +8,8 @@ import Bulma from '../core';
 class File {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created plugin instance
      */
     constructor(options) {
         if(!options.element) {
@@ -39,6 +39,7 @@ class File {
 
     /**
      * Register all the events this module needs.
+     * @return {undefined}
      */
     registerEvents() {
         this.trigger.addEventListener('change', this.handleTriggerChange.bind(this));
@@ -46,7 +47,8 @@ class File {
 
     /**
      * Handle the click event on the trigger.
-     * @param  {Object} event
+     * @param  {Object} event The event object
+     * @return {undefined}
      */
     handleTriggerChange(event) {
         if(event.target.files.length === 0) {
@@ -64,6 +66,7 @@ class File {
 
     /**
      * Clear the file name element.
+     * @return {undefined}
      */
     clearFileName() {
         this.target.innerHTML = '';
@@ -71,7 +74,8 @@ class File {
 
     /**
      * Set the text for the file name element.
-     * @param {string} value
+     * @param {string} value The name of the file to update the label with
+     * @return {undefined}
      */
     setFileName(value) {
         this.target.innerHTML = value;
@@ -79,6 +83,8 @@ class File {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @param {HTMLElement} element The root element for this plugin
+     * @return {undefined}
      */
     static handleDomParsing(element) {
         new File({

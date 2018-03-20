@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+
 import Bulma from './core';
 import Notification from './plugins/notification';
 import Navbar from './plugins/navbar';

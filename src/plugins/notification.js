@@ -10,11 +10,13 @@ import DismissableComponent from '../dismissableComponent';
 class Notification extends DismissableComponent {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created instance
      */
     constructor(options) {
-        if(!options) options = {};
+        if(!options) {
+            options = {};
+        }
 
         super('notification', options);
 
@@ -32,8 +34,8 @@ class Notification extends DismissableComponent {
 
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Notification}
+     * @param  {Object} options The options object for this instance
+     * @return {Notification} The newly created instance
      */
     static create(options) {
         return new Notification(options);
@@ -41,6 +43,8 @@ class Notification extends DismissableComponent {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @param {HTMLElement} element The root element for this instance
+     * @return {undefined}
      */
     static handleDomParsing(element) {
         let closeBtn = element.querySelector('.delete');

@@ -8,11 +8,13 @@ import Bulma from '../core';
 class Accordion {
     /**
      * Plugin constructor
-     * @param  {Object} options
-     * @return {this}
+     * @param  {Object} options The plugin's options
+     * @return {this} The new plugin instance
      */
     constructor(options) {
-        if(!options) options = {};
+        if(!options) {
+            options = {};
+        }
 
         /**
          * Message body text.
@@ -37,7 +39,7 @@ class Accordion {
 
     /**
      * Find the accordion items within this accordions element
-     * @returns {Array}
+     * @returns {Array} The accordion elements found
      */
     findAccordions() {
         return this.root.querySelectorAll('.accordion');
@@ -45,7 +47,7 @@ class Accordion {
 
     /**
      * Find the toggle buttons within this accordions element
-     * @returns {Array}
+     * @returns {Array} The toggle buttons found
      */
     findToggleButtons() {
         let buttons = [];
@@ -59,6 +61,7 @@ class Accordion {
 
     /**
      * Add click events to toggle buttons
+     * @return {undefined}
      */
     addToggleButtonEvents() {
         this.toggleButtons.forEach((toggleButton, index) => {
@@ -73,8 +76,9 @@ class Accordion {
 
     /**
      * Handle the click
-     * @param {Object} event 
-     * @param {number} index 
+     * @param {Object} event The event object
+     * @param {number} index Index of the accordion to toggle
+     * @return {undefined}
      */
     handleToggleClick(event, index) {
         this.toggleAccordionVisibility(this.accordions[index]);
@@ -83,6 +87,7 @@ class Accordion {
     /**
      * Show or hide the accordion
      * @param {HTMLElement} accordion The accordion element
+     * @return {undefined}
      */
     toggleAccordionVisibility(accordion) {
         this.accordions.forEach(function(a) {
@@ -98,8 +103,8 @@ class Accordion {
 
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options
-     * @return {Accordion}
+     * @param  {Object} options The plugin's options
+     * @return {Accordion} The newly created instance
      */
     static create(options) {
         return new Accordion(options);
@@ -107,6 +112,7 @@ class Accordion {
 
     /**
      * Destroy the message, removing the event listener, interval and element.
+     * @return {undefined}
      */
     destroy() {
         this.root = null;
@@ -114,6 +120,8 @@ class Accordion {
 
     /**
      * Handle parsing the DOMs data attribute API.
+     * @param {HTMLElement} element The root element for this accordion
+     * @return {undefined}
      */
     static handleDomParsing(element) {
         new Accordion({
