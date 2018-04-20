@@ -1,0 +1,108 @@
+---
+layout: default
+title: Tabs | BulmaJS Documentation
+---
+
+<style>
+    .tabs-content li {
+        display: none;
+        list-style: none;
+    }
+
+    .tabs-content li.is-active {
+        display: block;
+    }
+</style>
+
+<div class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Tabs</h1>
+
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">since</span>
+                        <span class="tag is-info">0.4.0</span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">DOM API</span>
+                        <span class="tag is-success">Yes</span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">JS API</span>
+                        <span class="tag is-danger">No</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include notice.html %}
+
+<section class="section">
+    <div class="container">
+        <h2 class="title">Basic tabs</h2>
+        <h3 class="subtitle">BulmaJS currently provides a basic implementation for tabs. Currently only providing the base tab switching functionality, although this will be extended when the full Javascript API is implemented.</h3>
+
+        <div class="content">
+            <p>Bulma only provides the nav styling, and so the content area must be added, and styled by yoy, BulmaJS provides no styling for the hiding/showing of content boxes.</p>
+        </div>
+
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                {% include code/tabs/markup.html %}
+            </div>
+
+            <div class="column is-12">
+                {% highlight html %}
+                    {%- include code/tabs/snippet.html -%}
+                {% endhighlight %}
+            </div>
+        </div>
+
+        <div class="message is-info">
+            <div class="message-header">
+                Example CSS
+            </div>
+
+            <div class="message-body">
+                You can use the below example CSS to ensure only the active tab content box is visible.
+                {% highlight css %}
+                    {%- include code/tabs/examplecss.css -%}
+                {% endhighlight %}
+            </div>
+        </div>
+
+        <hr>
+
+        <h2 class="title">DOM options</h2>
+        <table class="table is-striped is-fullwidth">
+            <thead>
+                <tr>
+                   <th>Option name</th>
+                   <th>Required</th>
+                   <th>Default</th>
+                   <th>Type</th>
+                   <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>data-bulma</td>
+                    <td>Yes</td>
+                    <td>Nothing</td>
+                    <td>String</td>
+                    <td>This is the component type, to enable the file functionality this should be <code>tabs</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
