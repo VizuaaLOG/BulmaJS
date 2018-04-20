@@ -45,18 +45,18 @@ class Tabs {
 
     setupNavEvents() {
         this.navItems.forEach((navItem, index) => {
-            navItem.addEventListener('click', (event) => {
+            navItem.addEventListener('click', () => {
                 this.handleNavClick(navItem, index);
             });
         });
     }
 
     handleNavClick(navItem, index) {
-        this.navItems.forEach((navItem, index) => {
+        this.navItems.forEach((navItem) => {
             navItem.classList.remove('is-active');
         });
 
-        this.contentItems.forEach((contentItem, index) => {
+        this.contentItems.forEach((contentItem) => {
             contentItem.classList.remove('is-active');
         });
 
