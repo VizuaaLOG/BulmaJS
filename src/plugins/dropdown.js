@@ -57,12 +57,16 @@ class Dropdown {
      * @return {undefined}
      */
     static handleDomParsing(element) {
-        let trigger = element.querySelector('[data-trigger]');
+        let trigger = element.querySelector('.dropdown-trigger');
 
         new Dropdown({
             element: element,
             trigger: trigger
         });
+    }
+
+    static getRootClass() {
+        return 'dropdown';
     }
 }
 
