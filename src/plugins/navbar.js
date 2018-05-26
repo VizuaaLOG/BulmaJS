@@ -6,6 +6,11 @@ import Bulma from '../core';
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
 class Navbar {
+
+    static getRootClass() {
+        return 'navbar';
+    }
+
     /**
      * Plugin constructor
      * @param  {Object} options The options object for this plugin
@@ -63,13 +68,10 @@ class Navbar {
      * @return {undefined}
      */
     static handleDomParsing(element) {
-        let trigger = element.querySelector('[data-trigger]'),
-            target = trigger.getAttribute('data-target');
-
         new Navbar({
             element: element,
-            trigger: trigger,
-            target: element.querySelector('#' + target)
+            trigger: element.querySelector('.navbar-burger'),
+            target: element.querySelector('.navbar-menu')
         });
     }
 }
