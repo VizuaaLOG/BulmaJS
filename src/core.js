@@ -18,11 +18,11 @@ const Bulma = {
      * @return {Object} The newly created plugin instance
      */
     create(key, options) {
-        if(!key || !Bulma.hasOwnProperty(key)) {
+        if(!key || !Bulma.plugins.hasOwnProperty(key)) {
             throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
         }
 
-        return Bulma[key].create(options);
+        return Bulma.plugins[key].create(options);
     },
 
     /**
