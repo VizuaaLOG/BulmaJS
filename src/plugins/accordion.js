@@ -120,13 +120,17 @@ class Accordion {
 
     /**
      * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} element The root element for this accordion
+     * @param {HTM  LElement} element The root element for this accordion
      * @return {undefined}
      */
     static handleDomParsing(element) {
         new Accordion({
             element
         });
+    }
+
+    static getRootClass() {
+        return 'accordions';
     }
 }
 
