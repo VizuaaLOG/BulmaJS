@@ -6,6 +6,12 @@ const Bulma = {
     VERSION: '0.5.0',
 
     /**
+     * An index of the registered plugins
+     * @type {Object}
+     */
+    plugins: {},
+
+    /**
      * Helper method to create a new plugin.
      * @param  {String} key The plugin's key
      * @param  {Object} options The options to be passed to the plugin
@@ -29,8 +35,8 @@ const Bulma = {
         if(!key) {
             throw new Error('[BulmaJS] Key attribute is required.');
         }
-
-        this[key] = plugin;
+        
+        this.plugins[key] = plugin;
     },
 
     /**
@@ -40,19 +46,39 @@ const Bulma = {
      * @return {undefined}
      */
     traverseDOM() {
-        let elements = document.querySelectorAll('[data-bulma]');
+        let elements = document.querySelectorAll(this.getPluginClasses());
+        
+        elements.forEach((element) => {
+            let plugin = this.findCompatiblePlugin(element);
 
-        elements.forEach(function(element) {
-            let plugin = element.getAttribute('data-bulma');
-
-            if(!Bulma.hasOwnProperty(plugin)) {
-                throw new Error('[BulmaJS] Plugin with the key \''+plugin+'\' has not been registered.');
-            }
-
-            if(Bulma[plugin].hasOwnProperty('handleDomParsing')) {
-                Bulma[element.getAttribute('data-bulma')].handleDomParsing(element);
+            if(plugin.hasOwnProperty('handleDomParsing')) {
+                plugin.handleDomParsing(element);
             }
         });
+    },
+
+    getPluginClasses() {
+        var classes = [];
+
+        for(var key in this.plugins) {
+            // FIXME: This is temporary, this check should not be required!
+            if(this.plugins[key].hasOwnProperty('getRootClass')) {
+                classes.push('.' + this.plugins[key].getRootClass());
+            }
+        }
+
+        return classes.join(',');
+    },
+
+    findCompatiblePlugin(element) {
+        for(var key in this.plugins) {
+            // FIXME: This is temporary, this check should not be required!
+            if(this.plugins[key].hasOwnProperty('getRootClass')) {
+                if(element.classList.contains(this.plugins[key].getRootClass())) {
+                    return this.plugins[key];
+                }
+            }
+        }
     },
 
     /**
