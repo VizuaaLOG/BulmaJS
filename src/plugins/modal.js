@@ -114,6 +114,10 @@ class Modal {
     static handleDomParsing() {
         return;
     }
+
+    static getRootClass() {
+        return 'modal';
+    }
 }
 
 Bulma.registerPlugin('modal', Modal);
