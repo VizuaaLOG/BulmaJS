@@ -65,6 +65,10 @@ class Notification extends DismissableComponent {
 
         new Notification(options);
     }
+
+    static getRootClass() {
+        return 'notification';
+    }
 }
 
 Bulma.registerPlugin('notification', Notification);

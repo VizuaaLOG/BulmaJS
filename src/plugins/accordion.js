@@ -128,6 +128,10 @@ class Accordion {
             element
         });
     }
+
+    static getRootClass() {
+        return 'accordions';
+    }
 }
 
 Bulma.registerPlugin('accordion', Accordion);
