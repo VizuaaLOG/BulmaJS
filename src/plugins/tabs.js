@@ -16,33 +16,74 @@ class Tabs {
             options = {};
         }
 
+        /**
+         * The root tab element
+         * @param {HTMLElement}
+         */
         this.root = options.hasOwnProperty('root') ? options.root : null;
 
+        /**
+         * The tab nav container
+         * @param {HTMLElement}
+         */
         this.nav = this.findNav();
+
+        /**
+         * The tab's nav items
+         * @param {HTMLElement[]}
+         */
         this.navItems = this.findNavItems();
 
+        /**
+         * The tab content container
+         * @param {HTMLElement}
+         */
         this.content = this.findContent();
+
+        /**
+         * The tab's content items
+         * @param {HTMLElement[]}
+         */
         this.contentItems = this.findContentItems();
 
         this.setupNavEvents();
     }
 
+    /**
+     * Find the tab navigation container.
+     * @returns {HTMLElement} The navigation container
+     */
     findNav() {
         return this.root.querySelector('.tabs');
     }
 
+    /**
+     * Find each individual tab item
+     * @returns {HTMLElement[]} An array of the found items
+     */
     findNavItems() {
         return this.nav.querySelectorAll('li');
     }
 
+    /**
+     * Find the tab content container.
+     * @returns {HTMLElement} The content container
+     */
     findContent() {
         return this.root.querySelector('.tabs-content');
     }
 
+    /**
+     * Find each individual content item
+     * @returns {HTMLElement[]} An array of the found items
+     */
     findContentItems() {
         return this.content.querySelectorAll('li');
     }
 
+    /**
+     * Setup the events to handle tab changing
+     */
     setupNavEvents() {
         this.navItems.forEach((navItem, index) => {
             navItem.addEventListener('click', () => {
@@ -51,6 +92,11 @@ class Tabs {
         });
     }
 
+    /**
+     * Handle the changing of the visible tab
+     * @param {HTMLelement} navItem 
+     * @param {number} index 
+     */
     handleNavClick(navItem, index) {
         this.navItems.forEach((navItem) => {
             navItem.classList.remove('is-active');
@@ -86,6 +132,10 @@ class Tabs {
         new Tabs(options);
     }
 
+    /**
+     * The root class used for initialisation
+     * @returns {string}
+     */
     static getRootClass() {
         return 'tabs-wrapper';
     }
