@@ -28,7 +28,7 @@ class Tabs {
     }
 
     findNav() {
-        return this.root.querySelector('[data-links]');
+        return this.root.querySelector('.tabs');
     }
 
     findNavItems() {
@@ -36,7 +36,7 @@ class Tabs {
     }
 
     findContent() {
-        return this.root.querySelector('[data-content]');
+        return this.root.querySelector('.tabs-content');
     }
 
     findContentItems() {
@@ -84,6 +84,10 @@ class Tabs {
         };
 
         new Tabs(options);
+    }
+
+    static getRootClass() {
+        return 'tabs-wrapper';
     }
 }
 

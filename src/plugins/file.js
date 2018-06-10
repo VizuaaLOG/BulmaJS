@@ -91,6 +91,10 @@ class File {
             element: element
         });
     }
+
+    static getRootClass() {
+        return 'file';
+    }
 }
 
 Bulma.registerPlugin('file', File);
