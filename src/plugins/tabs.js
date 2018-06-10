@@ -89,6 +89,7 @@ class Tabs {
 
     /**
      * Setup the events to handle tab changing
+     * @returns {void}
      */
     setupNavEvents() {
         this.navItems.forEach((navItem, index) => {
@@ -106,8 +107,9 @@ class Tabs {
 
     /**
      * Handle the changing of the visible tab
-     * @param {HTMLelement} navItem 
-     * @param {number} index 
+     * @param {HTMLelement} navItem The nav item we are changing to
+     * @param {number} index The internal index of the nav item we're changing to
+     * @returns {void}
      */
     handleNavClick(navItem, index) {
         this.navItems.forEach((navItem) => {
@@ -125,7 +127,7 @@ class Tabs {
     /**
      * Helper method used by the Bulma core to create a new instance.
      * @param  {Object} options The options object for this instance
-     * @return {Tabs} The newly created instance
+     * @returns {Tabs} The newly created instance
      */
     static create(options) {
         return new Tabs(options);
@@ -134,7 +136,7 @@ class Tabs {
     /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this instance
-     * @return {undefined}
+     * @returns {undefined}
      */
     static handleDomParsing(element) {
         let hover = element.hasAttribute('data-hover') ? true : false;
@@ -144,12 +146,12 @@ class Tabs {
             hover: hover
         };
 
-        console.log(new Tabs(options));
+        new Tabs(options);
     }
 
     /**
      * The root class used for initialisation
-     * @returns {string}
+     * @returns {string} The class this plugin is responsible for
      */
     static getRootClass() {
         return 'tabs-wrapper';
