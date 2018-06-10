@@ -128,6 +128,10 @@ class Message extends DismissableComponent {
     prependCloseButton() {
         this.title.appendChild(this.closeButton);
     }
+
+    static getRootClass() {
+        return 'message';
+    }
 }
 
 Bulma.registerPlugin('message', Message);
