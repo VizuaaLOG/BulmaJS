@@ -23,6 +23,12 @@ class Tabs {
         this.root = options.hasOwnProperty('root') ? options.root : null;
 
         /**
+         * Whether the tabs should be changed when the nav item is hovered over
+         * @param {boolean}
+         */
+        this.hover = options.hasOwnProperty('hover') ? options.hover : false;
+
+        /**
          * The tab nav container
          * @param {HTMLElement}
          */
@@ -89,6 +95,12 @@ class Tabs {
             navItem.addEventListener('click', () => {
                 this.handleNavClick(navItem, index);
             });
+
+            if(this.hover) {
+                navItem.addEventListener('mouseover', () => {
+                    this.handleNavClick(navItem, index);
+                });
+            }
         });
     }
 
@@ -125,11 +137,14 @@ class Tabs {
      * @return {undefined}
      */
     static handleDomParsing(element) {
+        let hover = element.hasAttribute('data-hover') ? true : false;
+
         let options = {
-            root: element
+            root: element,
+            hover: hover
         };
 
-        new Tabs(options);
+        console.log(new Tabs(options));
     }
 
     /**
