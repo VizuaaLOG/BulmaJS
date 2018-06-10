@@ -54,6 +54,7 @@ title: Tabs | BulmaJS Documentation
 
         <div class="content">
             <p>Bulma only provides the nav styling, and so the content area must be added, and styled by you, BulmaJS provides no styling for the hiding/showing of content boxes.</p>
+            <p>If you would like the tabs to change when you hover over the tab label, you can add <code>data-hover</code> to the <code>tab-wrapper</code> element. On mobile, it will gracefully fall back to click/tap handling.</code></p>
         </div>
 
         <div class="columns is-multiline">
@@ -96,7 +97,11 @@ title: Tabs | BulmaJS Documentation
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="5">This plugin does not provide any additional DOM options.</td>
+                    <td>data-hover</td>
+                    <td>No</td>
+                    <td><code>false</code></td>
+                    <td>boolean</td>
+                    <td>Enable the tab hovering functionality.</td>
                 </tr>
             </tbody>
         </table>
