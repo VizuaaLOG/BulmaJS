@@ -120,7 +120,7 @@ class Accordion {
 
     /**
      * Handle parsing the DOMs data attribute API.
-     * @param {HTM  LElement} element The root element for this accordion
+     * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
      */
     static handleDomParsing(element) {
