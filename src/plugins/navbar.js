@@ -57,8 +57,10 @@ class Navbar {
     handleTriggerClick() {
         if(this.target.classList.contains('is-active')) {
             this.target.classList.remove('is-active');
+            this.trigger.classList.remove('is-active');
         } else {
             this.target.classList.add('is-active');
+            this.trigger.classList.add('is-active');
         }
     }
 
