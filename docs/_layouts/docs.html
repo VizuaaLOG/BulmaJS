@@ -7,6 +7,12 @@ layout: default
         <div class="columns">
             <div class="column is-3">
                 <aside id="docs-menu" class="menu">
+                    <div class="select">
+                        <select @change="changeVersion" v-model="selectedVersion">
+                            <option v-for="docVersion in versions" v-text="docVersion" :value="docVersion"></option>
+                        </select>
+                    </div>
+
                     <template v-for="(items, section) in versionItems">
                         <p class="menu-label" v-text="section"></p>
                         <ul class="menu-list">
