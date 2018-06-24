@@ -30,11 +30,21 @@ menuItems = _.transform(menuItems, function(result, value, key) {
 var vue = new Vue({
     el: '#docs-menu',
     data: {
-        items: menuItems
+        items: menuItems,
+        selectedVersion: window.location.pathname.replace('/docs/', '').replace('/', '')
+    },
+    methods: {
+        changeVersion: function() {
+            window.location.href = '/docs/' + this.selectedVersion;
+        }
     },
     computed: {
         version: function() {
-            return window.defaultVersion;
+            return window.location.pathname.replace('/docs/', '').replace('/', '');
+        },
+
+        versions: function() {
+            return _.keys(this.items);
         },
 
         versionItems: function() {
