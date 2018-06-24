@@ -1,12 +1,16 @@
 ---
 layout: default
-title: File | BulmaJS Documentation
+title: Dropdown
+type: documentation
+version: '0.5'
+section: 'Core components'
+section_order: 2
 ---
 
 <div class="hero is-primary">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title">File</h1>
+            <h1 class="title">Dropdown</h1>
 
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control">
@@ -34,25 +38,19 @@ title: File | BulmaJS Documentation
     </div>
 </div>
 
-{% include notice.html %}
-
 <section class="section">
     <div class="container">
-        <h2 class="title">File name updating</h2>
-        <h3 class="subtitle">The Bulma file form element contains a place for the file name to be placed. This plugin adds the functionality to update the <code>file-name</code> element.</h3>
-
-        <div class="content">
-            <p>If no file is selected, i.e. the open dialog is cancelled, the file name element will be cleared. If a single file is selected then the name of the file will be inserted. If multiple files are selected then the the text will be updated with <code>x files</code>.</p>
-        </div>
+        <h2 class="title">Dropdown toggle</h2>
+        <h3 class="subtitle">Adds the toggle functionality to a dropdown component. If you are using <code>is-hover</code> this is not required.</h3>
 
         <div class="columns is-multiline">
             <div class="column is-3">
-                {% include code/file/markup.html %}
+                {% include code/dropdown/markup.html %}
             </div>
 
             <div class="column is-9">
                 {% highlight html %}
-                    {%- include code/file/snippet.html -%}
+                    {%- include code/dropdown/snippet.html -%}
                 {% endhighlight %}
             </div>
         </div>
@@ -72,7 +70,7 @@ title: File | BulmaJS Documentation
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="5">This plugin does not provide any additional DOM options.</td>
+                    <td colspan="5">This plugin does not have any DOM options.</td>
                 </tr>
             </tbody>
         </table>

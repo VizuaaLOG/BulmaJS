@@ -10,4 +10,23 @@
   <link rel="stylesheet" href="{{ site.url }}/assets/css/docs.css">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
+
+  {% assign docPages = '' | split: ',' %}
+                
+  {% for page in site.pages %}
+      {% if page.type == 'documentation' %}
+          {% assign currPage = '' | split: ',' %}
+          {% assign currPage = currPage | push: page.title %}
+          {% assign currPage = currPage | push: page.url %}
+          {% assign currPage = currPage | push: page.section %}
+          {% assign currPage = currPage | push: page.version %}
+          {% assign currPage = currPage | push: page.section_order %}
+          {% assign docPages = docPages | push: currPage %}
+      {% endif %}
+  {% endfor %}
+
+  <script>
+    var docsMenu = {{ docPages | jsonify }};
+    var defaultVersion = {{ site.docs_version }}
+  </script>
 </head>

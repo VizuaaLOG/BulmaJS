@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3">
+                <aside id="docs-menu" class="menu">
+                    <template v-for="(items, section) in versionItems">
+                        <p class="menu-label" v-text="section"></p>
+                        <ul class="menu-list">
+                            <li v-for="item in items">
+                                <a v-if="item.url === currPath" :href="item.url" v-text="item.title" class="is-active"></a>
+                                <a v-else :href="item.url" v-text="item.title"></a>
+                            </li>
+                        </ul>
+                    </template>
+                </aside>
+            </div>
+    
+            <div class="column is-exanded">
+                {{ content }}
+            </div>
+        </div>
+    </div>
+</section>
