@@ -5,74 +5,60 @@ layout: default
 <div class="hero is-primary is-medium">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title">Documentation</h1>
-            <h2 class="subtitle">BulmaJS is an unofficial Javascript extension for the Bulma CSS framework.</h2>
+            <div class="columns">
+                <div class="column is-6">
+                    <h1 class="title is-1">BulmaJS</h1>
+                    <h2 class="subtitle is-4">Open source, plugable javascript library for Bulma.</h2>
+        
+                    <p>BulmaJS is an open source, modern library for the Bulma CSS framework. Implementing Javascript functionality for the Bulma components that need them. BulmaJS provides a simple, pluggable API so you can create your own plugins.</p>
+
+                    <div class="buttons mt-4">
+                        <a href="{{ site.url }}/docs/1.0.0/" class="button is-primary is-block is-inverted is-large">Get started</a>
+                        <a href="{{ site.url }}/docs/1.0.0/download" class="button is-white is-block is-outlined is-large">Download</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-{% include notice.html %}
-
-<section class="section">
+<section class="section featured-points">
     <div class="container">
-        <h3 class="title">Install via NPM</h3>
-        <h4 class="subtitle">This is the recommended method.</h4>
-        <figure class="highlight">
-            <pre>
-                <code>npm install @vizuaalog/bulmajs</code>
-            </pre>
-        </figure>
-
-        <h3 class="title">Install manually</h3>
-        <h4 class="subtitle">Alternativly, you can download manually via Git.</h4>
-        <figure class="highlight">
-            <pre>
-                <code>git clone https://github.com/VizuaaLOG/BulmaJS.git</code>
-            </pre>
-        </figure>
-
-        <h3 class="title">Using ES6 versions</h3>
-        <h4 class="subtitle">This requires a build process to be in-place to transpile the ES6 code to ES5.</h4>
-
-        <div class="content">
-            <p>The easiest way to get started with BulmaJS is to load everything.</p>
+        <div class="columns">
+            <div class="column">
+                <div class="feature-icon">
+                    <span class="fab fa-js fa-4x" style="color: #00d1b2;"></span>
+                </div>
+                <p class="title is-4">Modern</p>
+                <p class="feature-description">Built with ES6 and pre-compiled for backwards compatability, BulmaJS is ready for the next generation of the web.</p>
+            </div>
+    
+            <div class="column">
+                <div class="feature-icon">
+                    <span class="fas fa-plug fa-4x" style="color: yellow;"></span>
+                </div>
+                <p class="title is-4">Pluggable</p>
+                <p class="feature-description">BulmaJS contains a very small core, providing base functionality. Everything else is a plugin! Don't need a modal, don't include it!</p>
+            </div>
+    
+            <div class="column">
+                <div class="feature-icon">
+                    <span class="fas fa-puzzle-piece fa-4x"></span>
+                </div>
+                <p class="title is-4">Dependency free</p>
+                <p class="feature-description">In the mobile world, every byte counts. BulmaJS comes with no dependencies and uses only vanilla Javascript.</p>
+            </div>
+    
+            <div class="column">
+                <div class="feature-icon">
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-dollar-sign fa-stack-1x"></i>
+                        <i class="fas fa-ban fa-stack-2x"></i>
+                    </span>
+                </div>
+                <p class="title is-4">Open source</p>
+                <p class="feature-description">BulmaJS is 100% open source, free to use on any project. No strings attached. It really is that simple!</p>
+            </div>
         </div>
-
-        {% highlight javascript %}
-            {%- include code/import-src.js -%}
-        {% endhighlight %}
-
-        <div class="content">
-            <p>For production I would recommend only including the plugins you need. So, if you need to use Notification and Navbar.</p>
-        </div>
-
-        {% highlight javascript %}
-            {%- include code/import-singular.js -%}
-        {% endhighlight %}
-
-        <h3 class="title">Using ES5 versions</h3>
-        <h4 class="subtitle">Useful if you do not have a build process in place.</h4>
-
-        <div class="content">
-            <p>If you would prefer to include the JS files directly in your HTML, without any transpiling you can still do this through the <code>dist</code> folder. This method provides limited flexability and so is not the recommended way for production.</p>
-
-            <p>If you would like to include a single plugin you can include that plugin using the below syntax. This should be placed in the closing body of your page, so that the DOM has loaded ready for the plugin to search for any DOM apis.</p>
-        </div>
-
-        <div class="notification is-warning">
-            This method is not recommended if you are using more than one plugin, as each independent file has the core packaged with it. It is recommended to instead use the ES6 method to build your own collection.
-        </div>
-
-        {% highlight html %}
-            {%- include code/import-es5-singular.html -%}
-        {% endhighlight %}
-
-        <div class="content">
-            <p>Finally, to include all of the BulmaJS plugins, you include the <code>bulma.js</code> file inside the <code>dist</code> folder.</p>
-        </div>
-
-        {% highlight html %}
-            {%- include code/import-es5-all.html -%}
-        {% endhighlight %}
     </div>
 </section>
