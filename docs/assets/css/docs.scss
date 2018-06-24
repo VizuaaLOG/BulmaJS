@@ -1,0 +1,38 @@
+---
+---
+
+@import "../../../node_modules/bulma/bulma";
+
+@import "syntax";
+
+.mt-4 { margin-top: 1rem; }
+
+.featured-points {
+    .title {
+        font-weight: normal;
+    }
+
+    .feature-description {
+        margin-top: -1rem;
+    }
+
+    .feature-icon {
+        margin-bottom: 1rem;
+    }
+}
+
+.title.is-normal,
+.title .is-normal {
+    font-weight: normal;
+}
+
+#npm-install {
+    background-color: #333;
+    padding: 1.5rem;
+    border-radius: 3px;
+
+    code {
+        background-color: transparent;
+        color: white;
+    }
+}
