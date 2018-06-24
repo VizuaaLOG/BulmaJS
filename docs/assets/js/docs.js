@@ -13,10 +13,11 @@ var menuItems = [];
 for(var i = 0; i < window.docsMenu.length; i++) {
     menuItems.push({
         title: window.docsMenu[i][0],
-        url: window.docsMenu[i][1],
+        url: window.docsMenu[i][1].replace('.html', '').toLowerCase(),
         section: window.docsMenu[i][2],
         version: window.docsMenu[i][3],
-        sort: window.docsMenu[i][4]
+        sort: window.docsMenu[i][4],
+        page_sort: window.docsMenu[i][5]
     });
 }
 
@@ -31,7 +32,7 @@ var vue = new Vue({
     el: '#docs-menu',
     data: {
         items: menuItems,
-        selectedVersion: window.location.pathname.replace('/docs/', '').replace('/', '')
+        selectedVersion: window.location.pathname.replace('/docs/', '').slice(0, 3)
     },
     methods: {
         changeVersion: function() {
@@ -40,7 +41,7 @@ var vue = new Vue({
     },
     computed: {
         version: function() {
-            return window.location.pathname.replace('/docs/', '').replace('/', '');
+            return window.location.pathname.replace('/docs/', '').slice(0, 3);
         },
 
         versions: function() {
