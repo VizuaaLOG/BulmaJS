@@ -21,6 +21,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://vizuaalog.github.io/BulmaJS" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: vizuaalog
 github_username:  vizuaalog
+current_version: 0.5.0
 
 # Build settings
 markdown: kramdown
