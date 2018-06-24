@@ -21,6 +21,7 @@
           {% assign currPage = currPage | push: page.section %}
           {% assign currPage = currPage | push: page.version %}
           {% assign currPage = currPage | push: page.section_order %}
+          {% assign currPage = currPage | push: page.page_order %}
           {% assign docPages = docPages | push: currPage %}
       {% endif %}
   {% endfor %}
