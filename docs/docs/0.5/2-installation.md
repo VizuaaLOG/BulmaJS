@@ -48,3 +48,12 @@ You can then include one of the files in the `dist` folder.
 <div class="notification is-info">
     Using then method and including multiple single plugins will include the core multiple times. This may cause conflicts and will increase the download size. To include multiple singular plugins it is best to use the ES6 installation method.
 </div>
+
+<div>
+    <div class="columns">
+        <div class="column is-6"></div>
+        <div class="column is-6">
+            <a class="button is-block is-large is-primary is-outlined" href="3-usage">Usage <span class="fas fa-arrow-right"></span></a>
+        </div>
+    </div>
+</div>
