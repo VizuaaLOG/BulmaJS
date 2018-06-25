@@ -1,3 +1,5 @@
+// Sticky navbar
+// This adds a slight shadow to the bottom of the navbar
 var menu = document.querySelector('#navigation-menu');
 
 document.addEventListener('scroll', function(event) {
@@ -8,6 +10,8 @@ document.addEventListener('scroll', function(event) {
     }
 });
 
+// Docs side nav
+// This generates the side menu and all of the functionality needed
 var menuItems = [];
 
 for(var i = 0; i < window.docsMenu.length; i++) {
@@ -57,3 +61,12 @@ var vue = new Vue({
         }
     }
 });
+
+// Add _blank to all external links
+var links = document.links;
+
+for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+   if (links[i].hostname != window.location.hostname) {
+       links[i].target = '_blank';
+   } 
+}
