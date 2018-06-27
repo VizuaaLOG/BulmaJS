@@ -27,6 +27,39 @@ layout: default
     
             <div class="column is-exanded">
                 <div class="content">
+                    <h1>{{ page.title }}</h1>
+
+                    <div class="field is-grouped is-grouped-multiline">
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">since</span>
+                                <span class="tag is-info">{{ page.since_version }}</span>
+                            </div>
+                        </div>
+
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">Data API</span>
+                                {% if page.data_api %}
+                                    <span class="tag is-success">Yes</span>
+                                {% else %}
+                                    <span class="tag is-danger">No</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">Javascript API</span>
+                                {% if page.javascript_api %}
+                                    <span class="tag is-success">Yes</span>
+                                {% else %}
+                                    <span class="tag is-danger">No</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
                     {{ content }}
                 </div>
             </div>
