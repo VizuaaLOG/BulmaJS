@@ -8,4 +8,5 @@ section_order: 1
 page_order: 3
 ---
 
-Hello world
+# Creating a plugin
+Documentation coming soon
