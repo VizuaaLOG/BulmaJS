@@ -36,7 +36,7 @@ var vue = new Vue({
     el: '#docs-menu',
     data: {
         items: menuItems,
-        selectedVersion: window.location.pathname.replace('/docs/', '').slice(0, 3)
+        selectedVersion: window.location.pathname.match(/([0-9.]{3})/gm)[0]
     },
     methods: {
         changeVersion: function() {
@@ -45,7 +45,7 @@ var vue = new Vue({
     },
     computed: {
         version: function() {
-            return window.location.pathname.replace('/docs/', '').slice(0, 3);
+            return window.location.pathname.match(/([0-9.]{3})/gm)[0];
         },
 
         versions: function() {
