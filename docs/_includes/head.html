@@ -17,7 +17,8 @@
       {% if page.type == 'documentation' %}
           {% assign currPage = '' | split: ',' %}
           {% assign currPage = currPage | push: page.title %}
-          {% assign currPage = currPage | push: page.url %}
+          {% assign pageUrl = site.url | append: page.url %}
+          {% assign currPage = currPage | push: pageUrl %}
           {% assign currPage = currPage | push: page.section %}
           {% assign currPage = currPage | push: page.version %}
           {% assign currPage = currPage | push: page.section_order %}
