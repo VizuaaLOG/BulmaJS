@@ -11,9 +11,9 @@ data_api: no
 javascript_api: yes
 ---
 
-Bulma provides a very vertatile modal component. The problem? Modals need Javascript! BulmaJS makes this quick and easy to setup.
+Bulma provides a very versatile modal component. The problem? Modals need Javascript! BulmaJS makes this quick and easy to set up.
 
-To start you'll need to create your modal and the element that will show/hide the modal. In this example we'll use a button.
+To start you'll need to create your modal and the element that will show/hide the modal. In this example, we'll use a button.
 
 <div class="code-example">
     <button id="example-modal-button" class="button is-primary">Toggle modal</button>
@@ -62,7 +62,7 @@ To start you'll need to create your modal and the element that will show/hide th
     });
 </script>
 
-You then need to setup the event listeners for your button. For example, below we link up our button to open the modal and the two buttons within the modal to close it.
+You then need to set up the event listeners for your button. For example, below we link up our button to open the modal and the two buttons within the modal to close it.
 
 {% highlight javascript %}
     let modal = Bulma.create('modal', {element: document.querySelector('#example-modal')});

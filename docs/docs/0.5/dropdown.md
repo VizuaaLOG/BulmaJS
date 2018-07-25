@@ -11,9 +11,9 @@ data_api: true
 javascript_api: no
 ---
 
-Bulma provides a button dropdown component. By default this component needs Javascript to show/hide the dropdown when the button is clicked/tapped. You can add the `is-hover` class to show/hide the dropdown when the user places there mouse over the button.
+Bulma provides a button dropdown component. By default, this component needs Javascript to show/hide the dropdown when the button is clicked/tapped. You can add the `is-hover` class to show/hide the dropdown when the user places there mouse over the button.
 
-However, the default behaviour for the dropdown component requires a sprinkle of Javascript. The BulmaJS dropdown plugin will allow you to easily allow a dropdown to be shown/hidden via a mouse click.
+However, the default behaviour for the drop-down component requires a sprinkle of Javascript. The BulmaJS dropdown plugin will allow you to easily allow a dropdown to be shown/hidden via a mouse click.
 
 All you need to do is simply include BulmaJS and the BulmaJS dropdown plugin in your project. We'll handle the rest!
 

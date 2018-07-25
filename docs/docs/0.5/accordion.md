@@ -17,7 +17,7 @@ javascript_api: true
     This is a BulmaJS ES6 plugin to integrate the JS functionality needed to use <a href="https://wikiki.github.io/components/accordion/" target="_blank">Wikiki's Accordion Bulma extension</a>. BulmaJS does not come with the CSS styling, this will need to be downloaded separately.
 </div>
 
-To add the Javascript functionality to the accordion HTML, you simply need to create a BulmaJS accordion instance padding the accordian as the `element` option.
+To add the Javascript functionality to the accordion HTML, you simply need to create a BulmaJS accordion instance padding the accordion as the `element` option.
 
 {% highlight javascript %}
     Bulma.create('accordion', {

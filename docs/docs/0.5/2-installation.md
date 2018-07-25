@@ -30,7 +30,7 @@ import Navbar from '@vizuaalog/bulmajs/src/plugins/Navbar';
 That's it! BulmaJS is now ready and working in your project. If you have any problems getting BulmaJS working in your project, please open an issue on [Github]({{ site.github_issues_url }}).
 
 ## Install using ES5
-THis method is not recommended due to the lack of flexability, however, for quick prototyping it will be the quickest.
+This method is not recommended due to the lack of flexibility, however, for quick prototyping, it will be the quickest.
 
 First, you need to download the repository as a zip. The easiest way to do that is to [click this link](https://github.com/VizuaaLOG/BulmaJS/archive/master.zip). This will download the latest 'master' version of BulmaJS, do note, this may have bugs. If you would prefer to use a released version then visit the [releases](https://github.com/VizuaaLOG/BulmaJS/releases) section on Github.
 
@@ -45,7 +45,7 @@ You can then include one of the files in the `dist` folder.
 {% endhighlight %}
 
 <div class="notification is-info">
-    Using then method and including multiple single plugins will include the core multiple times. This may cause conflicts and will increase the download size. To include multiple singular plugins it is best to use the ES6 installation method.
+    Using this method and including multiple single plugins will include the core multiple times. This may cause conflicts and will increase the download size. To include multiple singular plugins it is best to use the ES6 installation method.
 </div>
 
 <div>
