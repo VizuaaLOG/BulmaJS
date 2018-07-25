@@ -22,7 +22,7 @@ javascript_api: false
     }
 </style>
 
-Tabs are a common visual component used through the web. In fact this documentation uses tabs! Bulma only provides the required styles for the navigation part of the tabs. Because of this, we do need to modify the HTML so that we can correctly add the tabs etc. into our project.
+Tabs are a common visual component used through the web. In fact, this documentation uses tabs! Bulma only provides the required styles for the navigation part of the tabs. Because of this, we do need to modify the HTML so that we can correctly add the tabs etc. into our project.
 
 Using the example from the Bulma docs, we'll need to change the HTML to look like the below.
 

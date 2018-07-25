@@ -13,7 +13,7 @@ javascript_api: no
 
 Bulma provides custom styling for the file input. This is great for unifying the design of your form between browsers. One great addon to the Bulma file component is the `file-name` element. This provides a place for you to insert the name of the file you're uploading.
 
-The file plugin can be used to easily add the file name detection to your file component. All you need to do is include BulmaJS and the File component into your page. Everything will then taken care of. You can even include a placeholder value in the file name element, this will then be overridden once a file is deleted.
+The file plugin can be used to easily add the file name detection to your file component. All you need to do is include BulmaJS and the File component into your page. Everything will then taken care of. You can even include a placeholder value in the filename element, this will then be overridden once a file is deleted.
 
 <div class="code-example">
     <div class="file has-name is-boxed">
