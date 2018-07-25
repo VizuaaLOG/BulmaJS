@@ -19,7 +19,9 @@ javascript_api: true
 
 The simplest form of the calendar plugin is to show an interactive calendar. This is very easy to do. First, you'll need to create an element that will contain your calendar. Then you create the calendar using the `Bulma.create` method.
 
-<div id="calendar-demo1"></div>
+<div class="code-example">
+    <div id="calendar-demo1"></div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -44,7 +46,9 @@ You can also use the calendar for input. By attaching it to an input field you c
 
 To begin with, attaching the calendar to an input field couldn't be easier. Simply follow the same steps above, except instead of specifying the container as the element you instead specify an input field.
 
-<input type="text" id="calendar-demo3" class="input">
+<div class="code-example">
+    <input type="text" id="calendar-demo3" class="input">
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
