@@ -17,7 +17,7 @@ layout: default
                         <p class="menu-label" v-text="section"></p>
                         <ul class="menu-list">
                             <li v-for="item in items">
-                                <a v-if="item.url === currPath" :href="item.url" v-text="item.title" class="is-active"></a>
+                                <a v-if="currPath.indexOf(item.url) !== -1" :href="item.url" v-text="item.title" class="is-active"></a>
                                 <a v-else :href="item.url" v-text="item.title"></a>
                             </li>
                         </ul>
