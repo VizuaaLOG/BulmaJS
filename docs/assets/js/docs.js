@@ -17,7 +17,7 @@ var menuItems = [];
 for(var i = 0; i < window.docsMenu.length; i++) {
     menuItems.push({
         title: window.docsMenu[i][0],
-        url: window.docsMenu[i][1].replace('.html', '').toLowerCase(),
+        url: window.docsMenu[i][1].replace('.html', ''),
         section: window.docsMenu[i][2],
         version: window.docsMenu[i][3],
         sort: window.docsMenu[i][4],
