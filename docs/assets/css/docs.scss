@@ -48,3 +48,32 @@
         box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
     }
 }
+
+.code-example {
+    border: 1px solid #00d1b2;
+    padding: 0.5rem;
+    border-radius: 0 5px 5px 5px;
+    position: relative;
+    margin: 2rem 0 1rem 0;
+
+    &::before {
+        content: "EXAMPLE";
+        font-size: 0.7rem;
+        background-color: #00d1b2;
+        padding: 2px;
+        color: #FFFFFF;
+        position: absolute;
+        top: -20px;
+        left: -1px;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: 0;
+    }
+}
+
+.content figure {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+}

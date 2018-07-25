@@ -50,12 +50,14 @@ If you would rather stay away from writing your own Javascript, you don't have t
 
 If you would like to provide the user with the ability to dismiss a message, simply include the delete button!
 
-<div class="message is-success">
-    <div class="message-header">
-        <p>Message title</p>
-        <button class="delete"></button>
-    </div>
-    <div class="message-body">
-        I have to be manually dismissed.
+<div class="code-example">
+    <div class="message is-success">
+        <div class="message-header">
+            <p>Message title</p>
+            <button class="delete"></button>
+        </div>
+        <div class="message-body">
+            I have to be manually dismissed.
+        </div>
     </div>
 </div>

@@ -22,7 +22,7 @@ If you would prefer to create the plugin instances within Javascript, you can do
 
 For example, using `Bulma.create` you can easily link a Javascript modal instance to a Modal element:
 
-```javascript
+{% highlight javascript %}
 import Modal from '@vizuaalog/bulma/src/plugins/Modal';
 
 var modal = Bulma.create('modal', {
@@ -31,7 +31,7 @@ var modal = Bulma.create('modal', {
 
 // You can now call methods on modal
 modal.open();
-```
+{% endhighlight %}
 
 You can find more information on how to use the Modal plugin by visiting the Modal documentation page.
 

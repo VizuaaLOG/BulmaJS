@@ -48,7 +48,9 @@ If you would rather stay away from writing your own Javascript, you don't have t
 
 If you would like to provide the user with the ability to dismiss a notification, simply include the delete button!
 
-<div class="notification is-success">
-    <button class="delete"></button>
-    I have to be manually dismissed.
+<div class="code-example">
+    <div class="notification is-success">
+        <button class="delete"></button>
+        I have to be manually dismissed.
+    </div>
 </div>

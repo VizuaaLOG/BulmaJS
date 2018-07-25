@@ -15,34 +15,38 @@ Bulma provides custom styling for the file input. This is great for unifying the
 
 The file plugin can be used to easily add the file name detection to your file component. All you need to do is include BulmaJS and the File component into your page. Everything will then taken care of. You can even include a placeholder value in the file name element, this will then be overridden once a file is deleted.
 
-<div class="file has-name is-boxed">
-    <label class="file-label">
-        <input class="file-input" type="file" name="resume">
-        <span class="file-cta">
-            <span class="file-icon">
-                <i class="fa fa-upload"></i>
+<div class="code-example">
+    <div class="file has-name is-boxed">
+        <label class="file-label">
+            <input class="file-input" type="file" name="resume">
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                    Choose a file…
+                </span>
             </span>
-            <span class="file-label">
-                Choose a file…
-            </span>
-        </span>
-        <span class="file-name">Please select a file.</span>
-    </label>
+            <span class="file-name">Please select a file.</span>
+        </label>
+    </div>
 </div>
 
 But what about a multiple input field? If you want to use the Bulma file component to upload multiple files, just include the `multiple` attribute like you would with a standard HTML form. The file plugin will detect this and say `x files selected`.
 
-<div class="file has-name is-boxed">
-    <label class="file-label">
-        <input class="file-input" type="file" name="resume" multiple>
-        <span class="file-cta">
-            <span class="file-icon">
-                <i class="fa fa-upload"></i>
+<div class="code-example">
+    <div class="file has-name is-boxed">
+        <label class="file-label">
+            <input class="file-input" type="file" name="resume" multiple>
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                    Choose a file…
+                </span>
             </span>
-            <span class="file-label">
-                Choose a file…
-            </span>
-        </span>
-        <span class="file-name">Please select a file.</span>
-    </label>
+            <span class="file-name">Please select a file.</span>
+        </label>
+    </div>
 </div>

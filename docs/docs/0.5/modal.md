@@ -15,7 +15,9 @@ Bulma provides a very vertatile modal component. The problem? Modals need Javasc
 
 To start you'll need to create your modal and the element that will show/hide the modal. In this example we'll use a button.
 
-<button id="example-modal-button" class="button is-primary">Toggle modal</button>
+<div class="code-example">
+    <button id="example-modal-button" class="button is-primary">Toggle modal</button>
+</div>
 
 <div id="example-modal" class="modal">
   <div class="modal-background"></div>

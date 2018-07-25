@@ -26,39 +26,41 @@ Tabs are a common visual component used through the web. In fact this documentat
 
 Using the example from the Bulma docs, we'll need to change the HTML to look like the below.
 
-<div class="tabs-wrapper">
-    <div class="tabs">
-        <ul>
-            <li class="is-active">
-                <a>Pictures</a>
-            </li>
-            <li>
-                <a>Music</a>
-            </li>
-            <li>
-                <a>Videos</a>
-            </li>
-            <li>
-                <a>Documents</a>
-            </li>
-        </ul>
-    </div>
+<div class="code-example">
+    <div class="tabs-wrapper">
+        <div class="tabs">
+            <ul>
+                <li class="is-active">
+                    <a>Pictures</a>
+                </li>
+                <li>
+                    <a>Music</a>
+                </li>
+                <li>
+                    <a>Videos</a>
+                </li>
+                <li>
+                    <a>Documents</a>
+                </li>
+            </ul>
+        </div>
 
-    <div class="tabs-content">
-        <ul>
-            <li class="is-active">
-                <h1>Pictures</h1>
-            </li>
-            <li>
-                <h1>Music</h1>
-            </li>
-            <li>
-                <h1>Videos</h1>
-            </li>
-            <li>
-                <h1>Documents</h1>
-            </li>
-        </ul>
+        <div class="tabs-content">
+            <ul>
+                <li class="is-active">
+                    <h1>Pictures</h1>
+                </li>
+                <li>
+                    <h1>Music</h1>
+                </li>
+                <li>
+                    <h1>Videos</h1>
+                </li>
+                <li>
+                    <h1>Documents</h1>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -115,38 +117,40 @@ Using the example from the Bulma docs, we'll need to change the HTML to look lik
 
 You can also choose to have the content boxes change by just hoving over the tab nav item. To enable this simply add `data-hover` to your tabs.
 
-<div class="tabs-wrapper" data-hover>
-    <div class="tabs">
-        <ul>
-            <li class="is-active">
-                <a>Pictures</a>
-            </li>
-            <li>
-                <a>Music</a>
-            </li>
-            <li>
-                <a>Videos</a>
-            </li>
-            <li>
-                <a>Documents</a>
-            </li>
-        </ul>
-    </div>
+<div class="code-example">
+    <div class="tabs-wrapper" data-hover>
+        <div class="tabs">
+            <ul>
+                <li class="is-active">
+                    <a>Pictures</a>
+                </li>
+                <li>
+                    <a>Music</a>
+                </li>
+                <li>
+                    <a>Videos</a>
+                </li>
+                <li>
+                    <a>Documents</a>
+                </li>
+            </ul>
+        </div>
 
-    <div class="tabs-content">
-        <ul>
-            <li class="is-active">
-                <h1>Pictures</h1>
-            </li>
-            <li>
-                <h1>Music</h1>
-            </li>
-            <li>
-                <h1>Videos</h1>
-            </li>
-            <li>
-                <h1>Documents</h1>
-            </li>
-        </ul>
+        <div class="tabs-content">
+            <ul>
+                <li class="is-active">
+                    <h1>Pictures</h1>
+                </li>
+                <li>
+                    <h1>Music</h1>
+                </li>
+                <li>
+                    <h1>Videos</h1>
+                </li>
+                <li>
+                    <h1>Documents</h1>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
