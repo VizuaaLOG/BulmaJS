@@ -40,7 +40,7 @@ var vue = new Vue({
     },
     methods: {
         changeVersion: function() {
-            window.location.href = '/docs/' + this.selectedVersion;
+            window.location.href = window.location.href.replace(/([0-9.]{3})/, this.selectedVersion);
         }
     },
     computed: {
