@@ -65,6 +65,10 @@ const Bulma = {
         var classes = [];
 
         for(var key in this.plugins) {
+            if(!this.plugins[key].getRootClass()) {
+                continue;
+            }
+
             classes.push('.' + this.plugins[key].getRootClass());
         }
 
