@@ -1,3 +1,6 @@
+#0.7.0
++ 
+
 # 0.6.0
 The reason for this being a large version jump is due to the complete overhaul of the documentation. While this doesn't change the functionality of the code, I feel like this is a large enough change to the project to warrant more than a 'patch' version bump.
 
