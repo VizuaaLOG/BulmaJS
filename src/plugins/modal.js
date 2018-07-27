@@ -46,6 +46,9 @@ class Modal {
             this.setupCloseEvent();
         }
 
+        this.modalBackground = this.root.querySelector('.modal-background');
+        this.modalBackground.addEventListener('click', this.boundHandleCloseEvent);
+
         /**
          * Create a bound version of our event escape event handler, this will
          * allow us to remove the event listener later on.
@@ -134,6 +137,7 @@ class Modal {
         }
 
         document.removeEventListener('keyup', this.boundHandleEscapeClose);
+        this.modalBackground.removeEventListener('click', this.boundHandleCloseEvent);
 
         this.root = null;
         this.closeButton = null;
