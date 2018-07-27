@@ -37,6 +37,16 @@ class Modal {
         if(this.closeButton && this.closable ) {
             this.setupCloseEvent();
         }
+
+        /**
+         * Create a bound version of our event escape event handler, this will
+         * allow us to remove the event listener later on.
+         * 
+         * @type {Function}
+         */
+        this.boundHandleEscapeClose = this.handleEscapeClose.bind(this);
+
+        document.addEventListener('keyup', this.boundHandleEscapeClose);
     }
 
     /**
@@ -95,6 +105,18 @@ class Modal {
     }
 
     /**
+     * Close the modal if the Escape key is pressed
+     * @return {undefined}
+     */
+    handleEscapeClose(event) {
+        let key = event.key || event.keyCode;
+
+        if(key === 'Escape' || key === 'Esc' || key === 27) {
+            this.close();
+        }
+    }
+
+    /**
      * Destroy the message, removing the event listener, interval and element.
      * @return {undefined}
      */
@@ -102,6 +124,8 @@ class Modal {
         if(this.closable && this.closeButton) {
             this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
         }
+
+        document.removeEventListener('keyup', this.boundHandleEscapeClose);
 
         this.root = null;
         this.closeButton = null;
