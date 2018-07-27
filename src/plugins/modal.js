@@ -75,6 +75,7 @@ class Modal {
      */
     open() {
         this.root.classList.add('is-active');
+        document.body.classList.add('is-clipped');
     }
 
     /**
@@ -83,6 +84,7 @@ class Modal {
      */
     close() {
         this.root.classList.remove('is-active');
+        document.body.classList.remove('is-clipped');
     }
 
     /**
