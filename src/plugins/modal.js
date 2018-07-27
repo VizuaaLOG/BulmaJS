@@ -34,6 +34,14 @@ class Modal {
          */
         this.closeButton = this.findCloseButton();
 
+        /**
+         * Create a bound version of our close event handler, this will
+         * allow us to remove the event listener later on.
+         * 
+         * @type {Function}
+         */
+        this.boundHandleCloseEvent = this.handleCloseEvent.bind(this);
+
         if(this.closeButton && this.closable ) {
             this.setupCloseEvent();
         }
@@ -93,7 +101,7 @@ class Modal {
      * @return {undefined}
      */
     setupCloseEvent() {
-        this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
+        this.closeButton.addEventListener('click', this.boundHandleCloseEvent);
     }
 
     /**
@@ -122,7 +130,7 @@ class Modal {
      */
     destroy() {
         if(this.closable && this.closeButton) {
-            this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
+            this.closeButton.removeEventListener('click', this.boundHandleCloseEvent);
         }
 
         document.removeEventListener('keyup', this.boundHandleEscapeClose);
