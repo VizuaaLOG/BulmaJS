@@ -109,6 +109,30 @@ const Bulma = {
         });
 
         return elem;
+    },
+
+    /**
+     * Helper method to normalise a plugin finding an element.
+     * @param {string} query 
+     * @param {HTMLElement|null} context 
+     * @param {boolean} nullable 
+     * @returns {null|HTMLElement}
+     * @throws {TypeError}
+     */
+    findElement(query, context = document, nullable = false) {
+        if(!query && !nullable) {
+            throw new TypeError('First argument to `findElement` required. Null given.');
+        }
+
+        if(!query) {
+            return null;
+        }
+
+        if(query.toString() === '[object HTMLElement]') {
+            return query;
+        }
+
+        return context.querySelector(query);
     }
 };
 
