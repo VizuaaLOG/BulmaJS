@@ -3,7 +3,7 @@ const Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.6.0',
+    VERSION: '0.7.0',
 
     /**
      * An index of the registered plugins
