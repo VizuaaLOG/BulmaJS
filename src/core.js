@@ -57,6 +57,10 @@ const Bulma = {
         });
     },
 
+    /**
+     * Return a string of classes to search the DOM for
+     * @returns {string}
+     */
     getPluginClasses() {
         var classes = [];
 
@@ -67,6 +71,10 @@ const Bulma = {
         return classes.join(',');
     },
 
+    /**
+     * Search our plugins and find one that matches the element
+     * @returns {Object}
+     */
     findCompatiblePlugin(element) {
         for(var key in this.plugins) {
             if(element.classList.contains(this.plugins[key].getRootClass())) {
