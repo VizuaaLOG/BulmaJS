@@ -486,6 +486,10 @@ class Calendar {
     static handleDomParsing() {
         return;
     }
+
+    static getRootClass() {
+        return '';
+    }
 }
 
 Bulma.registerPlugin('calendar', Calendar);

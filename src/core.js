@@ -61,10 +61,7 @@ const Bulma = {
         var classes = [];
 
         for(var key in this.plugins) {
-            // FIXME: This is temporary, this check should not be required!
-            if(this.plugins[key].hasOwnProperty('getRootClass')) {
-                classes.push('.' + this.plugins[key].getRootClass());
-            }
+            classes.push('.' + this.plugins[key].getRootClass());
         }
 
         return classes.join(',');
@@ -72,11 +69,8 @@ const Bulma = {
 
     findCompatiblePlugin(element) {
         for(var key in this.plugins) {
-            // FIXME: This is temporary, this check should not be required!
-            if(this.plugins[key].hasOwnProperty('getRootClass')) {
-                if(element.classList.contains(this.plugins[key].getRootClass())) {
-                    return this.plugins[key];
-                }
+            if(element.classList.contains(this.plugins[key].getRootClass())) {
+                return this.plugins[key];
             }
         }
     },
