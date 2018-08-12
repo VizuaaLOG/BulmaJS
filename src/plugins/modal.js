@@ -15,6 +15,10 @@ class Modal extends Plugin {
         return;
     }
 
+    /**
+     * Get the root class this plugin is responsible for.
+     * This will tell the core to match this plugin to an element with a .modal class.
+     */
     static getRootClass() {
         return 'modal';
     }
@@ -36,35 +40,79 @@ class Modal extends Plugin {
     constructor(options) {
         super(options);
 
+        /**
+         * @param {string}
+         */
         this.type = this.option('type', 'card');
 
+        /**
+         * @param {HTMLElement}
+         */
         this.parent = this.option('parent', document.body);
+
+        /**
+         * @param {HTMLElement}
+         */
         this.element = this.option('element', Bulma.findOrCreateElement('.modal', this.parent));
         if(!this.element.classList.contains('modal')) {
             this.element.classList.add('modal');
         }
 
+        /**
+         * @param {HTMLElement}
+         */
         this.background = Bulma.findOrCreateElement('.modal-background', this.element);
+
+        /**
+         * @param {HTMLElement}
+         */
         this.content = this.type === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
 
+        /**
+         * @param {boolean}
+         */
         this.closable = this.option('closable', true);
+
+        /**
+         * @param {string|null}
+         */
         this.body = this.option('body');
+
+        /**
+         * @param {string|null}
+         */
         this.title = this.option('title');
 
         if(this.type === 'card') {
+            /**
+             * @param {HTMLElement}
+             */
             this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header');
+
+            /**
+             * @param {HTMLElement}
+             */
             this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
             this.headerTitle.innerHTML = this.title;
 
+            /**
+             * @param {HTMLElement}
+             */
             this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
             this.cardBody.innerHTML = this.body;
 
+            /**
+             * @param {HTMLElement}
+             */
             this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
         } else {
             this.content.innerHTML = this.body;
         }
 
         if(this.closable) {
+            /**
+             * @param {HTMLElement}
+             */
             this.closeButton = this.type === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
         }
 
@@ -75,6 +123,10 @@ class Modal extends Plugin {
         this.setupEvents();
     }
 
+    /**
+     * Setup the events used by this modal.
+     * @returns {void}
+     */
     setupEvents() {
         if(this.closable) {
             this.closeButton.addEventListener('click', this.close.bind(this))
@@ -93,6 +145,10 @@ class Modal extends Plugin {
         }
     }
 
+    /**
+     * Go through the provided buttons option and create the buttons.
+     * @returns {void}
+     */
     createButtons() {
         var buttonsConfig = this.option('buttons', []);
         var modal = this;
@@ -109,14 +165,25 @@ class Modal extends Plugin {
         });
     }
 
+    /**
+     * Open the modal
+     * @returns {void}
+     */
     open() {
         this.element.classList.add('is-active');
     }
 
+    /**
+     * Close the modal
+     * @returns {void}
+     */
     close() {
         this.element.classList.remove('is-active');
     }
 
+    /**
+     * Destroy this modal, unregistering element references and removing the modal.
+     */
     destroy() {
         this.parent.remove();
 
