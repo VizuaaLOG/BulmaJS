@@ -1,10 +1,12 @@
+import { isNull } from "util";
+
 export default class Plugin {
     constructor(options) {
         this.options = options || {};
     }
 
     option(key, defaultValue = null) {
-        if(!this.options.hasOwnProperty(key) || !this.options[key]) {
+        if(!this.options.hasOwnProperty(key) || this.options[key] === null) {
             if(typeof defaultValue === "function") {
                 return defaultValue();
             }

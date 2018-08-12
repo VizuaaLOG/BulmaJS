@@ -140,15 +140,21 @@ const Bulma = {
      * @param {*} query 
      * @param {*} classes 
      */
-    findOrCreateElement(query, elemName = 'div', classes = []) {
+    findOrCreateElement(query, parent = null, elemName = 'div', classes = []) {
         var elem = this.findElement(query);
 
         if(!elem) {
-            if(!classes) {
-                classes = query.split('.');
+            if(classes.length === 0) {
+                classes = query.split('.').filter((item) => { return item; });
             }
 
-            return this.createElement(elemName, classes);
+            var newElem = this.createElement(elemName, classes);
+
+            if(parent) {
+                parent.appendChild(newElem);
+            }
+
+            return newElem;
         }
 
         return elem;
