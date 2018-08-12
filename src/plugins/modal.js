@@ -179,6 +179,7 @@ class Modal extends Plugin {
      */
     open() {
         this.element.classList.add('is-active');
+        document.body.classList.add('is-clipped');
     }
 
     /**
@@ -187,6 +188,7 @@ class Modal extends Plugin {
      */
     close() {
         this.element.classList.remove('is-active');
+        document.body.classList.remove('is-clipped');
     }
 
     /**
