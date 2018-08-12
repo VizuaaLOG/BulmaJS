@@ -100,14 +100,18 @@ class Modal extends Plugin {
              * @param {HTMLElement}
              */
             this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
-            this.cardBody.innerHTML = this.body;
+            if(!this.cardBody.innerHTML) {
+                this.cardBody.innerHTML = this.body;
+            }
 
             /**
              * @param {HTMLElement}
              */
             this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
         } else {
-            this.content.innerHTML = this.body;
+            if(!this.content.innerHTML) {
+                this.content.innerHTML = this.body;
+            }
         }
 
         if(this.closable) {
