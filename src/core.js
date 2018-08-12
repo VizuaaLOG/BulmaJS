@@ -141,7 +141,7 @@ const Bulma = {
      * @param {*} classes 
      */
     findOrCreateElement(query, parent = null, elemName = 'div', classes = []) {
-        var elem = this.findElement(query);
+        var elem = this.findElement(query, parent);
 
         if(!elem) {
             if(classes.length === 0) {
