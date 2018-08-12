@@ -122,6 +122,18 @@ class Modal extends Plugin {
             this.closeButton = this.type === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
         }
 
+        /**
+         * Hander for when the modal is opened
+         * @param {null|function}
+         */
+        this.onOpen = this.option('onOpen');
+
+        /**
+         * Hander for when the modal is closed
+         * @param {null|function}
+         */
+        this.onClose = this.option('onClose')
+
         if(this.type === 'card') {
             this.createButtons();
         }
@@ -180,6 +192,10 @@ class Modal extends Plugin {
     open() {
         this.element.classList.add('is-active');
         document.body.classList.add('is-clipped');
+
+        if(this.onOpen) {
+            this.onOpen(this);
+        }
     }
 
     /**
@@ -189,6 +205,10 @@ class Modal extends Plugin {
     close() {
         this.element.classList.remove('is-active');
         document.body.classList.remove('is-clipped');
+
+        if(this.onClose) {
+            this.onClose(this);
+        }
     }
 
     /**
