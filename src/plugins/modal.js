@@ -18,6 +18,7 @@ class Modal extends Plugin {
     /**
      * Get the root class this plugin is responsible for.
      * This will tell the core to match this plugin to an element with a .modal class.
+     * @returns {string} The class this plugin is responsible for.
      */
     static getRootClass() {
         return 'modal';
@@ -134,7 +135,8 @@ class Modal extends Plugin {
      */
     setupEvents() {
         if(this.closable) {
-            this.closeButton.addEventListener('click', this.close.bind(this))
+            this.closeButton.addEventListener('click', this.close.bind(this));
+
             document.addEventListener('keyup', (event) => {
                 if(!this.element.classList.contains('is-active')) {
                     return;
@@ -146,6 +148,7 @@ class Modal extends Plugin {
                     this.close();
                 }
             });
+
             this.background.addEventListener('click', this.close.bind(this));
         }
     }
@@ -180,7 +183,7 @@ class Modal extends Plugin {
 
     /**
      * Close the modal
-     * @returns {void}
+     * @returns {void} 
      */
     close() {
         this.element.classList.remove('is-active');
@@ -188,6 +191,7 @@ class Modal extends Plugin {
 
     /**
      * Destroy this modal, unregistering element references and removing the modal.
+     * @returns {void}
      */
     destroy() {
         this.element.remove();

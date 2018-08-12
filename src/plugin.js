@@ -17,11 +17,11 @@ export default class Plugin {
      * Find an option by key.
      * @param {string} key The option key to find.
      * @param {any} defaultValue Default value if an option with key is not found.
-     * @returns {any}
+     * @returns {any} The value of the option we found, or defaultValue if none found.
      */
     option(key, defaultValue = null) {
         if(!this.options.hasOwnProperty(key) || this.options[key] === null) {
-            if(typeof defaultValue === "function") {
+            if(typeof defaultValue === 'function') {
                 return defaultValue();
             }
             

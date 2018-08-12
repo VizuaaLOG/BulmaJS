@@ -59,7 +59,7 @@ const Bulma = {
 
     /**
      * Return a string of classes to search the DOM for
-     * @returns {string}
+     * @returns {string} The string containing the classes
      */
     getPluginClasses() {
         var classes = [];
@@ -77,7 +77,8 @@ const Bulma = {
 
     /**
      * Search our plugins and find one that matches the element
-     * @returns {Object}
+     * @param {HTMLElement} element The element we want to match for
+     * @returns {Object} The plugin that matched
      */
     findCompatiblePlugin(element) {
         for(var key in this.plugins) {
@@ -113,10 +114,10 @@ const Bulma = {
 
     /**
      * Helper method to normalise a plugin finding an element.
-     * @param {string} query 
-     * @param {HTMLElement|null} context 
-     * @param {boolean} nullable 
-     * @returns {null|HTMLElement}
+     * @param {string} query The CSS selector to query for
+     * @param {HTMLElement|null} context The element we want to search within
+     * @param {boolean} nullable Do we except a null response?
+     * @returns {null|HTMLElement} The element we found, or null if allowed.
      * @throws {TypeError}
      */
     findElement(query, context = document, nullable = false) {
@@ -136,16 +137,21 @@ const Bulma = {
     },
 
     /**
-     * 
-     * @param {*} query 
-     * @param {*} classes 
+     * Find an element otherwise create a new one.
+     * @param {string} query The CSS selector query to find
+     * @param {HTMLElement|null} parent The parent we want to search/create within
+     * @param {[string]} elemName The name of the element to create
+     * @param {[array]} classes The classes to apply to the element
+     * @returns {HTMLElement} The HTML element we found or created
      */
     findOrCreateElement(query, parent = null, elemName = 'div', classes = []) {
         var elem = this.findElement(query, parent);
 
         if(!elem) {
             if(classes.length === 0) {
-                classes = query.split('.').filter((item) => { return item; });
+                classes = query.split('.').filter((item) => {
+                    return item;
+                });
             }
 
             var newElem = this.createElement(elemName, classes);
