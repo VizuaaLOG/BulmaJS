@@ -1,5 +1,3 @@
-import { isNull } from "util";
-
 export default class Plugin {
     constructor(options) {
         this.options = options || {};
