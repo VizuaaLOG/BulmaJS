@@ -185,7 +185,7 @@ class Modal extends Plugin {
      * Destroy this modal, unregistering element references and removing the modal.
      */
     destroy() {
-        this.parent.remove();
+        this.element.remove();
 
         this.parent = null;
         this.element = null;
