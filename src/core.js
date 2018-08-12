@@ -133,6 +133,25 @@ const Bulma = {
         }
 
         return context.querySelector(query);
+    },
+
+    /**
+     * 
+     * @param {*} query 
+     * @param {*} classes 
+     */
+    findOrCreateElement(query, elemName = 'div', classes = []) {
+        var elem = this.findElement(query);
+
+        if(!elem) {
+            if(!classes) {
+                classes = query.split('.');
+            }
+
+            return this.createElement(elemName, classes);
+        }
+
+        return elem;
     }
 };
 
