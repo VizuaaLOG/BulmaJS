@@ -45,14 +45,30 @@ class Modal extends Plugin {
         this.type = this.option('type', 'card');
 
         /** @param {HTMLElement} */
-        this.parent = this.option('parent', document.body);
+        this.element = this.option('element');
+
+        if(!this.element) {
+            this.element = Bulma.createElement('div', '.modal');
+
+            if(!this.element.classList.contains('modal')) {
+                this.element.classList.add('modal');
+            }
+        }
 
         /** @param {HTMLElement} */
-        this.element = this.option('element', Bulma.createElement('div', '.modal'));
-        if(!this.element.classList.contains('modal')) {
-            this.element.classList.add('modal');
+        this.parent = this.option('parent');
+
+        if(!this.parent) {
+            if(!this.element.parentNode) {
+                this.parent = document.body;
+
+                this.parent.appendChild(this.element);
+            } else {
+                this.parent = this.element.parentNode;
+            }
+        } else {
+            this.parent.appendChild(this.element);
         }
-        this.parent.appendChild(this.element);
 
         /** @param {HTMLElement} */
         this.background = Bulma.findOrCreateElement('.modal-background', this.element);
@@ -75,7 +91,9 @@ class Modal extends Plugin {
 
             /** @param {HTMLElement} */
             this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
-            this.headerTitle.innerHTML = this.title;
+            if(!this.headerTitle.innerHTML) {
+                this.headerTitle.innerHTML = this.title;
+            }
 
             /** @param {HTMLElement} */
             this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
