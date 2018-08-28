@@ -41,73 +41,49 @@ class Modal extends Plugin {
     constructor(options) {
         super(options);
 
-        /**
-         * @param {string}
-         */
+        /** @param {string} */
         this.type = this.option('type', 'card');
 
-        /**
-         * @param {HTMLElement}
-         */
+        /** @param {HTMLElement} */
         this.parent = this.option('parent', document.body);
 
-        /**
-         * @param {HTMLElement}
-         */
+        /** @param {HTMLElement} */
         this.element = this.option('element', Bulma.createElement('div', '.modal'));
         if(!this.element.classList.contains('modal')) {
             this.element.classList.add('modal');
         }
         this.parent.appendChild(this.element);
 
-        /**
-         * @param {HTMLElement}
-         */
+        /** @param {HTMLElement} */
         this.background = Bulma.findOrCreateElement('.modal-background', this.element);
 
-        /**
-         * @param {HTMLElement}
-         */
+        /** @param {HTMLElement} */
         this.content = this.type === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
 
-        /**
-         * @param {boolean}
-         */
+        /** @param {boolean} */
         this.closable = this.option('closable', true);
 
-        /**
-         * @param {string|null}
-         */
+        /** @param {string|null} */
         this.body = this.option('body');
 
-        /**
-         * @param {string|null}
-         */
+        /** @param {string|null} */
         this.title = this.option('title');
 
         if(this.type === 'card') {
-            /**
-             * @param {HTMLElement}
-             */
+            /** @param {HTMLElement} */
             this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header');
 
-            /**
-             * @param {HTMLElement}
-             */
+            /** @param {HTMLElement} */
             this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
             this.headerTitle.innerHTML = this.title;
 
-            /**
-             * @param {HTMLElement}
-             */
+            /** @param {HTMLElement} */
             this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
             if(!this.cardBody.innerHTML) {
                 this.cardBody.innerHTML = this.body;
             }
 
-            /**
-             * @param {HTMLElement}
-             */
+            /** @param {HTMLElement} */
             this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
         } else {
             if(!this.content.innerHTML) {
@@ -116,22 +92,14 @@ class Modal extends Plugin {
         }
 
         if(this.closable) {
-            /**
-             * @param {HTMLElement}
-             */
+            /** @param {HTMLElement} */
             this.closeButton = this.type === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
         }
 
-        /**
-         * Hander for when the modal is opened
-         * @param {null|function}
-         */
+        /** @param {function} */
         this.onOpen = this.option('onOpen');
 
-        /**
-         * Hander for when the modal is closed
-         * @param {null|function}
-         */
+        /** @param {function} */
         this.onClose = this.option('onClose')
 
         if(this.type === 'card') {
