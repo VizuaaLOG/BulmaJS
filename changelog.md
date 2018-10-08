@@ -4,6 +4,7 @@
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) Modals can now be closed by clicking outside of an open modal.
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) When a modal is opening the `is-clipped` class is applied to the `body` element.
 + **Feature** Added a new `findElement` helper method to the BulmaJS core. This method will allow plugins to easily normalise an arugment that needs to be either an HTMLElement or a query selector string.
++ **Tweak** [#51](https://github.com/VizuaaLOG/BulmaJS/pull/51) Thanks to [apecell](https://github.com/apecell) the file plugin now supports drag and drop.
 + **Bug** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) `closeButton` event is now correctly removed when destroying a modal
 
 # 0.6.0
