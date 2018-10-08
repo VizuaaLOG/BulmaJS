@@ -26,13 +26,13 @@ class File {
          * The element to use as the trigger.
          * @type {HTMLELement}
          */
-        this.trigger = this.root.querySelector('input');
+        this.input = this.root.querySelector('input');
 
         /**
          * The element to show the file name.
          * @type {HTMLElement}
          */
-        this.target = this.root.querySelector('.file-name');
+        this.filename = this.root.querySelector('.file-name');
 
         this.registerEvents();
     }
@@ -42,7 +42,25 @@ class File {
      * @return {undefined}
      */
     registerEvents() {
-        this.trigger.addEventListener('change', this.handleTriggerChange.bind(this));
+        if (this.filename) {
+            this.input.addEventListener('change', this.handleTriggerChange.bind(this));
+        }
+
+        this.root.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            this.addHoverClass();
+        });
+
+        this.root.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            this.addHoverClass();
+        });
+
+        this.root.addEventListener('drop', (e) => {
+            e.preventDefault();
+            this.removeHoverClass();
+            this.input.files = e.dataTransfer.files;
+        });
     }
 
     /**
@@ -69,7 +87,7 @@ class File {
      * @return {undefined}
      */
     clearFileName() {
-        this.target.innerHTML = '';
+        this.filename.innerHTML = '';
     }
 
     /**
@@ -78,7 +96,23 @@ class File {
      * @return {undefined}
      */
     setFileName(value) {
-        this.target.innerHTML = value;
+        this.filename.innerHTML = value;
+    }
+
+    /**
+     * Add hover class to root element.
+     * @return {undefined}
+     */
+    addHoverClass() {
+        this.root.classList.add('is-hovered');
+    }
+
+    /**
+     * Remove hover class from root element.
+     * @return {undefined}
+     */
+    removeHoverClass() {
+        this.root.classList.remove('is-hovered');
     }
 
     /**
