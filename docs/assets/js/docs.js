@@ -36,16 +36,16 @@ var vue = new Vue({
     el: '#docs-menu',
     data: {
         items: menuItems,
-        selectedVersion: window.location.pathname.match(/([0-9.]{3})/gm)[0]
+        selectedVersion: window.location.pathname.match(/\/([0-9.]{3})/)[1]
     },
     methods: {
         changeVersion: function() {
-            window.location.href = window.location.href.replace(/([0-9.]{3})/, this.selectedVersion);
+            window.location.href = window.location.href.replace(/\/([0-9.]{3})/, '/' + this.selectedVersion);
         }
     },
     computed: {
         version: function() {
-            return window.location.pathname.match(/([0-9.]{3})/gm)[0];
+            return window.location.pathname.match(/\/([0-9.]{3})/)[1];
         },
 
         versions: function() {

@@ -77,3 +77,51 @@
     margin-right: 0;
     text-align: left;
 }
+
+.docs-tabs {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tabs {
+        margin-bottom: 0;
+
+        ul {
+            border-bottom-color: $primary;
+        }
+
+        li a {
+            border: none;
+            padding: 0.25em 0.5em;
+        }
+
+        li.is-active a {
+            color: white;
+            background-color: $primary;
+        }
+
+        li:hover a {
+            background: #E7E7E7;
+        }
+
+        li:hover.is-active a {
+            background-color: $primary;
+        }
+    }
+
+    .tabs-content {
+        li {
+            display: none;
+
+            &.is-active {
+                display: block;
+            }
+        }
+    }
+}
+
+.content li + li {
+    margin-top: 0;
+}

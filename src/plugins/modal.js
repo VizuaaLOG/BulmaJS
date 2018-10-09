@@ -1,63 +1,27 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module Modal
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Modal {
+class Modal extends Plugin {
     /**
-     * Plugin constructor
-     * @param  {Object} options The options object for this plugin
-     * @return {this} The newly created plugin instance
+     * Handle parsing the DOMs data attribute API.
+     * @return {undefined}
      */
-    constructor(options) {
-        if(!options) {
-            options = {};
-        }
+    static handleDomParsing() {
+        return;
+    }
 
-        /**
-         * Message body text.
-         * @type {string}
-         */
-        this.root = options.hasOwnProperty('element') ? options.element : '';
-
-        /**
-         * Closable toggle switch.
-         * @type {bool}
-         */
-        this.closable = options.hasOwnProperty('closable') ? options.closable : true ;
-
-        /**
-         * The element used to close the message.
-         * @type {HTMLElement}
-         */
-        this.closeButton = this.findCloseButton();
-
-        /**
-         * Create a bound version of our close event handler, this will
-         * allow us to remove the event listener later on.
-         * 
-         * @type {Function}
-         */
-        this.boundHandleCloseEvent = this.handleCloseEvent.bind(this);
-
-        if(this.closeButton && this.closable ) {
-            this.setupCloseEvent();
-        }
-
-        this.modalBackground = this.root.querySelector('.modal-background');
-        this.modalBackground.addEventListener('click', this.boundHandleCloseEvent);
-
-        /**
-         * Create a bound version of our event escape event handler, this will
-         * allow us to remove the event listener later on.
-         * 
-         * @type {Function}
-         */
-        this.boundHandleEscapeClose = this.handleEscapeClose.bind(this);
-
-        document.addEventListener('keyup', this.boundHandleEscapeClose);
+    /**
+     * Get the root class this plugin is responsible for.
+     * This will tell the core to match this plugin to an element with a .modal class.
+     * @returns {string} The class this plugin is responsible for.
+     */
+    static getRootClass() {
+        return 'modal';
     }
 
     /**
@@ -70,91 +34,193 @@ class Modal {
     }
 
     /**
-     * Show the message.
-     * @return {undefined}
+     * Plugin constructor
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created plugin instance
+     */
+    constructor(options) {
+        super(options);
+
+        /** @param {string} */
+        this.type = this.option('type', 'card');
+
+        /** @param {HTMLElement} */
+        this.element = this.option('element');
+
+        if(!this.element) {
+            this.element = Bulma.createElement('div', '.modal');
+
+            if(!this.element.classList.contains('modal')) {
+                this.element.classList.add('modal');
+            }
+        }
+
+        /** @param {HTMLElement} */
+        this.parent = this.option('parent');
+
+        if(!this.parent) {
+            if(!this.element.parentNode) {
+                this.parent = document.body;
+
+                this.parent.appendChild(this.element);
+            } else {
+                this.parent = this.element.parentNode;
+            }
+        } else {
+            this.parent.appendChild(this.element);
+        }
+
+        /** @param {HTMLElement} */
+        this.background = Bulma.findOrCreateElement('.modal-background', this.element);
+
+        /** @param {HTMLElement} */
+        this.content = this.type === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
+
+        /** @param {boolean} */
+        this.closable = this.option('closable', true);
+
+        /** @param {string|null} */
+        this.body = this.option('body');
+
+        /** @param {string|null} */
+        this.title = this.option('title');
+
+        if(this.type === 'card') {
+            /** @param {HTMLElement} */
+            this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header');
+
+            /** @param {HTMLElement} */
+            this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
+            if(!this.headerTitle.innerHTML) {
+                this.headerTitle.innerHTML = this.title;
+            }
+
+            /** @param {HTMLElement} */
+            this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
+            if(!this.cardBody.innerHTML) {
+                this.cardBody.innerHTML = this.body;
+            }
+
+            /** @param {HTMLElement} */
+            this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
+        } else {
+            if(!this.content.innerHTML) {
+                this.content.innerHTML = this.body;
+            }
+        }
+
+        if(this.closable) {
+            /** @param {HTMLElement} */
+            this.closeButton = this.type === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
+        }
+
+        /** @param {function} */
+        this.onOpen = this.option('onOpen');
+
+        /** @param {function} */
+        this.onClose = this.option('onClose');
+
+        if(this.type === 'card') {
+            this.createButtons();
+        }
+
+        this.setupEvents();
+    }
+
+    /**
+     * Setup the events used by this modal.
+     * @returns {void}
+     */
+    setupEvents() {
+        if(this.closable) {
+            this.closeButton.addEventListener('click', this.close.bind(this));
+
+            document.addEventListener('keyup', (event) => {
+                if(!this.element.classList.contains('is-active')) {
+                    return;
+                }
+
+                let key = event.key || event.keyCode;
+
+                if(key === 'Escape' || key === 'Esc' || key === 27) {
+                    this.close();
+                }
+            });
+
+            this.background.addEventListener('click', this.close.bind(this));
+        }
+    }
+
+    /**
+     * Go through the provided buttons option and create the buttons.
+     * @returns {void}
+     */
+    createButtons() {
+        var buttonsConfig = this.option('buttons', []);
+        var modal = this;
+
+        buttonsConfig.forEach(function(buttonConfig) {
+            var button = Bulma.createElement('button', buttonConfig.classes);
+            button.innerHTML = buttonConfig.label;
+
+            button.addEventListener('click', function(event) {
+                buttonConfig.onClick(event);
+            });
+
+            modal.footer.appendChild(button);
+        });
+    }
+
+    /**
+     * Open the modal
+     * @returns {void}
      */
     open() {
-        this.root.classList.add('is-active');
+        this.element.classList.add('is-active');
         document.body.classList.add('is-clipped');
+
+        if(this.onOpen) {
+            this.onOpen(this);
+        }
     }
 
     /**
-     * Hide the message.
-     * @return {undefined}
+     * Close the modal
+     * @returns {void} 
      */
     close() {
-        this.root.classList.remove('is-active');
+        this.element.classList.remove('is-active');
         document.body.classList.remove('is-clipped');
-    }
 
-    /**
-     * Find the close button.
-     * @return {HTMLElement} The newly created element
-     */
-    findCloseButton() {
-        let element = this.root.querySelector('.modal-close');
-
-        if(!element) {
-            return this.root.querySelector('.delete');
-        }
-
-        return element;
-    }
-
-    /**
-     * Setup the event listener for the close button.
-     * @return {undefined}
-     */
-    setupCloseEvent() {
-        this.closeButton.addEventListener('click', this.boundHandleCloseEvent);
-    }
-
-    /**
-     * Handle the event when our close button is clicked.
-     * @return {undefined}
-     */
-    handleCloseEvent() {
-        this.close();
-    }
-
-    /**
-     * Close the modal if the Escape key is pressed
-     * @return {undefined}
-     */
-    handleEscapeClose(event) {
-        let key = event.key || event.keyCode;
-
-        if(key === 'Escape' || key === 'Esc' || key === 27) {
-            this.close();
+        if(this.onClose) {
+            this.onClose(this);
         }
     }
 
     /**
-     * Destroy the message, removing the event listener, interval and element.
-     * @return {undefined}
+     * Destroy this modal, unregistering element references and removing the modal.
+     * @returns {void}
      */
     destroy() {
-        if(this.closable && this.closeButton) {
-            this.closeButton.removeEventListener('click', this.boundHandleCloseEvent);
+        this.element.remove();
+
+        this.parent = null;
+        this.element = null;
+        this.background = null;
+        this.content = null;
+
+        if(this.type === 'card') {
+            this.header = null;
+            this.headerTitle = null;
+            this.cardBody = null;
+            this.footer = null;
         }
 
-        document.removeEventListener('keyup', this.boundHandleEscapeClose);
-        this.modalBackground.removeEventListener('click', this.boundHandleCloseEvent);
+        if(this.closable) {
+            this.closeButton = null;
+        }
 
-        this.root = null;
-        this.closeButton = null;
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @return {undefined}
-     */
-    static handleDomParsing() {
-        return;
-    }
-
-    static getRootClass() {
-        return 'modal';
+        this.options = [];
     }
 }
 
