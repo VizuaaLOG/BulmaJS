@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/10.1.0/bin/node /Users/tom/.yarn/bin/yarn.js run lint
+  /usr/local/Cellar/node/10.1.0/bin/node /Users/tom/.yarn/bin/yarn.js upgrade
 
 PATH: 
   /usr/local/sbin:/usr/local/opt/node@8/bin:/Users/tom/.yarn/bin:~/.composer/vendor/bin:/usr/local/opt/php/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/opt/X11/bin:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Xamarin Workbooks.app/Contents/SharedSupport/path-bin:/Users/tom/Library/Android/sdk/tools:/Users/tom/Library/Android/sdk/platform-tools:/Users/tom/Library/Android/sdk/bin
@@ -27,8 +27,8 @@ npm manifest:
       "babel-preset-env": "^1.6.1",
       "bulma": "^0.7.1",
       "eslint": "^4.19.0",
-      "webpack": "^4.1.0",
-      "webpack-cli": "^2.0.10",
+      "webpack": "^4.20.0",
+      "webpack-cli": "^3.1.1",
       "webpack-glob-entry": "^2.1.1"
     },
     "scripts": {
@@ -4979,16 +4979,14 @@ Lockfile:
       yeoman-environment "^2.0.5"
 
 Trace: 
-  Error: Command failed.
-  Exit code: 1
-  Command: sh
-  Arguments: -c eslint 'src/**'
-  Directory: /Users/tom/Desktop/Code/bulmajs
-  Output:
-  
-      at ProcessTermError.MessageError (/Users/tom/.yarn/lib/cli.js:186:110)
-      at new ProcessTermError (/Users/tom/.yarn/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/Users/tom/.yarn/lib/cli.js:30281:17)
-      at ChildProcess.emit (events.js:182:13)
-      at maybeClose (internal/child_process.js:957:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:246:5)
+  Error: Outdated lockfile. Please run `yarn install` and try again.
+      at new MessageError (/Users/tom/.yarn/lib/cli.js:186:110)
+      at /Users/tom/.yarn/lib/cli.js:36620:19
+      at Generator.next (<anonymous>)
+      at step (/Users/tom/.yarn/lib/cli.js:98:30)
+      at /Users/tom/.yarn/lib/cli.js:116:14
+      at new Promise (<anonymous>)
+      at new F (/Users/tom/.yarn/lib/cli.js:23451:28)
+      at /Users/tom/.yarn/lib/cli.js:95:12
+      at /Users/tom/.yarn/lib/cli.js:36660:25
+      at Array.map (<anonymous>)
