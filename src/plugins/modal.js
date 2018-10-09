@@ -118,7 +118,7 @@ class Modal extends Plugin {
         this.onOpen = this.option('onOpen');
 
         /** @param {function} */
-        this.onClose = this.option('onClose')
+        this.onClose = this.option('onClose');
 
         if(this.type === 'card') {
             this.createButtons();
