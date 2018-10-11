@@ -18,11 +18,11 @@ const Bulma = {
      * @return {Object} The newly created plugin instance
      */
     create(key, options) {
-        if(!key || !Bulma.plugins.hasOwnProperty(key)) {
+        if(!key || !Bulma.plugins.handler.hasOwnProperty(key)) {
             throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
         }
 
-        return Bulma.plugins[key].create(options);
+        return Bulma.plugins[key].handler.create(options);
     },
 
     /**
@@ -31,12 +31,15 @@ const Bulma = {
      * @param  {Object} plugin The plugin's main constructor
      * @return {undefined}
      */
-    registerPlugin(key, plugin) {
+    registerPlugin(key, plugin, priority = 0) {
         if(!key) {
             throw new Error('[BulmaJS] Key attribute is required.');
         }
         
-        this.plugins[key] = plugin;
+        this.plugins[key] = {
+            priority: priority,
+            handler: plugin
+        };
     },
 
     /**
@@ -49,11 +52,13 @@ const Bulma = {
         let elements = document.querySelectorAll(this.getPluginClasses());
         
         elements.forEach((element) => {
-            let plugin = this.findCompatiblePlugin(element);
+            let plugins = this.findCompatiblePlugins(element);
 
-            if(plugin.hasOwnProperty('handleDomParsing')) {
-                plugin.handleDomParsing(element);
-            }
+            plugins.forEach((plugin) => {
+                if(plugin.handler.hasOwnProperty('handleDomParsing')) {
+                    plugin.handler.handleDomParsing(element);
+                }
+            })
         });
     },
 
@@ -65,11 +70,11 @@ const Bulma = {
         var classes = [];
 
         for(var key in this.plugins) {
-            if(!this.plugins[key].getRootClass()) {
+            if(!this.plugins[key].handler.getRootClass()) {
                 continue;
             }
 
-            classes.push('.' + this.plugins[key].getRootClass());
+            classes.push('.' + this.plugins[key].handler.getRootClass());
         }
 
         return classes.join(',');
@@ -80,12 +85,19 @@ const Bulma = {
      * @param {HTMLElement} element The element we want to match for
      * @returns {Object} The plugin that matched
      */
-    findCompatiblePlugin(element) {
-        for(var key in this.plugins) {
-            if(element.classList.contains(this.plugins[key].getRootClass())) {
-                return this.plugins[key];
+    findCompatiblePlugins(element) {
+        let compatiblePlugins = [];
+
+        let sortedPlugins = Object.keys(this.plugins)
+            .sort((a, b) => this.plugins[a].priority < this.plugins[b].priority);
+
+        sortedPlugins.forEach((key) => {
+            if(element.classList.contains(this.plugins[key].handler.getRootClass())) {
+                compatiblePlugins.push(this.plugins[key]);
             }
-        }
+        });
+
+        return compatiblePlugins;
     },
 
     /**
