@@ -84,7 +84,10 @@ class Tabs {
      * @returns {HTMLElement[]} An array of the found items
      */
     findContentItems() {
-        return this.content.querySelectorAll('li');
+        // We have to use the root here as the querySelectorAll API doesn't
+        // support using '>' as the first character. So we have to have a
+        // class to start with.
+        return this.root.querySelectorAll('.tabs-content > ul > li');
     }
 
     /**
