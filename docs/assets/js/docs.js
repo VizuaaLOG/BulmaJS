@@ -32,35 +32,37 @@ menuItems = _.transform(menuItems, function(result, value, key) {
     result[key] = _.groupBy(value, 'section');
 }, {});
 
-var vue = new Vue({
-    el: '#docs-menu',
-    data: {
-        items: menuItems,
-        selectedVersion: window.location.pathname.match(/\/([0-9.]{3})/)[1]
-    },
-    methods: {
-        changeVersion: function() {
-            window.location.href = window.location.href.replace(/\/([0-9.]{3})/, '/' + this.selectedVersion);
+if(document.querySelector('#docs-menu')) {
+    var vue = new Vue({
+        el: '#docs-menu',
+        data: {
+            items: menuItems,
+            selectedVersion: window.location.pathname.match(/\/([0-9.]{3})/)[1]
+        },
+        methods: {
+            changeVersion: function() {
+                window.location.href = window.location.href.replace(/\/([0-9.]{3})/, '/' + this.selectedVersion);
+            }
+        },
+        computed: {
+            version: function() {
+                return window.location.pathname.match(/\/([0-9.]{3})/)[1];
+            },
+
+            versions: function() {
+                return _.keys(this.items);
+            },
+
+            versionItems: function() {
+                return this.items[this.version];
+            },
+
+            currPath: function() {
+                return window.location.pathname;
+            }
         }
-    },
-    computed: {
-        version: function() {
-            return window.location.pathname.match(/\/([0-9.]{3})/)[1];
-        },
-
-        versions: function() {
-            return _.keys(this.items);
-        },
-
-        versionItems: function() {
-            return this.items[this.version];
-        },
-
-        currPath: function() {
-            return window.location.pathname;
-        }
-    }
-});
+    });
+}
 
 // Add _blank to all external links
 var links = document.links;
