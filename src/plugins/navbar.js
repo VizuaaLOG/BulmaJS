@@ -1,14 +1,30 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module Navbar
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Navbar {
-
+class Navbar extends Plugin {
+    /**
+     * Returns a string containing the element class this plugin supports.
+     * @returns {string} The class name.
+     * @throws {Error} Thrown if this method has not been replaced.
+     */
     static getRootClass() {
         return 'navbar';
+    }
+    
+    /**
+     * Handle parsing the DOMs data attribute API.
+     * @param {HTMLElement} element The root element for this instance
+     * @return {undefined}
+     */
+    static parse(element) {
+        new Navbar({
+            element: element
+        });
     }
 
     /**
@@ -17,27 +33,30 @@ class Navbar {
      * @return {this} The newly created plugin instance
      */
     constructor(options) {
-        if(!options.element || !options.trigger || !options.target) {
-            throw new Error('[BulmaJS] The navbar component requires an element, trigger and target to function.');
+        super(options);
+
+        // Work out the parent if it hasn't been supplied as an option.
+        if(this.parent == null) {
+            this.parent = this.option('element').parentNode;
         }
 
         /**
          * The root navbar element.
          * @type {HTMLElement}
          */
-        this.root = options.element;
+        this.element = this.option('element');
 
         /**
          * The element used for the trigger.
          * @type {HTMLElement}
          */
-        this.trigger = options.trigger;
+        this.trigger = this.element.querySelector('.navbar-burger'),
 
         /**
          * The target element.
          * @type {HTMLELement}
          */
-        this.target = options.target;
+        this.target = this.element.querySelector('.navbar-menu');;
 
         this.registerEvents();
     }
@@ -62,19 +81,6 @@ class Navbar {
             this.target.classList.add('is-active');
             this.trigger.classList.add('is-active');
         }
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} element The root element for this instance
-     * @return {undefined}
-     */
-    static handleDomParsing(element) {
-        new Navbar({
-            element: element,
-            trigger: element.querySelector('.navbar-burger'),
-            target: element.querySelector('.navbar-menu')
-        });
     }
 }
 
