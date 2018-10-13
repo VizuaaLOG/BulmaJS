@@ -6,11 +6,48 @@
  */
 export default class Plugin {
     /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options The options object for this instance
+     * @return {Plugin|boolean} The newly created instance or false if method is not used
+     */
+    static create(options) {
+        return false;
+    }
+
+    /**
+     * Handle parsing the DOM elements.
+     * @param {HTMLElement} element The root element for this instance
+     * @return {Plugin|boolean} The new plugin instance, or false if method is not used
+     */
+    static parse(element) {
+        return false
+    }
+    
+    /**
+     * Returns a string containing the element class this plugin supports.
+     * @returns {string} The class name.
+     * @throws {Error} Thrown if this method has not been replaced.
+     */
+    static getRootClass() {
+        throw new Error('The getRootClass method should have been replaced by the plugin being created.');
+    }
+
+    /**
+     * Returns an object containing the default options for this plugin.
+     * @returns {object} The default options object.
+     */
+    static defaultOptions() {
+        return {};
+    }
+
+    /**
      * Create a plugin.
      * @param {object} options The options for this plugin
      */
-    constructor(options) {
-        this.options = options || {};
+    constructor(options = {}) {
+        this.options = {...options, ...this.constructor.defaultOptions()};
+
+        this.parent = this.option('parent', document.body);
     }
 
     /**
