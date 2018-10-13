@@ -1,38 +1,42 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module File
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class File {
+class File extends Plugin {
     /**
      * Plugin constructor
      * @param  {Object} options The options object for this plugin
      * @return {this} The newly created plugin instance
      */
     constructor(options) {
-        if(!options.element) {
-            throw new Error('[BulmaJS] The file component requires an element to function.');
+        super(options)
+
+        // Work out the parent if it hasn't been supplied as an option.
+        if(this.parent == null) {
+            this.parent = this.option('element').parentNode;
         }
 
         /**
          * The root file element.
          * @type {HTMLElement}
          */
-        this.root = options.element;
+        this.element = this.option('element');
 
         /**
          * The element to use as the trigger.
          * @type {HTMLELement}
          */
-        this.input = this.root.querySelector('input');
+        this.input = this.element.querySelector('input');
 
         /**
          * The element to show the file name.
          * @type {HTMLElement}
          */
-        this.filename = this.root.querySelector('.file-name');
+        this.filename = this.element.querySelector('.file-name');
 
         this.registerEvents();
     }
@@ -46,17 +50,17 @@ class File {
             this.input.addEventListener('change', this.handleTriggerChange.bind(this));
         }
 
-        this.root.addEventListener('dragover', (e) => {
+        this.element.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.addHoverClass();
         });
 
-        this.root.addEventListener('dragleave', (e) => {
+        this.element.addEventListener('dragleave', (e) => {
             e.preventDefault();
             this.addHoverClass();
         });
 
-        this.root.addEventListener('drop', (e) => {
+        this.element.addEventListener('drop', (e) => {
             e.preventDefault();
             this.removeHoverClass();
             this.input.files = e.dataTransfer.files;
@@ -104,7 +108,7 @@ class File {
      * @return {undefined}
      */
     addHoverClass() {
-        this.root.classList.add('is-hovered');
+        this.element.classList.add('is-hovered');
     }
 
     /**
@@ -112,7 +116,7 @@ class File {
      * @return {undefined}
      */
     removeHoverClass() {
-        this.root.classList.remove('is-hovered');
+        this.element.classList.remove('is-hovered');
     }
 
     /**
