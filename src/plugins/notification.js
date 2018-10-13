@@ -9,30 +9,6 @@ import DismissableComponent from '../dismissableComponent';
  */
 class Notification extends DismissableComponent {
     /**
-     * Plugin constructor
-     * @param  {Object} options The options object for this plugin
-     * @return {this} The newly created instance
-     */
-    constructor(options) {
-        if(!options) {
-            options = {};
-        }
-
-        super('notification', options);
-
-        // TODO: Move this into the DismissableComponent class. Due to the required
-        // changes between different components, we may need a way to trigger this
-        // when the component is ready.
-        if(this.isDismissable) {
-            if(!options.hasOwnProperty('closeButton')) {
-                this.prependCloseButton();
-            }
-
-            this.setupCloseEvent();
-        }
-    }
-
-    /**
      * Helper method used by the Bulma core to create a new instance.
      * @param  {Object} options The options object for this instance
      * @return {Notification} The newly created instance
@@ -46,7 +22,7 @@ class Notification extends DismissableComponent {
      * @param {HTMLElement} element The root element for this instance
      * @return {undefined}
      */
-    static handleDomParsing(element) {
+    static parse(element) {
         let closeBtn = element.querySelector('.delete');
         let dismissInterval = element.getAttribute('data-dismiss-interval');
 
@@ -66,8 +42,33 @@ class Notification extends DismissableComponent {
         new Notification(options);
     }
 
+    /**
+     * Returns a string containing the element class this plugin supports.
+     * @returns {string} The class name.
+     * @throws {Error} Thrown if this method has not been replaced.
+     */
     static getRootClass() {
         return 'notification';
+    }
+
+    /**
+     * Plugin constructor
+     * @param  {Object} options The options object for this plugin
+     * @return {this} The newly created instance
+     */
+    constructor(options) {
+        super('notification', options);
+
+        // TODO: Move this into the DismissableComponent class. Due to the required
+        // changes between different components, we may need a way to trigger this
+        // when the component is ready.
+        if(this.isDismissable) {
+            if(!options.hasOwnProperty('closeButton')) {
+                this.prependCloseButton();
+            }
+
+            this.setupCloseEvent();
+        }
     }
 }
 
