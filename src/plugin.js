@@ -45,7 +45,7 @@ export default class Plugin {
      * @param {object} options The options for this plugin
      */
     constructor(options = {}) {
-        this.options = {...options, ...this.constructor.defaultOptions()};
+        this.options = {...this.constructor.defaultOptions(), ...options};
 
         this.parent = this.option('parent', document.body);
     }
