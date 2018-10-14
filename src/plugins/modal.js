@@ -45,7 +45,7 @@ class Modal extends Plugin {
         super(options);
 
         /** @param {string} */
-        this.type = this.option('type',);
+        this.type = this.option('type');
 
         /** @param {HTMLElement} */
         this.element = this.option('element');

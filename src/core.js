@@ -29,6 +29,7 @@ const Bulma = {
      * Register a new plugin
      * @param  {String} key The key to register the plugin under
      * @param  {Object} plugin The plugin's main constructor
+     * @param  {number?} priority The priority this plugin has over other plugins. Higher means the plugin is registered before lower.
      * @return {undefined}
      */
     registerPlugin(key, plugin, priority = 0) {
@@ -56,7 +57,7 @@ const Bulma = {
 
             plugins.forEach((plugin) => {
                 plugin.handler.parse(element);
-            })
+            });
         });
     },
 
