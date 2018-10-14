@@ -27,7 +27,8 @@ class Navbar extends Plugin {
             sticky: element.hasAttribute('data-sticky') ? true : false,
             stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
             hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
-            tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0
+            tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
+            shadow: element.hasAttribute('data-sticky-shadow') ? true : false
         });
     }
 
@@ -40,7 +41,8 @@ class Navbar extends Plugin {
             sticky: false,
             stickyOffset: 0,
             hideOnScroll: false,
-            tolerance: 0
+            tolerance: 0,
+            shadow: false
         };
     }
 
@@ -100,6 +102,12 @@ class Navbar extends Plugin {
         this.tolerance = this.option('tolerance');
 
         /**
+         * Add a shadow when the navbar is sticky?
+         * @type {boolean}
+         */
+        this.shadow = this.option('shadow');
+
+        /**
          * The last scroll Y known, this is used to calculate scroll direction
          * @type {number}
          */
@@ -151,9 +159,17 @@ class Navbar extends Plugin {
         if(scrollY > this.stickyOffset) {
             this.element.classList.add('is-fixed-top');
             document.body.classList.add('has-navbar-fixed-top');
+
+            if(this.shadow) {
+                this.element.classList.add('has-shadow');
+            }
         } else {
             this.element.classList.remove('is-fixed-top');
             document.body.classList.remove('has-navbar-fixed-top');
+
+            if(this.shadow) {
+                this.element.classList.remove('has-shadow');
+            }
         }
 
         if(this.hideOnScroll) {
