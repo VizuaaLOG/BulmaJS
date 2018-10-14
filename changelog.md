@@ -6,9 +6,12 @@
 + **Feature** Added a new `findElement` helper method to the BulmaJS core. This method will allow plugins to easily normalise an arugment that needs to be either an HTMLElement or a query selector string.
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) Rewrite the modal plugin, providing a new functionality, options and a full Javascript API.
 + **Feature** [#50](https://github.com/VizuaaLOG/BulmaJS/issues/50) Allow multiple plugins to be attached to a single class.
++ **Feature** [#39](https://github.com/VizuaaLOG/BulmaJS/issues/39) Implement a uniformed plugin interface
++ **Feature** [#40](https://github.com/VizuaaLOG/BulmaJS/issues/49) Add the ability for the navbar to be sticky at a certain threshold. Also add the ability for the navbar to hide on scroll down and reappear on scroll up. Thanks to [rdhar](https://github.com/rdhar) for the suggestion!
 + **Tweak** [#51](https://github.com/VizuaaLOG/BulmaJS/pull/51) Thanks to [apecell](https://github.com/apecell) the file plugin now supports drag and drop.
 + **Bug** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) `closeButton` event is now correctly removed when destroying a modal.
 + **Bug** [#53](https://github.com/VizuaaLOG/BulmaJS/issues/53) The tabs plugin now ensures it only grabs the ul/li element that is a direct child of the `tabs-content` element.
++ **Bug** [#54](https://github.com/VizuaaLOG/BulmaJS/issues/54) Fix an issue where plugins were sometimes attached twice.
 
 # 0.6.0
 The reason for this being a large version jump is due to the complete overhaul of the documentation. While this doesn't change the functionality of the code, I feel like this is a large enough change to the project to warrant more than a 'patch' version bump.
