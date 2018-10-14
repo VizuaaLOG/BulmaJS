@@ -68,17 +68,19 @@ export default class DismissableComponent extends Plugin {
         * @type {HTMLElement|null} If this is not provided a new element will be created.
         */
         this.element = this.option('element');
+
+        if(!this.element) {
+            this.createRootElement();
+            this.parent.appendChild(this.element);
+        }
+        
+        this.element.setAttribute('data-bulma-attached', 'attached');
         
         /**
         * The element used to close the component.
         * @type {HTMLElement}
         */
         this.closeButton = this.option('closeButton', this.createCloseButton());
-
-        if(!this.element) {
-            this.createRootElement();
-            this.parent.appendChild(this.element);
-        }
 
         if(this.body) {
             this.insertBody();
