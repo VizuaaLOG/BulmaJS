@@ -159,7 +159,6 @@ class Navbar extends Plugin {
         if(this.hideOnScroll) {
             let scrollDirection = this.calculateScrollDirection(scrollY, this.lastScrollY);
             let triggeredTolerance = this.difference(scrollY, this.lastScrollY) >= this.tolerance;
-            console.log(this.difference(scrollY, this.lastScrollY), scrollY, this.lastScrollY);
 
             if(triggeredTolerance) {
                 if(scrollDirection === 'down') {
