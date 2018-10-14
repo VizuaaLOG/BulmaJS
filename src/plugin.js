@@ -7,20 +7,20 @@
 export default class Plugin {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The options object for this instance
+     * @param  {Object?} options The options object for this instance
      * @return {Plugin|boolean} The newly created instance or false if method is not used
      */
-    static create(options) {
+    static create() {
         return false;
     }
 
     /**
      * Handle parsing the DOM elements.
-     * @param {HTMLElement} element The root element for this instance
+     * @param {HTMLElement?} element The root element for this instance
      * @return {Plugin|boolean} The new plugin instance, or false if method is not used
      */
-    static parse(element) {
-        return false
+    static parse() {
+        return false;
     }
     
     /**

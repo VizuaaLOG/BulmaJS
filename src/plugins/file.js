@@ -33,10 +33,10 @@ class File extends Plugin {
      * @return {this} The newly created plugin instance
      */
     constructor(options) {
-        super(options)
+        super(options);
 
         // Work out the parent if it hasn't been supplied as an option.
-        if(this.parent == null) {
+        if(this.parent === null) {
             this.parent = this.option('element').parentNode;
         }
 
