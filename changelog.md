@@ -1,4 +1,4 @@
-# 0.7.0 (Unreleased)
+# 0.7.0
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) Modals can now be closed by pressing the 
 `escape` key.
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) Modals can now be closed by clicking outside of an open modal.
