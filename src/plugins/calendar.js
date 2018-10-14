@@ -1,43 +1,63 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module Calendar
  * @since  0.3.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Calendar {
+class Calendar extends Plugin {
+    /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options The new calendar's options
+     * @return {Calendar} The newly created calendar instance
+     */
+    static create(options) {
+        return new Calendar(options);
+    }
+
+    /**
+     * Returns a string containing the element class this plugin supports.
+     * @returns {string} The class name.
+     */
+    static getRootClass() {
+        return 'calendar';
+    }
+
+    /**
+     * Returns an object containing the default options for this plugin.
+     * @returns {object} The default options object.
+     */
+    static defaultOptions() {
+        return {
+            date: new Date(),
+            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            navButtons: true,
+            format: 'yyyy-mm-dd',
+            overlay: false
+        };
+    }
+
     /**
      * Plugin constructor
      * @param  {Object} options Plugin instance's options
      * @return {this} The newly created instance
      */
     constructor(options) {
-        if(!options.element) {
-            throw new Error('[BulmaJS] The Calendar component requires an element.');
-        }
+        super(options);
 
         /**
          * The root Calendar element.
          * @type {HTMLElement}
          */
-        this.root = options.element;
+        this.element = Bulma.createElement('div', ['calendar']);
 
         /**
          * The input element this calendar belongs to.
          * @type {HTMLElement|null}
          */
-        this.inputElement = null;
-
-        if(this.root.nodeName === 'INPUT') {
-            this.inputElement = this.root;
-            this.root = Bulma.createElement('div');
-        }
-
-        /**
-         * The wrapper for the calendar
-         * @type {HTMLElement}
-         */
-        this.wrapper = Bulma.createElement('div', ['calendar']);
+        this.isInput = this.parent.nodeName === 'INPUT';
 
         /**
          * The current date for today tests
@@ -49,7 +69,7 @@ class Calendar {
          * The date this calendar starts at
          * @type {Date}
          */
-        this.date = options.hasOwnProperty('date') ? options.date : this.now;
+        this.date = this.option('date');
 
         /**
          * The current year for the calendar
@@ -67,13 +87,13 @@ class Calendar {
          * Month names
          * @type {Array}
          */
-        this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        this.months = this.option('months');
 
         /**
          * Short day names
          * @type {Array}
          */
-        this.shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        this.shortDays = this.option('shortDays');
 
         /**
          * Number of days in each month
@@ -85,26 +105,26 @@ class Calendar {
          * Show the navigating buttons
          * @type {boolean}
          */
-        this.navButtons = options.hasOwnProperty('navButtons') ? options.navButtons : true;
+        this.navButtons = this.option('navButtons');
 
         /**
          * The format string for the date output. Used when attached to an input element.
          * @type {string}
          */
-        this.format = options.hasOwnProperty('format') ? options.format : 'yyyy-mm-dd';
+        this.format = this.option('format');
 
         /**
          * Should the calendar be shown as a modal. Used when attached to an input element
          * @type {boolean}
          */
-        this.overlay = options.hasOwnProperty('overlay') ? options.overlay : false;
+        this.overlay = this.option('overlay');
 
         if(this.overlay) {
             this.buildModal();
         }
 
-        if(this.inputElement !== null) {
-            this.inputElement.addEventListener('focus', (event) => {
+        if(this.isInput) {
+            this.parent.addEventListener('focus', (event) => {
                 this.handleInputFocus(event);
             });
         }
@@ -133,9 +153,9 @@ class Calendar {
         this.modal.appendChild(this.modalBackground);
         this.modal.appendChild(modalClose);
 
-        this.root.appendChild(this.modal);
+        this.element.appendChild(this.modal);
 
-        this.wrapper.style.zIndex = 40;
+        this.element.style.zIndex = 40;
     }
 
     /**
@@ -283,7 +303,7 @@ class Calendar {
 
             let button = Bulma.createElement('button', 'date-item');
 
-            if(this.inputElement !== null && day.isThisMonth) {
+            if(this.isInput && day.isThisMonth) {
                 button.addEventListener('click', (event) => {
                     this.handleDayClick(event, day);
                 });
@@ -316,7 +336,7 @@ class Calendar {
             this.modal.classList.add('is-active');
         }
         
-        this.inputElement.parentNode.insertBefore(this.root, this.inputElement.nextSibling);
+        this.parent.parentNode.insertBefore(this.element, this.parent.nextSibling);
     }
 
     /**
@@ -330,12 +350,12 @@ class Calendar {
 
         let dateString = this.formatDateString(day);
 
-        this.inputElement.value = dateString;
+        this.parent.value = dateString;
 
         if(this.overlay) {
             this.modal.classList.remove('is-active');
         } else {
-            this.inputElement.parentNode.removeChild(this.root);
+            this.parent.parentNode.removeChild(this.element);
         }
     }
 
@@ -432,8 +452,8 @@ class Calendar {
      * @return {undefined}
      */
     clearCalendar() {
-        while (this.wrapper.firstChild) {
-            this.wrapper.removeChild(this.wrapper.firstChild);
+        while (this.element.firstChild) {
+            this.element.removeChild(this.element.firstChild);
         }
     }
 
@@ -454,41 +474,20 @@ class Calendar {
     render() {
         this.clearCalendar();
 
-        this.wrapper.appendChild(this.buildNav());
+        this.element.appendChild(this.buildNav());
 
         let container = this.buildContainer();
         container.appendChild(this.buildHeader());
         container.appendChild(this.buildBody());
 
-        this.wrapper.appendChild(container);
+        this.element.appendChild(container);
 
         if(this.overlay) {
-            this.modal.insertBefore(this.wrapper, this.modalBackground.nextSibling);
-            this.root.appendChild(this.modal);
+            this.modal.insertBefore(this.element, this.modalBackground.nextSibling);
+            this.parent.appendChild(this.modal);
         } else {
-            this.root.appendChild(this.wrapper);
+            this.parent.appendChild(this.element);
         }
-    }
-
-    /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The new calendar's options
-     * @return {Calendar} The newly created calendar instance
-     */
-    static create(options) {
-        return new Calendar(options);
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @return {undefined}
-     */
-    static handleDomParsing() {
-        return;
-    }
-
-    static getRootClass() {
-        return '';
     }
 }
 

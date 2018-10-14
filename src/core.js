@@ -18,7 +18,7 @@ const Bulma = {
      * @return {Object} The newly created plugin instance
      */
     create(key, options) {
-        if(!key || !Bulma.plugins.handler.hasOwnProperty(key)) {
+        if(!key || !Bulma.plugins.hasOwnProperty(key)) {
             throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
         }
 
@@ -55,9 +55,7 @@ const Bulma = {
             let plugins = this.findCompatiblePlugins(element);
 
             plugins.forEach((plugin) => {
-                if(plugin.handler.hasOwnProperty('handleDomParsing')) {
-                    plugin.handler.handleDomParsing(element);
-                }
+                plugin.handler.parse(element);
             })
         });
     },

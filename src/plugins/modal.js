@@ -8,11 +8,12 @@ import Plugin from '../plugin';
  */
 class Modal extends Plugin {
     /**
-     * Handle parsing the DOMs data attribute API.
-     * @return {undefined}
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options THe options object for the new instance
+     * @return {Modal} The newly created instance
      */
-    static handleDomParsing() {
-        return;
+    static create(options) {
+        return new Modal(options);
     }
 
     /**
@@ -25,12 +26,14 @@ class Modal extends Plugin {
     }
 
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options THe options object for the new instance
-     * @return {Modal} The newly created instance
+     * Returns an object containing the default options for this plugin.
+     * @returns {object} The default options object.
      */
-    static create(options) {
-        return new Modal(options);
+    static defaultOptions() {
+        return {
+            type: 'card',
+            closable: true
+        };
     }
 
     /**
@@ -42,7 +45,7 @@ class Modal extends Plugin {
         super(options);
 
         /** @param {string} */
-        this.type = this.option('type', 'card');
+        this.type = this.option('type',);
 
         /** @param {HTMLElement} */
         this.element = this.option('element');
@@ -77,7 +80,7 @@ class Modal extends Plugin {
         this.content = this.type === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
 
         /** @param {boolean} */
-        this.closable = this.option('closable', true);
+        this.closable = this.option('closable');
 
         /** @param {string|null} */
         this.body = this.option('body');

@@ -1,32 +1,56 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module Dropdown
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Dropdown {
+class Dropdown extends Plugin {
+    /**
+     * Handle parsing the DOMs data attribute API.
+     * @param {HtmlElement} element The root element for this instance
+     * @return {undefined}
+     */
+    static parse(element) {
+        new Dropdown({
+            element: element
+        });
+    }
+
+    /**
+     * Returns a string containing the element class this plugin supports.
+     * @returns {string} The class name.
+     * @throws {Error} Thrown if this method has not been replaced.
+     */
+    static getRootClass() {
+        return 'dropdown';
+    }
+
     /**
      * Plugin constructor
      * @param  {Object} options The options object for this plugin
      * @return {this} The newly created instance
      */
     constructor(options) {
-        if(!options.element || !options.trigger) {
-            throw new Error('[BulmaJS] The dropdown component requires an element and trigger to function.');
+        super(options);
+
+        // Work out the parent if it hasn't been supplied as an option.
+        if(this.parent == null) {
+            this.parent = this.option('element').parentNode;
         }
 
         /**
          * The root dropdown element.
          * @type {HTMLElement}
          */
-        this.root = options.element;
+        this.element = this.option('element');
 
         /**
          * The element to trigger when clicked.
          * @type {HTMLElement}
          */
-        this.trigger = options.trigger;
+        this.trigger = this.element.querySelector('.dropdown-trigger');
 
         this.registerEvents();
     }
@@ -44,29 +68,11 @@ class Dropdown {
      * @return {undefined}
      */
     handleTriggerClick() {
-        if(this.root.classList.contains('is-active')) {
-            this.root.classList.remove('is-active');
+        if(this.element.classList.contains('is-active')) {
+            this.element.classList.remove('is-active');
         } else {
-            this.root.classList.add('is-active');
+            this.element.classList.add('is-active');
         }
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HtmlElement} element The root element for this instance
-     * @return {undefined}
-     */
-    static handleDomParsing(element) {
-        let trigger = element.querySelector('.dropdown-trigger');
-
-        new Dropdown({
-            element: element,
-            trigger: trigger
-        });
-    }
-
-    static getRootClass() {
-        return 'dropdown';
     }
 }
 

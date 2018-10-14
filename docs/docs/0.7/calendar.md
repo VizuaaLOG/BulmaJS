@@ -26,7 +26,7 @@ The simplest form of the calendar plugin is to show an interactive calendar. Thi
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         Bulma.create('calendar', {
-            element: document.getElementById('calendar-demo1'),
+            parent: document.getElementById('calendar-demo1'),
             navButtons: true
         });
     });
@@ -53,7 +53,7 @@ To begin with, attaching the calendar to an input field couldn't be easier. Simp
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         Bulma.create('calendar', {
-            element: document.getElementById('calendar-demo3'),
+            parent: document.getElementById('calendar-demo3'),
             navButtons: true
         });
     });
@@ -61,7 +61,7 @@ To begin with, attaching the calendar to an input field couldn't be easier. Simp
 
 {% highlight javascript %}
 Bulma.create('calendar', {
-    element: document.getElementById('calendar-demo3'),
+    parent: document.getElementById('calendar-demo3'),
     navButtons: true
 });
 {% endhighlight %}
