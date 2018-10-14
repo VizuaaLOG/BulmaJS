@@ -97,3 +97,21 @@ Since 0.6.1 Bulma has provided a `is-fixed-top` class for the navbar, along with
 Since `0.7.0` BulmaJS has provided the functionality to do just this! First, specify the `data-sticky` attribute on your navbar. This will enable the event listener for scroll, by default the offset is set to `0` which does nothing extra than just adding the class to the element.
 
 You can control the offset of the navbar using `data-sticky-offset` this access a number and is the number of pixels the user needs to scroll before the navbar sticks to the top.
+
+## Hide the navbar when scrolling
+It can sometimes be useful to hide the navbar when your user is scrolling down, and then show it again when scrolling up. As of `0.7.0` the navbar plugin provides this functionality. To enable it, add the `data-hide-on-scroll` attribute to your navbar element. Do note this also needs `data-sticky` to be enabled as well.
+
+You can specify the `tolerance` before the navbar is hidden/shown by adding a `data-tolerance` attribute. This accepts an integer and is the number of pixels between each scroll event. I.e. the 'force' required to hide/show the navbar.
+
+When the navbar is hidden the `is-hidden-scroll` class is added to it, allowing you to detect this via CSS and hide the navbar. This also allows you to add CSS animations. An example implemention would be:
+
+```css
+.navbar {
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar.is-hidden-scroll {
+    transform: translateY(-100%);
+}
+```
