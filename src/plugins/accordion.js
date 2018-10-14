@@ -1,26 +1,58 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module Accordion
  * @since  0.3.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Accordion {
+class Accordion extends Plugin {
+    /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options The plugin's options
+     * @return {Accordion} The newly created instance
+     */
+    static create(options) {
+        return new Accordion(options);
+    }
+
+    /**
+     * Handle parsing the DOM.
+     * @param {HTMLElement} element The root element for this accordion
+     * @return {undefined}
+     */
+    static parse(element) {
+        new Accordion({
+            element
+        });
+    }
+
+    /**
+     * Returns a string containing the element class this plugin supports.
+     * @returns {string} The class name.
+     */
+    static getRootClass() {
+        return 'accordions';
+    }
+
     /**
      * Plugin constructor
      * @param  {Object} options The plugin's options
      * @return {this} The new plugin instance
      */
     constructor(options) {
-        if(!options) {
-            options = {};
+        super(options);
+
+        // Work out the parent if it hasn't been supplied as an option.
+        if(this.parent == null) {
+            this.parent = this.option('element').parentNode;
         }
 
         /**
          * Message body text.
          * @type {string}
          */
-        this.root = options.hasOwnProperty('element') ? options.element : '';
+        this.element = this.option('element');
 
         /**
          * Accordion items
@@ -42,7 +74,7 @@ class Accordion {
      * @returns {Array} The accordion elements found
      */
     findAccordions() {
-        return this.root.querySelectorAll('.accordion');
+        return this.element.querySelectorAll('.accordion');
     }
 
     /**
@@ -102,35 +134,11 @@ class Accordion {
     }
 
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The plugin's options
-     * @return {Accordion} The newly created instance
-     */
-    static create(options) {
-        return new Accordion(options);
-    }
-
-    /**
-     * Destroy the message, removing the event listener, interval and element.
+     * Destroy the accordion
      * @return {undefined}
      */
     destroy() {
-        this.root = null;
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} element The root element for this accordion
-     * @return {undefined}
-     */
-    static handleDomParsing(element) {
-        new Accordion({
-            element
-        });
-    }
-
-    static getRootClass() {
-        return 'accordions';
+        this.element = null;
     }
 }
 

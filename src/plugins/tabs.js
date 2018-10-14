@@ -1,32 +1,74 @@
 import Bulma from '../core';
+import Plugin from '../plugin';
 
 /**
  * @module Tabs
  * @since  0.4.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Tabs {
+class Tabs extends Plugin {
+    /**
+     * Helper method used by the Bulma core to create a new instance.
+     * @param  {Object} options The options object for this instance
+     * @returns {Tabs} The newly created instance
+     */
+    static create(options) {
+        return new Tabs(options);
+    }
+
+    /**
+     * Handle parsing the DOMs data attribute API.
+     * @param {HTMLElement} element The root element for this instance
+     * @returns {undefined}
+     */
+    static parse(element) {
+        let hover = element.hasAttribute('data-hover') ? true : false;
+
+        let options = {
+            element: element,
+            hover: hover
+        };
+
+        new Tabs(options);
+    }
+
+    /**
+     * The root class used for initialisation
+     * @returns {string} The class this plugin is responsible for
+     */
+    static getRootClass() {
+        return 'tabs-wrapper';
+    }
+
+    /**
+     * Returns an object containing the default options for this plugin.
+     * @returns {object} The default options object.
+     */
+    static defaultOptions() {
+        return {
+            hover: false
+        };
+    }
+
     /**
      * Plugin constructor
      * @param  {Object} options The options object for this plugin
      * @return {this} The newly created instance
      */
     constructor(options) {
-        if(!options) {
-            options = {};
-        }
+        super(options);
 
         /**
          * The root tab element
          * @param {HTMLElement}
          */
-        this.root = options.hasOwnProperty('root') ? options.root : null;
+        this.element = this.option('element');
 
         /**
          * Whether the tabs should be changed when the nav item is hovered over
          * @param {boolean}
          */
-        this.hover = options.hasOwnProperty('hover') ? options.hover : false;
+        this.hover = this.option('hover');
 
         /**
          * The tab nav container
@@ -60,7 +102,7 @@ class Tabs {
      * @returns {HTMLElement} The navigation container
      */
     findNav() {
-        return this.root.querySelector('.tabs');
+        return this.element.querySelector('.tabs');
     }
 
     /**
@@ -76,7 +118,7 @@ class Tabs {
      * @returns {HTMLElement} The content container
      */
     findContent() {
-        return this.root.querySelector('.tabs-content');
+        return this.element.querySelector('.tabs-content');
     }
 
     /**
@@ -87,7 +129,7 @@ class Tabs {
         // We have to use the root here as the querySelectorAll API doesn't
         // support using '>' as the first character. So we have to have a
         // class to start with.
-        return this.root.querySelectorAll('.tabs-content > ul > li');
+        return this.element.querySelectorAll('.tabs-content > ul > li');
     }
 
     /**
@@ -125,39 +167,6 @@ class Tabs {
 
         navItem.classList.add('is-active');
         this.contentItems[index].classList.add('is-active');
-    }
-
-    /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The options object for this instance
-     * @returns {Tabs} The newly created instance
-     */
-    static create(options) {
-        return new Tabs(options);
-    }
-
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} element The root element for this instance
-     * @returns {undefined}
-     */
-    static handleDomParsing(element) {
-        let hover = element.hasAttribute('data-hover') ? true : false;
-
-        let options = {
-            root: element,
-            hover: hover
-        };
-
-        new Tabs(options);
-    }
-
-    /**
-     * The root class used for initialisation
-     * @returns {string} The class this plugin is responsible for
-     */
-    static getRootClass() {
-        return 'tabs-wrapper';
     }
 }
 

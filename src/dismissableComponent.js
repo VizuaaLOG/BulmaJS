@@ -1,9 +1,23 @@
+import Plugin from './plugin';
+
 /**
  * @module DismissableComponent
  * @since  0.2.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-export default class DismissableComponent {
+export default class DismissableComponent extends Plugin {
+    /**
+     * Returns an object containing the default options for this plugin.
+     * @returns {object} The default options object.
+     */
+    static defaultOptions() {
+        return {
+            isDismissable: false,
+            destroyOnDismiss: true,
+            element: null
+        };
+    }
+
     /**
      * Plugin constructor
      * @param  {string} name Plugin's name
@@ -11,6 +25,8 @@ export default class DismissableComponent {
      * @return {this} The new plugin instance
      */
     constructor(name, options) {
+        super(options);
+
         /**
          * The name of this component, this will be used as the root class
          * @type {string}
@@ -21,52 +37,47 @@ export default class DismissableComponent {
         * Body text.
         * @type {string}
         */
-        this.body = options.hasOwnProperty('body') ? options.body : '';
-        
-        /**
-        * The parent element to inject HTML
-        */
-        this.parent = options.hasOwnProperty('parent') ? options.parent : document.body;
+        this.body = this.option('body');
         
         /**
         * Color modifier.
         * @type {string} Possible values are null, primary, info, success, warning, danger
         */
-        this.color = options.hasOwnProperty('color') ? options.color : '';
+        this.color = this.option('color');
         
         /**
         * How long to wait before auto dismissing the component.
         * @type {int|null} If null component must be dismissed manually.
         */
-        this.dismissInterval = options.hasOwnProperty('dismissInterval') ? this.createDismissInterval(options.dismissInterval) : null;
+        this.dismissInterval = this.option('dismissInterval') ? this.createDismissInterval(this.option('dismissInterval')) : null;
         
         /**
         * Does this component have a dismiss button?
         * @type {Boolean}
         */
-        this.isDismissable = options.hasOwnProperty('isDismissable') ? options.isDismissable : false;
+        this.isDismissable = this.option('isDismissable');
         
         /**
         * Should this component be destroyed when it is dismissed.
         * @type {Boolean}
         */
-        this.destroyOnDismiss = options.hasOwnProperty('destroyOnDismiss') ? options.destroyOnDismiss : true;
+        this.destroyOnDismiss = this.option('destroyOnDismiss');
         
         /**
         * The root element.
         * @type {HTMLElement|null} If this is not provided a new element will be created.
         */
-        this.root = options.hasOwnProperty('element') ? options.element : null;
+        this.element = this.option('element');
         
         /**
         * The element used to close the component.
         * @type {HTMLElement}
         */
-        this.closeButton = options.hasOwnProperty('closeButton') ? options.closeButton : this.createCloseButton();
+        this.closeButton = this.option('closeButton', this.createCloseButton());
 
-        if(!this.root) {
+        if(!this.element) {
             this.createRootElement();
-            this.parent.appendChild(this.root);
+            this.parent.appendChild(this.element);
         }
 
         if(this.body) {
@@ -83,9 +94,9 @@ export default class DismissableComponent {
      * @return {undefined}
      */
     createRootElement() {
-        this.root = document.createElement('div');
+        this.element = document.createElement('div');
         
-        this.root.classList.add(this.name);
+        this.element.classList.add(this.name);
         this.hide();
     }
 
@@ -94,7 +105,7 @@ export default class DismissableComponent {
      * @return {undefined}
      */
     show() {
-        this.root.classList.remove('is-hidden');
+        this.element.classList.remove('is-hidden');
     }
 
     /**
@@ -102,7 +113,7 @@ export default class DismissableComponent {
      * @return {undefined}
      */
     hide() {
-        this.root.classList.add('is-hidden');
+        this.element.classList.add('is-hidden');
     }
 
     /**
@@ -110,7 +121,7 @@ export default class DismissableComponent {
      * @return {undefined}
      */
     insertBody() {
-        this.root.innerHTML = this.body;
+        this.element.innerHTML = this.body;
     }
 
     /**
@@ -141,7 +152,7 @@ export default class DismissableComponent {
      * @return {undefined}
      */
     prependCloseButton() {
-        this.root.insertBefore(this.closeButton, this.root.firstChild);
+        this.element.insertBefore(this.closeButton, this.element.firstChild);
     }
 
     /**
@@ -169,7 +180,7 @@ export default class DismissableComponent {
      * @return {undefined}
      */
     setColor() {
-        this.root.classList.add('is-' + this.color);
+        this.element.classList.add('is-' + this.color);
     }
 
     /**
@@ -183,8 +194,8 @@ export default class DismissableComponent {
 
         clearInterval(this.dismissInterval);
 
-        this.parent.removeChild(this.root);
+        this.parent.removeChild(this.element);
         this.parent = null;
-        this.root = null;
+        this.element = null;
     }
 }
