@@ -49,10 +49,11 @@ class Accordion extends Plugin {
         }
 
         /**
-         * Message body text.
+         * Accordion element.
          * @type {string}
          */
         this.element = this.option('element');
+        this.element.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * Accordion items

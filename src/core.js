@@ -53,6 +53,10 @@ const Bulma = {
         let elements = document.querySelectorAll(this.getPluginClasses());
         
         elements.forEach((element) => {
+            if(element.hasAttribute('data-bulma-attached')) {
+                return;
+            }
+
             let plugins = this.findCompatiblePlugins(element);
 
             plugins.forEach((plugin) => {

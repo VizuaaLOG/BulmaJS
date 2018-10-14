@@ -45,6 +45,7 @@ class File extends Plugin {
          * @type {HTMLElement}
          */
         this.element = this.option('element');
+        this.element.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * The element to use as the trigger.

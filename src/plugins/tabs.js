@@ -63,6 +63,7 @@ class Tabs extends Plugin {
          * @param {HTMLElement}
          */
         this.element = this.option('element');
+        this.element.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * Whether the tabs should be changed when the nav item is hovered over
