@@ -7,11 +7,11 @@ section: 'Core components'
 section_order: 2
 stats: true
 since_version: 0.1.0
-data_api: false
+data_api: true
 javascript_api: false
 ---
 
-The navbar plugin is super simple and is likely to be the plugin you'll always need. This plugin has one task, to open and close the mobile menu when you're viewing on a tablet/mobile device. You do not need to anything special to get this plugin working. Just include the plugin and you're set!
+The navbar plugin provides a range of different functionality for the Bulma navbar. By simply including the plugin you'll get the mobile navigation functionality, no configuration is required.
 
 <div class="code-example">
     <nav class="navbar is-transparent">
@@ -90,3 +90,10 @@ The navbar plugin is super simple and is likely to be the plugin you'll always n
         </div>
     </nav>
 </div>
+
+## Sticky navbar
+Since 0.6.1 Bulma has provided a `is-fixed-top` class for the navbar, along with `has-navbar-fixed-top` for the html/body elements. This allows you to fix the navbar to the top of the page when scrolling. However, what if your navbar is not directly at the top? You need to be able to offset the sticky feature.
+
+Since `0.7.0` BulmaJS has provided the functionality to do just this! First, specify the `data-sticky` attribute on your navbar. This will enable the event listener for scroll, by default the offset is set to `0` which does nothing extra than just adding the class to the element.
+
+You can control the offset of the navbar using `data-sticky-offset` this access a number and is the number of pixels the user needs to scroll before the navbar sticks to the top.
