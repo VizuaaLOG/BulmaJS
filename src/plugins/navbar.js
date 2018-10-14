@@ -23,8 +23,25 @@ class Navbar extends Plugin {
      */
     static parse(element) {
         new Navbar({
-            element: element
+            element: element,
+            sticky: element.hasAttribute('data-sticky') ? true : false,
+            stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
+            hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
+            tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0
         });
+    }
+
+    /**
+     * Returns an object containing the default options for this plugin.
+     * @returns {object} The default options object.
+     */
+    static defaultOptions() {
+        return {
+            sticky: false,
+            stickyOffset: 0,
+            hideOnScroll: false,
+            tolerance: 0
+        };
     }
 
     /**
@@ -58,6 +75,36 @@ class Navbar extends Plugin {
          */
         this.target = this.element.querySelector('.navbar-menu');
 
+        /**
+         * Should this navbar stick to the top of the page?
+         * @type {boolean}
+         */
+        this.sticky = this.option('sticky');
+        
+        /**
+         * The offset in pixels before the navbar will stick to the top of the page
+         * @type {number}
+         */
+        this.stickyOffset = parseInt(this.option('stickyOffset'));
+
+        /**
+         * Should the navbar hide when scrolling? Note: this just applies a 'is-hidden-scroll' class.
+         * @type {boolean}
+         */
+        this.hideOnScroll = this.option('hideOnScroll');
+
+        /**
+         * The amount of tolerance required before checking the navbar should hide/show
+         * @type {number}
+         */
+        this.tolerance = this.option('tolerance');
+
+        /**
+         * The last scroll Y known, this is used to calculate scroll direction
+         * @type {number}
+         */
+        this.lastScrollY = 0;
+
         this.registerEvents();
     }
 
@@ -67,6 +114,10 @@ class Navbar extends Plugin {
      */
     registerEvents() {
         this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
+
+        if(this.sticky) {
+            window.addEventListener('scroll', this.handleScroll.bind(this));
+        }
     }
 
     /**
@@ -81,6 +132,56 @@ class Navbar extends Plugin {
             this.target.classList.add('is-active');
             this.trigger.classList.add('is-active');
         }
+    }
+
+    /**
+     * Handle the scroll event
+     * @return {undefined}
+     */
+    handleScroll() {
+        this.toggleSticky(window.pageYOffset);
+    }
+
+    /**
+     * Toggle the navbar's sticky state
+     * @param {number} scrollY The amount of pixels that has been scrolled
+     * @return {undefined}
+     */
+    toggleSticky(scrollY) {
+        if(scrollY > this.stickyOffset) {
+            this.element.classList.add('is-fixed-top');
+            document.body.classList.add('has-navbar-fixed-top');
+        } else {
+            this.element.classList.remove('is-fixed-top');
+            document.body.classList.remove('has-navbar-fixed-top');
+        }
+
+        if(this.hideOnScroll) {
+            let scrollDirection = this.calculateScrollDirection(scrollY, this.lastScrollY);
+            let triggeredTolerance = this.difference(scrollY, this.lastScrollY) >= this.tolerance;
+
+            if(triggeredTolerance) {
+                if(scrollDirection === 'down') {
+                    this.element.classList.add('is-hidden-scroll');
+                } else {
+                    this.element.classList.remove('is-hidden-scroll');
+                }
+            }
+
+            this.lastScrollY = scrollY;
+        }
+    }
+
+    difference(a, b) {
+        if (a > b) {
+            return a - b;
+        } else {
+            return b - a;
+        }
+    }
+
+    calculateScrollDirection(currentY, lastY) {
+        return currentY >= lastY ? 'down' : 'up';
     }
 }
 
