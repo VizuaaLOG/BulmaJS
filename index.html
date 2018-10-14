@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="docs/assets/css/bulma-calendar.css">
+    <link rel="stylesheet" href="docs/assets/css/bulma-accordion.css">
+    <style>
+        .tabs-content > ul > li {
+            display: none;
+            list-style: none;
+        }
+
+        .tabs-content > ul > li.is-active {
+            display: block;
+        }
+
+        .navbar {
+            transform: translateY(0);
+            transition: transform 0.25s ease-in-out;
+        }
+
+        .navbar.is-hidden-scroll {
+            transform: translateY(-100%);
+        }
+    </style>
+</head>
+<body>
+    <script src="dist/bulma.js"></script>
+    <script>
+        Bulma.create('notification', {
+            body: 'I am always visible until you close me manually.',
+            parent: document.getElementById('dismissable-notification'),
+            isDismissable: true
+        }).show();
+    </script>
+</body>
+</html>

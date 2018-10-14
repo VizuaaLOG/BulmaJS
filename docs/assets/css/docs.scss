@@ -44,7 +44,7 @@
 #navigation-menu {
     transition: box-shadow 100ms ease-in-out;
 
-    &.is-scroll {
+    &.has-shadow {
         box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
     }
 }
