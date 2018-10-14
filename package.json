@@ -16,7 +16,7 @@
     "webpack-glob-entry": "^2.1.1"
   },
   "scripts": {
-    "docs-js": "npm run dev && rm -rf docs/assets/js/bulmajs && mkdir -p docs/assets/js/bulmajs && cp dist/* docs/assets/js/bulmajs",
+    "docs-js": "node scripts/build-docs-js.js",
     "lint": "eslint 'src/**'",
     "serve-docs": "cd ./docs && bundle exec jekyll serve",
     "dev": "webpack --config webpack.config.js --mode development",

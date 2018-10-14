@@ -41,5 +41,10 @@
     gtag('config', 'UA-64446221-4');
   </script>
 
-  <script src="{{ site.url }}/assets/js/bulmajs/bulma.js"></script>
+  {% assign pageVersion = page.version | plus: 0 %}
+  {% if pageVersion < 0.7 %}
+    <script src="{{ site.url }}/assets/js/bulmajs/old/bulma.js"></script>
+  {% else %}
+    <script src="{{ site.url }}/assets/js/bulmajs/{{ page.version }}/bulma.js"></script>
+  {% endif %}
 </head>
