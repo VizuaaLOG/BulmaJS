@@ -98,6 +98,8 @@ Since `0.7.0` BulmaJS has provided the functionality to do just this! First, spe
 
 You can control the offset of the navbar using `data-sticky-offset` this access a number and is the number of pixels the user needs to scroll before the navbar sticks to the top.
 
+You can also add `data-sticky-shadow` to your navbar element, this will add the `has-shadow` class to the navbar when it becomes sticky.
+
 ## Hide the navbar when scrolling
 It can sometimes be useful to hide the navbar when your user is scrolling down, and then show it again when scrolling up. As of `0.7.0` the navbar plugin provides this functionality. To enable it, add the `data-hide-on-scroll` attribute to your navbar element. Do note this also needs `data-sticky` to be enabled as well.
 
