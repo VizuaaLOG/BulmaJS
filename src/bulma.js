@@ -12,4 +12,4 @@ import Tabs from './plugins/tabs';
 import Accordion from './plugins/accordion';
 import Calendar from './plugins/calendar';
 
-window.Bulma = Bulma;
+export default Bulma;
