@@ -23,9 +23,9 @@ If you would prefer to create the plugin instances within Javascript, you can do
 For example, using `Bulma.create` you can easily link a Javascript modal instance to a Modal element:
 
 {% highlight javascript %}
-import Modal from '@vizuaalog/bulma/src/plugins/Modal';
+import Modal from '@vizuaalog/bulmajs/src/plugins/Modal';
 
-var modal = Bulma.create('modal', {
+var modal = Modal.create({
     element: document.querySelector('#myModal')
 });
 
