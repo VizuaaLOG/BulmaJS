@@ -1,0 +1,4 @@
+dist/
+docs/
+scripts/
+webpack.config.js
