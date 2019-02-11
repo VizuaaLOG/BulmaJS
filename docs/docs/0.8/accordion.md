@@ -13,6 +13,10 @@ javascript_api: true
 
 <link rel="stylesheet" href="{{ site.url }}/assets/css/bulma-accordion.css">
 
+<div class="notification is-warning">
+    <strong>Deprecated</strong> This plugin has now been Deprecated from the core and will be removed in the 1.0 release. If you're still require the JS implementation then it's recommended to use the offical JS library.
+</div>
+
 <div class="notification is-info">
     This is a BulmaJS ES6 plugin to integrate the JS functionality needed to use <a href="https://wikiki.github.io/components/accordion/" target="_blank">Wikiki's Accordion Bulma extension</a>. BulmaJS does not come with the CSS styling, this will need to be downloaded separately.
 </div>
