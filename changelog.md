@@ -1,5 +1,6 @@
 # 0.8.0 (unreleased)
-+ 
++ **Tweak** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Remove the assumed window assignment, if you rely on this then you'll need to ensure you add this to you applications JS.
++ **Bug** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Add a default export for the full BulmaJS bundle.
 # 0.7.0
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) Modals can now be closed by pressing the 
 `escape` key.
