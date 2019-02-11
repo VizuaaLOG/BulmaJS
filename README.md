@@ -3,6 +3,7 @@
 BulmaJS
 ========
 [![Build Status](https://travis-ci.org/VizuaaLOG/BulmaJS.svg?branch=master)](https://travis-ci.org/VizuaaLOG/BulmaJS)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 This is an unofficial Javascript extension for the [Bulma CSS framework](http://bulma.io).
 
