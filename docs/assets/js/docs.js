@@ -38,7 +38,7 @@ if(document.querySelector('#docs-menu')) {
             },
 
             versions: function() {
-                return _.keys(this.items);
+                return _.keys(this.items).sort();
             },
 
             versionItems: function() {
