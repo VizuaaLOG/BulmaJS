@@ -88,24 +88,7 @@ class Modal extends Plugin {
         /** @param {string|null} */
         this.title = this.option('title');
 
-        if(this.type === 'card') {
-            /** @param {HTMLElement} */
-            this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header');
-
-            /** @param {HTMLElement} */
-            this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
-            if(!this.headerTitle.innerHTML) {
-                this.headerTitle.innerHTML = this.title;
-            }
-
-            /** @param {HTMLElement} */
-            this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
-            if(!this.cardBody.innerHTML) {
-                this.cardBody.innerHTML = this.body;
-            }
-
-            /** @param {HTMLElement} */
-            this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
+            this.createCardStructure();
         } else {
             if(!this.content.innerHTML) {
                 this.content.innerHTML = this.body;
@@ -128,6 +111,30 @@ class Modal extends Plugin {
         }
 
         this.setupEvents();
+    }
+
+    /**
+     * Create the card style structure
+     * @returns {void}
+     */
+    createCardStructure() {
+        /** @param {HTMLElement} */
+        this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header');
+
+        /** @param {HTMLElement} */
+        this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
+        if(!this.headerTitle.innerHTML) {
+            this.headerTitle.innerHTML = this.title;
+        }
+
+        /** @param {HTMLElement} */
+        this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
+        if(!this.cardBody.innerHTML) {
+            this.cardBody.innerHTML = this.body;
+        }
+
+        /** @param {HTMLElement} */
+        this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
     }
 
     /**
