@@ -60,6 +60,10 @@ class Alert extends Modal {
         this.open();
     }
 
+    /**
+     * Create the alerts structure
+     * @returns {void}
+     */
     createCardStructure() {
         /** @param {HTMLElement} */
         this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.option('type')]);
