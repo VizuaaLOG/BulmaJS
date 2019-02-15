@@ -112,8 +112,8 @@ The modal plugin provides two ways to create a new modal. Either entirely throug
 ## Opening/closing a modal
 You want to show your modal right? With BulmaJS that's as easy as calling `open()` on your modal Javascript instance. You can call the reverse `close()` method to close the modal.
 
-## Modal type
-Bulma supports a couple of different types of modal. You can control what time is used using the `type` option when creating the modal. By default a modal with use the `card` type. This is the traditional style of a modal and has a header, content area and footer. The alternative value is `image` which will use the image type instead.
+## Modal style
+Bulma supports a couple of different modal styles. You can control what time is used using the `style` option when creating the modal. By default a modal with use the `card` style. This is the traditional style of a modal and has a header, content area and footer. The alternative value is `image` which will use the image type instead.
 
 ## Closable
 If your modal is showing important information you may want to restrict how a user closes it. By default a modal can be closed in a few different ways:
