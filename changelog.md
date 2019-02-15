@@ -1,5 +1,6 @@
 # 0.8.0 (unreleased)
 + **Tweak** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Remove the assumed window assignment, if you rely on this then you'll need to ensure you add this to you applications JS.
++ **Tweak BREAKING** The modal's `type` attribute has been renamed to `style`. This value is changing the 'style' of the modal, and so this better reflects the option.
 + **Bug** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Add a default export for the full BulmaJS bundle.
 + **Deprecated** Wikiki's Accordion plugin has been Deprecated from the core and will be removed in the 1.0 release. If you are using Wikiki's Accordion extension then it's recommended to use the official JS integration for it.
 + **Deprecated** Wikiki's Calendar plugin has been Deprecated from the core and will be removed from the 1.0 release. If you are using Wikiki's Calendar extension then it's recommended to use the official JS integration for it.

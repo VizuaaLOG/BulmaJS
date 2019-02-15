@@ -31,7 +31,7 @@ class Modal extends Plugin {
      */
     static defaultOptions() {
         return {
-            type: 'card',
+            style: 'card',
             closable: true
         };
     }
@@ -45,7 +45,7 @@ class Modal extends Plugin {
         super(options);
 
         /** @param {string} */
-        this.type = this.option('type');
+        this.style = this.option('style');
 
         /** @param {HTMLElement} */
         this.element = this.option('element');
@@ -77,7 +77,7 @@ class Modal extends Plugin {
         this.background = Bulma.findOrCreateElement('.modal-background', this.element);
 
         /** @param {HTMLElement} */
-        this.content = this.type === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
+        this.content = this.style === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
 
         /** @param {boolean} */
         this.closable = this.option('closable');
@@ -88,6 +88,7 @@ class Modal extends Plugin {
         /** @param {string|null} */
         this.title = this.option('title');
 
+        if(this.style === 'card') {
             this.createCardStructure();
         } else {
             if(!this.content.innerHTML) {
@@ -97,7 +98,7 @@ class Modal extends Plugin {
 
         if(this.closable) {
             /** @param {HTMLElement} */
-            this.closeButton = this.type === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
+            this.closeButton = this.style === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
         }
 
         /** @param {function} */
@@ -106,7 +107,7 @@ class Modal extends Plugin {
         /** @param {function} */
         this.onClose = this.option('onClose');
 
-        if(this.type === 'card') {
+        if(this.style === 'card') {
             this.createButtons();
         }
 
@@ -219,7 +220,7 @@ class Modal extends Plugin {
         this.background = null;
         this.content = null;
 
-        if(this.type === 'card') {
+        if(this.style === 'card') {
             this.header = null;
             this.headerTitle = null;
             this.cardBody = null;
