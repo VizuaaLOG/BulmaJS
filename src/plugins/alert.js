@@ -1,12 +1,12 @@
 import Bulma from '../core';
-import Plugin from '../plugin';
+import Modal from './modal';
 
 /**
  * @module Alert
  * @since  0.8.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Alert extends Plugin {
+class Alert extends Modal {
     /**
      * Helper method used by the Bulma core to create a new instance.
      * @param  {Object} options THe options object for the new instance
@@ -33,9 +33,11 @@ class Alert extends Plugin {
         return {
             type: 'info',
             title: '',
-            message: '',
+            body: '',
             confirm: 'Okay',
             cancel: null,
+            style: 'card',
+            parent: document.body,
             onConfirm: function() {},
             onCancel: function() {}
         };
@@ -49,82 +51,33 @@ class Alert extends Plugin {
     constructor(options) {
         super(options);
 
-        /** @param {string} */
-        this.type = this.option('type');
-
-        /** @param {HTMLElement} */
-        this.parent = document.body;
-
-        /** @param {HTMLElement} */
-        this.element = Bulma.createElement('div', ['modal', 'is-active']);
-        this.parent.appendChild(this.element);
-
-        /** @param {HTMLElement} */
-        this.background = Bulma.createElement('div', 'modal-background');
-        this.element.appendChild(this.background);
-
-        /** @param {HTMLElement} */
-        this.content = Bulma.createElement('div', 'modal-card');
-        this.element.appendChild(this.content);
-
-        /** @param {string|null} */
-        this.title = this.option('title');
-
-        /** @param {string|null} */
-        this.message = this.option('message');
-
-        /** @param {HTMLElement} */
-        this.header = Bulma.createElement('header', ['modal-card-head', 'has-background-' + this.type]);
-        this.content.appendChild(this.header);
-
-        /** @param {HTMLElement} */
-        var textColor = this.type == 'warning' ? 'black' : 'white';
-        this.headerTitle = Bulma.createElement('p', ['modal-card-title', 'has-text-' + textColor]);
-        this.headerTitle.innerHTML = this.title;
-        this.header.appendChild(this.headerTitle);
-
-        /** @param {HTMLElement} */
-        this.closeButton = Bulma.createElement('button', 'delete');
-        this.header.appendChild(this.closeButton);
-
-        /** @param {HTMLElement} */
-        this.cardBody = Bulma.createElement('section', 'modal-card-body');
-        this.cardBody.innerHTML = this.message;
-        this.content.appendChild(this.cardBody);
-
-        /** @param {HTMLElement} */
-        this.footer = Bulma.createElement('footer', 'modal-card-foot');
-        this.content.appendChild(this.footer);
-
         /** @param {function} */
         this.onConfirm = this.option('onConfirm');
 
         /** @param {function} */
         this.onCancel = this.option('onCancel');
 
-        this.createButtons();
-
-        this.setupEvents();
+        this.open();
     }
 
-    /**
-     * Setup the events used by this modal.
-     * @returns {void}
-     */
-    setupEvents() {
-        this.closeButton.addEventListener('click', this.close.bind(this));
+    createCardStructure() {
+        /** @param {HTMLElement} */
+        this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.option('type')]);
 
-        document.addEventListener('keyup', (event) => {
-            if(!this.element.classList.contains('is-active')) {
-                return;
-            }
+        /** @param {HTMLElement} */
+        var textColor = this.option('type') == 'warning' ? 'black' : 'white';
+        this.headerTitle = Bulma.createElement('p', ['modal-card-title', 'has-text-' + textColor]);
+        this.headerTitle.innerHTML = this.title;
+        this.header.appendChild(this.headerTitle);
 
-            let key = event.key || event.keyCode;
+        /** @param {HTMLElement} */
+        this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
+        if(!this.cardBody.innerHTML) {
+            this.cardBody.innerHTML = this.body;
+        }
 
-            if(key === 'Escape' || key === 'Esc' || key === 27) {
-                this.close();
-            }
-        });
+        /** @param {HTMLElement} */
+        this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
     }
 
     /**
@@ -132,7 +85,7 @@ class Alert extends Plugin {
      * @returns {void}
      */
     createButtons() {
-        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.type]);
+        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.option('type')]);
         confirmButton.innerHTML = this.option('confirm');
         confirmButton.addEventListener('click', () => {
             this.onConfirm();
@@ -149,42 +102,6 @@ class Alert extends Plugin {
             });
             this.footer.appendChild(cancelButton);
         }
-    }
-
-    /**
-     * Close the modal
-     * @returns {void} 
-     */
-    close() {
-        document.body.classList.remove('is-clipped');
-
-        if(this.onCancel) {
-            this.onCancel();
-        }
-
-        this.destroy();
-    }
-
-    /**
-     * Destroy this modal, unregistering element references and removing the modal.
-     * @returns {void}
-     */
-    destroy() {
-        this.element.remove();
-
-        this.parent = null;
-        this.element = null;
-        this.background = null;
-        this.content = null;
-
-        this.header = null;
-        this.headerTitle = null;
-        this.cardBody = null;
-        this.footer = null;
-
-        this.closeButton = null;
-
-        this.options = [];
     }
 }
 
