@@ -1,4 +1,4 @@
-# 0.8.0 (unreleased)
+# 0.8.0
 + **Feature** [#47](https://github.com/VizuaaLOG/BulmaJS/issues/47) Implement an alert box. This extends the modal plugin and uses the card style. The type of alert box can be specified, adjusting the colours used.
 + **Tweak** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Remove the assumed window assignment, if you rely on this then you'll need to ensure you add this to you applications JS.
 + **Tweak BREAKING** The modal's `type` attribute has been renamed to `style`. This value is changing the 'style' of the modal, and so this better reflects the option.
