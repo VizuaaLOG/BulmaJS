@@ -1,3 +1,6 @@
+# 0.8.1
++ **Bug** [63](https://github.com/VizuaaLOG/BulmaJS/issues/63) Use a helper `each` method instead of `forEach`. This is to add support for IE11.
+
 # 0.8.0
 + **Feature** [#47](https://github.com/VizuaaLOG/BulmaJS/issues/47) Implement an alert box. This extends the modal plugin and uses the card style. The type of alert box can be specified, adjusting the colours used.
 + **Tweak** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Remove the assumed window assignment, if you rely on this then you'll need to ensure you add this to you applications JS.
@@ -5,6 +8,7 @@
 + **Bug** [#61](https://github.com/VizuaaLOG/BulmaJS/pull/61) Add a default export for the full BulmaJS bundle.
 + **Deprecated** Wikiki's Accordion plugin has been Deprecated from the core and will be removed in the 1.0 release. If you are using Wikiki's Accordion extension then it's recommended to use the official JS integration for it.
 + **Deprecated** Wikiki's Calendar plugin has been Deprecated from the core and will be removed from the 1.0 release. If you are using Wikiki's Calendar extension then it's recommended to use the official JS integration for it.
+
 # 0.7.0
 + **Feature** [#27](https://github.com/VizuaaLOG/BulmaJS/issues/27) Modals can now be closed by pressing the 
 `escape` key.

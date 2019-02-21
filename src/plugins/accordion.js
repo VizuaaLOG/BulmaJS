@@ -85,7 +85,7 @@ class Accordion extends Plugin {
     findToggleButtons() {
         let buttons = [];
 
-        this.accordions.forEach((accordion) => {
+        Bulma.each(this.accordions, (accordion) => {
             buttons.push(accordion.querySelector('button.toggle'));
         });
 
@@ -97,7 +97,7 @@ class Accordion extends Plugin {
      * @return {undefined}
      */
     addToggleButtonEvents() {
-        this.toggleButtons.forEach((toggleButton, index) => {
+        Bulma.each(this.toggleButtons, (toggleButton, index) => {
             // If the button is null, the accordion item has no toggle button
             if(toggleButton !== null) {
                 toggleButton.addEventListener('click', (event) => {
@@ -123,7 +123,7 @@ class Accordion extends Plugin {
      * @return {undefined}
      */
     toggleAccordionVisibility(accordion) {
-        this.accordions.forEach(function(a) {
+        Bulma.each(this.accordions, function(a) {
             a.classList.remove('is-active');
         });
 

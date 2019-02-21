@@ -3,7 +3,7 @@ const Bulma = {
      * Current BulmaJS version.
      * @type {String}
      */
-    VERSION: '0.8.0',
+    VERSION: '0.8.1',
 
     /**
      * An index of the registered plugins
@@ -52,14 +52,14 @@ const Bulma = {
     traverseDOM() {
         let elements = document.querySelectorAll(this.getPluginClasses());
         
-        elements.forEach((element) => {
+        this.each(elements, (element) => {
             if(element.hasAttribute('data-bulma-attached')) {
                 return;
             }
 
             let plugins = this.findCompatiblePlugins(element);
 
-            plugins.forEach((plugin) => {
+            this.each(plugins, (plugin) => {
                 plugin.handler.parse(element);
             });
         });
@@ -94,7 +94,7 @@ const Bulma = {
         let sortedPlugins = Object.keys(this.plugins)
             .sort((a, b) => this.plugins[a].priority < this.plugins[b].priority);
 
-        sortedPlugins.forEach((key) => {
+        this.each(sortedPlugins, (key) => {
             if(element.classList.contains(this.plugins[key].handler.getRootClass())) {
                 compatiblePlugins.push(this.plugins[key]);
             }
@@ -120,7 +120,7 @@ const Bulma = {
 
         let elem = document.createElement(name);
 
-        classes.forEach((className) => {
+        this.each(classes, (className) => {
             elem.classList.add(className);
         });
 
@@ -179,6 +179,19 @@ const Bulma = {
         }
 
         return elem;
+    },
+
+    /**
+     * For loop helper
+     * @param {*} objects The array/object to loop through
+     * @param {*} callback The callback used for each item
+     */
+    each(objects, callback) {
+        let i;
+
+        for(i = 0; i < objects.length; i++) {
+            callback(objects[i], i);
+        }
     }
 };
 

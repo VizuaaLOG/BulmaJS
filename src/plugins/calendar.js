@@ -238,7 +238,7 @@ class Calendar extends Plugin {
     buildHeader() {
         let calendarHeader = Bulma.createElement('div', 'calendar-header');
 
-        this.shortDays.forEach((dayName) => {
+        Bulma.each(this.shortDays, (dayName) => {
             let day = Bulma.createElement('div', 'calendar-date');
             day.innerHTML = dayName;
             calendarHeader.appendChild(day);
@@ -294,7 +294,7 @@ class Calendar extends Plugin {
             });
         }
 
-        cells.forEach((day) => {
+        Bulma.each(cells, (day) => {
             let d = Bulma.createElement('div', 'calendar-date');
 
             if(!day.isThisMonth) {
