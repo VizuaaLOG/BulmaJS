@@ -170,7 +170,7 @@ class Modal extends Plugin {
         var buttonsConfig = this.option('buttons', []);
         var modal = this;
 
-        buttonsConfig.forEach(function(buttonConfig) {
+        Bulma.each(buttonsConfig, function(buttonConfig) {
             var button = Bulma.createElement('button', buttonConfig.classes);
             button.innerHTML = buttonConfig.label;
 

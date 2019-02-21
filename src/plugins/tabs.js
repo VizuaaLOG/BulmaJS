@@ -138,7 +138,7 @@ class Tabs extends Plugin {
      * @returns {void}
      */
     setupNavEvents() {
-        this.navItems.forEach((navItem, index) => {
+        Bulma.each(this.navItems, (navItem, index) => {
             navItem.addEventListener('click', () => {
                 this.handleNavClick(navItem, index);
             });
@@ -158,11 +158,11 @@ class Tabs extends Plugin {
      * @returns {void}
      */
     handleNavClick(navItem, index) {
-        this.navItems.forEach((navItem) => {
+        Bulma.each(this.navItems, (navItem) => {
             navItem.classList.remove('is-active');
         });
 
-        this.contentItems.forEach((contentItem) => {
+        Bulma.each(this.contentItems, (contentItem) => {
             contentItem.classList.remove('is-active');
         });
 
