@@ -126,3 +126,36 @@ What's the point in a popup if you can't use it for input? The alert plugin can 
 {% include snippets/0.8/alert/events-1.js %}
 {% endhighlight %}
 
+# Hiding the header
+
+<div class="tags has-addons">
+    <span class="tag is-success">Since</span>
+    <span class="tag">0.9.0</span>
+</div>
+
+You can choose to not show the alert's header by setting the `showHeader` option to `false`.
+
+<div class="notification is-info">
+    Bulma's card modal does not support this as an option, so will need a small custom CSS snippet to add rounded corners to the top of the modal.
+    
+    {% highlight css %}{% include snippets/0.9/alert/header.css %}{% endhighlight %}
+</div>
+
+<div class="code-example">
+    <button id="example-alert-button-7" class="button is-primary">Show alert</button>
+</div>
+
+<script>
+    document.querySelector('#example-alert-button-7').addEventListener('click', function(e) {
+        Bulma.create('alert', {
+            type: 'danger',
+            body: 'See no header',
+            confirm: 'Awesome!',
+            showHeader: false
+        });
+    });
+</script>
+
+{% highlight javascript %}
+{% include snippets/0.9/alert/header.js %}
+{% endhighlight %}

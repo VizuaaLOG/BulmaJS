@@ -38,6 +38,7 @@ class Alert extends Modal {
             cancel: null,
             style: 'card',
             parent: document.body,
+            showHeader: true,
             onConfirm: function(e) {},
             onCancel: function(e) {}
         };
@@ -50,6 +51,8 @@ class Alert extends Modal {
      */
     constructor(options) {
         super(options);
+
+        this.element.classList.add('alert');
 
         /** @param {function} */
         this.onConfirm = this.option('onConfirm');
@@ -65,14 +68,16 @@ class Alert extends Modal {
      * @returns {void}
      */
     createCardStructure() {
-        /** @param {HTMLElement} */
-        this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.option('type')]);
+        if(this.option('showHeader')) {
+            /** @param {HTMLElement} */
+            this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.option('type')]);
 
-        /** @param {HTMLElement} */
-        var textColor = this.option('type') == 'warning' ? 'black' : 'white';
-        this.headerTitle = Bulma.createElement('p', ['modal-card-title', 'has-text-' + textColor]);
-        this.headerTitle.innerHTML = this.title;
-        this.header.appendChild(this.headerTitle);
+            /** @param {HTMLElement} */
+            var textColor = this.option('type') == 'warning' ? 'black' : 'white';
+            this.headerTitle = Bulma.createElement('p', ['modal-card-title', 'has-text-' + textColor]);
+            this.headerTitle.innerHTML = this.title;
+            this.header.appendChild(this.headerTitle);
+        }
 
         /** @param {HTMLElement} */
         this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
