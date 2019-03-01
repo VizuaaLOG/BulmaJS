@@ -126,6 +126,41 @@ What's the point in a popup if you can't use it for input? The alert plugin can 
 {% include snippets/0.8/alert/events-1.js %}
 {% endhighlight %}
 
+# Custom button classes
+
+<div class="tags has-addons">
+    <span class="tag is-success">Since</span>
+    <span class="tag">0.9.0</span>
+</div>
+
+If you would like to adjust the style of the buttons, maybe changing them to include the `is-outlined` class you can do so by providing the `cancel` or `confirm` options with an object. The new object will have `label` property, this will the text to display within the button, and an array of `classes`.
+
+<div class="code-example">
+    <button id="example-alert-button-8" class="button is-primary">Show alert</button>
+</div>
+
+<script>
+    document.querySelector('#example-alert-button-8').addEventListener('click', function(e) {
+        Bulma.create('alert', {
+            type: 'danger',
+            title: 'Ooooo custom',
+            body: 'Classes...',
+            confirm: {
+                label: 'Awesome',
+                classes: ['is-outlined']
+            },
+            cancel: {
+                label: 'See',
+                classes: ['is-primary', 'is-rounded']
+            }
+        });
+    });
+</script>
+
+{% highlight javascript %}
+{% include snippets/0.9/alert/classes.js %}
+{% endhighlight %}
+
 # Hiding the header
 
 <div class="tags has-addons">
