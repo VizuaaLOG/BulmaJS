@@ -96,8 +96,16 @@ class Alert extends Modal {
      * @returns {void}
      */
     createButtons() {
-        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.option('type')]);
-        confirmButton.innerHTML = this.option('confirm');
+        var confirmOptions = this.option('confirm');
+        if(typeof confirmOptions === 'string') {
+            confirmOptions = {
+                label: confirmOptions,
+                classes: []
+            };
+        }
+
+        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.option('type')].concat(confirmOptions.classes));
+        confirmButton.innerHTML = confirmOptions.label;
         confirmButton.addEventListener('click', e => {
             this.onConfirm(e);
 
@@ -110,8 +118,16 @@ class Alert extends Modal {
         this.footer.appendChild(confirmButton);
 
         if(this.option('cancel')) {
-            var cancelButton = Bulma.createElement('button', 'button');
-            cancelButton.innerHTML = this.option('cancel');
+            var cancelOptions = this.option('cancel');
+            if(typeof cancelOptions === 'string') {
+                cancelOptions = {
+                    label: cancelOptions,
+                    classes: []
+                };
+            }
+
+            var cancelButton = Bulma.createElement('button', ['button'].concat(cancelOptions.classes));
+            cancelButton.innerHTML = cancelOptions.label;
             cancelButton.addEventListener('click', e => {
                 this.onCancel(e);
 
