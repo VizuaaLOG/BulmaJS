@@ -39,6 +39,7 @@ class Alert extends Modal {
             style: 'card',
             parent: document.body,
             showHeader: true,
+            destroyOnClose: true,
             onConfirm: function(e) {},
             onCancel: function(e) {}
         };
@@ -98,7 +99,12 @@ class Alert extends Modal {
         confirmButton.innerHTML = this.option('confirm');
         confirmButton.addEventListener('click', e => {
             this.onConfirm(e);
-            this.destroy();
+
+            this.close();
+
+            if(this.option('destroyOnClose')) {
+                this.destroy();
+            }
         });
         this.footer.appendChild(confirmButton);
 
@@ -107,7 +113,12 @@ class Alert extends Modal {
             cancelButton.innerHTML = this.option('cancel');
             cancelButton.addEventListener('click', e => {
                 this.onCancel(e);
-                this.destroy();
+
+                this.close();
+                
+                if(this.option('destroyOnClose')) {
+                    this.destroy();
+                }
             });
             this.footer.appendChild(cancelButton);
         }

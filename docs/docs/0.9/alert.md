@@ -159,3 +159,14 @@ You can choose to not show the alert's header by setting the `showHeader` option
 {% highlight javascript %}
 {% include snippets/0.9/alert/header.js %}
 {% endhighlight %}
+
+# Destroying the alert
+
+<div class="tags has-addons">
+    <span class="tag is-success">Since</span>
+    <span class="tag">0.9.0</span>
+</div>
+
+By default the alert will destroy itself when closed, removing all HTML and nulling it's variables. You may not want to use this behaviour. You can instead have the alert hide itself by specifying `destroyOnSave: false` option.
+
+If you save the alert instance to a variable, you can then show it again using it's `show` method.
