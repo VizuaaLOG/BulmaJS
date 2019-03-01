@@ -51,11 +51,7 @@ class Modal extends Plugin {
         this.element = this.option('element');
 
         if(!this.element) {
-            this.element = Bulma.createElement('div', '.modal');
-
-            if(!this.element.classList.contains('modal')) {
-                this.element.classList.add('modal');
-            }
+            this.element = Bulma.createElement('div', 'modal');
         }
 
         /** @param {HTMLElement} */
