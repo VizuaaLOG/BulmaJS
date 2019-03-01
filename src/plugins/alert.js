@@ -38,8 +38,8 @@ class Alert extends Modal {
             cancel: null,
             style: 'card',
             parent: document.body,
-            onConfirm: function() {},
-            onCancel: function() {}
+            onConfirm: function(e) {},
+            onCancel: function(e) {}
         };
     }
 
@@ -91,17 +91,17 @@ class Alert extends Modal {
     createButtons() {
         var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.option('type')]);
         confirmButton.innerHTML = this.option('confirm');
-        confirmButton.addEventListener('click', () => {
-            this.onConfirm();
+        confirmButton.addEventListener('click', e => {
+            this.onConfirm(e);
             this.destroy();
         });
         this.footer.appendChild(confirmButton);
-        
+
         if(this.option('cancel')) {
             var cancelButton = Bulma.createElement('button', 'button');
             cancelButton.innerHTML = this.option('cancel');
-            cancelButton.addEventListener('click', () => {
-                this.onCancel();
+            cancelButton.addEventListener('click', e => {
+                this.onCancel(e);
                 this.destroy();
             });
             this.footer.appendChild(cancelButton);
