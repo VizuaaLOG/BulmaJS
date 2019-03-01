@@ -1,3 +1,10 @@
+# 0.9.0 (unreleased)
++ **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has a `showHeader` option. This defaults to `true`, setting it to `false` will hide the alert's header.
++ **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has `destroyOnConfirm` and `destroyOnCancel` options. These both default to `true` setting them to `false` will prevent the alert from destroying itself when the relevant button is clicked.
++ **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has additional options for buttons. Supplying an object will allow you to also provide additional classes for each button. More details in the alert documentation.
++ **Tweak** [#65](https://github.com/VizuaaLOG/BulmaJS/issues/65) The alert callbacks now include an `event` argument. Thanks to [@alexcanana](https://github.com/alexcanana).
++ **Bug** Fixed a bug that caused `.modal` and `modal` classes to be applied to a modal
+
 # 0.8.1
 + **Bug** [63](https://github.com/VizuaaLOG/BulmaJS/issues/63) Use a helper `each` method instead of `forEach`. This is to add support for IE11.
 
