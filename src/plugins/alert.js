@@ -39,7 +39,8 @@ class Alert extends Modal {
             style: 'card',
             parent: document.body,
             showHeader: true,
-            destroyOnClose: true,
+            destroyOnConfirm: true,
+            destroyOnCancel: true,
             onConfirm: function(e) {},
             onCancel: function(e) {}
         };
@@ -102,7 +103,7 @@ class Alert extends Modal {
 
             this.close();
 
-            if(this.option('destroyOnClose')) {
+            if(this.option('destroyOnConfirm')) {
                 this.destroy();
             }
         });
@@ -116,7 +117,7 @@ class Alert extends Modal {
 
                 this.close();
                 
-                if(this.option('destroyOnClose')) {
+                if(this.option('destroyOnCancel')) {
                     this.destroy();
                 }
             });
