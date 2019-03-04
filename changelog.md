@@ -1,4 +1,4 @@
-# 0.9.0 (unreleased)
+# 0.9.0
 + **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has a `showHeader` option. This defaults to `true`, setting it to `false` will hide the alert's header.
 + **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has `destroyOnConfirm` and `destroyOnCancel` options. These both default to `true` setting them to `false` will prevent the alert from destroying itself when the relevant button is clicked.
 + **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has additional options for buttons. Supplying an object will allow you to also provide additional classes for each button. More details in the alert documentation.
