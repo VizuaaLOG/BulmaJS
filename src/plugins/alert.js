@@ -109,8 +109,6 @@ class Alert extends Modal {
         confirmButton.addEventListener('click', e => {
             this.onConfirm(e);
 
-            this.close();
-
             if(this.option('destroyOnConfirm')) {
                 this.destroy();
             }
@@ -130,8 +128,6 @@ class Alert extends Modal {
             cancelButton.innerHTML = cancelOptions.label;
             cancelButton.addEventListener('click', e => {
                 this.onCancel(e);
-
-                this.close();
                 
                 if(this.option('destroyOnCancel')) {
                     this.destroy();
