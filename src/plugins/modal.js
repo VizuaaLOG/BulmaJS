@@ -184,7 +184,7 @@ class Modal extends Plugin {
      */
     open() {
         this.element.classList.add('is-active');
-        document.body.classList.add('is-clipped');
+        document.documentElement.classList.add('is-clipped');
 
         if(this.onOpen) {
             this.onOpen(this);
