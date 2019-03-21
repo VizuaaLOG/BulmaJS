@@ -197,7 +197,7 @@ class Modal extends Plugin {
      */
     close() {
         this.element.classList.remove('is-active');
-        document.body.classList.remove('is-clipped');
+        document.documentElement.classList.remove('is-clipped');
 
         if(this.onClose) {
             this.onClose(this);
