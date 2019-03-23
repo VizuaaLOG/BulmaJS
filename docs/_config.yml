@@ -22,7 +22,7 @@ url: "https://vizuaalog.github.io/BulmaJS" # the base hostname & protocol for yo
 twitter_username: vizuaalog
 github_username:  vizuaalog
 github_issues_url: https://github.com/VizuaaLOG/BulmaJS/issues
-current_version: 0.9.0
+current_version: 0.9.1
 docs_version: 0.9
 
 # Build settings

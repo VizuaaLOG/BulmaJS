@@ -1,3 +1,7 @@
+# 0.9.1
++ **Feature** [#66](https://github.com/VizuaaLOG/BulmaJS/issues/66) The alert plugin now has `closeOnCancel`, `closeOnConfirm`, `destroyOnCancel` and `destroyOnConfirm` options. Thanks to [@alexcanana](https://github.com/alexcanana).
++ **Bug** [#69](https://github.com/VizuaaLOG/BulmaJS/issues/69) The modal plugin now correctly handles the `is-clipped` class. Thanks to [@alexcanana](https://github.com/alexcanana).
+
 # 0.9.0
 + **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has a `showHeader` option. This defaults to `true`, setting it to `false` will hide the alert's header.
 + **Feature** [#64](https://github.com/VizuaaLOG/BulmaJS/issues/64) The alert plugin now has `destroyOnConfirm` and `destroyOnCancel` options. These both default to `true` setting them to `false` will prevent the alert from destroying itself when the relevant button is clicked.
