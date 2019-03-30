@@ -17,6 +17,17 @@ For example, the Navbar plugin requires no additional Javascript, simply import 
 
 Some plugins will also provide additional options you can add to the element through data attributes. These will be equivalent to the options they provide within Javascript and will allow you to customise the plugin without needing to write any additional Javascript code.
 
+
+By default BulmaJS will automatically parse the document on page load, looking for plugins to initialise. If you're implementing BulmaJS into an environment that requires this to be manually done, ensure the below snippet is included before BulmaJS loads.
+
+{% highlight javascript %}
+window.bulmaOptions {
+    autoParseDocument: false
+}
+{% endhighlight %}
+
+You can then manually parse the document by calling `Bulma.traverseDOM()`.
+
 ### Using Javascript
 If you would prefer to create the plugin instances within Javascript, you can do this very easily. Plugins that support the Javascript API can be created by using the `Bulma.create` method. This method will take the plugin key, such as `modal`, and an object containing the options for that plugin. The documentation page for a plugin will explain the options it has available.
 
