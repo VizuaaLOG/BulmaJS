@@ -38,13 +38,7 @@ class Alert extends Modal {
             cancel: null,
             style: 'card',
             parent: document.body,
-            showHeader: true,
-            closeOnConfirm: true,
-            destroyOnConfirm: true,
-            closeOnCancel: true,
-            destroyOnCancel: true,
-            onConfirm: function(e) {},
-            onCancel: function(e) {}
+            showHeader: true
         };
     }
 
@@ -57,12 +51,6 @@ class Alert extends Modal {
         super(options);
 
         this.element.classList.add('alert');
-
-        /** @param {function} */
-        this.onConfirm = this.option('onConfirm');
-
-        /** @param {function} */
-        this.onCancel = this.option('onCancel');
 
         this.open();
     }
@@ -98,6 +86,8 @@ class Alert extends Modal {
      * @returns {void}
      */
     createButtons() {
+        var defaultButtonOptions = { close: true, destroy: true, onClick: function(e) {} };
+
         var confirmOptions = this.option('confirm');
         if(typeof confirmOptions === 'string') {
             confirmOptions = {
@@ -105,17 +95,18 @@ class Alert extends Modal {
                 classes: []
             };
         }
+        confirmOptions = { ...defaultButtonOptions, ...confirmOptions};
 
         var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.option('type')].concat(confirmOptions.classes));
         confirmButton.innerHTML = confirmOptions.label;
         confirmButton.addEventListener('click', e => {
-            this.onConfirm(e);
+            confirmOptions.onClick(e);
 
-            if(this.option('closeOnConfirm')) {
+            if(confirmOptions.close) {
                 this.close();
             }
 
-            if(this.option('destroyOnConfirm')) {
+            if(confirmOptions.destory) {
                 this.destroy();
             }
         });
@@ -129,17 +120,18 @@ class Alert extends Modal {
                     classes: []
                 };
             }
+            cancelOptions = { ...defaultButtonOptions, ...cancelOptions};
 
             var cancelButton = Bulma.createElement('button', ['button'].concat(cancelOptions.classes));
             cancelButton.innerHTML = cancelOptions.label;
             cancelButton.addEventListener('click', e => {
-                this.onCancel(e);
+                cancelOptions.onClick(e);
 
-                if(this.option('closeOnCancel')) {
+                if(cancelOptions.close) {
                     this.close();
                 }
 
-                if(this.option('destroyOnCancel')) {
+                if(cancelOptions.destroy) {
                     this.destroy();
                 }
             });

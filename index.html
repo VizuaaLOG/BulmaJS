@@ -31,11 +31,29 @@
 <body>
     <script src="dist/bulma.js"></script>
     <script>
-        Bulma.create('notification', {
-            body: 'I am always visible until you close me manually.',
-            parent: document.getElementById('dismissable-notification'),
-            isDismissable: true
-        }).show();
+      Bulma.create('alert', {
+    type: 'danger',
+    title: 'This is an alert!',
+    body: 'Ooohh what button you gonna click?',
+    confirm: {
+        label: 'Confirm!',
+        onClick: function() {
+            Bulma.create('alert', {
+                title: 'Confirmed',
+                body: 'You clicked confirm!'
+            });
+        },
+    },
+    cancel: {
+        label: 'Cancel!',
+        onClick: function() {
+            Bulma.create('alert', {
+                title: 'Cancelled',
+                body: 'You clicked cancel!'
+            });
+        }
+    }
+});
     </script>
 </body>
 </html>
