@@ -92,7 +92,7 @@ Whether you're just informing your user of something, showing them a success mes
 </script>
 
 # Confirm / Cancel events
-What's the point in a popup if you can't use it for input? The alert plugin can take an `onConfirm` and/or `onCancel` option. This will be a function that's called when the user clicks the confirm button or the cancel button. Try it!
+What's the point in a popup if you can't use it for input? You can specify an `onClick` handler function for both the `confirm` and `cancel` buttons by providing the `onClick` property.
 
 <div class="code-example">
     <button id="example-alert-button-6" class="button is-primary">Show alert</button>
@@ -104,19 +104,23 @@ What's the point in a popup if you can't use it for input? The alert plugin can 
             type: 'danger',
             title: 'This is an alert!',
             body: 'Ooohh what button you gonna click?',
-            confirm: 'Confirm!',
-            cancel: 'Cancel!',
-            onConfirm: function() {
-                Bulma.create('alert', {
-                    title: 'Confirmed',
-                    body: 'You clicked confirm!'
-                });
+            confirm: {
+                label: 'Confirm!',
+                onClick: function() {
+                    Bulma.create('alert', {
+                        title: 'Confirmed',
+                        body: 'You clicked confirm!'
+                    });
+                },
             },
-            onCancel: function() {
-                Bulma.create('alert', {
-                    title: 'Cancelled',
-                    body: 'You clicked cancel!'
-                });
+            cancel: {
+                label: 'Cancel!',
+                onClick: function() {
+                    Bulma.create('alert', {
+                        title: 'Cancelled',
+                        body: 'You clicked cancel!'
+                    });
+                }
             }
         });
     });
@@ -195,13 +199,42 @@ You can choose to not show the alert's header by setting the `showHeader` option
 {% include snippets/0.10/alert/header.js %}
 {% endhighlight %}
 
-# Destroying the alert
+# Destroying/closing the alert
 
 <div class="tags has-addons">
     <span class="tag is-success">Since</span>
     <span class="tag">0.9.0</span>
 </div>
 
-By default the alert will destroy itself when closed, removing all HTML and nulling it's variables. You may not want to use this behaviour. You can instead have the alert hide itself by specifying `destroyOnConfirm: false` or `destroyOnCancel:false` options.
+By default the alert will destroy itself when closed, removing all HTML and nulling it's variables. You may not want to use this behaviour.
+
+You can specify if a button closes and/or destroys the alert instance by specifying the `close` or `destroy` properties to the `confirm` or `close` objects.
+
+<div class="code-example">
+    <button id="example-alert-button-9" class="button is-primary">Show alert</button>
+</div>
+
+<script>
+    document.querySelector('#example-alert-button-9').addEventListener('click', function(e) {
+        Bulma.create('alert', {
+            type: 'danger',
+            title: 'Alert',
+            body: 'Try clicking the buttons!',
+            confirm: {
+                label: 'Close but do not destroy',
+                destroy: false
+            },
+            cancel: {
+                label: 'Do nothing!',
+                close: false,
+                destroy: false
+            }
+        });
+    });
+</script>
+
+{% highlight javascript %}
+{% include snippets/0.10/alert/destroy-hide.js %}
+{% endhighlight %}
 
 If you save the alert instance to a variable, you can then show it again using it's `show` method.
