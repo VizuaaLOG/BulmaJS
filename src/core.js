@@ -196,6 +196,10 @@ const Bulma = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    if(window.hasOwnProperty('bulmaOptions') && window.bulmaOptions.autoParseDocument === false) {
+        return;
+    }
+
     Bulma.traverseDOM();
 });
 
