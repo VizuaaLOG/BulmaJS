@@ -1,3 +1,7 @@
+# 0.10.0 (unreleased)
++ **Feature** [#70](https://github.com/VizuaaLOG/BulmaJS/issues/70) The automatic document parsing can be disabled using the `bulmaOptions` object.
++ **Tweak** [#70](https://github.com/VizuaaLOG/BulmaJS/issues/66) The `traverseDOM` method now accepts an optional parameter specifying an HTMLElement to use as the scope when parsing the document.
+
 # 0.9.1
 + **Feature** [#66](https://github.com/VizuaaLOG/BulmaJS/issues/66) The alert plugin now has `closeOnCancel`, `closeOnConfirm`, `destroyOnCancel` and `destroyOnConfirm` options. Thanks to [@alexcanana](https://github.com/alexcanana).
 + **Bug** [#69](https://github.com/VizuaaLOG/BulmaJS/issues/69) The modal plugin now correctly handles the `is-clipped` class. Thanks to [@alexcanana](https://github.com/alexcanana).
