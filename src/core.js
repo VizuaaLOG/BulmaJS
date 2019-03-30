@@ -49,8 +49,8 @@ const Bulma = {
      * 
      * @return {undefined}
      */
-    traverseDOM() {
-        let elements = document.querySelectorAll(this.getPluginClasses());
+    traverseDOM(root = document) {
+        let elements = root.querySelectorAll(this.getPluginClasses());
         
         this.each(elements, (element) => {
             if(element.hasAttribute('data-bulma-attached')) {
