@@ -3,8 +3,8 @@
 + **Tweak** [#70](https://github.com/VizuaaLOG/BulmaJS/issues/66) The `traverseDOM` method now accepts an optional parameter specifying an HTMLElement to use as the scope when parsing the document.
 + **Tweak** The `destroyOnConfirm` and `destroyOnCancel` options on the alert plugin have been moved to the buttons object and renamed to `destroy`.
 + **Tweak** The `closeOnConfirm` and `closeOnCancel` options on the alert plugin have been moved to the buttons object and renamed to `close`.
-+ **Tweak** The `onConfirm` property on the alert object has been moved to the `confirm` object as renamed to `onClick`.
-+ **Tweak** The `onCancel` property on the alert object has been moved to the `cancel` object as renamed to `onClick`.
++ **Tweak** The `onConfirm` property on the alert object has been moved to the `confirm` object and renamed to `onClick`.
++ **Tweak** The `onCancel` property on the alert object has been moved to the `cancel` object and renamed to `onClick`.
 
 # 0.9.1
 + **Feature** [#66](https://github.com/VizuaaLOG/BulmaJS/issues/66) The alert plugin now has `closeOnCancel`, `closeOnConfirm`, `destroyOnCancel` and `destroyOnConfirm` options. Thanks to [@alexcanana](https://github.com/alexcanana).
