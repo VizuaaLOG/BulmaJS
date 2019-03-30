@@ -20,21 +20,24 @@ menuItems = _.transform(menuItems, function(result, value, key) {
     result[key] = _.groupBy(value, 'section');
 }, {});
 
+var versionRegex = /(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)/;
+var versionRegexMatch = window.location.pathname.match(versionRegex);
+
 if(document.querySelector('#docs-menu')) {
     var vue = new Vue({
         el: '#docs-menu',
         data: {
             items: menuItems,
-            selectedVersion: window.location.pathname.match(/\/([0-9.]{3})/)[1]
+            selectedVersion: versionRegexMatch[1] + '.' + versionRegexMatch[3]
         },
         methods: {
             changeVersion: function() {
-                window.location.href = window.location.href.replace(/\/([0-9.]{3})/, '/' + this.selectedVersion);
+                window.location.href = window.location.href.replace(versionRegexMatch[1] + '.' + versionRegexMatch[3], this.selectedVersion);
             }
         },
         computed: {
             version: function() {
-                return window.location.pathname.match(/\/([0-9.]{3})/)[1];
+                return versionRegexMatch[1] + '.' + versionRegexMatch[3];
             },
 
             versions: function() {
