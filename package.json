@@ -17,9 +17,7 @@
     "webpack-glob-entry": "^2.1.1"
   },
   "scripts": {
-    "docs-js": "node scripts/build-docs-js.js",
     "lint": "eslint 'src/**'",
-    "serve-docs": "cd ./docs && bundle exec jekyll serve",
     "dev": "webpack --config webpack.config.js --mode development",
     "production": "webpack --config webpack.config.js --mode production --output ./dist/plugin.min.js",
     "watch": "webpack --config webpack.config.js --mode development --watch"

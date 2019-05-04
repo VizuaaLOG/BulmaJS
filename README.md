@@ -8,7 +8,7 @@ BulmaJS
 This is an unofficial JavaScript extension for the [Bulma CSS framework](http://bulma.io).
 
 **tl;dr**
-GIMME THE DOCS! [Well here you go](https://vizuaalog.github.io/BulmaJS/).
+GIMME THE DOCS! [Well here you go](https://bulmajs.tomerbe.co.uk/).
 
 Bulma is an excellent CSS framework and the perfect alternative to Bootstrap. One of the great things about Bulma is that it's **JUST** CSS; there is no JavaScript included. This makes it *super* lightweight. Some components *do* require JavaScript however, and that is where BulmaJS comes in!
 
