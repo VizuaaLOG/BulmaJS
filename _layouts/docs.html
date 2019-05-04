@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3">
+                <aside id="docs-menu" class="menu">
+                    <div class="select">
+                        <select @change="changeVersion" v-model="selectedVersion">
+                            <option v-for="docVersion in versions" v-text="docVersion" :value="docVersion"></option>
+                        </select>
+                    </div>
+
+                    <template v-for="(items, section) in versionItems">
+                        <p class="menu-label" v-text="section"></p>
+                        <ul class="menu-list">
+                            <li v-for="item in items">
+                                <a v-if="item.url.indexOf(currPath) !== -1" :href="item.url" v-text="item.title" class="is-active"></a>
+                                <a v-else :href="item.url" v-text="item.title"></a>
+                            </li>
+                        </ul>
+                    </template>
+                </aside>
+            </div>
+    
+            <div class="column is-exanded">
+                <div class="content">
+                    <h1>{{ page.title }}</h1>
+                    
+                    {% if page.stats %}
+                        <div class="field is-grouped is-grouped-multiline">
+                            <div class="control">
+                                <div class="tags has-addons">
+                                    <span class="tag">since</span>
+                                    <span class="tag is-info">{{ page.since_version }}</span>
+                                </div>
+                            </div>
+
+                            <div class="control">
+                                <div class="tags has-addons">
+                                    <span class="tag">Data API</span>
+                                    {% if page.data_api %}
+                                        <span class="tag is-success">Yes</span>
+                                    {% else %}
+                                        <span class="tag is-danger">No</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="control">
+                                <div class="tags has-addons">
+                                    <span class="tag">Javascript API</span>
+                                    {% if page.javascript_api %}
+                                        <span class="tag is-success">Yes</span>
+                                    {% else %}
+                                        <span class="tag is-danger">No</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {{ content }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,127 @@
+---
+---
+
+@import "bulma/bulma";
+
+@import "syntax";
+
+.mt-4 { margin-top: 1rem; }
+
+.featured-points {
+    .title {
+        font-weight: normal;
+    }
+
+    .feature-description {
+        margin-top: -1rem;
+    }
+
+    .feature-icon {
+        margin-bottom: 1rem;
+    }
+}
+
+.title.is-normal,
+.title .is-normal,
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+    font-weight: normal;
+}
+
+#npm-install {
+    background-color: #333;
+    padding: 1.5rem;
+    border-radius: 3px;
+
+    code {
+        background-color: transparent;
+        color: white;
+    }
+}
+
+#navigation-menu {
+    transition: box-shadow 100ms ease-in-out;
+
+    &.has-shadow {
+        box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.code-example {
+    border: 1px solid #00d1b2;
+    padding: 0.5rem;
+    border-radius: 0 5px 5px 5px;
+    position: relative;
+    margin: 2rem 0 1rem 0;
+
+    &::before {
+        content: "EXAMPLE";
+        font-size: 0.7rem;
+        background-color: #00d1b2;
+        padding: 2px;
+        color: #FFFFFF;
+        position: absolute;
+        top: -20px;
+        left: -1px;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: 0;
+    }
+}
+
+.content figure {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+}
+
+.docs-tabs {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tabs {
+        margin-bottom: 0;
+
+        ul {
+            border-bottom-color: $primary;
+        }
+
+        li a {
+            border: none;
+            padding: 0.25em 0.5em;
+        }
+
+        li.is-active a {
+            color: white;
+            background-color: $primary;
+        }
+
+        li:hover a {
+            background: #E7E7E7;
+        }
+
+        li:hover.is-active a {
+            background-color: $primary;
+        }
+    }
+
+    .tabs-content {
+        li {
+            display: none;
+
+            &.is-active {
+                display: block;
+            }
+        }
+    }
+}
+
+.content li + li {
+    margin-top: 0;
+}
