@@ -1,5 +1,3 @@
-![BulmaJS Logo](https://github.com/VizuaaLOG/BulmaJS/blob/master/docs/assets/images/bulmajs-logo.png)
-
 BulmaJS
 ========
 [![Build Status](https://travis-ci.org/VizuaaLOG/BulmaJS.svg?branch=master)](https://travis-ci.org/VizuaaLOG/BulmaJS)
