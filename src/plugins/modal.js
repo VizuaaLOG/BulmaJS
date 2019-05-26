@@ -84,6 +84,25 @@ class Modal extends Plugin {
         /** @param {string|null} */
         this.title = this.option('title');
 
+        /** @param {function} */
+        this.onOpen = this.option('onOpen');
+
+        /** @param {function} */
+        this.onClose = this.option('onClose');
+
+        if(this.option('bodyUrl')) {
+            Bulma.ajax(this.option('bodyUrl'))
+                .then((response) => {
+                    this.body = response;
+                    this.buildModal('An error occurred while fetching the template URL: ' + this.option('bodyUrl'));
+                }, (err) => console.error(''));
+        } else {
+            this.buildModal();
+        }
+    }
+
+    // Build the modal's HTML
+    buildModal() {
         if(this.style === 'card') {
             this.createCardStructure();
         } else {
@@ -96,12 +115,6 @@ class Modal extends Plugin {
             /** @param {HTMLElement} */
             this.closeButton = this.style === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
         }
-
-        /** @param {function} */
-        this.onOpen = this.option('onOpen');
-
-        /** @param {function} */
-        this.onClose = this.option('onClose');
 
         if(this.style === 'card') {
             this.createButtons();

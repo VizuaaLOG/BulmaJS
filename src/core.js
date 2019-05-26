@@ -192,6 +192,52 @@ const Bulma = {
         for(i = 0; i < objects.length; i++) {
             callback(objects[i], i);
         }
+    },
+
+    /**
+     * Make an AJAX GET request to the specified URL. Stripping any script tags from the response.
+     * @param {*} url The url to send the request to
+     * @returns {Promise} Returns a promise containing the response HTML or error
+     */
+    ajax(url) {
+        return new Promise((resolve, reject) => {
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+
+            request.onload = () => {
+                if (request.status >= 200 && request.status < 400) {
+                    resolve(this._stripScripts(request.responseText));
+                } else {
+                    reject();
+                }
+            };
+
+            request.onerror = () => reject();
+
+            request.send();
+        });
+    },
+
+    /**
+     * Strip any script tags from a HTML string.
+     * @param {string} htmlString 
+     * @returns {string} The cleaned HTML string
+     * 
+     * @private
+     */
+    _stripScripts(htmlString) {
+        var div = document.createElement('div');
+        div.innerHTML = htmlString;
+        
+        var scripts = div.getElementsByTagName('script');
+        
+        var i = scripts.length;
+        
+        while (i--) {
+            scripts[i].parentNode.removeChild(scripts[i]);
+        }
+        
+        return div.innerHTML;
     }
 };
 
