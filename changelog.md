@@ -1,3 +1,7 @@
+# 0.11.0 (unreleased)
++ **Feature** [#71](https://github.com/VizuaaLOG/BulmaJS/issues/71) The modal plugin can have it's HTML content loaded via an AJAX request using the new `bodyUrl` option.
++ **Refactor** Adjust how options are internally handled, renaming variables to `config` and implementing a `ConfigBag` helper class.
+
 # 0.10.0
 + **Feature** Brand new documentation! To improve the ease of updating the docs the documentation has been ported to a new static site build, [Jigsaw](https://jigsaw.tighten.co/). As part of this it's also had a freshen up, there's still some things that needs tweaking but we're mostly there. The docs have also been moved out of the main repository, and are now in a [BulmaJS-Docs](https://github.com/VizuaaLOG/BulmaJS-Docs) repository. You can access the new docs by visiting [bulmajs.tomerbe.co.uk](https://bulmajs.tomerbe.co.uk). If you would still like to use the pre 0.10 docs you can do so by visiting [https://vizuaalog.github.io/BulmaJS/](https://vizuaalog.github.io/BulmaJS/);
 + **Feature** [#70](https://github.com/VizuaaLOG/BulmaJS/issues/70) The automatic document parsing can be disabled using the `bulmaOptions` object.
