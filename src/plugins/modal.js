@@ -9,11 +9,11 @@ import Plugin from '../plugin';
 class Modal extends Plugin {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options THe options object for the new instance
+     * @param  {Object} config THe config object for the new instance
      * @return {Modal} The newly created instance
      */
-    static create(options) {
-        return new Modal(options);
+    static create(config) {
+        return new Modal(config);
     }
 
     /**
@@ -26,10 +26,10 @@ class Modal extends Plugin {
     }
 
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultConfig() {
         return {
             style: 'card',
             closable: true
@@ -38,24 +38,24 @@ class Modal extends Plugin {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         /** @param {string} */
-        this.style = this.option('style');
+        this.style = this.config.get('style');
 
         /** @param {HTMLElement} */
-        this.element = this.option('element');
+        this.element = this.config.get('element');
 
         if(!this.element) {
             this.element = Bulma.createElement('div', 'modal');
         }
 
         /** @param {HTMLElement} */
-        this.parent = this.option('parent');
+        this.parent = this.config.get('parent');
 
         if(!this.parent) {
             if(!this.element.parentNode) {
@@ -76,25 +76,25 @@ class Modal extends Plugin {
         this.content = this.style === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
 
         /** @param {boolean} */
-        this.closable = this.option('closable');
+        this.closable = this.config.get('closable');
 
         /** @param {string|null} */
-        this.body = this.option('body');
+        this.body = this.config.get('body');
 
         /** @param {string|null} */
-        this.title = this.option('title');
+        this.title = this.config.get('title');
 
         /** @param {function} */
-        this.onOpen = this.option('onOpen');
+        this.onOpen = this.config.get('onOpen');
 
         /** @param {function} */
-        this.onClose = this.option('onClose');
+        this.onClose = this.config.get('onClose');
 
-        if(this.option('bodyUrl')) {
-            Bulma.ajax(this.option('bodyUrl'))
+        if(this.config.get('bodyUrl')) {
+            Bulma.ajax(this.config.get('bodyUrl'))
                 .then((response) => {
                     this.body = response;
-                    this.buildModal('An error occurred while fetching the template URL: ' + this.option('bodyUrl'));
+                    this.buildModal('An error occurred while fetching the template URL: ' + this.config.get('bodyUrl'));
                 }, (err) => console.error(''));
         } else {
             this.buildModal();
@@ -176,7 +176,7 @@ class Modal extends Plugin {
      * @returns {void}
      */
     createButtons() {
-        var buttonsConfig = this.option('buttons', []);
+        var buttonsConfig = this.config.get('buttons', []);
         var modal = this;
 
         Bulma.each(buttonsConfig, function(buttonConfig) {
@@ -240,7 +240,7 @@ class Modal extends Plugin {
             this.closeButton = null;
         }
 
-        this.options = [];
+        this.config.gets = [];
     }
 }
 

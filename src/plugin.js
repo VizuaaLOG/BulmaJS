@@ -1,3 +1,5 @@
+import ConfigBag from './ConfigBag';
+
 /**
  * Base plugin class. Provides basic, common functionality.
  * @class Plugin
@@ -7,7 +9,7 @@
 export default class Plugin {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object?} options The options object for this instance
+     * @param  {Object?} config The config object for this instance
      * @return {Plugin|boolean} The newly created instance or false if method is not used
      */
     static create() {
@@ -33,38 +35,20 @@ export default class Plugin {
     }
 
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultConfig() {
         return {};
     }
 
     /**
      * Create a plugin.
-     * @param {object} options The options for this plugin
+     * @param {object} config The config for this plugin
      */
-    constructor(options = {}) {
-        this.options = {...this.constructor.defaultOptions(), ...options};
+    constructor(config = {}) {
+        this.config = new ConfigBag({...this.constructor.defaultConfig(), ...config});
 
-        this.parent = this.option('parent', document.body);
-    }
-
-    /**
-     * Find an option by key.
-     * @param {string} key The option key to find.
-     * @param {any} defaultValue Default value if an option with key is not found.
-     * @returns {any} The value of the option we found, or defaultValue if none found.
-     */
-    option(key, defaultValue = null) {
-        if(!this.options.hasOwnProperty(key) || this.options[key] === null) {
-            if(typeof defaultValue === 'function') {
-                return defaultValue();
-            }
-            
-            return defaultValue;
-        }
-
-        return this.options[key];
+        this.parent = this.config.get('parent', document.body);
     }
 }

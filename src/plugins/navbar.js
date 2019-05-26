@@ -33,10 +33,10 @@ class Navbar extends Plugin {
     }
 
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultconfig() {
         return {
             sticky: false,
             stickyOffset: 0,
@@ -48,22 +48,22 @@ class Navbar extends Plugin {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         // Work out the parent if it hasn't been supplied as an option.
         if(this.parent === null) {
-            this.parent = this.option('element').parentNode;
+            this.parent = this.config.get('element').parentNode;
         }
 
         /**
          * The root navbar element.
          * @type {HTMLElement}
          */
-        this.element = this.option('element');
+        this.element = this.config.get('element');
 
         /**
          * The element used for the trigger.
@@ -81,31 +81,31 @@ class Navbar extends Plugin {
          * Should this navbar stick to the top of the page?
          * @type {boolean}
          */
-        this.sticky = this.option('sticky');
+        this.sticky = this.config.get('sticky');
         
         /**
          * The offset in pixels before the navbar will stick to the top of the page
          * @type {number}
          */
-        this.stickyOffset = parseInt(this.option('stickyOffset'));
+        this.stickyOffset = parseInt(this.config.get('stickyOffset'));
 
         /**
          * Should the navbar hide when scrolling? Note: this just applies a 'is-hidden-scroll' class.
          * @type {boolean}
          */
-        this.hideOnScroll = this.option('hideOnScroll');
+        this.hideOnScroll = this.config.get('hideOnScroll');
 
         /**
          * The amount of tolerance required before checking the navbar should hide/show
          * @type {number}
          */
-        this.tolerance = this.option('tolerance');
+        this.tolerance = this.config.get('tolerance');
 
         /**
          * Add a shadow when the navbar is sticky?
          * @type {boolean}
          */
-        this.shadow = this.option('shadow');
+        this.shadow = this.config.get('shadow');
 
         /**
          * The last scroll Y known, this is used to calculate scroll direction

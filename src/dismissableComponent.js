@@ -7,10 +7,10 @@ import Plugin from './plugin';
  */
 export default class DismissableComponent extends Plugin {
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultConfig() {
         return {
             isDismissable: false,
             destroyOnDismiss: true,
@@ -21,11 +21,11 @@ export default class DismissableComponent extends Plugin {
     /**
      * Plugin constructor
      * @param  {string} name Plugin's name
-     * @param  {Object} options Plugin's options
+     * @param  {Object} config Plugin's config
      * @return {this} The new plugin instance
      */
-    constructor(name, options) {
-        super(options);
+    constructor(name, config) {
+        super(config);
 
         /**
          * The name of this component, this will be used as the root class
@@ -37,37 +37,37 @@ export default class DismissableComponent extends Plugin {
         * Body text.
         * @type {string}
         */
-        this.body = this.option('body');
+        this.body = this.config.get('body');
         
         /**
         * Color modifier.
         * @type {string} Possible values are null, primary, info, success, warning, danger
         */
-        this.color = this.option('color');
+        this.color = this.config.get('color');
         
         /**
         * How long to wait before auto dismissing the component.
         * @type {int|null} If null component must be dismissed manually.
         */
-        this.dismissInterval = this.option('dismissInterval') ? this.createDismissInterval(this.option('dismissInterval')) : null;
+        this.dismissInterval = this.config.get('dismissInterval') ? this.createDismissInterval(this.config.get('dismissInterval')) : null;
         
         /**
         * Does this component have a dismiss button?
         * @type {Boolean}
         */
-        this.isDismissable = this.option('isDismissable');
+        this.isDismissable = this.config.get('isDismissable');
         
         /**
         * Should this component be destroyed when it is dismissed.
         * @type {Boolean}
         */
-        this.destroyOnDismiss = this.option('destroyOnDismiss');
+        this.destroyOnDismiss = this.config.get('destroyOnDismiss');
         
         /**
         * The root element.
         * @type {HTMLElement|null} If this is not provided a new element will be created.
         */
-        this.element = this.option('element');
+        this.element = this.config.get('element');
 
         if(!this.element) {
             this.createRootElement();
@@ -80,7 +80,7 @@ export default class DismissableComponent extends Plugin {
         * The element used to close the component.
         * @type {HTMLElement}
         */
-        this.closeButton = this.option('closeButton', this.createCloseButton());
+        this.closeButton = this.config.get('closeButton', this.createCloseButton());
 
         if(this.body) {
             this.insertBody();

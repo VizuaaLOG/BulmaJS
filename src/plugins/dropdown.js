@@ -29,22 +29,22 @@ class Dropdown extends Plugin {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         // Work out the parent if it hasn't been supplied as an option.
         if(this.parent === null) {
-            this.parent = this.option('element').parentNode;
+            this.parent = this.config.get('element').parentNode;
         }
 
         /**
          * The root dropdown element.
          * @type {HTMLElement}
          */
-        this.element = this.option('element');
+        this.element = this.config.get('element');
         this.element.setAttribute('data-bulma-attached', 'attached');
 
         /**

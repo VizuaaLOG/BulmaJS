@@ -9,11 +9,11 @@ import Plugin from '../plugin';
 class Calendar extends Plugin {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The new calendar's options
+     * @param  {Object} config The new calendar's config
      * @return {Calendar} The newly created calendar instance
      */
-    static create(options) {
-        return new Calendar(options);
+    static create(config) {
+        return new Calendar(config);
     }
 
     /**
@@ -25,10 +25,10 @@ class Calendar extends Plugin {
     }
 
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultConfig() {
         return {
             date: new Date(),
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -41,11 +41,11 @@ class Calendar extends Plugin {
 
     /**
      * Plugin constructor
-     * @param  {Object} options Plugin instance's options
+     * @param  {Object} config Plugin instance's config
      * @return {this} The newly created instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         /**
          * The root Calendar element.
@@ -69,7 +69,7 @@ class Calendar extends Plugin {
          * The date this calendar starts at
          * @type {Date}
          */
-        this.date = this.option('date');
+        this.date = this.config.get('date');
 
         /**
          * The current year for the calendar
@@ -87,13 +87,13 @@ class Calendar extends Plugin {
          * Month names
          * @type {Array}
          */
-        this.months = this.option('months');
+        this.months = this.config.get('months');
 
         /**
          * Short day names
          * @type {Array}
          */
-        this.shortDays = this.option('shortDays');
+        this.shortDays = this.config.get('shortDays');
 
         /**
          * Number of days in each month
@@ -105,19 +105,19 @@ class Calendar extends Plugin {
          * Show the navigating buttons
          * @type {boolean}
          */
-        this.navButtons = this.option('navButtons');
+        this.navButtons = this.config.get('navButtons');
 
         /**
          * The format string for the date output. Used when attached to an input element.
          * @type {string}
          */
-        this.format = this.option('format');
+        this.format = this.config.get('format');
 
         /**
          * Should the calendar be shown as a modal. Used when attached to an input element
          * @type {boolean}
          */
-        this.overlay = this.option('overlay');
+        this.overlay = this.config.get('overlay');
 
         if(this.overlay) {
             this.buildModal();

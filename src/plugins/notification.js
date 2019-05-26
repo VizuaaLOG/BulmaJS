@@ -10,11 +10,11 @@ import DismissableComponent from '../dismissableComponent';
 class Notification extends DismissableComponent {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The options object for this instance
+     * @param  {Object} config The config object for this instance
      * @return {Notification} The newly created instance
      */
-    static create(options) {
-        return new Notification(options);
+    static create(config) {
+        return new Notification(config);
     }
 
     /**
@@ -26,7 +26,7 @@ class Notification extends DismissableComponent {
         let closeBtn = element.querySelector('.delete');
         let dismissInterval = element.getAttribute('data-dismiss-interval');
 
-        let options = {
+        let config = {
             body: null,
             parent: element.parentNode,
             element: element,
@@ -36,10 +36,10 @@ class Notification extends DismissableComponent {
         };
 
         if(dismissInterval) {
-            options['dismissInterval'] = parseInt(dismissInterval);
+            config['dismissInterval'] = parseInt(dismissInterval);
         }
 
-        new Notification(options);
+        new Notification(config);
     }
 
     /**
@@ -53,17 +53,17 @@ class Notification extends DismissableComponent {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(options) {
-        super('notification', options);
+    constructor(config) {
+        super('notification', config);
 
         // TODO: Move this into the DismissableComponent class. Due to the required
         // changes between different components, we may need a way to trigger this
         // when the component is ready.
         if(this.isDismissable) {
-            if(!options.hasOwnProperty('closeButton')) {
+            if(!this.config.has('closeButton')) {
                 this.prependCloseButton();
             }
 
