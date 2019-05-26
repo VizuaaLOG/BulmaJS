@@ -14,15 +14,15 @@ const Bulma = {
     /**
      * Helper method to create a new plugin.
      * @param  {String} key The plugin's key
-     * @param  {Object} options The options to be passed to the plugin
+     * @param  {Object} config The config to be passed to the plugin
      * @return {Object} The newly created plugin instance
      */
-    create(key, options) {
+    create(key, config) {
         if(!key || !Bulma.plugins.hasOwnProperty(key)) {
             throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
         }
 
-        return Bulma.plugins[key].handler.create(options);
+        return Bulma.plugins[key].handler.create(config);
     },
 
     /**

@@ -9,11 +9,11 @@ import Plugin from '../plugin';
 class Accordion extends Plugin {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The plugin's options
+     * @param  {Object} config The plugin's config
      * @return {Accordion} The newly created instance
      */
-    static create(options) {
-        return new Accordion(options);
+    static create(config) {
+        return new Accordion(config);
     }
 
     /**
@@ -37,22 +37,22 @@ class Accordion extends Plugin {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The plugin's options
+     * @param  {Object} config The plugin's config
      * @return {this} The new plugin instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         // Work out the parent if it hasn't been supplied as an option.
         if(this.parent === null) {
-            this.parent = this.option('element').parentNode;
+            this.parent = this.config.get('element').parentNode;
         }
 
         /**
          * Accordion element.
          * @type {string}
          */
-        this.element = this.option('element');
+        this.element = this.config.get('element');
         this.element.setAttribute('data-bulma-attached', 'attached');
 
         /**

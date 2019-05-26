@@ -9,11 +9,11 @@ import Modal from './modal';
 class Alert extends Modal {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options THe options object for the new instance
+     * @param  {Object} config THe config object for the new instance
      * @return {Alert} The newly created instance
      */
-    static create(options) {
-        return new Alert(options);
+    static create(config) {
+        return new Alert(config);
     }
 
     /**
@@ -26,10 +26,10 @@ class Alert extends Modal {
     }
 
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultConfig() {
         return {
             type: 'info',
             title: '',
@@ -44,11 +44,11 @@ class Alert extends Modal {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         this.element.classList.add('alert');
 
@@ -60,12 +60,12 @@ class Alert extends Modal {
      * @returns {void}
      */
     createCardStructure() {
-        if(this.option('showHeader')) {
+        if(this.config.get('showHeader')) {
             /** @param {HTMLElement} */
-            this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.option('type')]);
+            this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.config.get('type')]);
 
             /** @param {HTMLElement} */
-            var textColor = this.option('type') == 'warning' ? 'black' : 'white';
+            var textColor = this.config.get('type') == 'warning' ? 'black' : 'white';
             this.headerTitle = Bulma.createElement('p', ['modal-card-title', 'has-text-' + textColor]);
             this.headerTitle.innerHTML = this.title;
             this.header.appendChild(this.headerTitle);
@@ -88,7 +88,7 @@ class Alert extends Modal {
     createButtons() {
         var defaultButtonOptions = { close: true, destroy: true, onClick: function(e) {} };
 
-        var confirmOptions = this.option('confirm');
+        var confirmOptions = this.config.get('confirm');
         if(typeof confirmOptions === 'string') {
             confirmOptions = {
                 label: confirmOptions,
@@ -97,7 +97,7 @@ class Alert extends Modal {
         }
         confirmOptions = { ...defaultButtonOptions, ...confirmOptions};
 
-        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.option('type')].concat(confirmOptions.classes));
+        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.config.get('type')].concat(confirmOptions.classes));
         confirmButton.innerHTML = confirmOptions.label;
         confirmButton.addEventListener('click', e => {
             confirmOptions.onClick(e);
@@ -112,8 +112,8 @@ class Alert extends Modal {
         });
         this.footer.appendChild(confirmButton);
 
-        if(this.option('cancel')) {
-            var cancelOptions = this.option('cancel');
+        if(this.config.get('cancel')) {
+            var cancelOptions = this.config.get('cancel');
             if(typeof cancelOptions === 'string') {
                 cancelOptions = {
                     label: cancelOptions,

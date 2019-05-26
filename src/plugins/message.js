@@ -10,11 +10,11 @@ import DismissableComponent from '../dismissableComponent';
 class Message extends DismissableComponent {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options THe options object for this instance
+     * @param  {Object} config The config object for this instance
      * @return {Message} The newly created message instance
      */
-    static create(options) {
-        return new Message(options);
+    static create(config) {
+        return new Message(config);
     }
 
     /**
@@ -26,7 +26,7 @@ class Message extends DismissableComponent {
         let closeBtn = element.querySelector('.delete');
         let dismissInterval = element.getAttribute('data-dismiss-interval');
 
-        let options = {
+        let config = {
             body: null,
             parent: element.parentNode,
             element: element,
@@ -36,10 +36,10 @@ class Message extends DismissableComponent {
         };
 
         if(dismissInterval) {
-            options['dismissInterval'] = parseInt(dismissInterval);
+            config['dismissInterval'] = parseInt(dismissInterval);
         }
 
-        new Message(options);
+        new Message(config);
     }
 
     /**
@@ -53,23 +53,23 @@ class Message extends DismissableComponent {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(options) {
-        super('message', options);
+    constructor(config) {
+        super('message', config);
 
         /**
          * The size of the message
          * @type {String} Possible values are small, normal, medium or large
          */
-        this.size = this.option('size');
+        this.size = this.config.get('size');
 
         /**
          * The title of the message
          * @type {String}
          */
-        this.title = this.option('title');
+        this.title = this.config.get('title');
 
         if(this.title) {
             this.createMessageHeader();
@@ -79,7 +79,7 @@ class Message extends DismissableComponent {
         // changes between different components, we may need a way to trigger this
         // when the component is ready.
         if(this.isDismissable) {
-            if(!this.option('closeButton')) {
+            if(!this.config.get('closeButton')) {
                 this.prependCloseButton();
             }
 

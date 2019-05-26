@@ -9,11 +9,11 @@ import Plugin from '../plugin';
 class Tabs extends Plugin {
     /**
      * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} options The options object for this instance
+     * @param  {Object} config The config object for this instance
      * @returns {Tabs} The newly created instance
      */
-    static create(options) {
-        return new Tabs(options);
+    static create(config) {
+        return new Tabs(config);
     }
 
     /**
@@ -24,12 +24,12 @@ class Tabs extends Plugin {
     static parse(element) {
         let hover = element.hasAttribute('data-hover') ? true : false;
 
-        let options = {
+        let config = {
             element: element,
             hover: hover
         };
 
-        new Tabs(options);
+        new Tabs(config);
     }
 
     /**
@@ -41,10 +41,10 @@ class Tabs extends Plugin {
     }
 
     /**
-     * Returns an object containing the default options for this plugin.
-     * @returns {object} The default options object.
+     * Returns an object containing the default config for this plugin.
+     * @returns {object} The default config object.
      */
-    static defaultOptions() {
+    static defaultConfig() {
         return {
             hover: false
         };
@@ -52,24 +52,24 @@ class Tabs extends Plugin {
 
     /**
      * Plugin constructor
-     * @param  {Object} options The options object for this plugin
+     * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(options) {
-        super(options);
+    constructor(config) {
+        super(config);
 
         /**
          * The root tab element
          * @param {HTMLElement}
          */
-        this.element = this.option('element');
+        this.element = this.config.get('element');
         this.element.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * Whether the tabs should be changed when the nav item is hovered over
          * @param {boolean}
          */
-        this.hover = this.option('hover');
+        this.hover = this.config.get('hover');
 
         /**
          * The tab nav container
