@@ -86,7 +86,7 @@ class Alert extends Modal {
      * @returns {void}
      */
     createButtons() {
-        var defaultButtonOptions = { close: true, destroy: true, onClick: function(e) {} };
+        var defaultButtonOptions = { close: true, destroy: true, onClick: function() {} };
 
         var confirmOptions = this.config.get('confirm');
         if(typeof confirmOptions === 'string') {

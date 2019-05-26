@@ -94,8 +94,8 @@ class Modal extends Plugin {
             Bulma.ajax(this.config.get('bodyUrl'))
                 .then((response) => {
                     this.body = response;
-                    this.buildModal('An error occurred while fetching the template URL: ' + this.config.get('bodyUrl'));
-                }, (err) => console.error(''));
+                    this.buildModal();
+                });
         } else {
             this.buildModal();
         }
