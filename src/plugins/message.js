@@ -137,4 +137,4 @@ class Message extends DismissableComponent {
 
 Bulma.registerPlugin('message', Message);
 
-export default Bulma;
+export default Message;

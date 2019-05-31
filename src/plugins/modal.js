@@ -246,4 +246,4 @@ class Modal extends Plugin {
 
 Bulma.registerPlugin('modal', Modal);
 
-export default Bulma;
+export default Modal;
