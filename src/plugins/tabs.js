@@ -173,4 +173,4 @@ class Tabs extends Plugin {
 
 Bulma.registerPlugin('tabs', Tabs);
 
-export default Tabs;
+export default Bulma;

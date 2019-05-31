@@ -74,4 +74,4 @@ class Notification extends DismissableComponent {
 
 Bulma.registerPlugin('notification', Notification);
 
-export default Notification;
+export default Bulma;

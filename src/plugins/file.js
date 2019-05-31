@@ -143,4 +143,4 @@ class File extends Plugin {
 
 Bulma.registerPlugin('file', File);
 
-export default File;
+export default Bulma;
