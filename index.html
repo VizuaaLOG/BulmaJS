@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
-    <link rel="stylesheet" href="docs/assets/css/bulma-calendar.css">
-    <link rel="stylesheet" href="docs/assets/css/bulma-accordion.css">
     <style>
         .tabs-content > ul > li {
             display: none;
@@ -29,31 +27,22 @@
     </style>
 </head>
 <body>
+    <button id="btn_alert" class="button is-primary">Show alert</button>
+    
+
     <script src="dist/bulma.js"></script>
     <script>
-      Bulma.create('alert', {
-    type: 'danger',
-    title: 'This is an alert!',
-    body: 'Ooohh what button you gonna click?',
-    confirm: {
-        label: 'Confirm!',
-        onClick: function() {
-            Bulma.create('alert', {
-                title: 'Confirmed',
-                body: 'You clicked confirm!'
-            });
-        },
-    },
-    cancel: {
-        label: 'Cancel!',
-        onClick: function() {
-            Bulma.create('alert', {
-                title: 'Cancelled',
-                body: 'You clicked cancel!'
-            });
-        }
-    }
-});
+         document.querySelector('#btn_alert').addEventListener('click', function(e) {
+            console.log(
+                Bulma.create('alert', {
+                    type: 'info',
+                    title: 'This is an alert!',
+                    body: 'Ooohh what button you gonna click?',
+                    confirm: 'Confirm it!',
+                    cancel: 'Maybe not'
+                })
+            )
+        });
     </script>
 </body>
 </html>
