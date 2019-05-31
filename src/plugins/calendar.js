@@ -493,4 +493,4 @@ class Calendar extends Plugin {
 
 Bulma.registerPlugin('calendar', Calendar);
 
-export default Calendar;
+export default Bulma;

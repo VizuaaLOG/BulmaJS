@@ -145,4 +145,4 @@ class Accordion extends Plugin {
 
 Bulma.registerPlugin('accordion', Accordion);
 
-export default Accordion;
+export default Bulma;

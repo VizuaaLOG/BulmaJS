@@ -142,4 +142,4 @@ class Alert extends Modal {
 
 Bulma.registerPlugin('alert', Alert);
 
-export default Alert;
+export default Bulma;
