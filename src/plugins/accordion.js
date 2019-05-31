@@ -13,6 +13,11 @@ class Accordion extends Plugin {
      * @return {Accordion} The newly created instance
      */
     static create(config) {
+        // This checks if this method is being called directly, rather
+        // than through the Bulma core. If so make sure we grab the config
+        // as we do not need the key.
+        if(arguments.length > 1) config = arguments[1];
+        
         return new Accordion(config);
     }
 
