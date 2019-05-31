@@ -79,4 +79,4 @@ class Dropdown extends Plugin {
 
 Bulma.registerPlugin('dropdown', Dropdown);
 
-export default Bulma;
+export default Dropdown;

@@ -203,4 +203,4 @@ class Navbar extends Plugin {
 
 Bulma.registerPlugin('navbar', Navbar);
 
-export default Bulma;
+export default Navbar;
