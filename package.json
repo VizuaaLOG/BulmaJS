@@ -5,6 +5,14 @@
   "main": "src/bulma.js",
   "author": "Thomas Erbe <vizuaalog@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VizuaaLOG/BulmaJS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VizuaaLOG/BulmaJS/issues"
+  },
+  "homepage": "https://github.com/VizuaaLOG/BulmaJS",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
