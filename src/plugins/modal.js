@@ -89,12 +89,6 @@ class Modal extends Plugin {
         /** @param {string|null} */
         this.title = this.config.get('title');
 
-        /** @param {function} */
-        this.onOpen = this.config.get('onOpen');
-
-        /** @param {function} */
-        this.onClose = this.config.get('onClose');
-
         if(this.config.get('bodyUrl')) {
             Bulma.ajax(this.config.get('bodyUrl'))
                 .then((response) => {
@@ -204,9 +198,7 @@ class Modal extends Plugin {
         this.element.classList.add('is-active');
         document.documentElement.classList.add('is-clipped');
 
-        if(this.onOpen) {
-            this.onOpen(this);
-        }
+        this.trigger('open');
     }
 
     /**
@@ -217,9 +209,7 @@ class Modal extends Plugin {
         this.element.classList.remove('is-active');
         document.documentElement.classList.remove('is-clipped');
 
-        if(this.onClose) {
-            this.onClose(this);
-        }
+        this.trigger('close');
     }
 
     /**

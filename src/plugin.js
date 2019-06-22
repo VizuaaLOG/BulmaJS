@@ -50,5 +50,25 @@ export default class Plugin {
         this.config = new ConfigBag({...this.constructor.defaultConfig(), ...config});
 
         this.parent = this.config.get('parent', document.body);
+
+        this._events = {};
+    }
+
+    on(event, callback) {
+        if(!this._events.hasOwnProperty(event)) {
+            this._events[event] = [];
+        }
+
+        this._events[event].push(callback);
+    }
+
+    trigger(event, data = {}) {
+        if(!this._events.hasOwnProperty(event)) {
+            return;
+        }
+
+        for(let i = 0; i < this._events[event].length; i++) {
+            this._events[event][i](data);
+        }
     }
 }
