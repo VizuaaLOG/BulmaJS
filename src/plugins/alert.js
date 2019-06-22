@@ -57,6 +57,8 @@ class Alert extends Modal {
 
         this.element.classList.add('alert');
 
+        this.trigger('init');
+
         this.open();
     }
 

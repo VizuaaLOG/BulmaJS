@@ -74,6 +74,8 @@ class Notification extends DismissableComponent {
 
             this.setupCloseEvent();
         }
+
+        this.trigger('init');
     }
 }
 

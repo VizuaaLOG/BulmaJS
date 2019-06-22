@@ -94,6 +94,8 @@ class Message extends DismissableComponent {
         if(this.size) {
             this.setSize();
         }
+
+        this.trigger('init');
     }
 
     /**

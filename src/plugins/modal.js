@@ -98,6 +98,8 @@ class Modal extends Plugin {
         } else {
             this.buildModal();
         }
+
+        this.trigger('init');
     }
 
     // Build the modal's HTML
@@ -236,6 +238,8 @@ class Modal extends Plugin {
         }
 
         this.config.gets = [];
+
+        this.trigger('destroyed');
     }
 }
 

@@ -101,6 +101,8 @@ class Tabs extends Plugin {
         this.contentItems = this.findContentItems();
 
         this.setupNavEvents();
+
+        this.trigger('init');
     }
 
     /**

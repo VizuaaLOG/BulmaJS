@@ -76,6 +76,8 @@ class Accordion extends Plugin {
         this.toggleButtons = this.findToggleButtons();
 
         this.addToggleButtonEvents();
+
+        this.trigger('init');
     }
 
     /**
@@ -148,6 +150,8 @@ class Accordion extends Plugin {
      */
     destroy() {
         this.element = null;
+
+        this.trigger('destroyed');
     }
 }
 

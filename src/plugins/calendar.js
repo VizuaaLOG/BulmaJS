@@ -138,6 +138,8 @@ class Calendar extends Plugin {
         }
 
         this.render();
+
+        this.trigger('init');
     }
 
     ////////////////////////////////////////

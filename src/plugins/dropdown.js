@@ -54,6 +54,8 @@ class Dropdown extends Plugin {
         this.trigger = this.element.querySelector('.dropdown-trigger');
 
         this.registerEvents();
+
+        this.trigger('init');
     }
 
     /**

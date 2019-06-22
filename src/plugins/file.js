@@ -60,6 +60,8 @@ class File extends Plugin {
         this.filename = this.element.querySelector('.file-name');
 
         this.registerEvents();
+
+        this.trigger('init');
     }
 
     /**

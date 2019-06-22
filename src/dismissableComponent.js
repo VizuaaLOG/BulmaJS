@@ -199,5 +199,7 @@ export default class DismissableComponent extends Plugin {
         this.parent.removeChild(this.element);
         this.parent = null;
         this.element = null;
+
+        this.trigger('destroyed');
     }
 }
