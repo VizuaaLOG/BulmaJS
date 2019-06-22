@@ -5,6 +5,7 @@ import Plugin from '../plugin';
  * @module Accordion
  * @since  0.3.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
+ * @deprecated
  */
 class Accordion extends Plugin {
     /**
@@ -47,6 +48,8 @@ class Accordion extends Plugin {
      */
     constructor(config) {
         super(config);
+
+        console.warn('[BulmaJS] The accordion plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s accordion plugin');
 
         // Work out the parent if it hasn't been supplied as an option.
         if(this.parent === null) {

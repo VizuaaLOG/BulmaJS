@@ -5,6 +5,7 @@ import Plugin from '../plugin';
  * @module Calendar
  * @since  0.3.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
+ * @deprecated
  */
 class Calendar extends Plugin {
     /**
@@ -51,6 +52,8 @@ class Calendar extends Plugin {
      */
     constructor(config) {
         super(config);
+
+        console.warn('[BulmaJS] The calendar plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s calendar plugin');
 
         /**
          * The root Calendar element.
