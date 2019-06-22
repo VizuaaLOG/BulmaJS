@@ -107,6 +107,8 @@ class File extends Plugin {
         if(event.target.files.length > 1) {
             this.setFileName(event.target.files.length + ' files');
         }
+
+        this.trigger('changed', event);
     }
 
     /**
