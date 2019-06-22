@@ -73,8 +73,12 @@ class Dropdown extends Plugin {
     handleTriggerClick() {
         if(this.element.classList.contains('is-active')) {
             this.element.classList.remove('is-active');
+
+            this.trigger('closed');
         } else {
             this.element.classList.add('is-active');
+
+            this.trigger('opened');
         }
     }
 }
