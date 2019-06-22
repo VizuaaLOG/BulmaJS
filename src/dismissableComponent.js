@@ -170,11 +170,15 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     handleCloseEvent() {
+        this.trigger('dismissed');
+        
         if(this.destroyOnDismiss) {
             this.destroy();
         } else {
             this.hide();
         }
+
+        this.trigger('closed');
     }
 
     /**
