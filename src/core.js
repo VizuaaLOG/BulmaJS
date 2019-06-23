@@ -45,7 +45,7 @@ Bulma.create = (key, config) => {
         throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
     }
 
-    return Bulma.plugins[key].handler.create(config);
+    return new Bulma.plugins[key].handler(config);
 };
 
 /**
