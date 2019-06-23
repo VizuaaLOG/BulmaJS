@@ -86,7 +86,6 @@ Bulma.registerPlugin = (key, plugin, priority = 0) => {
  * 
  * @return {undefined}
  */
-Bulma.traverseDOM = (root = document) => {
     let elements = root.querySelectorAll(Bulma.getPluginClasses());
     
     Bulma.each(elements, (element) => {
@@ -130,6 +129,7 @@ Bulma.getPluginClasses = () => {
 Bulma.findCompatiblePlugins = (element) => {
     let compatiblePlugins = [];
 
+Bulma.parseDocument = (root = document) => {
     let sortedPlugins = Object.keys(Bulma.plugins)
         .sort((a, b) => Bulma.plugins[a].priority < Bulma.plugins[b].priority);
 
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    Bulma.traverseDOM();
+    Bulma.parseDocument();
 });
 
 export default Bulma;
