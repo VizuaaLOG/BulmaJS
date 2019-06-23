@@ -1,5 +1,9 @@
 import Data from './Data';
 
+/**
+ * Wrap an element around Bulma.
+ * @param {String|HTMLElement} selector The selector or HTMLElement to wrap.
+ */
 function Bulma(selector) {
     if(! (this instanceof Bulma)) {
         return new Bulma(selector);
@@ -24,8 +28,14 @@ function Bulma(selector) {
  */
 Bulma.VERSION = '0.11.0';
 
+/**
+ * Unique ID of Bulma
+ */
 Bulma.id = 'bulma-' + new Date().getTime();
 
+/**
+ * Global data cache for HTML elements
+ */
 Bulma.cache = new Data();
 
 /**
