@@ -86,60 +86,18 @@ Bulma.registerPlugin = (key, plugin, priority = 0) => {
  * 
  * @return {undefined}
  */
-    let elements = root.querySelectorAll(Bulma.getPluginClasses());
-    
-    Bulma.each(elements, (element) => {
-        if(element.hasAttribute('data-bulma-attached')) {
-            return;
-        }
-
-        let elem = Bulma(element);
-
-        let plugins = Bulma.findCompatiblePlugins(element);
-        
-        Bulma.each(plugins, (plugin) => {
-            plugin.handler.parse(element);
-        });
-    });
-};
-
-/**
- * Return a string of classes to search the DOM for
- * @returns {string} The string containing the classes
- */
-Bulma.getPluginClasses = () => {
-    var classes = [];
-
-    for(var key in Bulma.plugins) {
-        if(!Bulma.plugins[key].handler.getRootClass()) {
-            continue;
-        }
-
-        classes.push('.' + Bulma.plugins[key].handler.getRootClass());
-    }
-
-    return classes.join(',');
-};
-
-/**
- * Search our plugins and find one that matches the element
- * @param {HTMLElement} element The element we want to match for
- * @returns {Object} The plugin that matched
- */
-Bulma.findCompatiblePlugins = (element) => {
-    let compatiblePlugins = [];
-
 Bulma.parseDocument = (root = document) => {
     let sortedPlugins = Object.keys(Bulma.plugins)
         .sort((a, b) => Bulma.plugins[a].priority < Bulma.plugins[b].priority);
 
     Bulma.each(sortedPlugins, (key) => {
-        if(element.classList.contains(Bulma.plugins[key].handler.getRootClass())) {
-            compatiblePlugins.push(Bulma.plugins[key]);
+        if(!Bulma.plugins[key].handler.hasOwnProperty('parseDocument')) {
+            console.error('[BulmaJS] Plugin ' + key + ' does not have a parseDocument method. Automatic document parsing is not possible for this plugin.');
+            return;
         }
-    });
 
-    return compatiblePlugins;
+        Bulma.plugins[key].handler.parseDocument(root);
+    });
 };
 
 /**
