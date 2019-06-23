@@ -1,3 +1,5 @@
+import Data from './Data';
+
 function Bulma(selector) {
     if(! (this instanceof Bulma)) {
         return new Bulma(selector);
@@ -8,6 +10,8 @@ function Bulma(selector) {
     } else {
         this._elem = document.querySelector(selector);
     }
+    
+    this._elem[Bulma.id] = Data.uid++;
 
     return this;
 };
@@ -17,6 +21,10 @@ function Bulma(selector) {
  * @type {String}
  */
 Bulma.VERSION = '0.11.0';
+
+Bulma.id = 'bulma-' + new Date().getTime();
+
+Bulma.cache = new Data();
 
 /**
  * An index of the registered plugins
@@ -259,7 +267,12 @@ Bulma._stripScripts = (htmlString) => {
     return div.innerHTML;
 };
 
+Bulma.prototype.data = function(key, value) {
+    if(!value) {
+        return Bulma.cache.get(this._elem[Bulma.id], key);
     }
+
+    Bulma.cache.set(this._elem[Bulma.id], key, value);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
