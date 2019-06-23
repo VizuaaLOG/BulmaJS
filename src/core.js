@@ -1,243 +1,264 @@
-const Bulma = {
-    /**
-     * Current BulmaJS version.
-     * @type {String}
-     */
-    VERSION: '0.11.0',
+function Bulma(selector) {
+    if(! (this instanceof Bulma)) {
+        return new Bulma(selector);
+    }
 
-    /**
-     * An index of the registered plugins
-     * @type {Object}
-     */
-    plugins: {},
+    if(selector instanceof HTMLElement) {
+        this._elem = selector;
+    } else {
+        this._elem = document.querySelector(selector);
+    }
 
-    /**
-     * Helper method to create a new plugin.
-     * @param  {String} key The plugin's key
-     * @param  {Object} config The config to be passed to the plugin
-     * @return {Object} The newly created plugin instance
-     */
-    create(key, config) {
-        if(!key || !Bulma.plugins.hasOwnProperty(key)) {
-            throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
+    return this;
+};
+
+/**
+ * Current BulmaJS version.
+ * @type {String}
+ */
+Bulma.VERSION = '0.11.0';
+
+/**
+ * An index of the registered plugins
+ * @type {Object}
+ */
+Bulma.plugins = {};
+
+/**
+ * Helper method to create a new plugin.
+ * @param  {String} key The plugin's key
+ * @param  {Object} config The config to be passed to the plugin
+ * @return {Object} The newly created plugin instance
+ */
+Bulma.create = (key, config) => {
+    if(!key || !Bulma.plugins.hasOwnProperty(key)) {
+        throw new Error('[BulmaJS] A plugin with the key \''+key+'\' has not been registered.');
+    }
+
+    return Bulma.plugins[key].handler.create(config);
+};
+
+/**
+ * Register a new plugin
+ * @param  {String} key The key to register the plugin under
+ * @param  {Object} plugin The plugin's main constructor
+ * @param  {number?} priority The priority this plugin has over other plugins. Higher means the plugin is registered before lower.
+ * @return {undefined}
+ */
+Bulma.registerPlugin = (key, plugin, priority = 0) => {
+    if(!key) {
+        throw new Error('[BulmaJS] Key attribute is required.');
+    }
+    
+    Bulma.plugins[key] = {
+        priority: priority,
+        handler: plugin
+    };
+
+    Bulma.prototype[key] = function(config) {
+        return Bulma.plugins[key].handler.create(this, config);
+    };
+};
+
+/**
+ * Parse the HTML DOM searching for data-bulma attributes. We will then pass
+ * each element to the appropriate plugin to handle the required processing.
+ * 
+ * @return {undefined}
+ */
+Bulma.traverseDOM = (root = document) => {
+    let elements = root.querySelectorAll(Bulma.getPluginClasses());
+    
+    Bulma.each(elements, (element) => {
+        if(element.hasAttribute('data-bulma-attached')) {
+            return;
         }
 
-        return Bulma.plugins[key].handler.create(config);
-    },
+        let elem = Bulma(element);
 
-    /**
-     * Register a new plugin
-     * @param  {String} key The key to register the plugin under
-     * @param  {Object} plugin The plugin's main constructor
-     * @param  {number?} priority The priority this plugin has over other plugins. Higher means the plugin is registered before lower.
-     * @return {undefined}
-     */
-    registerPlugin(key, plugin, priority = 0) {
-        if(!key) {
-            throw new Error('[BulmaJS] Key attribute is required.');
+        let plugins = Bulma.findCompatiblePlugins(element);
+        
+        Bulma.each(plugins, (plugin) => {
+            plugin.handler.parse(element);
+        });
+    });
+};
+
+/**
+ * Return a string of classes to search the DOM for
+ * @returns {string} The string containing the classes
+ */
+Bulma.getPluginClasses = () => {
+    var classes = [];
+
+    for(var key in Bulma.plugins) {
+        if(!Bulma.plugins[key].handler.getRootClass()) {
+            continue;
         }
-        
-        this.plugins[key] = {
-            priority: priority,
-            handler: plugin
-        };
-    },
 
-    /**
-     * Parse the HTML DOM searching for data-bulma attributes. We will then pass
-     * each element to the appropriate plugin to handle the required processing.
-     * 
-     * @return {undefined}
-     */
-    traverseDOM(root = document) {
-        let elements = root.querySelectorAll(this.getPluginClasses());
-        
-        this.each(elements, (element) => {
-            if(element.hasAttribute('data-bulma-attached')) {
-                return;
-            }
+        classes.push('.' + Bulma.plugins[key].handler.getRootClass());
+    }
 
-            let plugins = this.findCompatiblePlugins(element);
+    return classes.join(',');
+};
 
-            this.each(plugins, (plugin) => {
-                plugin.handler.parse(element);
+/**
+ * Search our plugins and find one that matches the element
+ * @param {HTMLElement} element The element we want to match for
+ * @returns {Object} The plugin that matched
+ */
+Bulma.findCompatiblePlugins = (element) => {
+    let compatiblePlugins = [];
+
+    let sortedPlugins = Object.keys(Bulma.plugins)
+        .sort((a, b) => Bulma.plugins[a].priority < Bulma.plugins[b].priority);
+
+    Bulma.each(sortedPlugins, (key) => {
+        if(element.classList.contains(Bulma.plugins[key].handler.getRootClass())) {
+            compatiblePlugins.push(Bulma.plugins[key]);
+        }
+    });
+
+    return compatiblePlugins;
+};
+
+/**
+ * Create an element and assign classes
+ * @param {string} name The name of the element to create
+ * @param {array} classes An array of classes to add to the element
+ * @return {HTMLElement} The newly created element
+ */
+Bulma.createElement = (name, classes) => {
+    if(!classes) {
+        classes = [];
+    }
+
+    if(typeof classes === 'string') {
+        classes = [classes];
+    }
+
+    let elem = document.createElement(name);
+
+    Bulma.each(classes, (className) => {
+        elem.classList.add(className);
+    });
+
+    return elem;
+};
+
+/**
+ * Helper method to normalise a plugin finding an element.
+ * @param {string} query The CSS selector to query for
+ * @param {HTMLElement|null} context The element we want to search within
+ * @param {boolean} nullable Do we except a null response?
+ * @returns {null|HTMLElement} The element we found, or null if allowed.
+ * @throws {TypeError}
+ */
+Bulma.findElement = (query, context = document, nullable = false) => {
+    if(!query && !nullable) {
+        throw new TypeError('First argument to `findElement` required. Null given.');
+    }
+
+    if(!query) {
+        return null;
+    }
+
+    if(query.toString() === '[object HTMLElement]') {
+        return query;
+    }
+
+    return context.querySelector(query);
+};
+
+/**
+ * Find an element otherwise create a new one.
+ * @param {string} query The CSS selector query to find
+ * @param {HTMLElement|null} parent The parent we want to search/create within
+ * @param {[string]} elemName The name of the element to create
+ * @param {[array]} classes The classes to apply to the element
+ * @returns {HTMLElement} The HTML element we found or created
+ */
+Bulma.findOrCreateElement = (query, parent = null, elemName = 'div', classes = []) => {
+    var elem = Bulma.findElement(query, parent);
+
+    if(!elem) {
+        if(classes.length === 0) {
+            classes = query.split('.').filter((item) => {
+                return item;
             });
-        });
-    },
+        }
 
-    /**
-     * Return a string of classes to search the DOM for
-     * @returns {string} The string containing the classes
-     */
-    getPluginClasses() {
-        var classes = [];
+        var newElem = Bulma.createElement(elemName, classes);
 
-        for(var key in this.plugins) {
-            if(!this.plugins[key].handler.getRootClass()) {
-                continue;
+        if(parent) {
+            parent.appendChild(newElem);
+        }
+
+        return newElem;
+    }
+
+    return elem;
+};
+
+/**
+ * For loop helper
+ * @param {*} objects The array/object to loop through
+ * @param {*} callback The callback used for each item
+ */
+Bulma.each = (objects, callback) => {
+    let i;
+
+    for(i = 0; i < objects.length; i++) {
+        callback(objects[i], i);
+    }
+};
+
+/**
+ * Make an AJAX GET request to the specified URL. Stripping any script tags from the response.
+ * @param {*} url The url to send the request to
+ * @returns {Promise} Returns a promise containing the response HTML or error
+ */
+Bulma.ajax = (url) => {
+    return new Promise((resolve, reject) => {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+
+        request.onload = () => {
+            if (request.status >= 200 && request.status < 400) {
+                resolve(Bulma._stripScripts(request.responseText));
+            } else {
+                reject();
             }
+        };
 
-            classes.push('.' + this.plugins[key].handler.getRootClass());
-        }
+        request.onerror = () => reject();
 
-        return classes.join(',');
-    },
+        request.send();
+    });
+};
 
-    /**
-     * Search our plugins and find one that matches the element
-     * @param {HTMLElement} element The element we want to match for
-     * @returns {Object} The plugin that matched
-     */
-    findCompatiblePlugins(element) {
-        let compatiblePlugins = [];
+/**
+ * Strip any script tags from a HTML string.
+ * @param {string} htmlString 
+ * @returns {string} The cleaned HTML string
+ * 
+ * @private
+ */
+Bulma._stripScripts = (htmlString) => {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString;
+    
+    var scripts = div.getElementsByTagName('script');
+    
+    var i = scripts.length;
+    
+    while (i--) {
+        scripts[i].parentNode.removeChild(scripts[i]);
+    }
+    
+    return div.innerHTML;
+};
 
-        let sortedPlugins = Object.keys(this.plugins)
-            .sort((a, b) => this.plugins[a].priority < this.plugins[b].priority);
-
-        this.each(sortedPlugins, (key) => {
-            if(element.classList.contains(this.plugins[key].handler.getRootClass())) {
-                compatiblePlugins.push(this.plugins[key]);
-            }
-        });
-
-        return compatiblePlugins;
-    },
-
-    /**
-     * Create an element and assign classes
-     * @param {string} name The name of the element to create
-     * @param {array} classes An array of classes to add to the element
-     * @return {HTMLElement} The newly created element
-     */
-    createElement(name, classes) {
-        if(!classes) {
-            classes = [];
-        }
-
-        if(typeof classes === 'string') {
-            classes = [classes];
-        }
-
-        let elem = document.createElement(name);
-
-        this.each(classes, (className) => {
-            elem.classList.add(className);
-        });
-
-        return elem;
-    },
-
-    /**
-     * Helper method to normalise a plugin finding an element.
-     * @param {string} query The CSS selector to query for
-     * @param {HTMLElement|null} context The element we want to search within
-     * @param {boolean} nullable Do we except a null response?
-     * @returns {null|HTMLElement} The element we found, or null if allowed.
-     * @throws {TypeError}
-     */
-    findElement(query, context = document, nullable = false) {
-        if(!query && !nullable) {
-            throw new TypeError('First argument to `findElement` required. Null given.');
-        }
-
-        if(!query) {
-            return null;
-        }
-
-        if(query.toString() === '[object HTMLElement]') {
-            return query;
-        }
-
-        return context.querySelector(query);
-    },
-
-    /**
-     * Find an element otherwise create a new one.
-     * @param {string} query The CSS selector query to find
-     * @param {HTMLElement|null} parent The parent we want to search/create within
-     * @param {[string]} elemName The name of the element to create
-     * @param {[array]} classes The classes to apply to the element
-     * @returns {HTMLElement} The HTML element we found or created
-     */
-    findOrCreateElement(query, parent = null, elemName = 'div', classes = []) {
-        var elem = this.findElement(query, parent);
-
-        if(!elem) {
-            if(classes.length === 0) {
-                classes = query.split('.').filter((item) => {
-                    return item;
-                });
-            }
-
-            var newElem = this.createElement(elemName, classes);
-
-            if(parent) {
-                parent.appendChild(newElem);
-            }
-
-            return newElem;
-        }
-
-        return elem;
-    },
-
-    /**
-     * For loop helper
-     * @param {*} objects The array/object to loop through
-     * @param {*} callback The callback used for each item
-     */
-    each(objects, callback) {
-        let i;
-
-        for(i = 0; i < objects.length; i++) {
-            callback(objects[i], i);
-        }
-    },
-
-    /**
-     * Make an AJAX GET request to the specified URL. Stripping any script tags from the response.
-     * @param {*} url The url to send the request to
-     * @returns {Promise} Returns a promise containing the response HTML or error
-     */
-    ajax(url) {
-        return new Promise((resolve, reject) => {
-            var request = new XMLHttpRequest();
-            request.open('GET', url, true);
-
-            request.onload = () => {
-                if (request.status >= 200 && request.status < 400) {
-                    resolve(this._stripScripts(request.responseText));
-                } else {
-                    reject();
-                }
-            };
-
-            request.onerror = () => reject();
-
-            request.send();
-        });
-    },
-
-    /**
-     * Strip any script tags from a HTML string.
-     * @param {string} htmlString 
-     * @returns {string} The cleaned HTML string
-     * 
-     * @private
-     */
-    _stripScripts(htmlString) {
-        var div = document.createElement('div');
-        div.innerHTML = htmlString;
-        
-        var scripts = div.getElementsByTagName('script');
-        
-        var i = scripts.length;
-        
-        while (i--) {
-            scripts[i].parentNode.removeChild(scripts[i]);
-        }
-        
-        return div.innerHTML;
     }
 };
 
