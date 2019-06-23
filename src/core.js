@@ -243,6 +243,8 @@ Bulma.prototype.data = function(key, value) {
     }
 
     Bulma.cache.set(this._elem[Bulma.id], key, value);
+
+    return this;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
