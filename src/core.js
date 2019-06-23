@@ -11,7 +11,9 @@ function Bulma(selector) {
         this._elem = document.querySelector(selector);
     }
     
-    this._elem[Bulma.id] = Data.uid++;
+    if(!this._elem.hasOwnProperty(Bulma.id)) {
+        this._elem[Bulma.id] = Data.uid++;
+    }
 
     return this;
 };
