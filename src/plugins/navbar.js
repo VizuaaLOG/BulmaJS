@@ -21,14 +21,21 @@ class Navbar extends Plugin {
      * @param {HTMLElement} element The root element for this instance
      * @return {undefined}
      */
-    static parse(element) {
-        new Navbar({
-            element: element,
-            sticky: element.hasAttribute('data-sticky') ? true : false,
-            stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
-            hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
-            tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
-            shadow: element.hasAttribute('data-sticky-shadow') ? true : false
+    static parseDocument(context) {
+        let elements = document.querySelectorAll('.navbar');
+
+        Bulma.each(elements, (element) => {
+
+            Bulma(element)
+                .data('navbar', new Navbar({
+                    element: element,
+                    sticky: element.hasAttribute('data-sticky') ? true : false,
+                    stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
+                    hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
+                    tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
+                    shadow: element.hasAttribute('data-sticky-shadow') ? true : false
+                }))
+                .data('navbar');
         });
     }
 
