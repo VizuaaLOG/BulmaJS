@@ -22,15 +22,6 @@ class File extends Plugin {
                 }));
         });
     }
-    
-    /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     * @throws {Error} Thrown if this method has not been replaced.
-     */
-    static getRootClass() {
-        return 'file';
-    }
 
     /**
      * Plugin constructor

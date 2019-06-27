@@ -8,20 +8,6 @@ import Plugin from '../plugin';
  */
 class Tabs extends Plugin {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config The config object for this instance
-     * @returns {Tabs} The newly created instance
-     */
-    static create(config) {
-        // This checks if this method is being called directly, rather
-        // than through the Bulma core. If so make sure we grab the config
-        // as we do not need the key.
-        if(arguments.length > 1) config = arguments[1];
-        
-        return new Tabs(config);
-    }
-
-    /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this instance
      * @returns {undefined}
@@ -38,14 +24,6 @@ class Tabs extends Plugin {
                     hover: element.hasAttribute('data-hover') ? true : false
                 }));
         });
-    }
-
-    /**
-     * The root class used for initialisation
-     * @returns {string} The class this plugin is responsible for
-     */
-    static getRootClass() {
-        return 'tabs-wrapper';
     }
 
     /**

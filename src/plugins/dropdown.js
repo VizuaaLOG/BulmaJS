@@ -24,15 +24,6 @@ class Dropdown extends Plugin {
     }
 
     /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     * @throws {Error} Thrown if this method has not been replaced.
-     */
-    static getRootClass() {
-        return 'dropdown';
-    }
-
-    /**
      * Plugin constructor
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance

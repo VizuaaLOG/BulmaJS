@@ -29,15 +29,6 @@ class Modal extends Plugin {
     static parseDocument(context) {}
 
     /**
-     * Get the root class this plugin is responsible for.
-     * This will tell the core to match this plugin to an element with a .modal class.
-     * @returns {string} The class this plugin is responsible for.
-     */
-    static getRootClass() {
-        return 'modal';
-    }
-
-    /**
      * Returns an object containing the default config for this plugin.
      * @returns {object} The default config object.
      */

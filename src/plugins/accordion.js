@@ -39,14 +39,6 @@ class Accordion extends Plugin {
     }
 
     /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     */
-    static getRootClass() {
-        return 'accordions';
-    }
-
-    /**
      * Plugin constructor
      * @param  {Object} config The plugin's config
      * @return {this} The new plugin instance

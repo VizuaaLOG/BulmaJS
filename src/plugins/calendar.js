@@ -23,14 +23,6 @@ class Calendar extends Plugin {
     }
 
     /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     */
-    static getRootClass() {
-        return 'calendar';
-    }
-
-    /**
      * Returns an object containing the default config for this plugin.
      * @returns {object} The default config object.
      */
