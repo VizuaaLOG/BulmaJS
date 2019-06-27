@@ -13,7 +13,7 @@ class Navbar extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.navbar');
+        let elements = context.querySelectorAll('.navbar');
 
         Bulma.each(elements, (element) => {
 

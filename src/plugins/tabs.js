@@ -13,11 +13,9 @@ class Tabs extends Plugin {
      * @returns {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.tabs-wrapper');
+        let elements = context.querySelectorAll('.tabs-wrapper');
 
         Bulma.each(elements, (element) => {
-            let closeBtn = element.querySelector('.delete');
-
             Bulma(element)
                 .data('tabs', new Tabs({
                     element: element,

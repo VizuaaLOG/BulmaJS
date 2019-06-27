@@ -13,7 +13,7 @@ class Dropdown extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.dropdown');
+        let elements = context.querySelectorAll('.dropdown');
 
         Bulma.each(elements, (element) => {
             Bulma(element)

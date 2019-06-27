@@ -28,7 +28,7 @@ class Message extends DismissableComponent {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.message');
+        let elements = context.querySelectorAll('.message');
 
         Bulma.each(elements, (element) => {
             let closeBtn = element.querySelector('.delete');

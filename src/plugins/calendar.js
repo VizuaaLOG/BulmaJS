@@ -42,7 +42,7 @@ class Calendar extends Plugin {
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
      */
-    static parseDocument(context) {}
+    static parseDocument() {}
 
     /**
      * Plugin constructor
@@ -51,7 +51,8 @@ class Calendar extends Plugin {
      */
     constructor(config) {
         super(config);
-
+        
+        // eslint-disable-next-line no-console
         console.warn('[BulmaJS] The calendar plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s calendar plugin');
 
         /**

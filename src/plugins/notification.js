@@ -14,7 +14,7 @@ class Notification extends DismissableComponent {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.notification');
+        let elements = context.querySelectorAll('.notification');
 
         Bulma.each(elements, (element) => {
             let closeBtn = element.querySelector('.delete');

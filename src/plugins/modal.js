@@ -26,7 +26,7 @@ class Modal extends Plugin {
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
      */
-    static parseDocument(context) {}
+    static parseDocument() {}
 
     /**
      * Returns an object containing the default config for this plugin.

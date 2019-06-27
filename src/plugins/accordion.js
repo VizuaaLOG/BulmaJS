@@ -28,7 +28,7 @@ class Accordion extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.accordions');
+        let elements = context.querySelectorAll('.accordions');
 
         Bulma.each(elements, (element) => {
             Bulma(element)
@@ -46,6 +46,7 @@ class Accordion extends Plugin {
     constructor(config) {
         super(config);
 
+        // eslint-disable-next-line no-console
         console.warn('[BulmaJS] The accordion plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s accordion plugin');
 
         // Work out the parent if it hasn't been supplied as an option.

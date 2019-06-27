@@ -20,7 +20,7 @@ function Bulma(selector) {
     }
 
     return this;
-};
+}
 
 /**
  * Current BulmaJS version.
@@ -30,11 +30,13 @@ Bulma.VERSION = '0.11.0';
 
 /**
  * Unique ID of Bulma
+ * @type {String}
  */
 Bulma.id = 'bulma-' + new Date().getTime();
 
 /**
  * Global data cache for HTML elements
+ * @type {Data}
  */
 Bulma.cache = new Data();
 
@@ -83,7 +85,7 @@ Bulma.registerPlugin = (key, plugin, priority = 0) => {
 /**
  * Parse the HTML DOM searching for data-bulma attributes. We will then pass
  * each element to the appropriate plugin to handle the required processing.
- * 
+ * @param  {HTMLElement} root The root of the document we're going to parse.
  * @return {undefined}
  */
 Bulma.parseDocument = (root = document) => {
@@ -92,6 +94,7 @@ Bulma.parseDocument = (root = document) => {
 
     Bulma.each(sortedPlugins, (key) => {
         if(!Bulma.plugins[key].handler.hasOwnProperty('parseDocument')) {
+            // eslint-disable-next-line no-console
             console.error('[BulmaJS] Plugin ' + key + ' does not have a parseDocument method. Automatic document parsing is not possible for this plugin.');
             return;
         }
@@ -211,6 +214,12 @@ Bulma._stripScripts = (htmlString) => {
     return div.innerHTML;
 };
 
+/**
+ * Get or set custom data on a Bulma element.
+ * @type {String} key
+ * @type {any} value
+ * @returns {Bulma}
+ */
 Bulma.prototype.data = function(key, value) {
     if(!value) {
         return Bulma.cache.get(this._elem[Bulma.id], key);

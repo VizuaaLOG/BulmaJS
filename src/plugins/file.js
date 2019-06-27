@@ -13,7 +13,7 @@ class File extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = document.querySelectorAll('.file');
+        let elements = context.querySelectorAll('.file');
 
         Bulma.each(elements, (element) => {
             Bulma(element)
