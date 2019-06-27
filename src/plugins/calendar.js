@@ -46,6 +46,13 @@ class Calendar extends Plugin {
     }
 
     /**
+     * Handle parsing the DOM.
+     * @param {HTMLElement} element The root element for this accordion
+     * @return {undefined}
+     */
+    static parseDocument(context) {}
+
+    /**
      * Plugin constructor
      * @param  {Object} config Plugin instance's config
      * @return {this} The newly created instance

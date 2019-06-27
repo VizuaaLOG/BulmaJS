@@ -29,6 +29,13 @@ class Alert extends Modal {
     static getRootClass() {
         return '';
     }
+    
+    /**
+     * Handle parsing the DOM.
+     * @param {HTMLElement} element The root element for this accordion
+     * @return {undefined}
+     */
+    static parseDocument(context) {}
 
     /**
      * Returns an object containing the default config for this plugin.
