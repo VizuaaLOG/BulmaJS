@@ -125,30 +125,6 @@ Bulma.createElement = (name, classes) => {
 };
 
 /**
- * Helper method to normalise a plugin finding an element.
- * @param {string} query The CSS selector to query for
- * @param {HTMLElement|null} context The element we want to search within
- * @param {boolean} nullable Do we except a null response?
- * @returns {null|HTMLElement} The element we found, or null if allowed.
- * @throws {TypeError}
- */
-Bulma.findElement = (query, context = document, nullable = false) => {
-    if(!query && !nullable) {
-        throw new TypeError('First argument to `findElement` required. Null given.');
-    }
-
-    if(!query) {
-        return null;
-    }
-
-    if(query.toString() === '[object HTMLElement]') {
-        return query;
-    }
-
-    return context.querySelector(query);
-};
-
-/**
  * Find an element otherwise create a new one.
  * @param {string} query The CSS selector query to find
  * @param {HTMLElement|null} parent The parent we want to search/create within
@@ -156,8 +132,8 @@ Bulma.findElement = (query, context = document, nullable = false) => {
  * @param {[array]} classes The classes to apply to the element
  * @returns {HTMLElement} The HTML element we found or created
  */
-Bulma.findOrCreateElement = (query, parent = null, elemName = 'div', classes = []) => {
-    var elem = Bulma.findElement(query, parent);
+Bulma.findOrCreateElement = (query, parent = document, elemName = 'div', classes = []) => {
+    var elem = parent.querySelector(query);
 
     if(!elem) {
         if(classes.length === 0) {
@@ -168,9 +144,7 @@ Bulma.findOrCreateElement = (query, parent = null, elemName = 'div', classes = [
 
         var newElem = Bulma.createElement(elemName, classes);
 
-        if(parent) {
-            parent.appendChild(newElem);
-        }
+        parent.appendChild(newElem);
 
         return newElem;
     }
