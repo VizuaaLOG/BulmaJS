@@ -27,9 +27,14 @@ class Accordion extends Plugin {
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
      */
-    static parse(element) {
-        new Accordion({
-            element
+    static parseDocument(context) {
+        let elements = document.querySelectorAll('.accordions');
+
+        Bulma.each(elements, (element) => {
+            Bulma(element)
+                .data('accordion', new Accordion({
+                    element: element
+                }));
         });
     }
 
