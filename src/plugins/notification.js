@@ -27,24 +27,23 @@ class Notification extends DismissableComponent {
      * @param {HTMLElement} element The root element for this instance
      * @return {undefined}
      */
-    static parse(element) {
-        let closeBtn = element.querySelector('.delete');
-        let dismissInterval = element.getAttribute('data-dismiss-interval');
+    static parseDocument(context) {
+        let elements = document.querySelectorAll('.notification');
 
-        let config = {
-            body: null,
-            parent: element.parentNode,
-            element: element,
-            closeButton: closeBtn,
-            isDismissable: !!closeBtn,
-            destroyOnDismiss: true
-        };
+        Bulma.each(elements, (element) => {
+            let closeBtn = element.querySelector('.delete');
 
-        if(dismissInterval) {
-            config['dismissInterval'] = parseInt(dismissInterval);
-        }
-
-        new Notification(config);
+            Bulma(element)
+                .data('notification', new Notification({
+                    body: null,
+                    parent: element.parentNode,
+                    element: element,
+                    closeButton: closeBtn,
+                    isDismissable: !!closeBtn,
+                    destroyOnDismiss: true,
+                    dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
+                }));
+        });
     }
 
     /**

@@ -12,9 +12,14 @@ class Dropdown extends Plugin {
      * @param {HtmlElement} element The root element for this instance
      * @return {undefined}
      */
-    static parse(element) {
-        new Dropdown({
-            element: element
+    static parseDocument(context) {
+        let elements = document.querySelectorAll('.dropdown');
+
+        Bulma.each(elements, (element) => {
+            Bulma(element)
+                .data('dropdown', new Dropdown({
+                    element: element
+                }));
         });
     }
 

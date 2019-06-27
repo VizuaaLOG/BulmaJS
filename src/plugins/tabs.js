@@ -26,15 +26,18 @@ class Tabs extends Plugin {
      * @param {HTMLElement} element The root element for this instance
      * @returns {undefined}
      */
-    static parse(element) {
-        let hover = element.hasAttribute('data-hover') ? true : false;
+    static parseDocument(context) {
+        let elements = document.querySelectorAll('.tabs-wrapper');
 
-        let config = {
-            element: element,
-            hover: hover
-        };
+        Bulma.each(elements, (element) => {
+            let closeBtn = element.querySelector('.delete');
 
-        new Tabs(config);
+            Bulma(element)
+                .data('tabs', new Tabs({
+                    element: element,
+                    hover: element.hasAttribute('data-hover') ? true : false
+                }));
+        });
     }
 
     /**

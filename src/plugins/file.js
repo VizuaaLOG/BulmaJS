@@ -12,9 +12,14 @@ class File extends Plugin {
      * @param {HTMLElement} element The root element for this plugin
      * @return {undefined}
      */
-    static parse(element) {
-        new File({
-            element: element
+    static parseDocument(context) {
+        let elements = document.querySelectorAll('.file');
+
+        Bulma.each(elements, (element) => {
+            Bulma(element)
+                .data('file', new File({
+                    element: element
+                }));
         });
     }
     
