@@ -27,18 +27,15 @@ class Accordion extends Plugin {
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
      */
-    static parse(element) {
-        new Accordion({
-            element
-        });
-    }
+    static parseDocument(context) {
+        let elements = context.querySelectorAll('.accordions');
 
-    /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     */
-    static getRootClass() {
-        return 'accordions';
+        Bulma.each(elements, (element) => {
+            Bulma(element)
+                .data('accordion', new Accordion({
+                    element: element
+                }));
+        });
     }
 
     /**
@@ -49,6 +46,7 @@ class Accordion extends Plugin {
     constructor(config) {
         super(config);
 
+        // eslint-disable-next-line no-console
         console.warn('[BulmaJS] The accordion plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s accordion plugin');
 
         // Work out the parent if it hasn't been supplied as an option.

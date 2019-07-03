@@ -22,13 +22,11 @@ class Modal extends Plugin {
     }
 
     /**
-     * Get the root class this plugin is responsible for.
-     * This will tell the core to match this plugin to an element with a .modal class.
-     * @returns {string} The class this plugin is responsible for.
+     * Handle parsing the DOM.
+     * @param {HTMLElement} element The root element for this accordion
+     * @return {undefined}
      */
-    static getRootClass() {
-        return 'modal';
-    }
+    static parseDocument() {}
 
     /**
      * Returns an object containing the default config for this plugin.

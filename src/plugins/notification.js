@@ -9,51 +9,27 @@ import DismissableComponent from '../dismissableComponent';
  */
 class Notification extends DismissableComponent {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config The config object for this instance
-     * @return {Notification} The newly created instance
-     */
-    static create(config) {
-        // This checks if this method is being called directly, rather
-        // than through the Bulma core. If so make sure we grab the config
-        // as we do not need the key.
-        if(arguments.length > 1) config = arguments[1];
-        
-        return new Notification(config);
-    }
-
-    /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this instance
      * @return {undefined}
      */
-    static parse(element) {
-        let closeBtn = element.querySelector('.delete');
-        let dismissInterval = element.getAttribute('data-dismiss-interval');
+    static parseDocument(context) {
+        let elements = context.querySelectorAll('.notification');
 
-        let config = {
-            body: null,
-            parent: element.parentNode,
-            element: element,
-            closeButton: closeBtn,
-            isDismissable: !!closeBtn,
-            destroyOnDismiss: true
-        };
+        Bulma.each(elements, (element) => {
+            let closeBtn = element.querySelector('.delete');
 
-        if(dismissInterval) {
-            config['dismissInterval'] = parseInt(dismissInterval);
-        }
-
-        new Notification(config);
-    }
-
-    /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     * @throws {Error} Thrown if this method has not been replaced.
-     */
-    static getRootClass() {
-        return 'notification';
+            Bulma(element)
+                .data('notification', new Notification({
+                    body: null,
+                    parent: element.parentNode,
+                    element: element,
+                    closeButton: closeBtn,
+                    isDismissable: !!closeBtn,
+                    destroyOnDismiss: true,
+                    dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
+                }));
+        });
     }
 
     /**

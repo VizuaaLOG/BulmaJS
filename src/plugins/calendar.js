@@ -23,14 +23,6 @@ class Calendar extends Plugin {
     }
 
     /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     */
-    static getRootClass() {
-        return 'calendar';
-    }
-
-    /**
      * Returns an object containing the default config for this plugin.
      * @returns {object} The default config object.
      */
@@ -46,13 +38,21 @@ class Calendar extends Plugin {
     }
 
     /**
+     * Handle parsing the DOM.
+     * @param {HTMLElement} element The root element for this accordion
+     * @return {undefined}
+     */
+    static parseDocument() {}
+
+    /**
      * Plugin constructor
      * @param  {Object} config Plugin instance's config
      * @return {this} The newly created instance
      */
     constructor(config) {
         super(config);
-
+        
+        // eslint-disable-next-line no-console
         console.warn('[BulmaJS] The calendar plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s calendar plugin');
 
         /**

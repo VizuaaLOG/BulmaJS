@@ -27,33 +27,23 @@ class Message extends DismissableComponent {
      * @param {HTMLElement} element The root element for this plugin
      * @return {undefined}
      */
-    static parse(element) {
-        let closeBtn = element.querySelector('.delete');
-        let dismissInterval = element.getAttribute('data-dismiss-interval');
+    static parseDocument(context) {
+        let elements = context.querySelectorAll('.message');
 
-        let config = {
-            body: null,
-            parent: element.parentNode,
-            element: element,
-            closeButton: closeBtn,
-            isDismissable: !!closeBtn,
-            destroyOnDismiss: true
-        };
+        Bulma.each(elements, (element) => {
+            let closeBtn = element.querySelector('.delete');
 
-        if(dismissInterval) {
-            config['dismissInterval'] = parseInt(dismissInterval);
-        }
-
-        new Message(config);
-    }
-
-    /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     * @throws {Error} Thrown if this method has not been replaced.
-     */
-    static getRootClass() {
-        return 'message';
+            Bulma(element)
+                .data('message', new Message({
+                    body: null,
+                    parent: element.parentNode,
+                    element: element,
+                    closeButton: closeBtn,
+                    isDismissable: !!closeBtn,
+                    destroyOnDismiss: true,
+                    dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
+                }));
+        });
     }
 
     /**

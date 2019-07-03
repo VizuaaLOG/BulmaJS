@@ -12,19 +12,15 @@ class Dropdown extends Plugin {
      * @param {HtmlElement} element The root element for this instance
      * @return {undefined}
      */
-    static parse(element) {
-        new Dropdown({
-            element: element
-        });
-    }
+    static parseDocument(context) {
+        let elements = context.querySelectorAll('.dropdown');
 
-    /**
-     * Returns a string containing the element class this plugin supports.
-     * @returns {string} The class name.
-     * @throws {Error} Thrown if this method has not been replaced.
-     */
-    static getRootClass() {
-        return 'dropdown';
+        Bulma.each(elements, (element) => {
+            Bulma(element)
+                .data('dropdown', new Dropdown({
+                    element: element
+                }));
+        });
     }
 
     /**
