@@ -67,7 +67,7 @@ class Navbar extends Plugin {
          * The element used for the trigger.
          * @type {HTMLElement}
          */
-        this.trigger = this.element.querySelector('.navbar-burger'),
+        this.triggerElement = this.element.querySelector('.navbar-burger'),
 
         /**
          * The target element.
@@ -119,7 +119,7 @@ class Navbar extends Plugin {
      * @return {undefined}
      */
     registerEvents() {
-        this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
+        this.triggerElement.addEventListener('click', this.handleTriggerClick.bind(this));
 
         if(this.sticky) {
             window.addEventListener('scroll', this.handleScroll.bind(this));
@@ -133,10 +133,10 @@ class Navbar extends Plugin {
     handleTriggerClick() {
         if(this.target.classList.contains('is-active')) {
             this.target.classList.remove('is-active');
-            this.trigger.classList.remove('is-active');
+            this.triggerElement.classList.remove('is-active');
         } else {
             this.target.classList.add('is-active');
-            this.trigger.classList.add('is-active');
+            this.triggerElement.classList.add('is-active');
         }
     }
 

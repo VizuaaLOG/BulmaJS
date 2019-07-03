@@ -47,7 +47,7 @@ class Dropdown extends Plugin {
          * The element to trigger when clicked.
          * @type {HTMLElement}
          */
-        this.trigger = this.element.querySelector('.dropdown-trigger');
+        this.triggerElement = this.element.querySelector('.dropdown-trigger');
 
         this.registerEvents();
 
@@ -59,7 +59,7 @@ class Dropdown extends Plugin {
      * @return {undefined}
      */
     registerEvents() {
-        this.trigger.addEventListener('click', this.handleTriggerClick.bind(this));
+        this.triggerElement.addEventListener('click', this.handleTriggerClick.bind(this));
     }
 
     /**
