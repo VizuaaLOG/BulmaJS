@@ -58,3 +58,10 @@ QUnit.test('The stripScripts method will remove any scripts from the string', fu
 
     assert.equal(Bulma._stripScripts(myString), 'This is a test', 'The script is removed from the string.');
 })
+
+QUnit.test('Data can be added and retrieved to/from an element', function(assert) {
+    let myElement4 = Bulma('.myelement2');
+    myElement4.data('hello', 'world');
+
+    assert.equal(myElement4.data('hello'), 'world', 'The data has been set and matches when retrieved.');
+});
