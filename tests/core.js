@@ -1,3 +1,5 @@
+QUnit.module('Core');
+
 QUnit.test('A plugin can be registered with core', function(assert) {
     createTestPlugin();
 
