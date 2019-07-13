@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-    - "7.7"
+    - "8.14"
 
 install:
   - npm install
@@ -8,3 +8,4 @@ install:
 script:
   - npm run lint
   - npm run dev
+  - npm run test
