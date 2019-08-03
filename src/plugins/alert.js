@@ -12,13 +12,10 @@ class Alert extends Modal {
      * @param  {Object} config THe config object for the new instance
      * @return {Alert} The newly created instance
      */
-    static create(config) {
-        // This checks if this method is being called directly, rather
-        // than through the Bulma core. If so make sure we grab the config
-        // as we do not need the key.
-        if(arguments.length > 1) config = arguments[1];
-        
-        return new Alert(config);
+    static create(element, config) {
+        return Bulma(element)
+            .data('alert', new Alert(config))
+            .data('alert');
     }
 
     /**
