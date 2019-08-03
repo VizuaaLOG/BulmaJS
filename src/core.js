@@ -211,7 +211,7 @@ Bulma._stripScripts = (htmlString) => {
         scripts[i].parentNode.removeChild(scripts[i]);
     }
     
-    return div.innerHTML;
+    return div.innerHTML.replace(/  +/g, ' ');;
 };
 
 /**
