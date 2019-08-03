@@ -82,6 +82,8 @@ class Message extends DismissableComponent {
             this.setSize();
         }
 
+        Bulma(this.root).data('message', this);
+
         this.trigger('init');
     }
 

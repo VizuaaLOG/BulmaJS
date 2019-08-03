@@ -234,6 +234,16 @@ Bulma.prototype.data = function(key, value) {
     return this;
 };
 
+/**
+ * Destroy the data for an element.
+ * @returns {Bulma}
+ */
+Bulma.prototype.destroyData = function() {
+    Bulma.cache.destroy(this._elem[Bulma.id]);
+
+    return this;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if(window.hasOwnProperty('bulmaOptions') && window.bulmaOptions.autoParseDocument === false) {
         return;

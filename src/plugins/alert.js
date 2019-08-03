@@ -52,6 +52,8 @@ class Alert extends Modal {
 
         this.root.classList.add('alert');
 
+        Bulma(this.root).data('alert', this);
+
         this.trigger('init');
 
         this.open();

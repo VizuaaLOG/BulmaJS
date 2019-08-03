@@ -1,4 +1,5 @@
 import ConfigBag from './ConfigBag';
+import Bulma from './core';
 
 /**
  * Base plugin class. Provides basic, common functionality.
@@ -43,5 +44,9 @@ export default class Plugin {
         for(let i = 0; i < this._events[event].length; i++) {
             this._events[event][i](data);
         }
+    }
+
+    destroy() {
+        Bulma(this.root).destroyData();
     }
 }

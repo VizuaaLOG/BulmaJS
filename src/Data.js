@@ -18,6 +18,12 @@ class Data {
 
         return this._data[uid][key];
     }
+
+    destroy(uid) {
+        if(this._data.hasOwnProperty(uid)) {
+            delete this._data[uid];
+        }
+    }
 }
 
 Data.uid = 1;

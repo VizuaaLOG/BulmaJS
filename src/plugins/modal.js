@@ -94,6 +94,8 @@ class Modal extends Plugin {
             this.buildModal();
         }
 
+        Bulma(this.root).data('modal', this);
+
         this.trigger('init');
     }
 
@@ -214,6 +216,8 @@ class Modal extends Plugin {
      * @returns {void}
      */
     destroy() {
+        super.destroy();
+        
         this.root.remove();
 
         this.parent = null;

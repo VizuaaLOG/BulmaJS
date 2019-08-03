@@ -81,6 +81,8 @@ class Tabs extends Plugin {
 
         this.setupNavEvents();
 
+        Bulma(this.root).data('tabs', this);
+
         this.trigger('init');
     }
 

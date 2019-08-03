@@ -194,6 +194,8 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     destroy() {
+        super.destroy();
+        
         if(this.closeButton) {
             this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
         }

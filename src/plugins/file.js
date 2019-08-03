@@ -57,6 +57,8 @@ class File extends Plugin {
 
         this.registerEvents();
 
+        Bulma(this.root).data('file', this);
+
         this.trigger('init');
     }
 

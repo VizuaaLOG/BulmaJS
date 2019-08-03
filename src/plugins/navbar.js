@@ -111,6 +111,8 @@ class Navbar extends Plugin {
          */
         this.lastScrollY = 0;
 
+        Bulma(this.root).data('navbar', this);
+
         this.registerEvents();
     }
 

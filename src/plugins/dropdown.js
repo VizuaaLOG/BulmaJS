@@ -51,6 +51,8 @@ class Dropdown extends Plugin {
 
         this.registerEvents();
 
+        Bulma(this.root).data('dropdown', this);
+
         this.trigger('init');
     }
 
