@@ -18,7 +18,7 @@ class Tabs extends Plugin {
         Bulma.each(elements, (element) => {
             Bulma(element)
                 .data('tabs', new Tabs({
-                    element: element,
+                    root: element,
                     hover: element.hasAttribute('data-hover') ? true : false
                 }));
         });
@@ -46,8 +46,8 @@ class Tabs extends Plugin {
          * The root tab element
          * @param {HTMLElement}
          */
-        this.element = this.config.get('element');
-        this.element.setAttribute('data-bulma-attached', 'attached');
+        this.root = this.config.get('element');
+        this.root.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * Whether the tabs should be changed when the nav item is hovered over
@@ -89,7 +89,7 @@ class Tabs extends Plugin {
      * @returns {HTMLElement} The navigation container
      */
     findNav() {
-        return this.element.querySelector('.tabs');
+        return this.root.querySelector('.tabs');
     }
 
     /**
@@ -105,7 +105,7 @@ class Tabs extends Plugin {
      * @returns {HTMLElement} The content container
      */
     findContent() {
-        return this.element.querySelector('.tabs-content');
+        return this.root.querySelector('.tabs-content');
     }
 
     /**
@@ -116,7 +116,7 @@ class Tabs extends Plugin {
         // We have to use the root here as the querySelectorAll API doesn't
         // support using '>' as the first character. So we have to have a
         // class to start with.
-        return this.element.querySelectorAll('.tabs-content > ul > li');
+        return this.root.querySelectorAll('.tabs-content > ul > li');
     }
 
     /**

@@ -48,32 +48,32 @@ class Modal extends Plugin {
         this.style = this.config.get('style');
 
         /** @param {HTMLElement} */
-        this.element = this.config.get('element');
+        this.root = this.config.get('root');
 
-        if(!this.element) {
-            this.element = Bulma.createElement('div', 'modal');
+        if(!this.root) {
+            this.root = Bulma.createElement('div', 'modal');
         }
 
         /** @param {HTMLElement} */
         this.parent = this.config.get('parent');
 
         if(!this.parent) {
-            if(!this.element.parentNode) {
+            if(!this.root.parentNode) {
                 this.parent = document.body;
 
-                this.parent.appendChild(this.element);
+                this.parent.appendChild(this.root);
             } else {
-                this.parent = this.element.parentNode;
+                this.parent = this.root.parentNode;
             }
         } else {
-            this.parent.appendChild(this.element);
+            this.parent.appendChild(this.root);
         }
 
         /** @param {HTMLElement} */
-        this.background = Bulma.findOrCreateElement('.modal-background', this.element);
+        this.background = Bulma.findOrCreateElement('.modal-background', this.root);
 
         /** @param {HTMLElement} */
-        this.content = this.style === 'card' ? Bulma.findOrCreateElement('.modal-card', this.element) : Bulma.findOrCreateElement('.modal-content', this.element);
+        this.content = this.style === 'card' ? Bulma.findOrCreateElement('.modal-card', this.root) : Bulma.findOrCreateElement('.modal-content', this.root);
 
         /** @param {boolean} */
         this.closable = this.config.get('closable');
@@ -109,7 +109,7 @@ class Modal extends Plugin {
 
         if(this.closable) {
             /** @param {HTMLElement} */
-            this.closeButton = this.style === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.element, 'button');
+            this.closeButton = this.style === 'card' ? Bulma.findOrCreateElement('.delete', this.header, 'button') : Bulma.findOrCreateElement('.modal-close', this.root, 'button');
         }
 
         if(this.style === 'card') {
@@ -152,7 +152,7 @@ class Modal extends Plugin {
             this.closeButton.addEventListener('click', this.close.bind(this));
 
             document.addEventListener('keyup', (event) => {
-                if(!this.element.classList.contains('is-active')) {
+                if(!this.root.classList.contains('is-active')) {
                     return;
                 }
 
@@ -192,7 +192,7 @@ class Modal extends Plugin {
      * @returns {void}
      */
     open() {
-        this.element.classList.add('is-active');
+        this.root.classList.add('is-active');
         document.documentElement.classList.add('is-clipped');
 
         this.trigger('open');
@@ -203,7 +203,7 @@ class Modal extends Plugin {
      * @returns {void} 
      */
     close() {
-        this.element.classList.remove('is-active');
+        this.root.classList.remove('is-active');
         document.documentElement.classList.remove('is-clipped');
 
         this.trigger('close');
@@ -214,10 +214,10 @@ class Modal extends Plugin {
      * @returns {void}
      */
     destroy() {
-        this.element.remove();
+        this.root.remove();
 
         this.parent = null;
-        this.element = null;
+        this.root = null;
         this.background = null;
         this.content = null;
 

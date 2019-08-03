@@ -50,7 +50,7 @@ class Alert extends Modal {
     constructor(config) {
         super(config);
 
-        this.element.classList.add('alert');
+        this.root.classList.add('alert');
 
         this.trigger('init');
 

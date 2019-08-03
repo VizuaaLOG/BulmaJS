@@ -67,14 +67,14 @@ export default class DismissableComponent extends Plugin {
         * The root element.
         * @type {HTMLElement|null} If this is not provided a new element will be created.
         */
-        this.element = this.config.get('element');
+        this.root = this.config.get('element');
 
-        if(!this.element) {
+        if(!this.root) {
             this.createRootElement();
-            this.parent.appendChild(this.element);
+            this.parent.appendChild(this.root);
         }
         
-        this.element.setAttribute('data-bulma-attached', 'attached');
+        this.root.setAttribute('data-bulma-attached', 'attached');
         
         /**
         * The element used to close the component.
@@ -96,9 +96,9 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     createRootElement() {
-        this.element = document.createElement('div');
+        this.root = document.createElement('div');
         
-        this.element.classList.add(this.name);
+        this.root.classList.add(this.name);
         this.hide();
     }
 
@@ -107,7 +107,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     show() {
-        this.element.classList.remove('is-hidden');
+        this.root.classList.remove('is-hidden');
     }
 
     /**
@@ -115,7 +115,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     hide() {
-        this.element.classList.add('is-hidden');
+        this.root.classList.add('is-hidden');
     }
 
     /**
@@ -123,7 +123,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     insertBody() {
-        this.element.innerHTML = this.body;
+        this.root.innerHTML = this.body;
     }
 
     /**
@@ -154,7 +154,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     prependCloseButton() {
-        this.element.insertBefore(this.closeButton, this.element.firstChild);
+        this.root.insertBefore(this.closeButton, this.root.firstChild);
     }
 
     /**
@@ -186,7 +186,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     setColor() {
-        this.element.classList.add('is-' + this.color);
+        this.root.classList.add('is-' + this.color);
     }
 
     /**
@@ -200,9 +200,9 @@ export default class DismissableComponent extends Plugin {
 
         clearInterval(this.dismissInterval);
 
-        this.parent.removeChild(this.element);
+        this.parent.removeChild(this.root);
         this.parent = null;
-        this.element = null;
+        this.root = null;
 
         this.trigger('destroyed');
     }

@@ -40,14 +40,14 @@ class Dropdown extends Plugin {
          * The root dropdown element.
          * @type {HTMLElement}
          */
-        this.element = this.config.get('element');
-        this.element.setAttribute('data-bulma-attached', 'attached');
+        this.root = this.config.get('element');
+        this.root.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * The element to trigger when clicked.
          * @type {HTMLElement}
          */
-        this.triggerElement = this.element.querySelector('.dropdown-trigger');
+        this.triggerElement = this.root.querySelector('.dropdown-trigger');
 
         this.registerEvents();
 
@@ -67,12 +67,12 @@ class Dropdown extends Plugin {
      * @return {undefined}
      */
     handleTriggerClick() {
-        if(this.element.classList.contains('is-active')) {
-            this.element.classList.remove('is-active');
+        if(this.root.classList.contains('is-active')) {
+            this.root.classList.remove('is-active');
 
             this.trigger('close');
         } else {
-            this.element.classList.add('is-active');
+            this.root.classList.add('is-active');
 
             this.trigger('open');
         }

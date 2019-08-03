@@ -34,7 +34,7 @@ class Message extends DismissableComponent {
                 .data('message', new Message({
                     body: null,
                     parent: element.parentNode,
-                    element: element,
+                    root: element,
                     closeButton: closeBtn,
                     isDismissable: !!closeBtn,
                     destroyOnDismiss: true,
@@ -97,7 +97,7 @@ class Message extends DismissableComponent {
 
         this.title = header;
 
-        this.element.insertBefore(this.title, this.element.firstChild);
+        this.root.insertBefore(this.title, this.root.firstChild);
     }
 
     /**
@@ -105,7 +105,7 @@ class Message extends DismissableComponent {
      * @return {undefined}
      */
     setSize() {
-        this.element.classList.add('is-' + this.size);
+        this.root.classList.add('is-' + this.size);
     }
 
     /**
@@ -117,7 +117,7 @@ class Message extends DismissableComponent {
         body.classList.add('message-body');
         body.innerHTML = this.body;
 
-        this.element.appendChild(body);
+        this.root.appendChild(body);
     }
 
     /**

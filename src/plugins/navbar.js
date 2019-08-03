@@ -19,7 +19,7 @@ class Navbar extends Plugin {
 
             Bulma(element)
                 .data('navbar', new Navbar({
-                    element: element,
+                    root: element,
                     sticky: element.hasAttribute('data-sticky') ? true : false,
                     stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
                     hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
@@ -61,19 +61,19 @@ class Navbar extends Plugin {
          * The root navbar element.
          * @type {HTMLElement}
          */
-        this.element = this.config.get('element');
+        this.root = this.config.get('element');
 
         /**
          * The element used for the trigger.
          * @type {HTMLElement}
          */
-        this.triggerElement = this.element.querySelector('.navbar-burger'),
+        this.triggerElement = this.root.querySelector('.navbar-burger'),
 
         /**
          * The target element.
          * @type {HTMLELement}
          */
-        this.target = this.element.querySelector('.navbar-menu');
+        this.target = this.root.querySelector('.navbar-menu');
 
         /**
          * Should this navbar stick to the top of the page?
@@ -155,18 +155,18 @@ class Navbar extends Plugin {
      */
     toggleSticky(scrollY) {
         if(scrollY > this.stickyOffset) {
-            this.element.classList.add('is-fixed-top');
+            this.root.classList.add('is-fixed-top');
             document.body.classList.add('has-navbar-fixed-top');
 
             if(this.shadow) {
-                this.element.classList.add('has-shadow');
+                this.root.classList.add('has-shadow');
             }
         } else {
-            this.element.classList.remove('is-fixed-top');
+            this.root.classList.remove('is-fixed-top');
             document.body.classList.remove('has-navbar-fixed-top');
 
             if(this.shadow) {
-                this.element.classList.remove('has-shadow');
+                this.root.classList.remove('has-shadow');
             }
         }
 
@@ -176,9 +176,9 @@ class Navbar extends Plugin {
 
             if(triggeredTolerance) {
                 if(scrollDirection === 'down') {
-                    this.element.classList.add('is-hidden-scroll');
+                    this.root.classList.add('is-hidden-scroll');
                 } else {
-                    this.element.classList.remove('is-hidden-scroll');
+                    this.root.classList.remove('is-hidden-scroll');
                 }
             }
 

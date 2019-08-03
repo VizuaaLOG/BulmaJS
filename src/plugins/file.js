@@ -40,20 +40,20 @@ class File extends Plugin {
          * The root file element.
          * @type {HTMLElement}
          */
-        this.element = this.config.get('element');
-        this.element.setAttribute('data-bulma-attached', 'attached');
+        this.root = this.config.get('element');
+        this.root.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * The element to use as the trigger.
          * @type {HTMLELement}
          */
-        this.input = this.element.querySelector('input');
+        this.input = this.root.querySelector('input');
 
         /**
          * The element to show the file name.
          * @type {HTMLElement}
          */
-        this.filename = this.element.querySelector('.file-name');
+        this.filename = this.root.querySelector('.file-name');
 
         this.registerEvents();
 
@@ -69,17 +69,17 @@ class File extends Plugin {
             this.input.addEventListener('change', this.handleTriggerChange.bind(this));
         }
 
-        this.element.addEventListener('dragover', (e) => {
+        this.root.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.addHoverClass();
         });
 
-        this.element.addEventListener('dragleave', (e) => {
+        this.root.addEventListener('dragleave', (e) => {
             e.preventDefault();
             this.addHoverClass();
         });
 
-        this.element.addEventListener('drop', (e) => {
+        this.root.addEventListener('drop', (e) => {
             e.preventDefault();
             this.removeHoverClass();
             this.input.files = e.dataTransfer.files;
@@ -129,7 +129,7 @@ class File extends Plugin {
      * @return {undefined}
      */
     addHoverClass() {
-        this.element.classList.add('is-hovered');
+        this.root.classList.add('is-hovered');
     }
 
     /**
@@ -137,7 +137,7 @@ class File extends Plugin {
      * @return {undefined}
      */
     removeHoverClass() {
-        this.element.classList.remove('is-hovered');
+        this.root.classList.remove('is-hovered');
     }
 }
 

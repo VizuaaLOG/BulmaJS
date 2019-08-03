@@ -19,8 +19,8 @@ QUnit.test('The header is created if showHeader is true', function(assert) {
         title: "Hello world"
     });
     
-    assert.ok(alert.element.querySelector('.modal-card-head'), 'The header is created');
-    assert.ok(alert.element.querySelector('.modal-card-head').innerHTML.indexOf('Hello world') !== -1, 'The header is created');
+    assert.ok(alert.root.querySelector('.modal-card-head'), 'The header is created');
+    assert.ok(alert.root.querySelector('.modal-card-head').innerHTML.indexOf('Hello world') !== -1, 'The header is created');
 });
 
 QUnit.test('The header is not created if showHeader is false', function(assert) {
@@ -29,7 +29,7 @@ QUnit.test('The header is not created if showHeader is false', function(assert) 
         showHeader: false
     });
     
-    assert.notOk(alert.element.querySelector('.modal-card-head'), 'The header is created');
+    assert.notOk(alert.root.querySelector('.modal-card-head'), 'The header is created');
 });
 
 QUnit.test('The body is created with the supplied text', function(assert) {
@@ -37,26 +37,26 @@ QUnit.test('The body is created with the supplied text', function(assert) {
         body: 'Hello world'
     });
     
-    assert.ok(alert.element.querySelector('.modal-card-body'), 'The body is created');
-    assert.ok(alert.element.querySelector('.modal-card-body').innerHTML.indexOf('Hello world') !== -1, 'The body is created');
+    assert.ok(alert.root.querySelector('.modal-card-body'), 'The body is created');
+    assert.ok(alert.root.querySelector('.modal-card-body').innerHTML.indexOf('Hello world') !== -1, 'The body is created');
 });
 
 QUnit.test('The footer is created', function(assert) {
     alert = Bulma.create('alert', {});
     
-    assert.ok(alert.element.querySelector('.modal-card-foot'), 'The footer is created');
+    assert.ok(alert.root.querySelector('.modal-card-foot'), 'The footer is created');
 });
 
 QUnit.test('Confirm button is created', function(assert) {
     alert = Bulma.create('alert', { type: 'danger', confirm: 'Okay' });
     
-    assert.ok(alert.element.querySelector('button.is-danger'), 'The confirm button is created');
-    assert.ok(alert.element.querySelector('button.is-danger').innerHTML.indexOf('Okay') !== -1);
+    assert.ok(alert.root.querySelector('button.is-danger'), 'The confirm button is created');
+    assert.ok(alert.root.querySelector('button.is-danger').innerHTML.indexOf('Okay') !== -1);
 });
 
 QUnit.test('Cancel button is created when the cancel prop is supplied', function(assert) {
     alert = Bulma.create('alert', { type: 'danger', cancel: 'Nope' });
     
-    assert.ok(alert.element.querySelectorAll('button').length === 2, 'The confirm button is created');
-    assert.ok(alert.element.innerHTML.indexOf('Nope') !== -1);
+    assert.ok(alert.root.querySelectorAll('button').length === 2, 'The confirm button is created');
+    assert.ok(alert.root.innerHTML.indexOf('Nope') !== -1);
 });
