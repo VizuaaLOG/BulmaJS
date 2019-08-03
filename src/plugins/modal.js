@@ -12,13 +12,10 @@ class Modal extends Plugin {
      * @param  {Object} config THe config object for the new instance
      * @return {Modal} The newly created instance
      */
-    static create(config) {
-        // This checks if this method is being called directly, rather
-        // than through the Bulma core. If so make sure we grab the config
-        // as we do not need the key.
-        if(arguments.length > 1) config = arguments[1];
-        
-        return new Modal(config);
+    static create(element, config) {
+        return Bulma(element)
+            .data('modal', new Modal(config))
+            .data('modal');
     }
 
     /**
