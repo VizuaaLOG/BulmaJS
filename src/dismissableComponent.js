@@ -178,7 +178,7 @@ export default class DismissableComponent extends Plugin {
             this.hide();
         }
 
-        this.trigger('closed');
+        this.trigger('close');
     }
 
     /**

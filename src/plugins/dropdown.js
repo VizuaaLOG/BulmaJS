@@ -70,11 +70,11 @@ class Dropdown extends Plugin {
         if(this.element.classList.contains('is-active')) {
             this.element.classList.remove('is-active');
 
-            this.trigger('closed');
+            this.trigger('close');
         } else {
             this.element.classList.add('is-active');
 
-            this.trigger('opened');
+            this.trigger('open');
         }
     }
 }
