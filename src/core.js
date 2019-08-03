@@ -9,6 +9,10 @@ function Bulma(selector) {
         return new Bulma(selector);
     }
 
+    if(selector instanceof Bulma) {
+        return selector;
+    }
+
     if(selector instanceof HTMLElement) {
         this._elem = selector;
     } else {
