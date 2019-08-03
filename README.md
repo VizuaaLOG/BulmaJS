@@ -5,6 +5,8 @@ BulmaJS
 
 This is an unofficial JavaScript extension for the [Bulma CSS framework](http://bulma.io).
 
+**BulmaJS is still in development, you can keep track of current, pending, completed and planned tasks on the official [Trello board](https://trello.com/b/XS93oQNi/bulmajs).**
+
 **tl;dr**
 GIMME THE DOCS! [Well here you go](https://bulmajs.tomerbe.co.uk/).
 
