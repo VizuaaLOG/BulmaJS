@@ -20,10 +20,14 @@ export default class Plugin {
      * Create a plugin.
      * @param {object} config The config for this plugin
      */
-    constructor(config = {}) {
-        this.config = new ConfigBag({...this.constructor.defaultConfig(), ...config});
+    constructor(config = {}, root) {
+        if(root) {
+            config.root = root._elem;
+        }
 
-        this.parent = this.config.get('parent', document.body);
+        this.config = new ConfigBag({...this.constructor.defaultConfig(), ...config});
+        
+        this.parent = this.config.get('parent', config.root.parentNode);
 
         this._events = {};
     }

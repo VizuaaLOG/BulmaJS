@@ -8,17 +8,6 @@ import Plugin from '../plugin';
  */
 class Modal extends Plugin {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config THe config object for the new instance
-     * @return {Modal} The newly created instance
-     */
-    static create(element, config) {
-        return Bulma(element)
-            .data('modal', new Modal(config))
-            .data('modal');
-    }
-
-    /**
      * Handle parsing the DOM.
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
@@ -41,8 +30,8 @@ class Modal extends Plugin {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(config) {
-        super(config);
+    constructor(config, root) {
+        super(config, root);
 
         /** @param {string} */
         this.style = this.config.get('style');
@@ -53,9 +42,6 @@ class Modal extends Plugin {
         if(!this.root) {
             this.root = Bulma.createElement('div', 'modal');
         }
-
-        /** @param {HTMLElement} */
-        this.parent = this.config.get('parent');
 
         if(!this.parent) {
             if(!this.root.parentNode) {

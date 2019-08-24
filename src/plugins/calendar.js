@@ -9,20 +9,6 @@ import Plugin from '../plugin';
  */
 class Calendar extends Plugin {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config The new calendar's config
-     * @return {Calendar} The newly created calendar instance
-     */
-    static create(config) {
-        // This checks if this method is being called directly, rather
-        // than through the Bulma core. If so make sure we grab the config
-        // as we do not need the key.
-        if(arguments.length > 1) config = arguments[1];
-        
-        return new Calendar(config);
-    }
-
-    /**
      * Returns an object containing the default config for this plugin.
      * @returns {object} The default config object.
      */
@@ -49,8 +35,8 @@ class Calendar extends Plugin {
      * @param  {Object} config Plugin instance's config
      * @return {this} The newly created instance
      */
-    constructor(config) {
-        super(config);
+    constructor(parent, config) {
+        super(parent, config);
         
         // eslint-disable-next-line no-console
         console.warn('[BulmaJS] The calendar plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s calendar plugin');
@@ -59,7 +45,7 @@ class Calendar extends Plugin {
          * The root Calendar element.
          * @type {HTMLElement}
          */
-        this.element = Bulma.createElement('div', ['calendar']);
+        this.root = Bulma.createElement('div', ['calendar']);
 
         /**
          * The input element this calendar belongs to.
@@ -139,6 +125,8 @@ class Calendar extends Plugin {
 
         this.render();
 
+        Bulma(this.root).data('calendar', this);
+
         this.trigger('init');
     }
 
@@ -163,9 +151,9 @@ class Calendar extends Plugin {
         this.modal.appendChild(this.modalBackground);
         this.modal.appendChild(modalClose);
 
-        this.element.appendChild(this.modal);
+        this.root.appendChild(this.modal);
 
-        this.element.style.zIndex = 40;
+        this.root.style.zIndex = 40;
     }
 
     /**
@@ -346,7 +334,7 @@ class Calendar extends Plugin {
             this.modal.classList.add('is-active');
         }
         
-        this.parent.parentNode.insertBefore(this.element, this.parent.nextSibling);
+        this.parent.parentNode.insertBefore(this.root, this.parent.nextSibling);
     }
 
     /**
@@ -365,7 +353,7 @@ class Calendar extends Plugin {
         if(this.overlay) {
             this.modal.classList.remove('is-active');
         } else {
-            this.parent.parentNode.removeChild(this.element);
+            this.parent.parentNode.removeChild(this.root);
         }
     }
 
@@ -462,8 +450,8 @@ class Calendar extends Plugin {
      * @return {undefined}
      */
     clearCalendar() {
-        while (this.element.firstChild) {
-            this.element.removeChild(this.element.firstChild);
+        while (this.root.firstChild) {
+            this.root.removeChild(this.root.firstChild);
         }
     }
 
@@ -484,19 +472,19 @@ class Calendar extends Plugin {
     render() {
         this.clearCalendar();
 
-        this.element.appendChild(this.buildNav());
+        this.root.appendChild(this.buildNav());
 
         let container = this.buildContainer();
         container.appendChild(this.buildHeader());
         container.appendChild(this.buildBody());
 
-        this.element.appendChild(container);
+        this.root.appendChild(container);
 
         if(this.overlay) {
-            this.modal.insertBefore(this.element, this.modalBackground.nextSibling);
+            this.modal.insertBefore(this.root, this.modalBackground.nextSibling);
             this.parent.appendChild(this.modal);
         } else {
-            this.parent.appendChild(this.element);
+            this.parent.appendChild(this.root);
         }
     }
 }

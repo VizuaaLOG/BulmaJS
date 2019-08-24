@@ -8,17 +8,6 @@ import Modal from './modal';
  */
 class Alert extends Modal {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config THe config object for the new instance
-     * @return {Alert} The newly created instance
-     */
-    static create(element, config) {
-        return Bulma(element)
-            .data('alert', new Alert(config))
-            .data('alert');
-    }
-
-    /**
      * Handle parsing the DOM.
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
@@ -47,8 +36,8 @@ class Alert extends Modal {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(config) {
-        super(config);
+    constructor(config, root) {
+        super(config, root);
 
         this.root.classList.add('alert');
 

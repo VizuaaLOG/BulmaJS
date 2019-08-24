@@ -9,20 +9,6 @@ import Plugin from '../plugin';
  */
 class Accordion extends Plugin {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config The plugin's config
-     * @return {Accordion} The newly created instance
-     */
-    static create(config) {
-        // This checks if this method is being called directly, rather
-        // than through the Bulma core. If so make sure we grab the config
-        // as we do not need the key.
-        if(arguments.length > 1) config = arguments[1];
-        
-        return new Accordion(config);
-    }
-
-    /**
      * Handle parsing the DOM.
      * @param {HTMLElement} element The root element for this accordion
      * @return {undefined}
@@ -33,7 +19,7 @@ class Accordion extends Plugin {
         Bulma.each(elements, (element) => {
             Bulma(element)
                 .data('accordion', new Accordion({
-                    element: element
+                    root: element
                 }));
         });
     }
@@ -43,23 +29,18 @@ class Accordion extends Plugin {
      * @param  {Object} config The plugin's config
      * @return {this} The new plugin instance
      */
-    constructor(config) {
-        super(config);
+    constructor(config, root) {
+        super(config, root);
 
         // eslint-disable-next-line no-console
         console.warn('[BulmaJS] The accordion plugin has been deprecated and will be removed in the 1.0 release. It is recommended to use the Wikiki\'s accordion plugin');
-
-        // Work out the parent if it hasn't been supplied as an option.
-        if(this.parent === null) {
-            this.parent = this.config.get('element').parentNode;
-        }
 
         /**
          * Accordion element.
          * @type {string}
          */
-        this.element = this.config.get('element');
-        this.element.setAttribute('data-bulma-attached', 'attached');
+        this.root = this.config.get('root');
+        this.root.setAttribute('data-bulma-attached', 'attached');
 
         /**
          * Accordion items
@@ -75,6 +56,8 @@ class Accordion extends Plugin {
 
         this.addToggleButtonEvents();
 
+        Bulma(this.root).data('accordion', this);
+
         this.trigger('init');
     }
 
@@ -83,7 +66,7 @@ class Accordion extends Plugin {
      * @returns {Array} The accordion elements found
      */
     findAccordions() {
-        return this.element.querySelectorAll('.accordion');
+        return this.root.querySelectorAll('.accordion');
     }
 
     /**
@@ -147,7 +130,9 @@ class Accordion extends Plugin {
      * @return {undefined}
      */
     destroy() {
-        this.element = null;
+        super.destroy();
+
+        this.root = null;
 
         this.trigger('destroyed');
     }

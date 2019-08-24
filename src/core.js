@@ -82,7 +82,7 @@ Bulma.registerPlugin = (key, plugin, priority = 0) => {
     };
 
     Bulma.prototype[key] = function(config) {
-        return Bulma.plugins[key].handler.create(this, config);
+        return new Bulma.plugins[key].handler(config, this);
     };
 };
 
