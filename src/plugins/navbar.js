@@ -54,7 +54,7 @@ class Navbar extends Plugin {
 
         // Work out the parent if it hasn't been supplied as an option.
         if(this.parent === null) {
-            this.parent = this.config.get('element').parentNode;
+            this.parent = this.config.get('root').parentNode;
         }
 
         /**
