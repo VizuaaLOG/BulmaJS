@@ -61,7 +61,7 @@ class Navbar extends Plugin {
          * The root navbar element.
          * @type {HTMLElement}
          */
-        this.root = this.config.get('element');
+        this.root = this.config.get('root');
 
         /**
          * The element used for the trigger.
