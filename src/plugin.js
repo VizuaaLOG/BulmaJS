@@ -21,13 +21,15 @@ export default class Plugin {
      * @param {object} config The config for this plugin
      */
     constructor(config = {}, root) {
-        if(root) {
-            config.root = root._elem;
-        }
+        config.root = (root instanceof Bulma) ? root._elem : root;
 
         this.config = new ConfigBag({...this.constructor.defaultConfig(), ...config});
-        
-        this.parent = this.config.get('parent', config.root.parentNode);
+
+        if(!root && !this.config.has('parent')) {
+            throw new Error('A plugin requires a root and/or a parent.');
+        }
+
+        this.parent = this.config.get('parent', config.root ? config.root.parentNode : null);
 
         this._events = {};
     }
