@@ -28,6 +28,7 @@ class Navbar extends Plugin {
             stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
             hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
             tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
+            hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : 0,
             shadow: element.hasAttribute('data-sticky-shadow') ? true : false
         });
     }
@@ -42,6 +43,7 @@ class Navbar extends Plugin {
             stickyOffset: 0,
             hideOnScroll: false,
             tolerance: 0,
+            hideOffset: 0,
             shadow: false
         };
     }
@@ -99,13 +101,19 @@ class Navbar extends Plugin {
          * The amount of tolerance required before checking the navbar should hide/show
          * @type {number}
          */
-        this.tolerance = this.option('tolerance');
+        this.tolerance = parseInt(this.option('tolerance'));
 
         /**
          * Add a shadow when the navbar is sticky?
          * @type {boolean}
          */
         this.shadow = this.option('shadow');
+
+        /**
+         * The offset in pixels before the navbar will be hidden, defaults to the height of the navbar
+         * @type {number}
+         */
+        this.hideOffset = parseInt(this.option('hideOffset', this.element.scrollHeight));
 
         /**
          * The last scroll Y known, this is used to calculate scroll direction
@@ -176,10 +184,16 @@ class Navbar extends Plugin {
             let scrollDirection = this.calculateScrollDirection(scrollY, this.lastScrollY);
             let triggeredTolerance = this.difference(scrollY, this.lastScrollY) >= this.tolerance;
 
-            if(triggeredTolerance) {
-                if(scrollDirection === 'down') {
+            if (scrollDirection === 'down') {
+                // only hide the navbar at the top if we reach a certain offset so the hiding is more smooth
+                let isBeyondTopOffset = scrollY > this.hideOffset;
+                if (triggeredTolerance && isBeyondTopOffset) {
                     this.element.classList.add('is-hidden-scroll');
-                } else {
+                }
+            } else {
+                // if scrolling up to the very top where the navbar would be by default always show it
+                let isAtVeryTop = scrollY < this.hideOffset;
+                if (triggeredTolerance || isAtVeryTop) {
                     this.element.classList.remove('is-hidden-scroll');
                 }
             }
