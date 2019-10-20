@@ -142,17 +142,8 @@ class Modal extends Plugin {
         if(this.closable) {
             this.closeButton.addEventListener('click', this.close.bind(this));
 
-            document.addEventListener('keyup', (event) => {
-                if(!this.element.classList.contains('is-active')) {
-                    return;
-                }
-
-                let key = event.key || event.keyCode;
-
-                if(key === 'Escape' || key === 'Esc' || key === 27) {
-                    this.close();
-                }
-            });
+            this.keyupListenerBound = (evt) => this.keyupListener(evt);
+            document.addEventListener('keyup', this.keyupListenerBound);
 
             this.background.addEventListener('click', this.close.bind(this));
         }
@@ -176,6 +167,22 @@ class Modal extends Plugin {
 
             modal.footer.appendChild(button);
         });
+    }
+
+    /**
+     * Handle the esc key being pressed.
+     * @param {MouseEvent} event 
+     */
+    keyupListener(event) {
+        if(!this.element.classList.contains('is-active')) {
+            return;
+        }
+
+        let key = event.key || event.keyCode;
+
+        if(key === 'Escape' || key === 'Esc' || key === 27) {
+            this.close();
+        }
     }
 
     /**
@@ -225,6 +232,8 @@ class Modal extends Plugin {
 
         if(this.closable) {
             this.closeButton = null;
+
+            document.removeEventListener('keyup', this.keyupListenerBound);
         }
 
         this.options = [];
