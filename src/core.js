@@ -215,7 +215,7 @@ Bulma._stripScripts = (htmlString) => {
         scripts[i].parentNode.removeChild(scripts[i]);
     }
     
-    return div.innerHTML.replace(/  +/g, ' ');;
+    return div.innerHTML.replace(/  +/g, ' ');
 };
 
 /**
@@ -242,7 +242,7 @@ Bulma.prototype.destroyData = function() {
     Bulma.cache.destroy(this._elem[Bulma.id]);
 
     return this;
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     if(window.hasOwnProperty('bulmaOptions') && window.bulmaOptions.autoParseDocument === false) {
