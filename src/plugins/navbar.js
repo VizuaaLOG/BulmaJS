@@ -83,7 +83,7 @@ class Navbar extends Plugin {
          * Should this navbar stick to the top of the page?
          * @type {boolean}
          */
-        this.sticky = this.option('sticky');
+        this.sticky = !!this.option('sticky');
         
         /**
          * The offset in pixels before the navbar will stick to the top of the page
@@ -95,7 +95,7 @@ class Navbar extends Plugin {
          * Should the navbar hide when scrolling? Note: this just applies a 'is-hidden-scroll' class.
          * @type {boolean}
          */
-        this.hideOnScroll = this.option('hideOnScroll');
+        this.hideOnScroll = !!this.option('hideOnScroll');
 
         /**
          * The amount of tolerance required before checking the navbar should hide/show
@@ -107,13 +107,13 @@ class Navbar extends Plugin {
          * Add a shadow when the navbar is sticky?
          * @type {boolean}
          */
-        this.shadow = this.option('shadow');
+        this.shadow = !!this.option('shadow');
 
         /**
          * The offset in pixels before the navbar will be hidden, defaults to the height of the navbar
          * @type {number}
          */
-        this.hideOffset = parseInt(this.option('hideOffset', this.element.scrollHeight));
+        this.hideOffset = parseInt(this.option('hideOffset', Math.max(this.element.scrollHeight, this.stickyOffset)));
 
         /**
          * The last scroll Y known, this is used to calculate scroll direction
