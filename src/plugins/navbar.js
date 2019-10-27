@@ -24,6 +24,7 @@ class Navbar extends Plugin {
                     stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
                     hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
                     tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
+                    hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : 0,
                     shadow: element.hasAttribute('data-sticky-shadow') ? true : false
                 }))
                 .data('navbar');
@@ -40,6 +41,7 @@ class Navbar extends Plugin {
             stickyOffset: 0,
             hideOnScroll: false,
             tolerance: 0,
+            hideOffset: 0,
             shadow: false
         };
     }
@@ -79,7 +81,7 @@ class Navbar extends Plugin {
          * Should this navbar stick to the top of the page?
          * @type {boolean}
          */
-        this.sticky = this.config.get('sticky');
+        this.sticky = !!this.config.get('sticky');
         
         /**
          * The offset in pixels before the navbar will stick to the top of the page
@@ -91,19 +93,25 @@ class Navbar extends Plugin {
          * Should the navbar hide when scrolling? Note: this just applies a 'is-hidden-scroll' class.
          * @type {boolean}
          */
-        this.hideOnScroll = this.config.get('hideOnScroll');
+        this.hideOnScroll = !!this.config.get('hideOnScroll');
 
         /**
          * The amount of tolerance required before checking the navbar should hide/show
          * @type {number}
          */
-        this.tolerance = this.config.get('tolerance');
+        this.tolerance = parseInt(this.config.get('tolerance'));
 
         /**
          * Add a shadow when the navbar is sticky?
          * @type {boolean}
          */
-        this.shadow = this.config.get('shadow');
+        this.shadow = !!this.config.get('shadow');
+
+        /**
+         * The offset in pixels before the navbar will be hidden, defaults to the height of the navbar
+         * @type {number}
+         */
+        this.hideOffset = parseInt(this.config.get('hideOffset', Math.max(this.root.scrollHeight, this.stickyOffset)));
 
         /**
          * The last scroll Y known, this is used to calculate scroll direction
@@ -176,11 +184,17 @@ class Navbar extends Plugin {
             let scrollDirection = this.calculateScrollDirection(scrollY, this.lastScrollY);
             let triggeredTolerance = this.difference(scrollY, this.lastScrollY) >= this.tolerance;
 
-            if(triggeredTolerance) {
-                if(scrollDirection === 'down') {
-                    this.root.classList.add('is-hidden-scroll');
-                } else {
-                    this.root.classList.remove('is-hidden-scroll');
+            if (scrollDirection === 'down') {
+                // only hide the navbar at the top if we reach a certain offset so the hiding is more smooth
+                let isBeyondTopOffset = scrollY > this.hideOffset;
+                if (triggeredTolerance && isBeyondTopOffset) {
+                    this.element.classList.add('is-hidden-scroll');
+                }
+            } else {
+                // if scrolling up to the very top where the navbar would be by default always show it
+                let isAtVeryTop = scrollY < this.hideOffset;
+                if (triggeredTolerance || isAtVeryTop) {
+                    this.element.classList.remove('is-hidden-scroll');
                 }
             }
 
