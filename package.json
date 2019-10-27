@@ -1,6 +1,6 @@
 {
   "name": "@vizuaalog/bulmajs",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Unofficial javascript extension to the awesome Bulma CSS framework.",
   "main": "src/bulma.js",
   "author": "Thomas Erbe <vizuaalog@gmail.com>",
