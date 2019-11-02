@@ -7,7 +7,7 @@ import DismissableComponent from '../dismissableComponent';
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  * @extends DismissableComponent
  */
-class Message extends DismissableComponent {
+export class Message extends DismissableComponent {
     /**
      * Helper method used by the Bulma core to create a new instance.
      * @param  {Object} config The config object for this instance
@@ -133,4 +133,4 @@ class Message extends DismissableComponent {
 
 Bulma.registerPlugin('message', Message);
 
-export default Message;
+export default Bulma;

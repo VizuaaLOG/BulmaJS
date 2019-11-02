@@ -7,7 +7,7 @@ import DismissableComponent from '../dismissableComponent';
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  * @extends DismissableComponent
  */
-class Notification extends DismissableComponent {
+export class Notification extends DismissableComponent {
     /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this instance
@@ -64,4 +64,4 @@ class Notification extends DismissableComponent {
 
 Bulma.registerPlugin('notification', Notification);
 
-export default Notification;
+export default Bulma;

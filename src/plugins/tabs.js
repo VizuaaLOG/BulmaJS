@@ -6,7 +6,7 @@ import Plugin from '../plugin';
  * @since  0.4.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Tabs extends Plugin {
+export class Tabs extends Plugin {
     /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this instance
@@ -161,4 +161,4 @@ class Tabs extends Plugin {
 
 Bulma.registerPlugin('tabs', Tabs);
 
-export default Tabs;
+export default Bulma;

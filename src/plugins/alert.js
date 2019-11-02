@@ -1,12 +1,12 @@
 import Bulma from '../core';
-import Modal from './modal';
+import { Modal } from './modal';
 
 /**
  * @module Alert
  * @since  0.8.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Alert extends Modal {
+export class Alert extends Modal {
     /**
      * Handle parsing the DOM.
      * @param {HTMLElement} element The root element for this accordion
@@ -39,9 +39,9 @@ class Alert extends Modal {
     constructor(config, root) {
         super(config, root);
 
-        this.root.classList.add('alert');
+        // this.root.classList.add('alert');
 
-        Bulma(this.root).data('alert', this);
+        // Bulma(this.root).data('alert', this);
 
         this.trigger('init');
 
@@ -135,4 +135,4 @@ class Alert extends Modal {
 
 Bulma.registerPlugin('alert', Alert);
 
-export default Alert;
+export default Bulma;

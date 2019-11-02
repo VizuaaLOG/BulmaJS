@@ -6,7 +6,7 @@ import Plugin from '../plugin';
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Dropdown extends Plugin {
+export class Dropdown extends Plugin {
     /**
      * Handle parsing the DOMs data attribute API.
      * @param {HtmlElement} element The root element for this instance
@@ -78,4 +78,4 @@ class Dropdown extends Plugin {
 
 Bulma.registerPlugin('dropdown', Dropdown);
 
-export default Dropdown;
+export default Bulma;

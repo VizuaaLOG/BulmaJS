@@ -7,7 +7,7 @@ import Plugin from '../plugin';
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  * @deprecated
  */
-class Accordion extends Plugin {
+export class Accordion extends Plugin {
     /**
      * Handle parsing the DOM.
      * @param {HTMLElement} element The root element for this accordion
@@ -140,4 +140,4 @@ class Accordion extends Plugin {
 
 Bulma.registerPlugin('accordion', Accordion);
 
-export default Accordion;
+export default Bulma;

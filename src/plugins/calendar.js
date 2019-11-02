@@ -7,7 +7,7 @@ import Plugin from '../plugin';
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  * @deprecated
  */
-class Calendar extends Plugin {
+export class Calendar extends Plugin {
     /**
      * Returns an object containing the default config for this plugin.
      * @returns {object} The default config object.
@@ -491,4 +491,4 @@ class Calendar extends Plugin {
 
 Bulma.registerPlugin('calendar', Calendar);
 
-export default Calendar;
+export default Bulma;

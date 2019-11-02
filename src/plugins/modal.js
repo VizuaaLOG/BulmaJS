@@ -6,7 +6,7 @@ import Plugin from '../plugin';
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Modal extends Plugin {
+export class Modal extends Plugin {
     /**
      * Handle parsing the DOM.
      * @param {HTMLElement} element The root element for this accordion
@@ -235,4 +235,4 @@ class Modal extends Plugin {
 
 Bulma.registerPlugin('modal', Modal);
 
-export default Modal;
+export default Bulma;

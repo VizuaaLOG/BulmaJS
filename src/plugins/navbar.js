@@ -6,7 +6,7 @@ import Plugin from '../plugin';
  * @since  0.1.0
  * @author  Thomas Erbe <vizuaalog@gmail.com>
  */
-class Navbar extends Plugin {
+export class Navbar extends Plugin {
     /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this instance
@@ -217,4 +217,4 @@ class Navbar extends Plugin {
 
 Bulma.registerPlugin('navbar', Navbar);
 
-export default Navbar;
+export default Bulma;
