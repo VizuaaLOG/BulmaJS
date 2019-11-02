@@ -16,18 +16,14 @@ export class Navbar extends Plugin {
         let elements = context.querySelectorAll('.navbar');
 
         Bulma.each(elements, (element) => {
-
-            Bulma(element)
-                .data('navbar', new Navbar({
-                    root: element,
+            Bulma(element).navbar({
                     sticky: element.hasAttribute('data-sticky') ? true : false,
                     stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
                     hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
                     tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
                     hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : 0,
                     shadow: element.hasAttribute('data-sticky-shadow') ? true : false
-                }))
-                .data('navbar');
+                });
         });
     }
 
@@ -51,8 +47,8 @@ export class Navbar extends Plugin {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(config) {
-        super(config);
+    constructor(config, root) {
+        super(config, root);
 
         // Work out the parent if it hasn't been supplied as an option.
         if(this.parent === null) {
@@ -188,13 +184,13 @@ export class Navbar extends Plugin {
                 // only hide the navbar at the top if we reach a certain offset so the hiding is more smooth
                 let isBeyondTopOffset = scrollY > this.hideOffset;
                 if (triggeredTolerance && isBeyondTopOffset) {
-                    this.element.classList.add('is-hidden-scroll');
+                    this.root.classList.add('is-hidden-scroll');
                 }
             } else {
                 // if scrolling up to the very top where the navbar would be by default always show it
                 let isAtVeryTop = scrollY < this.hideOffset;
                 if (triggeredTolerance || isAtVeryTop) {
-                    this.element.classList.remove('is-hidden-scroll');
+                    this.root.classList.remove('is-hidden-scroll');
                 }
             }
 
