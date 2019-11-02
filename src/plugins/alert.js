@@ -39,9 +39,9 @@ export class Alert extends Modal {
     constructor(config, root) {
         super(config, root);
 
-        // this.root.classList.add('alert');
+        this.root.classList.add('alert');
 
-        // Bulma(this.root).data('alert', this);
+        Bulma(this.root).data('alert', this);
 
         this.trigger('init');
 
