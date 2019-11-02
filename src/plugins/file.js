@@ -110,6 +110,15 @@ export class File extends Plugin {
     }
 
     /**
+     * Get the selected file's name
+     * 
+     * @returns {string}
+     */
+    getFilename() {
+        return this.filename.innerHTML;
+    }
+
+    /**
      * Set the text for the file name element.
      * @param {string} value The name of the file to update the label with
      * @return {undefined}
