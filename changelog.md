@@ -1,4 +1,7 @@
 # 0.11.0 (unreleased)
++ **Feature** Add a `getFilename` method to the file plugin.
++ **Feature** Add a `setActive` method to the tabs plugin. This allows for programatically changing the active tab.
++ **Feature** Add the ability to enable / disable a navbar's hide on scroll behavior at any time with `enableHideOnScroll` and `disableHideOnScroll`
 + **Feature** Add the ability to enable / disable a navbar's sticky behaviour at any time with `enableSticky` and `disableSticky`.
 + **Feature** Allow a plugin instance to be grabbed from an existing element. For example `Bulma('.navbar').data('navbar')` will return the navbar plugin instance associated with the element.
 + **Feature** [#71](https://github.com/VizuaaLOG/BulmaJS/issues/71) The modal plugin can have it's HTML content loaded via an AJAX request using the new `bodyUrl` option.
