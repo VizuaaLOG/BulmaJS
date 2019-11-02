@@ -24,8 +24,8 @@ export default class DismissableComponent extends Plugin {
      * @param  {Object} config Plugin's config
      * @return {this} The new plugin instance
      */
-    constructor(name, config) {
-        super(config);
+    constructor(name, config, root) {
+        super(config, root);
 
         /**
          * The name of this component, this will be used as the root class
@@ -67,13 +67,7 @@ export default class DismissableComponent extends Plugin {
         * The root element.
         * @type {HTMLElement|null} If this is not provided a new element will be created.
         */
-        this.root = this.config.get('element');
-
-        if(!this.root) {
-            this.createRootElement();
-            this.parent.appendChild(this.root);
-        }
-        
+        this.root = this.config.get('root');
         this.root.setAttribute('data-bulma-attached', 'attached');
         
         /**

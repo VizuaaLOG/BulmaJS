@@ -16,10 +16,7 @@ export class File extends Plugin {
         let elements = context.querySelectorAll('.file');
 
         Bulma.each(elements, (element) => {
-            Bulma(element)
-                .data('file', new File({
-                    element: element
-                }));
+            Bulma(element).file();
         });
     }
 
@@ -28,19 +25,14 @@ export class File extends Plugin {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created plugin instance
      */
-    constructor(config) {
-        super(config);
-
-        // Work out the parent if it hasn't been supplied as an option.
-        if(this.parent === null) {
-            this.parent = this.config.get('element').parentNode;
-        }
+    constructor(config, root) {
+        super(config, root);
 
         /**
          * The root file element.
          * @type {HTMLElement}
          */
-        this.root = this.config.get('element');
+        this.root = this.config.get('root');
         this.root.setAttribute('data-bulma-attached', 'attached');
 
         /**

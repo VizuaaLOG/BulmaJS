@@ -16,11 +16,9 @@ export class Tabs extends Plugin {
         let elements = context.querySelectorAll('.tabs-wrapper');
 
         Bulma.each(elements, (element) => {
-            Bulma(element)
-                .data('tabs', new Tabs({
-                    root: element,
+            Bulma(element).tabs({
                     hover: element.hasAttribute('data-hover') ? true : false
-                }));
+                });
         });
     }
 
@@ -39,14 +37,14 @@ export class Tabs extends Plugin {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(config) {
-        super(config);
+    constructor(config, root) {
+        super(config, root);
 
         /**
          * The root tab element
          * @param {HTMLElement}
          */
-        this.root = this.config.get('element');
+        this.root = this.config.get('root');
         this.root.setAttribute('data-bulma-attached', 'attached');
 
         /**

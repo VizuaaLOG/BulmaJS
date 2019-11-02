@@ -9,17 +9,6 @@ import DismissableComponent from '../dismissableComponent';
  */
 export class Message extends DismissableComponent {
     /**
-     * Helper method used by the Bulma core to create a new instance.
-     * @param  {Object} config The config object for this instance
-     * @return {Message} The newly created message instance
-     */
-    static create(element, config) {
-        return Bulma(element)
-            .data('message', new Message(config))
-            .data('message');
-    }
-
-    /**
      * Handle parsing the DOMs data attribute API.
      * @param {HTMLElement} element The root element for this plugin
      * @return {undefined}
@@ -30,16 +19,13 @@ export class Message extends DismissableComponent {
         Bulma.each(elements, (element) => {
             let closeBtn = element.querySelector('.delete');
 
-            Bulma(element)
-                .data('message', new Message({
+            Bulma(element).message({
                     body: null,
-                    parent: element.parentNode,
-                    root: element,
                     closeButton: closeBtn,
                     isDismissable: !!closeBtn,
                     destroyOnDismiss: true,
                     dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
-                }));
+                });
         });
     }
 
@@ -48,8 +34,8 @@ export class Message extends DismissableComponent {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(config) {
-        super('message', config);
+    constructor(config, root) {
+        super('message', config, root);
 
         /**
          * The size of the message

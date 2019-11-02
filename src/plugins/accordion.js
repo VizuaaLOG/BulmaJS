@@ -17,10 +17,7 @@ export class Accordion extends Plugin {
         let elements = context.querySelectorAll('.accordions');
 
         Bulma.each(elements, (element) => {
-            Bulma(element)
-                .data('accordion', new Accordion({
-                    root: element
-                }));
+            Bulma(element).accordion();
         });
     }
 

@@ -16,10 +16,7 @@ export class Dropdown extends Plugin {
         let elements = context.querySelectorAll('.dropdown');
 
         Bulma.each(elements, (element) => {
-            Bulma(element)
-                .data('dropdown', new Dropdown({
-                    root: element
-                }));
+            Bulma(element).dropdown();
         });
     }
 

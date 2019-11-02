@@ -19,21 +19,15 @@ export class Notification extends DismissableComponent {
         Bulma.each(elements, (element) => {
             let bulmaElement = Bulma(element);
 
-            if(bulmaElement.data('notification')) {
-                return;
-            }
-
             let closeBtn = element.querySelector('.delete');
 
-            bulmaElement.data('notification', new Notification({
+            bulmaElement.notification({
                 body: null,
-                parent: element.parentNode,
-                root: element,
                 closeButton: closeBtn,
                 isDismissable: !!closeBtn,
                 destroyOnDismiss: true,
                 dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
-            }));
+            });
         });
     }
 
@@ -42,8 +36,8 @@ export class Notification extends DismissableComponent {
      * @param  {Object} config The config object for this plugin
      * @return {this} The newly created instance
      */
-    constructor(config) {
-        super('notification', config);
+    constructor(config, root) {
+        super('notification', config, root);
         
         // TODO: Move this into the DismissableComponent class. Due to the required
         // changes between different components, we may need a way to trigger this
