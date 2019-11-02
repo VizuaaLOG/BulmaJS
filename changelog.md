@@ -1,7 +1,10 @@
 # 0.11.0 (unreleased)
++ **Feature** Add the ability to enable / disable a navbar's sticky behaviour at any time with `enableSticky` and `disableSticky`.
++ **Feature** Allow a plugin instance to be grabbed from an existing element. For example `Bulma('.navbar').data('navbar')` will return the navbar plugin instance associated with the element.
 + **Feature** [#71](https://github.com/VizuaaLOG/BulmaJS/issues/71) The modal plugin can have it's HTML content loaded via an AJAX request using the new `bodyUrl` option.
 + **Refactor** Adjust how options are internally handled, renaming variables to `config` and implementing a `ConfigBag` helper class.
-+ **Bug** Add a check to the `create` method in the plugins to ignore the `key` when it's being created directly. This happens if a single plugin is being loaded.
++ **Refactor** Remove the create method in favour of using the plugin's constructor method.
++ **Refactor** Rewrite the API so that you can select an element `Bulma(selector)` and then call the relevant plugin. The core will then automatically pss the selector element as the root, or create an empty div as the root if nothing is provided.
 
 # 0.10.0
 + **Feature** Brand new documentation! To improve the ease of updating the docs the documentation has been ported to a new static site build, [Jigsaw](https://jigsaw.tighten.co/). As part of this it's also had a freshen up, there's still some things that needs tweaking but we're mostly there. The docs have also been moved out of the main repository, and are now in a [BulmaJS-Docs](https://github.com/VizuaaLOG/BulmaJS-Docs) repository. You can access the new docs by visiting [bulmajs.tomerbe.co.uk](https://bulmajs.tomerbe.co.uk). If you would still like to use the pre 0.10 docs you can do so by visiting [https://vizuaalog.github.io/BulmaJS/](https://vizuaalog.github.io/BulmaJS/);
