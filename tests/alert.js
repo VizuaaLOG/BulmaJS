@@ -8,14 +8,16 @@ QUnit.testDone(function() {
 });
 
 QUnit.test('Correct root classes are added', function(assert) {
-    alert = Bulma.create('alert');
+    alert = Bulma().alert({
+        title: 'Test alert'
+    });
 
     assert.ok(document.body.querySelector('.alert'), 'The alert class has been added.');
     assert.ok(document.body.querySelector('.modal'), 'The modal class has been added.');
 });
 
 QUnit.test('The header is created if showHeader is true', function(assert) {
-    alert = Bulma.create('alert', {
+    alert = Bulma().alert({
         title: "Hello world"
     });
     
@@ -24,7 +26,7 @@ QUnit.test('The header is created if showHeader is true', function(assert) {
 });
 
 QUnit.test('The header is not created if showHeader is false', function(assert) {
-    alert = Bulma.create('alert', {
+    alert = Bulma().alert({
         title: "Hello world",
         showHeader: false
     });
@@ -33,7 +35,7 @@ QUnit.test('The header is not created if showHeader is false', function(assert) 
 });
 
 QUnit.test('The body is created with the supplied text', function(assert) {
-    alert = Bulma.create('alert', {
+    alert = Bulma().alert({
         body: 'Hello world'
     });
     
@@ -42,20 +44,26 @@ QUnit.test('The body is created with the supplied text', function(assert) {
 });
 
 QUnit.test('The footer is created', function(assert) {
-    alert = Bulma.create('alert', {});
+    alert = Bulma().alert({});
     
     assert.ok(alert.root.querySelector('.modal-card-foot'), 'The footer is created');
 });
 
 QUnit.test('Confirm button is created', function(assert) {
-    alert = Bulma.create('alert', { type: 'danger', confirm: 'Okay' });
+    alert = Bulma().alert({
+        type: 'danger',
+        confirm: 'Okay'
+    });
     
     assert.ok(alert.root.querySelector('button.is-danger'), 'The confirm button is created');
     assert.ok(alert.root.querySelector('button.is-danger').innerHTML.indexOf('Okay') !== -1);
 });
 
 QUnit.test('Cancel button is created when the cancel prop is supplied', function(assert) {
-    alert = Bulma.create('alert', { type: 'danger', cancel: 'Nope' });
+    alert = Bulma().alert({
+        type: 'danger',
+        cancel: 'Nope'
+    });
     
     assert.ok(alert.root.querySelectorAll('button').length === 2, 'The confirm button is created');
     assert.ok(alert.root.innerHTML.indexOf('Nope') !== -1);
