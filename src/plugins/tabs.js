@@ -126,24 +126,23 @@ export class Tabs extends Plugin {
     setupNavEvents() {
         Bulma.each(this.navItems, (navItem, index) => {
             navItem.addEventListener('click', () => {
-                this.handleNavClick(navItem, index);
+                this.setActive(index);
             });
 
             if(this.hover) {
                 navItem.addEventListener('mouseover', () => {
-                    this.handleNavClick(navItem, index);
+                    this.setActive(index);
                 });
             }
         });
     }
 
     /**
-     * Handle the changing of the visible tab
-     * @param {HTMLelement} navItem The nav item we are changing to
-     * @param {number} index The internal index of the nav item we're changing to
-     * @returns {void}
+     * Set the provided tab's index as the active tab.
+     * 
+     * @param {integer} index The new index to set
      */
-    handleNavClick(navItem, index) {
+    setActive(index) {
         Bulma.each(this.navItems, (navItem) => {
             navItem.classList.remove('is-active');
         });
@@ -152,7 +151,7 @@ export class Tabs extends Plugin {
             contentItem.classList.remove('is-active');
         });
 
-        navItem.classList.add('is-active');
+        this.navItems[index].classList.add('is-active');
         this.contentItems[index].classList.add('is-active');
     }
 }
