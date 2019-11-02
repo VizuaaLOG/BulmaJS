@@ -38,9 +38,9 @@ export class Modal extends Plugin {
 
         /** @param {HTMLElement} */
         this.root = this.config.get('root');
-
-        if(!this.root.className.contains('modal')) {
-            this.root.className.add('modal');
+        
+        if(!this.root.classList.contains('modal')) {
+            this.root.classList.add('modal');
         }
 
         if(!this.parent) {
