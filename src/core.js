@@ -18,6 +18,10 @@ function Bulma(selector) {
     } else {
         this._elem = document.querySelector(selector);
     }
+
+    if(!selector) {
+        this._elem = document.createElement('div');
+    }
     
     if(!this._elem.hasOwnProperty(Bulma.id)) {
         this._elem[Bulma.id] = Data.uid++;
