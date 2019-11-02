@@ -39,8 +39,8 @@ export class Modal extends Plugin {
         /** @param {HTMLElement} */
         this.root = this.config.get('root');
 
-        if(!this.root) {
-            this.root = Bulma.createElement('div', 'modal');
+        if(!this.root.className.contains('modal')) {
+            this.root.className.add('modal');
         }
 
         if(!this.parent) {
