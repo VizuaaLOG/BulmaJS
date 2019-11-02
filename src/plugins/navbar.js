@@ -115,6 +115,11 @@ export class Navbar extends Plugin {
          */
         this.lastScrollY = 0;
 
+        /**
+         * Bind the relevant event handlers to this instance. So that we can remove them if needed
+         */
+        this.handleScroll = this.handleScroll.bind(this);
+
         Bulma(this.root).data('navbar', this);
 
         this.registerEvents();
@@ -128,7 +133,7 @@ export class Navbar extends Plugin {
         this.triggerElement.addEventListener('click', this.handleTriggerClick.bind(this));
 
         if(this.sticky) {
-            window.addEventListener('scroll', this.handleScroll.bind(this));
+            this.enableSticky();
         }
     }
 
@@ -152,6 +157,24 @@ export class Navbar extends Plugin {
      */
     handleScroll() {
         this.toggleSticky(window.pageYOffset);
+    }
+
+    /**
+     * Enable the sticky feature by attaching the scroll event.
+     */
+    enableSticky() {
+        window.addEventListener('scroll', this.handleScroll);
+        this.root.setAttribute('data-sticky', '');
+        this.sticky = true;
+    }
+
+    /**
+     * Disable the sticky feature by removing the scroll event.
+     */
+    disableSticky() {
+        window.removeEventListener('scroll', this.handleScroll);
+        this.root.removeAttribute('data-sticky');
+        this.sticky = false;
     }
 
     /**
