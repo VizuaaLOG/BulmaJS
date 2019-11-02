@@ -17,8 +17,8 @@ export class Tabs extends Plugin {
 
         Bulma.each(elements, (element) => {
             Bulma(element).tabs({
-                    hover: element.hasAttribute('data-hover') ? true : false
-                });
+                hover: element.hasAttribute('data-hover') ? true : false
+            });
         });
     }
 

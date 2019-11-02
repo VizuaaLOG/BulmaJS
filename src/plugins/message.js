@@ -20,12 +20,12 @@ export class Message extends DismissableComponent {
             let closeBtn = element.querySelector('.delete');
 
             Bulma(element).message({
-                    body: null,
-                    closeButton: closeBtn,
-                    isDismissable: !!closeBtn,
-                    destroyOnDismiss: true,
-                    dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
-                });
+                body: null,
+                closeButton: closeBtn,
+                isDismissable: !!closeBtn,
+                destroyOnDismiss: true,
+                dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
+            });
         });
     }
 

@@ -17,13 +17,13 @@ export class Navbar extends Plugin {
 
         Bulma.each(elements, (element) => {
             Bulma(element).navbar({
-                    sticky: element.hasAttribute('data-sticky') ? true : false,
-                    stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
-                    hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
-                    tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
-                    hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : 0,
-                    shadow: element.hasAttribute('data-sticky-shadow') ? true : false
-                });
+                sticky: element.hasAttribute('data-sticky') ? true : false,
+                stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
+                hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
+                tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
+                hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : 0,
+                shadow: element.hasAttribute('data-sticky-shadow') ? true : false
+            });
         });
     }
 
