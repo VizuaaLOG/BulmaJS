@@ -178,6 +178,27 @@ export class Navbar extends Plugin {
     }
 
     /**
+     * Enable hide on scroll. Also enable sticky if it's not already.
+     */
+    enableHideOnScroll() {
+        if(!this.sticky) {
+            this.enableSticky();
+        }
+
+        this.root.setAttribute('data-hide-on-scroll', '');
+        this.hideOnScroll = true;
+    }
+
+    /**
+     * Disable hide on scroll, and show the navbar again if it's hidden.
+     */
+    disableHideOnScroll() {
+        this.root.removeAttribute('data-hide-on-scroll');
+        this.hideOnScroll = false;
+        this.root.classList.remove('is-hidden-scroll');
+    }
+
+    /**
      * Toggle the navbar's sticky state
      * @param {number} scrollY The amount of pixels that has been scrolled
      * @return {undefined}
