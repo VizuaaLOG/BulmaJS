@@ -28,7 +28,7 @@ class Navbar extends Plugin {
             stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
             hideOnScroll: element.hasAttribute('data-hide-on-scroll') ? true : false,
             tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
-            hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : 0,
+            hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : null,
             shadow: element.hasAttribute('data-sticky-shadow') ? true : false
         });
     }
@@ -43,7 +43,7 @@ class Navbar extends Plugin {
             stickyOffset: 0,
             hideOnScroll: false,
             tolerance: 0,
-            hideOffset: 0,
+            hideOffset: null,
             shadow: false
         };
     }
