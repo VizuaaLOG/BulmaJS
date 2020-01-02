@@ -1,3 +1,6 @@
+# 0.10.2
++ **Bug** [#90](https://github.com/VizuaaLOG/BulmaJS/issues/90) Hiding navbar on scrolls creates empty space, not reappearing as expected [@luksurious](https://github.com/luksurious) [Pull Request](https://github.com/VizuaaLOG/BulmaJS/pull/91).
+
 # 0.10.1
 + **Bug** `Backported from master` [#88](https://github.com/VizuaaLOG/BulmaJS/issues/88) Ensure the keyup event handler is removed then a Modal is destroyed. Thanks to [@luksurious](https://github.com/luksurious) [Pull Request](https://github.com/VizuaaLOG/BulmaJS/pull/89).
 
