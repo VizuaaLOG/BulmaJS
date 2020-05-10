@@ -1,3 +1,6 @@
+# 0.10.4
++ **Bug** [#100](https://github.com/VizuaaLOG/BulmaJS/issues/100) Fix the `npm run production` script failing
+
 # 0.10.3
 + **Bug** Change the default hide offset value to null rather than 0 [@luksurious](https://github.com/luksurious) [Pull Request](https://github.com/VizuaaLOG/BulmaJS/pull/91).
 
