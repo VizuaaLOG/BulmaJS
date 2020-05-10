@@ -28,7 +28,7 @@
   "scripts": {
     "lint": "eslint 'src/**'",
     "dev": "webpack --config webpack.config.js --mode development",
-    "production": "webpack --config webpack.config.js --mode production --output ./dist/plugin.min.js",
+    "production": "webpack --config webpack.config.js --mode production",
     "watch": "webpack --config webpack.config.js --mode development --watch",
     "test": "node-qunit-puppeteer ./tests/test-runner.html 10000 '--allow-file-access-from-files --no-sandbox'"
   }
