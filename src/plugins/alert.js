@@ -99,7 +99,7 @@ export class Alert extends Modal {
                 this.close();
             }
 
-            if(confirmOptions.destory) {
+            if(confirmOptions.destroy) {
                 this.destroy();
             }
         });
