@@ -1,3 +1,4 @@
+import Bulma from './core';
 import Plugin from './plugin';
 
 /**
@@ -67,6 +68,11 @@ export default class DismissableComponent extends Plugin {
         * @type {Boolean}
         */
         this.destroyOnDismiss = this.config.get('destroyOnDismiss');
+
+        // TODO: Make internal element references all be a Bulma instance. This will keep consistency.
+        if(!(this.parent instanceof Bulma)) {
+            this.parent = Bulma(this.parent);
+        }
         
         /**
         * The root element.
@@ -98,7 +104,7 @@ export default class DismissableComponent extends Plugin {
         elem.classList.add(this.name, 'is-hidden');
         elem.setAttribute('data-bulma-attached', 'attached');
 
-        this.parent.appendChild(elem);
+        this.parent.getElement().appendChild(elem);
 
         return elem;
     }
@@ -203,7 +209,7 @@ export default class DismissableComponent extends Plugin {
 
         clearInterval(this.dismissInterval);
 
-        this.parent.removeChild(this.root);
+        this.parent.getElement().removeChild(this.root);
         this.parent = null;
         this.root = null;
 
