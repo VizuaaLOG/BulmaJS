@@ -19,6 +19,10 @@ export class Notification extends DismissableComponent {
         Bulma.each(elements, (element) => {
             let bulmaElement = Bulma(element);
 
+            if(bulmaElement.data('notification')) {
+                return;
+            }
+
             let closeBtn = element.querySelector('.delete');
 
             bulmaElement.notification({

@@ -25,6 +25,11 @@ export default class DismissableComponent extends Plugin {
      * @return {this} The new plugin instance
      */
     constructor(name, config, root) {
+        if(!root._elem.classList.contains(name)) {
+            config['parent'] = root;
+            root = null;
+        }
+
         super(config, root);
 
         /**
@@ -67,8 +72,7 @@ export default class DismissableComponent extends Plugin {
         * The root element.
         * @type {HTMLElement|null} If this is not provided a new element will be created.
         */
-        this.root = this.config.get('root');
-        this.root.setAttribute('data-bulma-attached', 'attached');
+        this.root = this.config.get('root', this.createRootElement.bind(this));
         
         /**
         * The element used to close the component.
@@ -87,13 +91,16 @@ export default class DismissableComponent extends Plugin {
 
     /**
      * Create the main element.
-     * @return {undefined}
+     * @return {HTMLElement}
      */
     createRootElement() {
-        this.root = document.createElement('div');
-        
-        this.root.classList.add(this.name);
-        this.hide();
+        let elem = document.createElement('div');
+        elem.classList.add(this.name, 'is-hidden');
+        elem.setAttribute('data-bulma-attached', 'attached');
+
+        this.parent.appendChild(elem);
+
+        return elem;
     }
 
     /**

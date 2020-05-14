@@ -248,6 +248,16 @@ Bulma.prototype.destroyData = function() {
     return this;
 };
 
+// FIXME: These are temporary for testing and should be removed
+//        The plugins will need to be adjusted to keep HTMLElement vs Bulma instance consistent
+Bulma.prototype.appendChild = function(elem) {
+    return this._elem.appendChild(elem);
+};
+
+Bulma.prototype.removeChild = function(elem) {
+    return this._elem.removeChild(elem);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     if(window.hasOwnProperty('bulmaOptions') && window.bulmaOptions.autoParseDocument === false) {
         return;
