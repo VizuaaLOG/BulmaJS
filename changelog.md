@@ -1,4 +1,4 @@
-# 0.11.0 (unreleased)
+# 0.11.0
 + **Feature** Add a `getFilename` method to the file plugin.
 + **Feature** Add a `setActive` method to the tabs plugin. This allows for programatically changing the active tab.
 + **Feature** Add the ability to enable / disable a navbar's hide on scroll behavior at any time with `enableHideOnScroll` and `disableHideOnScroll`
