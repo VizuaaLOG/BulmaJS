@@ -34,7 +34,7 @@ function Bulma(selector) {
  * Current BulmaJS version.
  * @type {String}
  */
-Bulma.VERSION = '0.11.0';
+Bulma.VERSION = '0.12.0';
 
 /**
  * Unique ID of Bulma
