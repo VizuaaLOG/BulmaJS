@@ -179,7 +179,7 @@ export class Navbar extends Plugin {
     /**
      * Handle the click handler for any dropdowns found within the navbar
      */
-    handleDropdownTrigger(event) {
+    handleDropdownTrigger() {
         if (this.classList.contains('is-active')) {
             this.classList.remove('is-active');
         } else {

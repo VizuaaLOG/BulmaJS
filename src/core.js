@@ -238,7 +238,7 @@ Bulma.getGlobalConfig = function (key, defaultValue = null) {
     }
 
     return window.bulmaOptions[key];
-}
+};
 
 /**
  * Get or set custom data on a Bulma element.
