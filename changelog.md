@@ -1,3 +1,9 @@
+# 0.12.0 (unreleased)
++ **Feature** [107](https://github.com/VizuaaLOG/BulmaJS/issues/107) Add support for the navbar dropdown
++ **Feature** [94](https://github.com/VizuaaLOG/BulmaJS/issues/94) Add a new global `onLoaded` callback that can be defined within the `window.bulmaOptions` object. This is called once the library has been loaded and the `DOMContentLoaded` event has been fired.
++ **Tweak** [95](https://github.com/VizuaaLOG/BulmaJS/issues/95) The `parseDocument` method will now check the given context against the internal plugins
++ **Refactor** Add a `Bulma.getGlobalConfig(key: string, default: mixed)` method to the core. This allows easy access to properties within the `window.bulmaOptions` object and accepts a default as it's second parameter, this is `null` by default.
+
 # 0.11.0
 + **Feature** Add a `getFilename` method to the file plugin.
 + **Feature** Add a `setActive` method to the tabs plugin. This allows for programatically changing the active tab.
