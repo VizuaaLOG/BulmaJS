@@ -14,7 +14,13 @@ export class Message extends DismissableComponent {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = context.querySelectorAll('.message');
+        let elements;
+
+        if (typeof context.classList === 'object' && context.classList.container('.message')) {
+            elements = [context];
+        } else {
+            elements = context.querySelectorAll('.message');
+        }
 
         Bulma.each(elements, (element) => {
             let closeBtn = element.querySelector('.delete');
@@ -49,22 +55,22 @@ export class Message extends DismissableComponent {
          */
         this.title = this.config.get('title');
 
-        if(this.title) {
+        if (this.title) {
             this.createMessageHeader();
         }
 
         // TODO: Move this into the DismissableComponent class. Due to the required
         // changes between different components, we may need a way to trigger this
         // when the component is ready.
-        if(this.isDismissable) {
-            if(!this.config.get('closeButton')) {
+        if (this.isDismissable) {
+            if (!this.config.get('closeButton')) {
                 this.prependCloseButton();
             }
 
             this.setupCloseEvent();
         }
 
-        if(this.size) {
+        if (this.size) {
             this.setSize();
         }
 

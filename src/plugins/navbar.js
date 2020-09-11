@@ -13,7 +13,13 @@ export class Navbar extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = context.querySelectorAll('.navbar');
+        let elements;
+
+        if (typeof context.classList === 'object' && context.classList.contains('navbar')) {
+            elements = [context];
+        } else {
+            elements = context.querySelectorAll('.navbar');
+        }
 
         Bulma.each(elements, (element) => {
             Bulma(element).navbar({
@@ -174,7 +180,6 @@ export class Navbar extends Plugin {
      * Handle the click handler for any dropdowns found within the navbar
      */
     handleDropdownTrigger(event) {
-        console.log(event);
         if (this.classList.contains('is-active')) {
             this.classList.remove('is-active');
         } else {

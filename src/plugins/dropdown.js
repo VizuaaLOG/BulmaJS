@@ -13,7 +13,13 @@ export class Dropdown extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = context.querySelectorAll('.dropdown');
+        let elements;
+
+        if (typeof context.classList === 'object' && context.classList.contains('dropdown')) {
+            elements = [context];
+        } else {
+            elements = context.querySelectorAll('.dropdown');
+        }
 
         Bulma.each(elements, (element) => {
             Bulma(element).dropdown();
@@ -61,7 +67,7 @@ export class Dropdown extends Plugin {
      * @return {undefined}
      */
     handleTriggerClick() {
-        if(this.root.classList.contains('is-active')) {
+        if (this.root.classList.contains('is-active')) {
             this.root.classList.remove('is-active');
 
             this.trigger('close');

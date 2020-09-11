@@ -14,12 +14,18 @@ export class Notification extends DismissableComponent {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = context.querySelectorAll('.notification');
+        let elements;
+
+        if (typeof context.classList === 'object' && context.classList.contains('notification')) {
+            elements = [context];
+        } else {
+            elements = context.querySelectorAll('.notification');
+        }
 
         Bulma.each(elements, (element) => {
             let bulmaElement = Bulma(element);
 
-            if(bulmaElement.data('notification')) {
+            if (bulmaElement.data('notification')) {
                 return;
             }
 
@@ -42,18 +48,18 @@ export class Notification extends DismissableComponent {
      */
     constructor(config, root) {
         super('notification', config, root);
-        
+
         // TODO: Move this into the DismissableComponent class. Due to the required
         // changes between different components, we may need a way to trigger this
         // when the component is ready.
-        if(this.isDismissable) {
-            if(!this.config.has('closeButton')) {
+        if (this.isDismissable) {
+            if (!this.config.has('closeButton')) {
                 this.prependCloseButton();
             }
 
             this.setupCloseEvent();
         }
-        
+
         Bulma(this.root).data('notification', this);
 
         this.trigger('init');

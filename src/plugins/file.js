@@ -13,7 +13,13 @@ export class File extends Plugin {
      * @return {undefined}
      */
     static parseDocument(context) {
-        let elements = context.querySelectorAll('.file');
+        let elements;
+
+        if (typeof context.classList === 'object' && context.classList.contains('file')) {
+            elements = [context];
+        } else {
+            elements = context.querySelectorAll('.file');
+        }
 
         Bulma.each(elements, (element) => {
             Bulma(element).file();
@@ -86,15 +92,15 @@ export class File extends Plugin {
      * @return {undefined}
      */
     handleTriggerChange(event) {
-        if(event.target.files.length === 0) {
+        if (event.target.files.length === 0) {
             this.clearFileName();
         }
 
-        if(event.target.files.length === 1) {
+        if (event.target.files.length === 1) {
             this.setFileName(event.target.files[0].name);
         }
 
-        if(event.target.files.length > 1) {
+        if (event.target.files.length > 1) {
             this.setFileName(event.target.files.length + ' files');
         }
 

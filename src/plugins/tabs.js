@@ -13,7 +13,13 @@ export class Tabs extends Plugin {
      * @returns {undefined}
      */
     static parseDocument(context) {
-        let elements = context.querySelectorAll('.tabs-wrapper');
+        let elements;
+
+        if (typeof context.classList === 'object' && context.classList.has('tabs-wrapper')) {
+            elements = [context];
+        } else {
+            elements = context.querySelectorAll('.tabs-wrapper');
+        }
 
         Bulma.each(elements, (element) => {
             Bulma(element).tabs({
@@ -129,7 +135,7 @@ export class Tabs extends Plugin {
                 this.setActive(index);
             });
 
-            if(this.hover) {
+            if (this.hover) {
                 navItem.addEventListener('mouseover', () => {
                     this.setActive(index);
                 });
