@@ -1,7 +1,10 @@
 BulmaJS
 ========
+![npm](https://img.shields.io/npm/v/@vizuaalog/bulmajs)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/VizuaaLOG/BulmaJS)
 [![Build Status](https://travis-ci.org/VizuaaLOG/BulmaJS.svg?branch=master)](https://travis-ci.org/VizuaaLOG/BulmaJS)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+[![GitHub license](https://img.shields.io/github/license/VizuaaLOG/BulmaJS)](https://github.com/VizuaaLOG/BulmaJS/blob/master/LICENSE)
 
 This is an unofficial JavaScript extension for the [Bulma CSS framework](http://bulma.io).
 
