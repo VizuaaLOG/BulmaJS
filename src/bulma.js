@@ -9,5 +9,6 @@ import { Modal } from './plugins/modal';
 import { Alert } from './plugins/alert';
 import { File } from './plugins/file';
 import { Tabs } from './plugins/tabs';
+import { PanelTabs } from './plugins/panelTabs';
 
 export default Bulma;

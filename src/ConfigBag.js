@@ -42,7 +42,7 @@ export default class ConfigBag {
     /**
      * Get a property by it's key. Returns the defaultValue if it doesn't exists
      * @param {string} key 
-     * @param {mixed} defaultValue 
+     * @param {mixed} defaultValue
      * @returns {mixed}
      */
     get(key, defaultValue = null) {
