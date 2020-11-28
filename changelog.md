@@ -1,4 +1,4 @@
-# 0.12.0 (unreleased)
+# 0.12.0
 + **Feature** [107](https://github.com/VizuaaLOG/BulmaJS/issues/107) Add support for the navbar dropdown
 + **Feature** [94](https://github.com/VizuaaLOG/BulmaJS/issues/94) Add a new global `onLoaded` callback that can be defined within the `window.bulmaOptions` object. This is called once the library has been loaded and the `DOMContentLoaded` event has been fired.
 + **Feature** [102](https://github.com/VizuaaLOG/BulmaJS/issues/102) Add support for panel tabs.
