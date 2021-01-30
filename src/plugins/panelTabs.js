@@ -73,6 +73,8 @@ export class PanelTabs extends Plugin {
 
         this.setupNavEvents();
 
+        this.on('init', this.showActiveTab.bind(this));
+
         Bulma(this.root).data('panelTabs', this);
 
         this.trigger('init');
@@ -135,6 +137,25 @@ export class PanelTabs extends Plugin {
                 item.classList.add('is-hidden');
             }
         });
+    }
+
+    /**
+     * This is called on init and will setup the panel tabs for the current active tab, if any
+     */
+    showActiveTab() {
+        let activeNavFound = false;
+
+        Bulma.each(this.navItems, (navItem) => {
+            if(navItem.classList.contains('is-active')) {
+                this.setActive(navItem.getAttribute('data-target'));
+                activeNavFound = true;
+            }
+        });
+
+        // If no nav item has is-active then use the first one
+        if(!activeNavFound) {
+            this.setActive(this.navItems[0].getAttribute('data-target'));
+        }
     }
 }
 
