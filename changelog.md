@@ -1,3 +1,6 @@
+# 0.12.1
++ **Bug** [120](https://github.com/VizuaaLOG/BulmaJS/issues/120) Panel tabs will now properly take into account `is-active`. On `init` this will become the starting tab
+
 # 0.12.0
 + **Feature** [107](https://github.com/VizuaaLOG/BulmaJS/issues/107) Add support for the navbar dropdown
 + **Feature** [94](https://github.com/VizuaaLOG/BulmaJS/issues/94) Add a new global `onLoaded` callback that can be defined within the `window.bulmaOptions` object. This is called once the library has been loaded and the `DOMContentLoaded` event has been fired.
