@@ -1,5 +1,6 @@
 # 0.12.2
 + **Bug** [131](https://github.com/VizuaaLOG/BulmaJS/issues/131) Navbar will now detect if window is defined before trying to attach sticky events
++ **Bug** [138](https://github.com/VizuaaLOG/BulmaJS/issues/138) Do not assume the navbar-burger element always exists
 
 # 0.12.1
 + **Bug** [120](https://github.com/VizuaaLOG/BulmaJS/issues/120) Panel tabs will now properly take into account `is-active`. On `init` this will become the starting tab

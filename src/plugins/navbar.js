@@ -143,7 +143,9 @@ export class Navbar extends Plugin {
      * @return {undefined}
      */
     registerEvents() {
-        this.triggerElement.addEventListener('click', this.handleTriggerClick.bind(this));
+        if(this.triggerElement) {
+            this.triggerElement.addEventListener('click', this.handleTriggerClick.bind(this));
+        }
 
         if (this.sticky) {
             this.enableSticky();
