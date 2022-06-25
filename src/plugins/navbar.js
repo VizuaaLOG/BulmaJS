@@ -84,7 +84,7 @@ export class Navbar extends Plugin {
          * Should this navbar stick to the top of the page?
          * @type {boolean}
          */
-        this.sticky = !!this.config.get('sticky');
+        this.sticky = typeof window === 'object' && !!this.config.get('sticky');
 
         /**
          * The offset in pixels before the navbar will stick to the top of the page
