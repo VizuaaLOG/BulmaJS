@@ -57,8 +57,8 @@ export class Navbar extends Plugin {
         super(config, root);
 
         // Work out the parent if it hasn't been supplied as an option.
-        if (this.parent === null) {
-            this.parent = this.config.get('root').parentNode;
+        if (this.$parent === null) {
+            this.$parent = this.config.get('root').parentNode;
         }
 
         /**

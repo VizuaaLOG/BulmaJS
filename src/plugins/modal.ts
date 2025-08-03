@@ -34,16 +34,16 @@ export class Modal extends Plugin {
             this.$root.getElement().classList.add('modal');
         }
 
-        if(!this.parent) {
+        if(!this.$parent) {
             if(!this.$root.getElement().parentNode) {
-                this.parent = document.body;
+                this.$parent = document.body;
 
-                this.parent.appendChild(this.$root.getElement());
+                this.$parent.appendChild(this.$root.getElement());
             } else {
-                this.parent = this.$root.getElement().parentNode as HTMLElement;
+                this.$parent = this.$root.getElement().parentNode as HTMLElement;
             }
         } else {
-            this.parent.appendChild(this.$root.getElement());
+            this.$parent.appendChild(this.$root.getElement());
         }
 
         this.background = Core.findOrCreateElement('.modal-background', this.$root.getElement());

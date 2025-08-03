@@ -1,21 +1,21 @@
-import Bulma, { Core } from '../core';
-import DismissableComponent from '../dismissableComponent';
+import Bulma, { Core } from '../../core';
+import DismissableComponent from '../../dismissableComponent';
+import MessageConfig from './MessageConfig';
 
 export class Message extends DismissableComponent {
     size: string;
-    title: string;
-
+    title: HTMLElement;
 
     static parseDocument(context: HTMLElement|Document) {
-        let elements;
+        let elements: HTMLElement[];
 
         if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {
-            elements = [context];
+            elements = [context as HTMLElement];
         } else {
-            elements = context.querySelectorAll('.message');
+            elements = Array.from(context.querySelectorAll('.message'));
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             let closeBtn = element.querySelector('.delete');
 
             Bulma(element).message({
@@ -28,13 +28,12 @@ export class Message extends DismissableComponent {
         });
     }
     
-    constructor(config, root) {
+    constructor(config: MessageConfig, root: HTMLElement) {
         super('message', config, root);
-        
-        this.size = this.config.get('size');
-        this.title = this.config.get('title');
 
-        if (this.title) {
+        this.size = this.config.get('size');
+
+        if (this.config.has('title')) {
             this.createMessageHeader();
         }
 
@@ -58,33 +57,17 @@ export class Message extends DismissableComponent {
         this.trigger('init');
     }
 
-    /**
-     * Create the message header
-     * @return {undefined}
-     */
     createMessageHeader() {
-        let header = document.createElement('div');
-        header.classList.add('message-header');
-
-        header.innerHTML = '<p>' + this.title + '</p>';
-
-        this.title = header;
+        this.title = Core.createElement('div', ['message-header']);
+        this.title.innerHTML = `<p>${this.config.get('title')}</p>`;
 
         this.$root.getElement().insertBefore(this.title, this.$root.getElement().firstChild);
     }
 
-    /**
-     * Set the size of the message.
-     * @return {undefined}
-     */
     setSize() {
         this.$root.getElement().classList.add('is-' + this.size);
     }
 
-    /**
-     * Insert the body text into the component.
-     * @return {undefined}
-     */
     insertBody() {
         let body = document.createElement('div');
         body.classList.add('message-body');
@@ -93,10 +76,6 @@ export class Message extends DismissableComponent {
         this.$root.getElement().appendChild(body);
     }
 
-    /**
-     * Insert the close button before our content.
-     * @return {undefined}
-     */
     prependCloseButton() {
         this.title.appendChild(this.closeButton);
     }

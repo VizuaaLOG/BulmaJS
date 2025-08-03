@@ -5,7 +5,7 @@ import EventData from './EventData';
 
 export default class Plugin {
     $root: Core;
-    $parent: HTMLElement;
+    $parent: Core;
     config: ConfigBag<PluginConfig>;
 
     _events: {[key: string]: Function[]};
@@ -16,8 +16,12 @@ export default class Plugin {
         return {};
     }
 
-    constructor(config: PluginConfig = {}, root: Core|HTMLElement) {
-        this.$root = Bulma(root);
+    constructor(config: PluginConfig = {}, root: Core|HTMLElement|null) {
+        if(root === null) {
+            this.$root = Bulma();
+        } else {
+            this.$root = Bulma(root);
+        }
 
         this.config = new ConfigBag({...(this.constructor as typeof Plugin).defaultConfig(), ...config});
 

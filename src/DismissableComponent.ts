@@ -1,4 +1,4 @@
-import Bulma, { Core } from './core';
+import Bulma from './core';
 import Plugin from './plugin';
 import DismissableConfig from './DismissableConfig';
 
@@ -20,8 +20,8 @@ export default class DismissableComponent extends Plugin {
         };
     }
     
-    constructor(name, config, root) {
-        if(!root._elem.classList.contains(name)) {
+    constructor(name: string, config: DismissableConfig, root: Core) {
+        if(!root.getElement().classList.contains(name)) {
             config['parent'] = root;
             root = null;
         }
@@ -35,10 +35,8 @@ export default class DismissableComponent extends Plugin {
         this.isDismissable = this.config.get('isDismissable');
         this.destroyOnDismiss = this.config.get('destroyOnDismiss');
 
-        // TODO: Make internal element references all be a Bulma instance. This will keep consistency.
-        if(!(this.parent instanceof Bulma)) {
-            this.parent = Bulma(this.parent);
-        }
+        this.$root.getElement().classList.add(this.name, 'is-hidden');
+        this.$parent.getElement().appendChild(this.$root.getElement());
         
         this.closeButton = this.config.get('closeButton', this.createCloseButton());
 
@@ -51,48 +49,18 @@ export default class DismissableComponent extends Plugin {
         }
     }
 
-    /**
-     * Create the main element.
-     * @return {HTMLElement}
-     */
-    createRootElement() {
-        let elem = document.createElement('div');
-        elem.classList.add(this.name, 'is-hidden');
-        elem.setAttribute('data-bulma-attached', 'attached');
-
-        this.parent.getElement().appendChild(elem);
-
-        return elem;
-    }
-
-    /**
-     * Show the component.
-     * @return {undefined}
-     */
     show() {
         this.$root.getElement().classList.remove('is-hidden');
     }
 
-    /**
-     * Hide the component.
-     * @return {undefined}
-     */
     hide() {
         this.$root.getElement().classList.add('is-hidden');
     }
 
-    /**
-     * Insert the body text into the component.
-     * @return {undefined}
-     */
     insertBody() {
         this.$root.getElement().innerHTML = this.body;
     }
 
-    /**
-     * Create the element that will be used to close the component.
-     * @return {HTMLElement} The newly created close button
-     */
     createCloseButton() {
         var closeButton = document.createElement('button');
         closeButton.setAttribute('type', 'button');
@@ -101,37 +69,20 @@ export default class DismissableComponent extends Plugin {
         return closeButton;
     }
 
-    /**
-     * Create an interval to dismiss the component after the set number of ms.
-     * @param  {int} interval The time to wait before dismissing the component
-     * @return {undefined}
-     */
-    createDismissInterval(interval) {
+    createDismissInterval(interval: number) {
         return setInterval(() => {
             this.handleCloseEvent();
         }, interval);
     }
 
-    /**
-     * Insert the close button before our content.
-     * @return {undefined}
-     */
     prependCloseButton() {
         this.$root.getElement().insertBefore(this.closeButton, this.$root.getElement().firstChild);
     }
 
-    /**
-     * Setup the event listener for the close button.
-     * @return {undefined}
-     */
     setupCloseEvent() {
         this.closeButton.addEventListener('click', this.handleCloseEvent.bind(this));
     }
 
-    /**
-     * Handle the event when our close button is clicked.
-     * @return {undefined}
-     */
     handleCloseEvent() {
         this.trigger('dismissed');
         
@@ -144,18 +95,10 @@ export default class DismissableComponent extends Plugin {
         this.trigger('close');
     }
 
-    /**
-     * Set the colour of the component.
-     * @return {undefined}
-     */
     setColor() {
         this.$root.getElement().classList.add('is-' + this.color);
     }
 
-    /**
-     * Destroy the component, removing the event listener, interval and element.
-     * @return {undefined}
-     */
     destroy() {
         super.destroy();
         
@@ -165,9 +108,7 @@ export default class DismissableComponent extends Plugin {
 
         clearInterval(this.dismissInterval);
 
-        this.parent.getElement().removeChild(this.root);
-        this.parent = null;
-        this.root = null;
+        this.$root.getElement().removeChild(this.root);
 
         this.trigger('destroyed');
     }
