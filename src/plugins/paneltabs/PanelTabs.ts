@@ -1,21 +1,16 @@
-import Bulma, { Core } from '../core';
-import Plugin from '../plugin';
+import Bulma, { Core } from '../../core';
+import Plugin from '../../plugin';
+import PanelTabsConfig from './PanelTabsConfig';
 
-/**
- * @module PanelTabs
- * @since  0.12.0
- * @author  Thomas Erbe <vizuaalog@gmail.com>
- */
 export class PanelTabs extends Plugin {
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} context The root element for this instance
-     * @returns {undefined}
-     */
+    nav: HTMLElement;
+    navItems: NodeListOf<Element>;
+    contentItems: NodeListOf<Element>;
+
     static parseDocument(context) {
         let elements;
 
-        if (typeof context.classList === 'object' && context.classList.contains('panel')) {
+        if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {
             elements = [context];
         } else {
             elements = context.querySelectorAll('.panel');
@@ -30,84 +25,38 @@ export class PanelTabs extends Plugin {
         });
     }
 
-    /**
-     * Returns an object containing the default config for this plugin.
-     * @returns {object} The default config object.
-     */
-    static defaultConfig() {
+    static defaultConfig(): PanelTabsConfig {
         return {};
     }
 
-    /**
-     * Plugin constructor
-     * @param  {Object} config The config object for this plugin
-     * @return {this} The newly created instance
-     */
-    constructor(config, root) {
+    constructor(config: PanelTabsConfig, root: HTMLElement) {
         super(config, root);
 
-        /**
-         * The root tab element
-         * @param {HTMLElement}
-         */
-        this.root = this.config.get('root');
-        this.root.setAttribute('data-bulma-attached', 'attached');
-
-        /**
-         * The tab nav container
-         * @param {HTMLElement}
-         */
         this.nav = this.findNav();
-
-        /**
-         * The tab's nav items
-         * @param {HTMLElement[]}
-         */
         this.navItems = this.findNavItems();
-
-        /**
-         * The tab's content items
-         * @param {HTMLElement[]}
-         */
         this.contentItems = this.findContentItems();
 
         this.setupNavEvents();
 
         this.on('init', this.showActiveTab.bind(this));
 
-        Bulma(this.root).data('panelTabs', this);
+        Bulma(this.$root).data('panelTabs', this);
 
         this.trigger('init');
     }
 
-    /**
-     * Find the tab navigation container.
-     * @returns {HTMLElement} The navigation container
-     */
     findNav() {
-        return this.root.querySelector('.panel-tabs');
+        return this.$root.getElement().querySelector('.panel-tabs');
     }
 
-    /**
-     * Find each individual tab item
-     * @returns {NodeListOf<Element>} An array of the found items
-     */
     findNavItems() {
         return this.nav.querySelectorAll('a');
     }
 
-    /**
-     * Find each individual content item
-     * @returns {NodeListOf<Element>} An array of the found items
-     */
     findContentItems() {
-        return this.root.querySelectorAll('.panel-block[data-category]');
+        return this.$root.getElement().querySelectorAll('.panel-block[data-category]');
     }
 
-    /**
-     * Setup the events to handle tab changing
-     * @returns {void}
-     */
     setupNavEvents() {
         Core.each(this.navItems, (navItem) => {
             navItem.addEventListener('click', () => {
@@ -116,11 +65,6 @@ export class PanelTabs extends Plugin {
         });
     }
 
-    /**
-     * Show the correct category and mark the tab as active.
-     * 
-     * @param {string|null} category The new category to set
-     */
     setActive(category) {
         this.navItems.forEach((item) => {
             if(item.getAttribute('data-target') === category) {
@@ -139,9 +83,6 @@ export class PanelTabs extends Plugin {
         });
     }
 
-    /**
-     * This is called on init and will setup the panel tabs for the current active tab, if any
-     */
     showActiveTab() {
         let activeNavFound = false;
 
