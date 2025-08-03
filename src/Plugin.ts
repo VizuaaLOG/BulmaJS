@@ -1,5 +1,5 @@
 import ConfigBag from './ConfigBag';
-import Bulma, { Core } from './core';
+import Bulma, { Core } from './Core';
 import PluginConfig from './PluginConfig';
 import EventData from './EventData';
 

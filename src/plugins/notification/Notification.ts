@@ -1,5 +1,5 @@
-import Bulma, { Core } from '../../core';
-import DismissableComponent from '../../dismissableComponent';
+import Bulma, { Core } from '../../Core';
+import DismissableComponent from '../../DismissableComponent';
 import NotificationConfig from './NotificationConfig';
 
 export class Notification extends DismissableComponent {

@@ -1,5 +1,5 @@
-import Bulma from './core';
-import Plugin from './plugin';
+import Bulma from './Core';
+import Plugin from './Plugin';
 import DismissableConfig from './DismissableConfig';
 
 export default class DismissableComponent extends Plugin {

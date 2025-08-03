@@ -1,5 +1,5 @@
-import Bulma, { Core } from '../../core';
-import Plugin from '../../plugin';
+import Bulma, { Core } from '../../Core';
+import Plugin from '../../Plugin';
 import FileConfig from './FileConfig';
 
 export class File extends Plugin {

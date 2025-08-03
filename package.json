@@ -2,7 +2,7 @@
     "name": "@vizuaalog/bulmajs",
     "version": "1.0.0",
     "description": "Unofficial javascript extension to the awesome Bulma CSS framework.",
-    "main": "src/bulma.js",
+    "main": "src/index.ts",
     "author": "Thomas Erbe <vizuaalog@gmail.com>",
     "license": "MIT",
     "repository": {

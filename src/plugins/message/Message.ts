@@ -1,5 +1,5 @@
-import Bulma, { Core } from '../../core';
-import DismissableComponent from '../../dismissableComponent';
+import Bulma, { Core } from '../../Core';
+import DismissableComponent from '../../DismissableComponent';
 import MessageConfig from './MessageConfig';
 
 export class Message extends DismissableComponent {

@@ -1,5 +1,5 @@
-import Bulma, { Core } from '../../core';
-import Plugin from '../../plugin';
+import Bulma, { Core } from '../../Core';
+import Plugin from '../../Plugin';
 import NavbarConfig from './NavbarConfig';
 
 export class Navbar extends Plugin {

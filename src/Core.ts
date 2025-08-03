@@ -1,6 +1,6 @@
 import Data from './Data';
 import PluginConfig from './PluginConfig';
-import Plugin from './plugin';
+import Plugin from './Plugin';
 
 export class Core {
     _elem: HTMLElement;

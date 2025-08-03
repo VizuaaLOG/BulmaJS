@@ -1,4 +1,4 @@
-import Bulma, { Core } from '../../core';
+import Bulma, { Core } from '../../Core';
 import { Modal } from '../modal/Modal';
 import AlertConfig from './AlertConfig'
 

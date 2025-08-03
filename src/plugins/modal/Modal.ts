@@ -1,6 +1,6 @@
-import Bulma, { Core } from '../../core';
-import Plugin from '../../plugin';
-import ModalConfig from './modal/ModalConfig';
+import Bulma, { Core } from '../../Core';
+import Plugin from '../../Plugin';
+import ModalConfig from './ModalConfig';
 
 export class Modal extends Plugin {
     style: string;

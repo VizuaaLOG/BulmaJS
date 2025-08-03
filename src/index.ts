@@ -1,4 +1,4 @@
-import Bulma, { Core } from './core';
+import Bulma, { Core } from './Core';
 import { Notification } from './plugins/notification/Notification';
 import { Navbar } from './plugins/navbar/Navbar';
 import { Message } from './plugins/message/Message';

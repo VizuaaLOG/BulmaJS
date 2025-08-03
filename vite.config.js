@@ -5,7 +5,7 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         lib: {
-            entry: resolve('./src/bulma.ts'),
+            entry: resolve('./src/index.ts'),
             name: 'BulmaJS',
             fileName: 'bulmajs',
         },
