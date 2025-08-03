@@ -15,7 +15,15 @@
     "homepage": "https://github.com/VizuaaLOG/BulmaJS",
     "devDependencies": {
         "bulma": "^0.7.1",
-        "vite": "^7.0.6"
+        "dts-bundle-generator": "^9.5.1",
+        "rimraf": "^6.0.1",
+        "vite": "^7.0.6",
+        "typescript": "^5.9.2"
     },
-    "scripts": {}
+    "scripts": {
+        "dev": "vite dev",
+        "build": "npm run build:lib && npm run build:types",
+        "build:lib": "vite build",
+        "build:types": "npx tsc --emitDeclarationOnly --outDir types-tmp && dts-bundle-generator -o dist/bulmajs.d.ts types-tmp/index.d.ts && rimraf types-tmp"
+    }
 }
