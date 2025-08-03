@@ -23,8 +23,8 @@ export class Message extends DismissableComponent {
                 closeButton: closeBtn,
                 isDismissable: !!closeBtn,
                 destroyOnDismiss: true,
-                dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
-            });
+                dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null,
+            }).show();
         });
     }
     

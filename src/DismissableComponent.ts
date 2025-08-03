@@ -36,7 +36,10 @@ export default class DismissableComponent extends Plugin {
         this.destroyOnDismiss = this.config.get('destroyOnDismiss');
 
         this.$root.getElement().classList.add(this.name, 'is-hidden');
-        this.$parent.getElement().appendChild(this.$root.getElement());
+
+        if(this.$parent) {
+            this.$parent.getElement().appendChild(this.$root.getElement());
+        }
         
         this.closeButton = this.config.get('closeButton', this.createCloseButton());
 
@@ -107,8 +110,6 @@ export default class DismissableComponent extends Plugin {
         }
 
         clearInterval(this.dismissInterval);
-
-        this.$root.getElement().removeChild(this.root);
 
         this.trigger('destroyed');
     }
