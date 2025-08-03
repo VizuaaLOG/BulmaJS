@@ -7,7 +7,7 @@ export class PanelTabs extends Plugin {
     navItems: NodeListOf<Element>;
     contentItems: NodeListOf<Element>;
 
-    static parseDocument(context) {
+    static parseDocument(context: HTMLElement|Document) {
         let elements;
 
         if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {

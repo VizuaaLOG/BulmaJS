@@ -6,7 +6,7 @@ import { Dropdown } from './plugins/dropdown/Dropdown';
 import { Modal } from './plugins/modal/Modal';
 import { Alert } from './plugins/alert/Alert';
 import { File } from './plugins/file/File';
-import { Tabs } from './plugins/tabs';
+import { Tabs } from './plugins/tabs/Tabs';
 import { PanelTabs } from './plugins/paneltabs/PanelTabs';
 
 export default Bulma;
