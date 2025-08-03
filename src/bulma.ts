@@ -3,7 +3,7 @@ import { Notification } from './plugins/notification';
 import { Navbar } from './plugins/navbar';
 import { Message } from './plugins/message/Message';
 import { Dropdown } from './plugins/dropdown/Dropdown';
-import { Modal } from './plugins/modal';
+import { Modal } from './plugins/modal/Modal';
 import { Alert } from './plugins/alert/Alert';
 import { File } from './plugins/file/File';
 import { Tabs } from './plugins/tabs';

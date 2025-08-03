@@ -1,5 +1,5 @@
-import Bulma, { Core } from '../core';
-import Plugin from '../plugin';
+import Bulma, { Core } from '../../core';
+import Plugin from '../../plugin';
 import ModalConfig from './modal/ModalConfig';
 
 export class Modal extends Plugin {
@@ -23,10 +23,8 @@ export class Modal extends Plugin {
         };
     }
 
-    constructor(config, root) {
+    constructor(config: ModalConfig, root: HTMLElement) {
         super(config, root);
-
-        if(!this.$root) return;
 
         this.style = this.config.get('style');
         
@@ -83,7 +81,7 @@ export class Modal extends Plugin {
             this.closeButton = this.style === 'card' ? Core.findOrCreateElement<'button'>('.delete', this.header, 'button') : Core.findOrCreateElement<'button'>('.modal-close', this.$root.getElement(), 'button');
         }
 
-        if(this.style === 'card') {
+        if(this.style === 'card' && this.config.has('buttons')) {
             this.createButtons();
         }
 
@@ -120,6 +118,7 @@ export class Modal extends Plugin {
     }
 
     createButtons() {
+        console.log('hi');
         var buttonsConfig = this.config.get('buttons', []);
 
         let buttonsContainer = Core.createElement('div', ['buttons']);

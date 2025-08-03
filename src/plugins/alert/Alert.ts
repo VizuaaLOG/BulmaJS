@@ -1,5 +1,5 @@
 import Bulma, { Core } from '../../core';
-import { Modal } from '../modal';
+import { Modal } from '../modal/Modal';
 import AlertConfig from './AlertConfig'
 
 export class Alert extends Modal {
