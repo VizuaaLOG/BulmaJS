@@ -1,6 +1,6 @@
 import Bulma, { Core } from './core';
 import { Notification } from './plugins/notification';
-import { Navbar } from './plugins/navbar';
+import { Navbar } from './plugins/navbar/Navbar';
 import { Message } from './plugins/message/Message';
 import { Dropdown } from './plugins/dropdown/Dropdown';
 import { Modal } from './plugins/modal/Modal';
