@@ -5,13 +5,13 @@ import IPluginConfig from './interfaces/IPluginConfig';
 import IEventData from './interfaces/IEventData';
 
 export default class Plugin {
-    $root: HTMLElement|null;
+    $root: HTMLElement;
     $parent: HTMLElement;
     config: ConfigBag<IPluginConfig>;
 
     _events: {[key: string]: Function[]};
 
-    static parseDocument() {}
+    static parseDocument(context: HTMLElement|Document) {}
 
     static defaultConfig(): IPluginConfig {
         return {};
