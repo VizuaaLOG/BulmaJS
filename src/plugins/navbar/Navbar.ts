@@ -12,7 +12,7 @@ export class Navbar extends Plugin {
     hideOffset: number;
     shadow: boolean;
     dropdowns: NodeListOf<HTMLElement>;
-    lastScrollY: number;
+    lastScrollY: number | undefined;
 
     static parseDocument(context: HTMLElement|Document) {
         let elements;
@@ -23,13 +23,13 @@ export class Navbar extends Plugin {
             elements = context.querySelectorAll('.navbar');
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             Bulma(element).navbar({
                 sticky: element.hasAttribute('data-sticky'),
-                stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
+                stickyOffset: element.hasAttribute('data-sticky-offset') ? parseInt(element.getAttribute('data-sticky-offset') ?? '') : 0,
                 hideOnScroll: element.hasAttribute('data-hide-on-scroll'),
-                tolerance: element.hasAttribute('data-tolerance') ? element.getAttribute('data-tolerance') : 0,
-                hideOffset: element.hasAttribute('data-hide-offset') ? element.getAttribute('data-hide-offset') : null,
+                tolerance: element.hasAttribute('data-tolerance') ? parseInt(element.getAttribute('data-tolerance') ?? '') : 0,
+                hideOffset: element.hasAttribute('data-hide-offset'),
                 shadow: element.hasAttribute('data-sticky-shadow')
             });
         });
@@ -54,8 +54,8 @@ export class Navbar extends Plugin {
             this.$parent = this.config.get('root').parentNode;
         }
 
-        this.triggerElement = this.$root.getElement().querySelector('.navbar-burger');
-        this.target = this.$root.getElement().querySelector('.navbar-menu');
+        this.triggerElement = this.$root.getElement().querySelector('.navbar-burger') as HTMLElement;
+        this.target = this.$root.getElement().querySelector('.navbar-menu') as HTMLElement;
         this.sticky = typeof window === 'object' && !!this.config.get('sticky');
         this.stickyOffset = parseInt(this.config.get('stickyOffset'));
         this.hideOnScroll = !!this.config.get('hideOnScroll');
@@ -78,10 +78,6 @@ export class Navbar extends Plugin {
         if (this.sticky) {
             this.enableSticky();
         }
-
-        Core.each(this.dropdowns, (dropdown) => {
-            dropdown.addEventListener('click', this.handleDropdownTrigger);
-        });
     }
 
     handleTriggerClick() {
@@ -98,26 +94,20 @@ export class Navbar extends Plugin {
         this.toggleSticky(window.pageYOffset);
     }
 
-    handleDropdownTrigger() {
-        if (this.classList.contains('is-active')) {
-            this.classList.remove('is-active');
-        } else {
-            this.classList.add('is-active');
-        }
-    }
-
     enableSticky() {
         window.addEventListener('scroll', this.handleScroll);
         this.$root.getElement().setAttribute('data-sticky', '');
         this.sticky = true;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     disableSticky() {
         window.removeEventListener('scroll', this.handleScroll);
         this.$root.getElement().removeAttribute('data-sticky');
         this.sticky = false;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     enableHideOnScroll() {
         if (!this.sticky) {
             this.enableSticky();
@@ -127,13 +117,14 @@ export class Navbar extends Plugin {
         this.hideOnScroll = true;
     }
 
+    // noinspection JSUnusedGlobalSymbols
     disableHideOnScroll() {
         this.$root.getElement().removeAttribute('data-hide-on-scroll');
         this.hideOnScroll = false;
         this.$root.getElement().classList.remove('is-hidden-scroll');
     }
 
-    toggleSticky(scrollY) {
+    toggleSticky(scrollY: number) {
         if (scrollY > this.stickyOffset) {
             this.$root.getElement().classList.add('is-fixed-top');
             document.body.classList.add('has-navbar-fixed-top');
@@ -151,8 +142,8 @@ export class Navbar extends Plugin {
         }
 
         if (this.hideOnScroll) {
-            let scrollDirection = this.calculateScrollDirection(scrollY, this.lastScrollY);
-            let triggeredTolerance = this.difference(scrollY, this.lastScrollY) >= this.tolerance;
+            let scrollDirection = this.calculateScrollDirection(scrollY, this.lastScrollY ?? 0);
+            let triggeredTolerance = this.difference(scrollY, this.lastScrollY ?? 0) >= this.tolerance;
 
             if (scrollDirection === 'down') {
                 // only hide the navbar at the top if we reach a certain offset so the hiding is more smooth
@@ -172,7 +163,7 @@ export class Navbar extends Plugin {
         }
     }
 
-    difference(a, b) {
+    difference(a: number, b: number) {
         if (a > b) {
             return a - b;
         } else {
@@ -180,7 +171,7 @@ export class Navbar extends Plugin {
         }
     }
 
-    calculateScrollDirection(currentY, lastY) {
+    calculateScrollDirection(currentY: number, lastY: number) {
         return currentY >= lastY ? 'down' : 'up';
     }
 }
@@ -188,3 +179,9 @@ export class Navbar extends Plugin {
 Core.registerPlugin('navbar', Navbar);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        navbar(config?: NavbarConfig): Navbar;
+    }
+}

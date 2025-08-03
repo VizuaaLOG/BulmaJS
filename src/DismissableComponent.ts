@@ -1,4 +1,4 @@
-import Bulma from './Core';
+import Bulma, {Core} from './Core';
 import Plugin from './Plugin';
 import DismissableConfig from './DismissableConfig';
 
@@ -9,7 +9,7 @@ export default class DismissableComponent extends Plugin {
     dismissInterval: number|null;
     isDismissable: boolean;
     destroyOnDismiss: boolean;
-    parent: typeof Bulma;
+    parent: typeof Bulma | undefined;
     closeButton: HTMLButtonElement;
 
     static defaultConfig(): DismissableConfig {
@@ -20,8 +20,8 @@ export default class DismissableComponent extends Plugin {
         };
     }
     
-    constructor(name: string, config: DismissableConfig, root: Core) {
-        if(!root.getElement().classList.contains(name)) {
+    constructor(name: string, config: DismissableConfig, root: Core|null) {
+        if(!root?.getElement().classList.contains(name)) {
             config['parent'] = root;
             root = null;
         }
@@ -109,7 +109,7 @@ export default class DismissableComponent extends Plugin {
             this.closeButton.removeEventListener('click', this.handleCloseEvent.bind(this));
         }
 
-        clearInterval(this.dismissInterval);
+        clearInterval(this.dismissInterval as number);
 
         this.trigger('destroyed');
     }

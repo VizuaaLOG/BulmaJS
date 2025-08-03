@@ -1,17 +1,18 @@
 import Bulma, { Core } from '../../Core';
 import Plugin from '../../Plugin';
 import ModalConfig from './ModalConfig';
+import ActionConfig from '../../ActionConfig';
 
 export class Modal extends Plugin {
     style: string;
-    parent: HTMLElement;
+    parent: HTMLElement | undefined;
     background: HTMLElement;
     content: HTMLElement;
-    header: HTMLElement;
-    headerTitle: HTMLElement;
-    cardBody: HTMLElement;
-    footer: HTMLElement;
-    closeButton: HTMLButtonElement;
+    header: HTMLElement | undefined;
+    headerTitle: HTMLElement | undefined;
+    cardBody: HTMLElement | undefined;
+    footer: HTMLElement | undefined;
+    closeButton: HTMLButtonElement | undefined;
     closable: boolean;
     body: string|null;
     title: string|null;
@@ -34,14 +35,14 @@ export class Modal extends Plugin {
 
         if(!this.$parent) {
             if(!this.$root.getElement().parentNode) {
-                this.$parent = document.body;
+                this.$parent = Bulma(document.body);
 
-                this.$parent.appendChild(this.$root.getElement());
+                this.$parent.getElement().appendChild(this.$root.getElement());
             } else {
-                this.$parent = this.$root.getElement().parentNode as HTMLElement;
+                this.$parent = Bulma(this.$root.getElement().parentNode as HTMLElement);
             }
         } else {
-            this.$parent.appendChild(this.$root.getElement());
+            Bulma(this.$parent).getElement().appendChild(this.$root.getElement());
         }
 
         this.background = Core.findOrCreateElement('.modal-background', this.$root.getElement());
@@ -118,23 +119,25 @@ export class Modal extends Plugin {
     }
 
     createButtons() {
-        console.log('hi');
         var buttonsConfig = this.config.get('buttons', []);
 
         let buttonsContainer = Core.createElement('div', ['buttons']);
 
-        Core.each(buttonsConfig, (buttonConfig) => {
-            var button = Core.createElement('button', buttonConfig.classes);
-            button.innerHTML = buttonConfig.label;
+        Core.each(buttonsConfig, (buttonConfig: ActionConfig) => {
+            var button = Core.createElement('button', buttonConfig.classes ?? []);
+            button.innerHTML = buttonConfig.label ?? '';
 
-            button.addEventListener('click', function(event) {
-                buttonConfig.onClick(event);
-            });
+            if(typeof buttonConfig.onClick === 'function') {
+                button.addEventListener('click', function(event) {
+                    // @ts-ignore
+                    buttonConfig.onClick(event);
+                });
+            }
 
             buttonsContainer.appendChild(button);
         });
 
-        this.footer.appendChild(buttonsContainer);
+        this.footer?.appendChild(buttonsContainer);
     }
 
     open() {
@@ -151,7 +154,7 @@ export class Modal extends Plugin {
         this.trigger('close');
     }
 
-    keyupListener(event) {
+    keyupListener(event: KeyboardEvent) {
         if(!this.$root.getElement()?.classList.contains('is-active')) {
             return;
         }
@@ -167,3 +170,9 @@ export class Modal extends Plugin {
 Core.registerPlugin('modal', Modal);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        modal(config?: ModalConfig): Modal;
+    }
+}

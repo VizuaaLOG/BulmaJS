@@ -12,27 +12,27 @@ export class Notification extends DismissableComponent {
             elements = context.querySelectorAll('.notification');
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             let bulmaElement = Bulma(element);
 
             if (bulmaElement.data('notification')) {
                 return;
             }
 
-            let closeBtn = element.querySelector('.delete');
+            let closeBtn = element.querySelector('.delete') as HTMLButtonElement;
 
             bulmaElement.notification({
                 body: null,
                 closeButton: closeBtn,
                 isDismissable: !!closeBtn,
                 destroyOnDismiss: true,
-                dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null
+                dismissInterval: element.hasAttribute('data-dismiss-interval') ? parseInt(element.getAttribute('data-dismiss-interval') ?? '') : null
             });
         });
     }
 
     constructor(config: NotificationConfig, root: HTMLElement) {
-        super('notification', config, root);
+        super('notification', config, Bulma(root));
 
         // TODO: Move this into the DismissableComponent class. Due to the required
         // changes between different components, we may need a way to trigger this
@@ -45,7 +45,7 @@ export class Notification extends DismissableComponent {
             this.setupCloseEvent();
         }
 
-        Bulma(this.root).data('notification', this);
+        Bulma(this.$root).data('notification', this);
 
         this.trigger('init');
     }
@@ -54,3 +54,9 @@ export class Notification extends DismissableComponent {
 Core.registerPlugin('notification', Notification);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        notification(config?: NotificationConfig): Notification;
+    }
+}

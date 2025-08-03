@@ -5,9 +5,9 @@ import TabsConfig from './TabsConfig';
 export class Tabs extends Plugin {
     hover: boolean;
     nav: HTMLElement;
-    navItems: NodeListOf<HTMLElement>;
+    navItems: HTMLElement[];
     content: HTMLElement;
-    contentItems: NodeListOf<HTMLElement>;
+    contentItems: HTMLElement[];
 
     static parseDocument(context: HTMLElement|Document): void {
         let elements;
@@ -18,7 +18,7 @@ export class Tabs extends Plugin {
             elements = context.querySelectorAll('.tabs-wrapper');
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             Bulma(element).tabs({
                 hover: element.hasAttribute('data-hover')
             });
@@ -47,23 +47,23 @@ export class Tabs extends Plugin {
         this.trigger('init');
     }
 
-    findNav() {
-        return this.$root.getElement().querySelector<HTMLElement>('.tabs');
+    findNav(): HTMLElement {
+        return this.$root.getElement().querySelector<HTMLElement>('.tabs') as HTMLElement;
     }
 
-    findNavItems() {
-        return this.nav.querySelectorAll<HTMLElement>('li');
+    findNavItems(): HTMLElement[] {
+        return Array.from(this.nav.querySelectorAll<HTMLElement>('li'));
     }
 
-    findContent() {
-        return this.$root.getElement().querySelector<HTMLElement>('.tabs-content');
+    findContent(): HTMLElement {
+        return this.$root.getElement().querySelector<HTMLElement>('.tabs-content') as HTMLElement;
     }
 
-    findContentItems() {
+    findContentItems(): HTMLElement[] {
         // We have to use the root here as the querySelectorAll API doesn't
         // support using '>' as the first character. So we have to have a
         // class to start with.
-        return this.$root.getElement().querySelectorAll<HTMLElement>('.tabs-content > ul > li');
+        return Array.from(this.$root.getElement().querySelectorAll<HTMLElement>('.tabs-content > ul > li'));
     }
 
     setupNavEvents() {
@@ -97,3 +97,9 @@ export class Tabs extends Plugin {
 Core.registerPlugin('tabs', Tabs);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        tabs(config?: TabsConfig): Tabs;
+    }
+}

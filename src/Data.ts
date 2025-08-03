@@ -1,12 +1,9 @@
 class Data {
-
     static UID = 1;
 
-    constructor() {
-        this._data = {};
-    }
+    _data: { [uid: string]: { [key: string]: any }} = {};
 
-    set(uid, key, value) {
+    set(uid: string, key: string, value: any) {
         if(!this._data.hasOwnProperty(uid)) {
             this._data[uid] = {};
         }
@@ -14,7 +11,7 @@ class Data {
         this._data[uid][key] = value;
     }
 
-    get(uid, key) {
+    get(uid: string, key: string) {
         if(!this._data.hasOwnProperty(uid)) {
             return undefined;
         }
@@ -22,7 +19,7 @@ class Data {
         return this._data[uid][key];
     }
 
-    destroy(uid) {
+    destroy(uid: string) {
         if(this._data.hasOwnProperty(uid)) {
             delete this._data[uid];
         }

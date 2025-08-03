@@ -1,6 +1,6 @@
 import Bulma, { Core } from '../../Core';
 import { Modal } from '../modal/Modal';
-import AlertConfig from './AlertConfig'
+import AlertConfig from './AlertConfig';
 
 export class Alert extends Modal {
     static defaultConfig(): AlertConfig {
@@ -103,7 +103,7 @@ export class Alert extends Modal {
             });
             buttonsContainer.appendChild(cancelButton);
 
-            this.footer.appendChild(buttonsContainer);
+            this.footer?.appendChild(buttonsContainer);
         }
     }
 }
@@ -111,3 +111,9 @@ export class Alert extends Modal {
 Core.registerPlugin('alert', Alert);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        alert(config?: AlertConfig): Alert;
+    }
+}

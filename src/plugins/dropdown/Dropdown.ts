@@ -14,7 +14,7 @@ export class Dropdown extends Plugin {
             elements = context.querySelectorAll('.dropdown');
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             Bulma(element).dropdown();
         });
     }
@@ -52,3 +52,9 @@ export class Dropdown extends Plugin {
 Core.registerPlugin('dropdown', Dropdown);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        dropdown(config?: DropdownConfig): Dropdown;
+    }
+}

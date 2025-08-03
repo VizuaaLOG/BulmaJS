@@ -15,7 +15,7 @@ export class File extends Plugin {
             elements = context.querySelectorAll('.file');
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             Bulma(element).file();
         });
     }
@@ -60,17 +60,22 @@ export class File extends Plugin {
         });
     }
     
-    handleTriggerChange(event) {
-        if (event.target.files.length === 0) {
+    handleTriggerChange(event: Event) {
+        if(!event.target) return;
+        const target = event.target as HTMLInputElement;
+
+        if(!target.files) return;
+
+        if (target.files.length === 0) {
             this.clearFileName();
         }
 
-        if (event.target.files.length === 1) {
-            this.setFileName(event.target.files[0].name);
+        if (target.files.length === 1) {
+            this.setFileName(target.files[0].name);
         }
 
-        if (event.target.files.length > 1) {
-            this.setFileName(event.target.files.length + ' files');
+        if (target.files.length > 1) {
+            this.setFileName(target.files.length + ' files');
         }
 
         this.trigger('changed', event);
@@ -84,7 +89,7 @@ export class File extends Plugin {
         return this.filename.innerHTML;
     }
     
-    setFileName(value) {
+    setFileName(value: string) {
         this.filename.innerHTML = value;
     }
     
@@ -100,3 +105,9 @@ export class File extends Plugin {
 Core.registerPlugin('file', File);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        file(config?: FileConfig): File;
+    }
+}

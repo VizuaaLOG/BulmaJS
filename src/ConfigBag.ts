@@ -16,7 +16,7 @@ export default class ConfigBag<T extends PluginConfig> {
             throw new Error('A key and value must be provided when setting a new option.');
         }
 
-        this._items[key] = value;
+        this._items[key as keyof T] = value;
     }
 
     has(key: string): boolean {
@@ -24,7 +24,7 @@ export default class ConfigBag<T extends PluginConfig> {
             throw new Error('A key must be provided.');
         }
 
-        return (this._items.hasOwnProperty(key) && this._items[key]);
+        return !!(this._items.hasOwnProperty(key) && this._items[key as keyof T]);
     }
 
     get(key: string, defaultValue: any = null): any {
@@ -36,6 +36,6 @@ export default class ConfigBag<T extends PluginConfig> {
             return defaultValue;
         }
 
-        return this._items[key];
+        return this._items[key as keyof T];
     }
 }

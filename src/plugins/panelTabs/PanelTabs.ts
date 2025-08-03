@@ -4,8 +4,8 @@ import PanelTabsConfig from './PanelTabsConfig';
 
 export class PanelTabs extends Plugin {
     nav: HTMLElement;
-    navItems: NodeListOf<Element>;
-    contentItems: NodeListOf<Element>;
+    navItems: HTMLElement[];
+    contentItems: HTMLElement[];
 
     static parseDocument(context: HTMLElement|Document) {
         let elements;
@@ -16,7 +16,7 @@ export class PanelTabs extends Plugin {
             elements = context.querySelectorAll('.panel');
         }
 
-        Core.each(elements, (element) => {
+        Core.each(elements, (element: HTMLElement) => {
             if(element.querySelector('.panel-tabs') === null) {
                 return;
             }
@@ -45,27 +45,27 @@ export class PanelTabs extends Plugin {
         this.trigger('init');
     }
 
-    findNav() {
-        return this.$root.getElement().querySelector('.panel-tabs');
+    findNav(): HTMLElement {
+        return this.$root.getElement().querySelector('.panel-tabs') as HTMLElement;
     }
 
-    findNavItems() {
-        return this.nav.querySelectorAll('a');
+    findNavItems(): HTMLElement[] {
+        return Array.from(this.nav.querySelectorAll('a'));
     }
 
-    findContentItems() {
-        return this.$root.getElement().querySelectorAll('.panel-block[data-category]');
+    findContentItems(): HTMLElement[] {
+        return Array.from(this.$root.getElement().querySelectorAll('.panel-block[data-category]'));
     }
 
     setupNavEvents() {
-        Core.each(this.navItems, (navItem) => {
+        Core.each(this.navItems, (navItem: HTMLElement) => {
             navItem.addEventListener('click', () => {
-                this.setActive(navItem.getAttribute('data-target'));
+                this.setActive(navItem.getAttribute('data-target') as string);
             });
         });
     }
 
-    setActive(category) {
+    setActive(category: string) {
         this.navItems.forEach((item) => {
             if(item.getAttribute('data-target') === category) {
                 item.classList.add('is-active');
@@ -86,16 +86,16 @@ export class PanelTabs extends Plugin {
     showActiveTab() {
         let activeNavFound = false;
 
-        Core.each(this.navItems, (navItem) => {
+        Core.each(this.navItems, (navItem: HTMLElement) => {
             if(navItem.classList.contains('is-active')) {
-                this.setActive(navItem.getAttribute('data-target'));
+                this.setActive(navItem.getAttribute('data-target') as string);
                 activeNavFound = true;
             }
         });
 
         // If no nav item has is-active then use the first one
         if(!activeNavFound) {
-            this.setActive(this.navItems[0].getAttribute('data-target'));
+            this.setActive(this.navItems[0].getAttribute('data-target') as string);
         }
     }
 }
@@ -103,3 +103,9 @@ export class PanelTabs extends Plugin {
 Core.registerPlugin('panelTabs', PanelTabs);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        panelTabs(config?: PanelTabsConfig): PanelTabs;
+    }
+}

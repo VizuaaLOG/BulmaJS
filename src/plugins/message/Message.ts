@@ -4,7 +4,7 @@ import MessageConfig from './MessageConfig';
 
 export class Message extends DismissableComponent {
     size: string;
-    title: HTMLElement;
+    title: HTMLElement | undefined;
 
     static parseDocument(context: HTMLElement|Document) {
         let elements: HTMLElement[];
@@ -16,20 +16,20 @@ export class Message extends DismissableComponent {
         }
 
         Core.each(elements, (element: HTMLElement) => {
-            let closeBtn = element.querySelector('.delete');
+            let closeBtn = element.querySelector('.delete') as HTMLButtonElement | undefined;
 
             Bulma(element).message({
                 body: null,
                 closeButton: closeBtn,
                 isDismissable: !!closeBtn,
                 destroyOnDismiss: true,
-                dismissInterval: element.hasAttribute('data-dismiss-interval') ? element.getAttribute('data-dismiss-interval') : null,
+                dismissInterval: element.hasAttribute('data-dismiss-interval') ? parseInt(element.getAttribute('data-dismiss-interval') ?? '') : null,
             }).show();
         });
     }
     
     constructor(config: MessageConfig, root: HTMLElement) {
-        super('message', config, root);
+        super('message', config, Bulma(root));
 
         this.size = this.config.get('size');
 
@@ -77,10 +77,16 @@ export class Message extends DismissableComponent {
     }
 
     prependCloseButton() {
-        this.title.appendChild(this.closeButton);
+        this.title?.appendChild(this.closeButton);
     }
 }
 
 Core.registerPlugin('message', Message);
 
 export default Bulma;
+
+declare module '../../Core' {
+    interface Core {
+        message(config?: MessageConfig): Message;
+    }
+}

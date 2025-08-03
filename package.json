@@ -15,9 +15,8 @@
     "homepage": "https://github.com/VizuaaLOG/BulmaJS",
     "devDependencies": {
         "bulma": "^0.7.1",
-        "vite": "^7.0.6"
+        "vite": "^7.0.6",
+        "vite-plugin-dts": "^4.5.4"
     },
-    "scripts": {
-
-    }
+    "scripts": {}
 }

@@ -2,21 +2,20 @@ import Data from './Data';
 import PluginConfig from './PluginConfig';
 import Plugin from './Plugin';
 
+declare module './Core' {
+    interface Core {}
+}
+
 export class Core {
     _elem: HTMLElement;
+
+    static AUTO_PARSE_DOCUMENT: boolean = true;
+    static ON_LOADED: Function|null = null;
     
     static ID: string = 'bulma-' + new Date().getTime();
     static VERSION: string = '1.0.0';
     static CACHE: Data = new Data();
-    static PLUGINS = {};
-
-    static create(key: string, config: PluginConfig): Plugin {
-        if (!key || !Core.PLUGINS.hasOwnProperty(key)) {
-            throw new Error('[BulmaJS] A plugin with the key \'' + key + '\' has not been registered.');
-        }
-
-        return new Core.PLUGINS[key].handler(config);
-    }
+    static PLUGINS: Record<string, { priority: number; handler: typeof Plugin }> = {} = {};
 
     static registerPlugin(key: string, plugin: typeof Plugin, priority: number = 0): void {
         if (!key) {
@@ -28,7 +27,7 @@ export class Core {
             handler: plugin
         };
 
-        Core.prototype[key] = function (config) {
+        (Core.prototype as any)[key] = function(config: any) {
             return new Core.PLUGINS[key].handler(config, this);
         };
     }
@@ -50,7 +49,7 @@ export class Core {
         });
     }
 
-    static createElement<T extends keyof HTMLElementTagNameMap>(name: T, classes: string[]): HTMLElementTagNameMap[T] {
+    static createElement<T extends keyof HTMLElementTagNameMap>(name: T, classes: string|string[]): HTMLElementTagNameMap[T] {
         if (!classes) {
             classes = [];
         }
@@ -61,7 +60,7 @@ export class Core {
 
         let elem = document.createElement<T>(name);
 
-        Core.each(classes, (className) => {
+        Core.each(classes, (className: string) => {
             elem.classList.add(className);
         });
 
@@ -88,7 +87,7 @@ export class Core {
         return elem;
     }
     
-    static each(objects: any[], callback: Function) {
+    static each(objects: Array<any>|NodeList|NodeListOf<any>, callback: Function) {
         let i;
 
         for (i = 0; i < objects.length; i++) {
@@ -129,20 +128,8 @@ export class Core {
 
         return div.innerHTML.replace(/  +/g, ' ');
     }
-    
-    static getGlobalConfig(key: string, defaultValue: any = null) {
-        if (!window.hasOwnProperty('bulmaOptions')) {
-            return defaultValue;
-        }
 
-        if (!window.bulmaOptions.hasOwnProperty(key)) {
-            return defaultValue;
-        }
-
-        return window.bulmaOptions[key];
-    };
-
-    constructor(selector: string|HTMLElement) {
+    constructor(selector: string|HTMLElement|null) {
         if (selector as any instanceof HTMLElement) {
             this._elem = selector as HTMLElement;
         } else {
@@ -154,21 +141,25 @@ export class Core {
         }
 
         if (!this._elem.hasOwnProperty(Core.ID)) {
+            // @ts-ignore
             this._elem[Core.ID] = Data.UID++;
         }
     }
 
-    data(key: string, value: any) {
+    data(key: string, value: any = undefined) {
         if (!value) {
+            // @ts-ignore
             return Core.CACHE.get(this._elem[Core.ID], key);
         }
 
+        // @ts-ignore
         Core.CACHE.set(this._elem[Core.ID], key, value);
 
         return this;
     }
     
     destroyData() {
+        // @ts-ignore
         Core.CACHE.destroy(this._elem[Core.ID]);
 
         return this;
@@ -180,16 +171,16 @@ export class Core {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (Core.getGlobalConfig('autoParseDocument', true)) {
+    if (Core.AUTO_PARSE_DOCUMENT) {
         Core.parseDocument();
     }
 
-    if (Core.getGlobalConfig('onLoaded')) {
-        Core.getGlobalConfig('onLoaded')();
+    if (Core.ON_LOADED) {
+        Core.ON_LOADED();
     }
 })
 
-export default function Bulma(selector: string|HTMLElement|Core): Core {
+export default function Bulma(selector: string|HTMLElement|Core|null = null): Core {
     if (!(selector instanceof Core)) {
         return new Core(selector);
     }
