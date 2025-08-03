@@ -1,4 +1,4 @@
-import PluginConfig from '../../interfaces/IPluginConfig';
+import PluginConfig from '../../PluginConfig';
 
 export default interface ModalConfig extends PluginConfig {
     title?: string;

@@ -1,4 +1,4 @@
-import Bulma from '../../core';
+import Bulma, { Core } from '../../core';
 import Plugin from '../../plugin';
 import FileConfig from './FileConfig';
 
@@ -15,7 +15,7 @@ export class File extends Plugin {
             elements = context.querySelectorAll('.file');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             Bulma(element).file();
         });
     }
@@ -23,9 +23,9 @@ export class File extends Plugin {
     constructor(config: FileConfig, root: HTMLElement) {
         super(config, root);
 
-        this.$root.setAttribute('data-bulma-attached', 'attached');
-        this.input = this.$root.querySelector('input') as HTMLInputElement;
-        this.filename = this.$root.querySelector('.file-name') as HTMLElement;
+        this.$root.getElement().setAttribute('data-bulma-attached', 'attached');
+        this.input = this.$root.getElement().querySelector('input') as HTMLInputElement;
+        this.filename = this.$root.getElement().querySelector('.file-name') as HTMLElement;
 
         this.registerEvents();
 
@@ -43,17 +43,17 @@ export class File extends Plugin {
             this.input.addEventListener('change', this.handleTriggerChange.bind(this));
         }
 
-        this.$root.addEventListener('dragover', (e) => {
+        this.$root.getElement().addEventListener('dragover', (e) => {
             e.preventDefault();
             this.addHoverClass();
         });
 
-        this.$root.addEventListener('dragleave', (e) => {
+        this.$root.getElement().addEventListener('dragleave', (e) => {
             e.preventDefault();
             this.addHoverClass();
         });
 
-        this.$root.addEventListener('drop', (e) => {
+        this.$root.getElement().addEventListener('drop', (e) => {
             e.preventDefault();
             this.removeHoverClass();
             this.input.files = e.dataTransfer?.files ?? new FileList();
@@ -89,14 +89,14 @@ export class File extends Plugin {
     }
     
     addHoverClass() {
-        this.$root.classList.add('is-hovered');
+        this.$root.getElement().classList.add('is-hovered');
     }
     
     removeHoverClass() {
-        this.$root.classList.remove('is-hovered');
+        this.$root.getElement().classList.remove('is-hovered');
     }
 }
 
-Bulma.registerPlugin('file', File);
+Core.registerPlugin('file', File);
 
 export default Bulma;

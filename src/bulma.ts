@@ -1,4 +1,4 @@
-import Bulma from './core';
+import Bulma, { Core } from './core';
 import { Notification } from './plugins/notification';
 import { Navbar } from './plugins/navbar';
 import { Message } from './plugins/message';
@@ -9,4 +9,5 @@ import { File } from './plugins/file/File';
 import { Tabs } from './plugins/tabs';
 import { PanelTabs } from './plugins/panelTabs';
 
-export { Bulma, Notification, Navbar, Message, Dropdown, Modal, Alert, File, Tabs, PanelTabs };
+export default Bulma;
+export { Core, Notification, Navbar, Message, Dropdown, Modal, Alert, File, Tabs, PanelTabs };

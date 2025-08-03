@@ -1,24 +1,23 @@
 import ConfigBag from './ConfigBag';
-import Bulma from './core';
-import IBulma from './interfaces/IBulma';
-import IPluginConfig from './interfaces/IPluginConfig';
-import IEventData from './interfaces/IEventData';
+import Bulma, { Core } from './core';
+import PluginConfig from './PluginConfig';
+import EventData from './EventData';
 
 export default class Plugin {
-    $root: HTMLElement;
+    $root: Core;
     $parent: HTMLElement;
-    config: ConfigBag<IPluginConfig>;
+    config: ConfigBag<PluginConfig>;
 
     _events: {[key: string]: Function[]};
 
     static parseDocument(context: HTMLElement|Document) {}
 
-    static defaultConfig(): IPluginConfig {
+    static defaultConfig(): PluginConfig {
         return {};
     }
 
-    constructor(config: IPluginConfig = {}, root: IBulma|HTMLElement) {
-        this.$root = (root instanceof Bulma) ? (root as IBulma)._elem : root as HTMLElement;
+    constructor(config: PluginConfig = {}, root: Core|HTMLElement) {
+        this.$root = Bulma(root);
 
         this.config = new ConfigBag({...(this.constructor as typeof Plugin).defaultConfig(), ...config});
 
@@ -39,7 +38,7 @@ export default class Plugin {
         this._events[event].push(callback);
     }
 
-    trigger(event: string, data: IEventData = {}) {
+    trigger(event: string, data: EventData = {}) {
         if(!this._events.hasOwnProperty(event)) {
             return;
         }
@@ -50,9 +49,9 @@ export default class Plugin {
     }
 
     destroy() {
-        Bulma(this.$root).destroyData();
+        this.$root.destroyData();
         
-        this.$root?.remove();
+        this.$root.getElement()?.remove();
 
         this.trigger('destroyed');
     }

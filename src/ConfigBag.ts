@@ -1,6 +1,6 @@
-import IPluginConfig from "./interfaces/IPluginConfig";
+import PluginConfig from "./PluginConfig";
 
-export default class ConfigBag<T extends IPluginConfig> {
+export default class ConfigBag<T extends PluginConfig> {
     protected _items: T;
 
     constructor(initialConfig: T) {

@@ -1,4 +1,4 @@
-import Bulma from '../core';
+import Bulma, { Core } from '../core';
 import Plugin from '../plugin';
 
 /**
@@ -21,7 +21,7 @@ export class Tabs extends Plugin {
             elements = context.querySelectorAll('.tabs-wrapper');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             Bulma(element).tabs({
                 hover: element.hasAttribute('data-hover') ? true : false
             });
@@ -130,7 +130,7 @@ export class Tabs extends Plugin {
      * @returns {void}
      */
     setupNavEvents() {
-        Bulma.each(this.navItems, (navItem, index) => {
+        Core.each(this.navItems, (navItem, index) => {
             navItem.addEventListener('click', () => {
                 this.setActive(index);
             });
@@ -149,11 +149,11 @@ export class Tabs extends Plugin {
      * @param {integer} index The new index to set
      */
     setActive(index) {
-        Bulma.each(this.navItems, (navItem) => {
+        Core.each(this.navItems, (navItem) => {
             navItem.classList.remove('is-active');
         });
 
-        Bulma.each(this.contentItems, (contentItem) => {
+        Core.each(this.contentItems, (contentItem) => {
             contentItem.classList.remove('is-active');
         });
 
@@ -162,6 +162,6 @@ export class Tabs extends Plugin {
     }
 }
 
-Bulma.registerPlugin('tabs', Tabs);
+Core.registerPlugin('tabs', Tabs);
 
 export default Bulma;

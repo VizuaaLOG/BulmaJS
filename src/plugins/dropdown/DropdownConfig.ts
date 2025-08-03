@@ -1,5 +1,5 @@
-import IPluginConfig from '../../interfaces/IPluginConfig';
+import PluginConfig from '../../PluginConfig';
 
-export default interface DropdownConfig extends IPluginConfig {
+export default interface DropdownConfig extends PluginConfig {
     
 }

@@ -1,4 +1,4 @@
-import Bulma from '../core';
+import Bulma, { Core } from '../core';
 import Plugin from '../plugin';
 
 /**
@@ -21,7 +21,7 @@ export class PanelTabs extends Plugin {
             elements = context.querySelectorAll('.panel');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             if(element.querySelector('.panel-tabs') === null) {
                 return;
             }
@@ -109,7 +109,7 @@ export class PanelTabs extends Plugin {
      * @returns {void}
      */
     setupNavEvents() {
-        Bulma.each(this.navItems, (navItem) => {
+        Core.each(this.navItems, (navItem) => {
             navItem.addEventListener('click', () => {
                 this.setActive(navItem.getAttribute('data-target'));
             });
@@ -145,7 +145,7 @@ export class PanelTabs extends Plugin {
     showActiveTab() {
         let activeNavFound = false;
 
-        Bulma.each(this.navItems, (navItem) => {
+        Core.each(this.navItems, (navItem) => {
             if(navItem.classList.contains('is-active')) {
                 this.setActive(navItem.getAttribute('data-target'));
                 activeNavFound = true;
@@ -159,6 +159,6 @@ export class PanelTabs extends Plugin {
     }
 }
 
-Bulma.registerPlugin('panelTabs', PanelTabs);
+Core.registerPlugin('panelTabs', PanelTabs);
 
 export default Bulma;

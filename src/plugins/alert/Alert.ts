@@ -1,4 +1,4 @@
-import Bulma from '../../core';
+import Bulma, { Core } from '../../core';
 import { Modal } from '../modal';
 import AlertConfig from './AlertConfig'
 
@@ -22,7 +22,7 @@ export class Alert extends Modal {
 
         if(!this.$root) return;
 
-        this.$root.classList.add('alert');
+        this.$root.getElement().classList.add('alert');
 
         Bulma(this.$root).data('alert', this);
 
@@ -37,30 +37,30 @@ export class Alert extends Modal {
 
     createCardStructure() {
         if(this.config.get('showHeader')) {
-            this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.config.get('type')]);
-            this.headerTitle = Bulma.createElement('p', ['modal-card-title', `has-text-${this.config.get('type')}-00`]);
+            this.header = Core.findOrCreateElement('.modal-card-head', this.content, 'header', ['modal-card-head', 'has-background-' + this.config.get('type')]);
+            this.headerTitle = Core.createElement('p', ['modal-card-title', `has-text-${this.config.get('type')}-00`]);
 
             this.headerTitle.innerHTML = this.title as string;
             this.header.appendChild(this.headerTitle);
         } else {
-            this.$root?.classList.add('has-no-header');
+            this.$root.getElement()?.classList.add('has-no-header');
         }
 
         /** @param {HTMLElement} */
-        this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
+        this.cardBody = Core.findOrCreateElement('.modal-card-body', this.content, 'section');
         if(!this.cardBody.innerHTML) {
             this.cardBody.innerHTML = this.body as string;
         }
 
         /** @param {HTMLElement} */
-        this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
+        this.footer = Core.findOrCreateElement('.modal-card-foot', this.content, 'footer');
     }
 
     // FIXME: Can this generate config instead so the Modal still handles it?
     createButtons() {
         var defaultButtonOptions = { close: true, destroy: true, onClick: function() {} };
 
-        let buttonsContainer = Bulma.createElement('div', ['buttons']);
+        let buttonsContainer = Core.createElement('div', ['buttons']);
 
         var confirmOptions = this.config.get('confirm');
         if(typeof confirmOptions === 'string') {
@@ -71,7 +71,7 @@ export class Alert extends Modal {
         }
         confirmOptions = { ...defaultButtonOptions, ...confirmOptions};
 
-        var confirmButton = Bulma.createElement('button', ['button', 'is-' + this.config.get('type')].concat(confirmOptions.classes));
+        var confirmButton = Core.createElement('button', ['button', 'is-' + this.config.get('type')].concat(confirmOptions.classes));
         confirmButton.innerHTML = confirmOptions.label;
         confirmButton.addEventListener('click', e => {
             confirmOptions.onClick(e);
@@ -92,7 +92,7 @@ export class Alert extends Modal {
             }
             cancelOptions = { ...defaultButtonOptions, ...cancelOptions};
 
-            var cancelButton = Bulma.createElement('button', ['button'].concat(cancelOptions.classes));
+            var cancelButton = Core.createElement('button', ['button'].concat(cancelOptions.classes));
             cancelButton.innerHTML = cancelOptions.label;
             cancelButton.addEventListener('click', e => {
                 cancelOptions.onClick(e);
@@ -108,6 +108,6 @@ export class Alert extends Modal {
     }
 }
 
-Bulma.registerPlugin('alert', Alert);
+Core.registerPlugin('alert', Alert);
 
 export default Bulma;

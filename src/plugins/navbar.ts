@@ -1,4 +1,4 @@
-import Bulma from '../core';
+import Bulma, { Core } from '../core';
 import Plugin from '../plugin';
 
 /**
@@ -21,7 +21,7 @@ export class Navbar extends Plugin {
             elements = context.querySelectorAll('.navbar');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             Bulma(element).navbar({
                 sticky: element.hasAttribute('data-sticky') ? true : false,
                 stickyOffset: element.hasAttribute('data-sticky-offset') ? element.getAttribute('data-sticky-offset') : 0,
@@ -285,6 +285,6 @@ export class Navbar extends Plugin {
     }
 }
 
-Bulma.registerPlugin('navbar', Navbar);
+Core.registerPlugin('navbar', Navbar);
 
 export default Bulma;

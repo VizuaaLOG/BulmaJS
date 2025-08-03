@@ -1,4 +1,4 @@
-export default interface IActionConfig {
+export default interface ActionConfig {
     label?: string;
     onClick?: Function|null;
 }

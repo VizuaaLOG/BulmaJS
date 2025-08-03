@@ -1,4 +1,4 @@
-import Bulma from '../core';
+import Bulma, { Core } from '../core';
 import Plugin from '../plugin';
 import ModalConfig from './modal/ModalConfig';
 
@@ -30,30 +30,30 @@ export class Modal extends Plugin {
 
         this.style = this.config.get('style');
         
-        if(!this.$root.classList.contains('modal')) {
-            this.$root.classList.add('modal');
+        if(!this.$root.getElement().classList.contains('modal')) {
+            this.$root.getElement().classList.add('modal');
         }
 
         if(!this.parent) {
-            if(!this.$root.parentNode) {
+            if(!this.$root.getElement().parentNode) {
                 this.parent = document.body;
 
-                this.parent.appendChild(this.$root);
+                this.parent.appendChild(this.$root.getElement());
             } else {
-                this.parent = this.$root.parentNode as HTMLElement;
+                this.parent = this.$root.getElement().parentNode as HTMLElement;
             }
         } else {
-            this.parent.appendChild(this.$root);
+            this.parent.appendChild(this.$root.getElement());
         }
 
-        this.background = Bulma.findOrCreateElement('.modal-background', this.$root);
-        this.content = this.style === 'card' ? Bulma.findOrCreateElement('.modal-card', this.$root) : Bulma.findOrCreateElement('.modal-content', this.$root);
+        this.background = Core.findOrCreateElement('.modal-background', this.$root.getElement());
+        this.content = this.style === 'card' ? Core.findOrCreateElement('.modal-card', this.$root.getElement()) : Core.findOrCreateElement('.modal-content', this.$root.getElement());
         this.closable = this.config.get('closable');
         this.body = this.config.get('body');
         this.title = this.config.get('title');
 
         if(this.config.get('bodyUrl')) {
-            Bulma.ajax(this.config.get('bodyUrl'))
+            Core.ajax(this.config.get('bodyUrl'))
                 .then((response) => {
                     this.body = response as string|null;
                     this.buildModal();
@@ -80,7 +80,7 @@ export class Modal extends Plugin {
 
         if(this.header && this.$root && this.closable) {
             /** @param {HTMLElement} */
-            this.closeButton = this.style === 'card' ? Bulma.findOrCreateElement<'button'>('.delete', this.header, 'button') : Bulma.findOrCreateElement<'button'>('.modal-close', this.$root, 'button');
+            this.closeButton = this.style === 'card' ? Core.findOrCreateElement<'button'>('.delete', this.header, 'button') : Core.findOrCreateElement<'button'>('.modal-close', this.$root.getElement(), 'button');
         }
 
         if(this.style === 'card') {
@@ -93,20 +93,20 @@ export class Modal extends Plugin {
     createCardStructure() {
         if(!this.content) return;
 
-        this.header = Bulma.findOrCreateElement('.modal-card-head', this.content, 'header');
+        this.header = Core.findOrCreateElement('.modal-card-head', this.content, 'header');
         if(!this.header) return;
 
-        this.headerTitle = Bulma.findOrCreateElement('.modal-card-title', this.header, 'p');
+        this.headerTitle = Core.findOrCreateElement('.modal-card-title', this.header, 'p');
         if(this.headerTitle && !this.headerTitle.innerHTML) {
             this.headerTitle.innerHTML = this.title as string;
         }
 
-        this.cardBody = Bulma.findOrCreateElement('.modal-card-body', this.content, 'section');
+        this.cardBody = Core.findOrCreateElement('.modal-card-body', this.content, 'section');
         if(this.cardBody && !this.cardBody.innerHTML) {
             this.cardBody.innerHTML = this.body as string;
         }
 
-        this.footer = Bulma.findOrCreateElement('.modal-card-foot', this.content, 'footer');
+        this.footer = Core.findOrCreateElement('.modal-card-foot', this.content, 'footer');
     }
 
     setupEvents() {
@@ -122,10 +122,10 @@ export class Modal extends Plugin {
     createButtons() {
         var buttonsConfig = this.config.get('buttons', []);
 
-        let buttonsContainer = Bulma.createElement('div', ['buttons']);
+        let buttonsContainer = Core.createElement('div', ['buttons']);
 
-        Bulma.each(buttonsConfig, (buttonConfig) => {
-            var button = Bulma.createElement('button', buttonConfig.classes);
+        Core.each(buttonsConfig, (buttonConfig) => {
+            var button = Core.createElement('button', buttonConfig.classes);
             button.innerHTML = buttonConfig.label;
 
             button.addEventListener('click', function(event) {
@@ -139,21 +139,21 @@ export class Modal extends Plugin {
     }
 
     open() {
-        this.$root?.classList.add('is-active');
+        this.$root.getElement()?.classList.add('is-active');
         document.documentElement.classList.add('is-clipped');
 
         this.trigger('open');
     }
 
     close() {
-        this.$root?.classList.remove('is-active');
+        this.$root.getElement()?.classList.remove('is-active');
         document.documentElement.classList.remove('is-clipped');
 
         this.trigger('close');
     }
 
     keyupListener(event) {
-        if(!this.$root?.classList.contains('is-active')) {
+        if(!this.$root.getElement()?.classList.contains('is-active')) {
             return;
         }
 
@@ -165,6 +165,6 @@ export class Modal extends Plugin {
     }
 }
 
-Bulma.registerPlugin('modal', Modal);
+Core.registerPlugin('modal', Modal);
 
 export default Bulma;

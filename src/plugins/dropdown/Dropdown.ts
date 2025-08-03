@@ -1,4 +1,4 @@
-import Bulma from '../../core';
+import Bulma, { Core } from '../../core';
 import Plugin from '../../plugin';
 import DropdownConfig from './DropdownConfig';
 
@@ -14,7 +14,7 @@ export class Dropdown extends Plugin {
             elements = context.querySelectorAll('.dropdown');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             Bulma(element).dropdown();
         });
     }
@@ -22,8 +22,8 @@ export class Dropdown extends Plugin {
     constructor(config: DropdownConfig, root: HTMLElement) {
         super(config, root);
 
-        this.$root.setAttribute('data-bulma-attached', 'attached');
-        this.$triggerElement = this.$root.querySelector<HTMLElement>('.dropdown-trigger') as HTMLElement;
+        this.$root.getElement().setAttribute('data-bulma-attached', 'attached');
+        this.$triggerElement = this.$root.getElement().querySelector<HTMLElement>('.dropdown-trigger') as HTMLElement;
 
         this.registerEvents();
 
@@ -37,18 +37,18 @@ export class Dropdown extends Plugin {
     }
     
     handleTriggerClick() {
-        if (this.$root.classList.contains('is-active')) {
-            this.$root.classList.remove('is-active');
+        if (this.$root.getElement().classList.contains('is-active')) {
+            this.$root.getElement().classList.remove('is-active');
 
             this.trigger('close');
         } else {
-            this.$root.classList.add('is-active');
+            this.$root.getElement().classList.add('is-active');
 
             this.trigger('open');
         }
     }
 }
 
-Bulma.registerPlugin('dropdown', Dropdown);
+Core.registerPlugin('dropdown', Dropdown);
 
 export default Bulma;

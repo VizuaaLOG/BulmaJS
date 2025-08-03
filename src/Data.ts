@@ -1,4 +1,7 @@
 class Data {
+
+    static UID = 1;
+
     constructor() {
         this._data = {};
     }
@@ -25,7 +28,5 @@ class Data {
         }
     }
 }
-
-Data.uid = 1;
 
 export default Data;

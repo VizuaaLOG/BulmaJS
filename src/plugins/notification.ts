@@ -1,4 +1,4 @@
-import Bulma from '../core';
+import Bulma, { Core } from '../core';
 import DismissableComponent from '../dismissableComponent';
 
 /**
@@ -22,7 +22,7 @@ export class Notification extends DismissableComponent {
             elements = context.querySelectorAll('.notification');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             let bulmaElement = Bulma(element);
 
             if (bulmaElement.data('notification')) {
@@ -66,6 +66,6 @@ export class Notification extends DismissableComponent {
     }
 }
 
-Bulma.registerPlugin('notification', Notification);
+Core.registerPlugin('notification', Notification);
 
 export default Bulma;

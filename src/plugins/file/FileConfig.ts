@@ -1,5 +1,5 @@
-import IPluginConfig from '../../interfaces/IPluginConfig';
+import PluginConfig from '../../PluginConfig';
 
-export default interface FileConfig extends IPluginConfig {
+export default interface FileConfig extends PluginConfig {
     
 }

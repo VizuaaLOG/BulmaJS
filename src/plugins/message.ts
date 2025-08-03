@@ -1,28 +1,21 @@
-import Bulma from '../core';
+import Bulma, { Core } from '../core';
 import DismissableComponent from '../dismissableComponent';
 
-/**
- * @module Message
- * @since  0.1.0
- * @author  Thomas Erbe <vizuaalog@gmail.com>
- * @extends DismissableComponent
- */
 export class Message extends DismissableComponent {
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} element The root element for this plugin
-     * @return {undefined}
-     */
-    static parseDocument(context) {
+    size: string;
+    title: string;
+
+
+    static parseDocument(context: HTMLElement|Document) {
         let elements;
 
-        if (typeof context.classList === 'object' && context.classList.container('.message')) {
+        if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {
             elements = [context];
         } else {
             elements = context.querySelectorAll('.message');
         }
 
-        Bulma.each(elements, (element) => {
+        Core.each(elements, (element) => {
             let closeBtn = element.querySelector('.delete');
 
             Bulma(element).message({
@@ -34,25 +27,11 @@ export class Message extends DismissableComponent {
             });
         });
     }
-
-    /**
-     * Plugin constructor
-     * @param  {Object} config The config object for this plugin
-     * @return {this} The newly created instance
-     */
+    
     constructor(config, root) {
         super('message', config, root);
-
-        /**
-         * The size of the message
-         * @type {String} Possible values are small, normal, medium or large
-         */
+        
         this.size = this.config.get('size');
-
-        /**
-         * The title of the message
-         * @type {String}
-         */
         this.title = this.config.get('title');
 
         if (this.title) {
@@ -74,7 +53,7 @@ export class Message extends DismissableComponent {
             this.setSize();
         }
 
-        Bulma(this.root).data('message', this);
+        Bulma(this.$root).data('message', this);
 
         this.trigger('init');
     }
@@ -91,7 +70,7 @@ export class Message extends DismissableComponent {
 
         this.title = header;
 
-        this.root.insertBefore(this.title, this.root.firstChild);
+        this.$root.getElement().insertBefore(this.title, this.$root.getElement().firstChild);
     }
 
     /**
@@ -99,7 +78,7 @@ export class Message extends DismissableComponent {
      * @return {undefined}
      */
     setSize() {
-        this.root.classList.add('is-' + this.size);
+        this.$root.getElement().classList.add('is-' + this.size);
     }
 
     /**
@@ -111,7 +90,7 @@ export class Message extends DismissableComponent {
         body.classList.add('message-body');
         body.innerHTML = this.body;
 
-        this.root.appendChild(body);
+        this.$root.getElement().appendChild(body);
     }
 
     /**
@@ -123,6 +102,6 @@ export class Message extends DismissableComponent {
     }
 }
 
-Bulma.registerPlugin('message', Message);
+Core.registerPlugin('message', Message);
 
 export default Bulma;

@@ -1,30 +1,25 @@
-import Bulma from './core';
+import Bulma, { Core } from './core';
 import Plugin from './plugin';
+import DismissableConfig from './DismissableConfig';
 
-/**
- * @module DismissableComponent
- * @since  0.2.0
- * @author  Thomas Erbe <vizuaalog@gmail.com>
- */
 export default class DismissableComponent extends Plugin {
-    /**
-     * Returns an object containing the default config for this plugin.
-     * @returns {object} The default config object.
-     */
-    static defaultConfig() {
+    name: string;
+    body: string;
+    color: string;
+    dismissInterval: number|null;
+    isDismissable: boolean;
+    destroyOnDismiss: boolean;
+    parent: typeof Bulma;
+    closeButton: HTMLButtonElement;
+
+    static defaultConfig(): DismissableConfig {
         return {
             isDismissable: false,
             destroyOnDismiss: true,
             element: null
         };
     }
-
-    /**
-     * Plugin constructor
-     * @param  {string} name Plugin's name
-     * @param  {Object} config Plugin's config
-     * @return {this} The new plugin instance
-     */
+    
     constructor(name, config, root) {
         if(!root._elem.classList.contains(name)) {
             config['parent'] = root;
@@ -32,41 +27,12 @@ export default class DismissableComponent extends Plugin {
         }
 
         super(config, root);
-
-        /**
-         * The name of this component, this will be used as the root class
-         * @type {string}
-         */
+        
         this.name = name;
-
-        /**
-        * Body text.
-        * @type {string}
-        */
         this.body = this.config.get('body');
-        
-        /**
-        * Color modifier.
-        * @type {string} Possible values are null, primary, info, success, warning, danger
-        */
         this.color = this.config.get('color');
-        
-        /**
-        * How long to wait before auto dismissing the component.
-        * @type {int|null} If null component must be dismissed manually.
-        */
         this.dismissInterval = this.config.get('dismissInterval') ? this.createDismissInterval(this.config.get('dismissInterval')) : null;
-        
-        /**
-        * Does this component have a dismiss button?
-        * @type {Boolean}
-        */
         this.isDismissable = this.config.get('isDismissable');
-        
-        /**
-        * Should this component be destroyed when it is dismissed.
-        * @type {Boolean}
-        */
         this.destroyOnDismiss = this.config.get('destroyOnDismiss');
 
         // TODO: Make internal element references all be a Bulma instance. This will keep consistency.
@@ -74,16 +40,6 @@ export default class DismissableComponent extends Plugin {
             this.parent = Bulma(this.parent);
         }
         
-        /**
-        * The root element.
-        * @type {HTMLElement|null} If this is not provided a new element will be created.
-        */
-        this.root = this.config.get('root', this.createRootElement.bind(this));
-        
-        /**
-        * The element used to close the component.
-        * @type {HTMLElement}
-        */
         this.closeButton = this.config.get('closeButton', this.createCloseButton());
 
         if(this.body) {
@@ -114,7 +70,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     show() {
-        this.root.classList.remove('is-hidden');
+        this.$root.getElement().classList.remove('is-hidden');
     }
 
     /**
@@ -122,7 +78,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     hide() {
-        this.root.classList.add('is-hidden');
+        this.$root.getElement().classList.add('is-hidden');
     }
 
     /**
@@ -130,7 +86,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     insertBody() {
-        this.root.innerHTML = this.body;
+        this.$root.getElement().innerHTML = this.body;
     }
 
     /**
@@ -161,7 +117,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     prependCloseButton() {
-        this.root.insertBefore(this.closeButton, this.root.firstChild);
+        this.$root.getElement().insertBefore(this.closeButton, this.$root.getElement().firstChild);
     }
 
     /**
@@ -193,7 +149,7 @@ export default class DismissableComponent extends Plugin {
      * @return {undefined}
      */
     setColor() {
-        this.root.classList.add('is-' + this.color);
+        this.$root.getElement().classList.add('is-' + this.color);
     }
 
     /**
