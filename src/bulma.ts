@@ -1,5 +1,5 @@
 import Bulma, { Core } from './core';
-import { Notification } from './plugins/notification';
+import { Notification } from './plugins/notification/Notification';
 import { Navbar } from './plugins/navbar/Navbar';
 import { Message } from './plugins/message/Message';
 import { Dropdown } from './plugins/dropdown/Dropdown';

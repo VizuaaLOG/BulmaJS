@@ -1,22 +1,12 @@
-import Bulma, { Core } from '../core';
-import DismissableComponent from '../dismissableComponent';
+import Bulma, { Core } from '../../core';
+import DismissableComponent from '../../dismissableComponent';
+import NotificationConfig from './NotificationConfig';
 
-/**
- * @module Notification
- * @since  0.1.0
- * @author  Thomas Erbe <vizuaalog@gmail.com>
- * @extends DismissableComponent
- */
 export class Notification extends DismissableComponent {
-    /**
-     * Handle parsing the DOMs data attribute API.
-     * @param {HTMLElement} element The root element for this instance
-     * @return {undefined}
-     */
-    static parseDocument(context) {
+    static parseDocument(context: HTMLElement|Document) {
         let elements;
 
-        if (typeof context.classList === 'object' && context.classList.contains('notification')) {
+        if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {
             elements = [context];
         } else {
             elements = context.querySelectorAll('.notification');
@@ -41,12 +31,7 @@ export class Notification extends DismissableComponent {
         });
     }
 
-    /**
-     * Plugin constructor
-     * @param  {Object} config The config object for this plugin
-     * @return {this} The newly created instance
-     */
-    constructor(config, root) {
+    constructor(config: NotificationConfig, root: HTMLElement) {
         super('notification', config, root);
 
         // TODO: Move this into the DismissableComponent class. Due to the required
