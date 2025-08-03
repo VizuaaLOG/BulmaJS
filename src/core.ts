@@ -102,8 +102,6 @@ Bulma.parseDocument = (root = document) => {
 
     Bulma.each(sortedPlugins, (key) => {
         if (!Bulma.plugins[key].handler.hasOwnProperty('parseDocument')) {
-            // eslint-disable-next-line no-console
-            console.error('[BulmaJS] Plugin ' + key + ' does not have a parseDocument method. Automatic document parsing is not possible for this plugin.');
             return;
         }
 
@@ -111,13 +109,7 @@ Bulma.parseDocument = (root = document) => {
     });
 };
 
-/**
- * Create an element and assign classes
- * @param {string} name The name of the element to create
- * @param {array} classes An array of classes to add to the element
- * @return {HTMLElement} The newly created element
- */
-Bulma.createElement = (name, classes) => {
+Bulma.createElement = function<T extends keyof HTMLElementTagNameMap>(name: T, classes: string[]): HTMLElementTagNameMap[T] {
     if (!classes) {
         classes = [];
     }
@@ -126,7 +118,7 @@ Bulma.createElement = (name, classes) => {
         classes = [classes];
     }
 
-    let elem = document.createElement(name);
+    let elem = document.createElement<T>(name);
 
     Bulma.each(classes, (className) => {
         elem.classList.add(className);
@@ -135,16 +127,8 @@ Bulma.createElement = (name, classes) => {
     return elem;
 };
 
-/**
- * Find an element otherwise create a new one.
- * @param {string} query The CSS selector query to find
- * @param {HTMLElement|null} parent The parent we want to search/create within
- * @param {[string]} elemName The name of the element to create
- * @param {[array]} classes The classes to apply to the element
- * @returns {HTMLElement} The HTML element we found or created
- */
-Bulma.findOrCreateElement = (query, parent = document, elemName = 'div', classes = []) => {
-    var elem = parent.querySelector(query);
+Bulma.findOrCreateElement = function<T extends keyof HTMLElementTagNameMap>(query: string, parent: HTMLElement|Document = document, elemName: string = 'div', classes: string[] = []): HTMLElementTagNameMap[T] {
+    var elem = parent.querySelector<T>(query as T);
 
     if (!elem) {
         if (classes.length === 0) {
@@ -153,7 +137,7 @@ Bulma.findOrCreateElement = (query, parent = document, elemName = 'div', classes
             });
         }
 
-        var newElem = Bulma.createElement(elemName, classes);
+        var newElem = Bulma.createElement<T>(elemName as T, classes);
 
         parent.appendChild(newElem);
 
