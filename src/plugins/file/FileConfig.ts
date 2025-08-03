@@ -1,5 +1,5 @@
 import IPluginConfig from '../../interfaces/IPluginConfig';
 
-export default interface DropdownConfig extends IPluginConfig {
+export default interface FileConfig extends IPluginConfig {
     
 }

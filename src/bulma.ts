@@ -5,7 +5,7 @@ import { Message } from './plugins/message';
 import { Dropdown } from './plugins/dropdown/Dropdown';
 import { Modal } from './plugins/modal';
 import { Alert } from './plugins/alert/Alert';
-import { File } from './plugins/file';
+import { File } from './plugins/file/File';
 import { Tabs } from './plugins/tabs';
 import { PanelTabs } from './plugins/panelTabs';
 
