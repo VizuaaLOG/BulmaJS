@@ -3,10 +3,11 @@ import Plugin from '../../Plugin';
 import DropdownConfig from './DropdownConfig';
 
 export class Dropdown extends Plugin {
-    $triggerElement: HTMLElement;
-    $menuElement: HTMLElement|null;
+    protected $triggerElement: HTMLElement;
+    protected $menuElement: HTMLElement|null;
+    protected readonly _triggerClickHandler: (event: MouseEvent) => void;
 
-    static parseDocument(context: HTMLElement|Document) {
+    protected static parseDocument(context: HTMLElement|Document) {
         let elements;
 
         if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {
@@ -22,7 +23,7 @@ export class Dropdown extends Plugin {
         });
     }
 
-    static defaultConfig(): DropdownConfig {
+    protected static defaultConfig(): DropdownConfig {
         return {
             closeOthers: true
         };
@@ -34,6 +35,7 @@ export class Dropdown extends Plugin {
         this.$root.getElement().setAttribute('data-bulma-attached', 'attached');
         this.$triggerElement = this.findTriggerElement();
         this.$menuElement = this.findMenuElement();
+        this._triggerClickHandler = this.handleTriggerClick.bind(this);
 
         this.registerEvents();
         this.updateMenuVisibility();
@@ -43,11 +45,11 @@ export class Dropdown extends Plugin {
         this.trigger('init');
     }
     
-    registerEvents() {
-        this.$triggerElement.addEventListener('click', this.handleTriggerClick.bind(this));
+    protected registerEvents() {
+        this.$triggerElement.addEventListener('click', this._triggerClickHandler);
     }
     
-    findTriggerElement(): HTMLElement {
+    protected findTriggerElement(): HTMLElement {
         let root = this.$root.getElement();
         let trigger = Array.from(root.children).find((element: Element) => {
             return element.classList.contains('dropdown-trigger');
@@ -56,7 +58,7 @@ export class Dropdown extends Plugin {
         return (trigger ?? root.querySelector<HTMLElement>('.dropdown-trigger')) as HTMLElement;
     }
 
-    findMenuElement(): HTMLElement|null {
+    protected findMenuElement(): HTMLElement|null {
         let root = this.$root.getElement();
         let menu = Array.from(root.children).find((element: Element) => {
             return element.classList.contains('dropdown-menu');
@@ -65,55 +67,25 @@ export class Dropdown extends Plugin {
         return menu ? menu as HTMLElement : null;
     }
 
-    handleTriggerClick(event: MouseEvent) {
+    protected handleTriggerClick(event: MouseEvent) {
         event.stopPropagation();
 
-        if (this.$root.getElement().classList.contains('is-active')) {
-            this.close();
-        } else {
-            this.open();
-        }
+        this.toggle();
     }
 
-    open() {
-        if (this.$root.getElement().classList.contains('is-active')) {
-            return;
-        }
-
-        if (this.config.get('closeOthers')) {
-            this.closeOtherDropdowns();
-        }
-
-        this.$root.getElement().classList.add('is-active');
-        this.updateMenuVisibility();
-
-        this.trigger('open');
-    }
-
-    close() {
-        if (!this.$root.getElement().classList.contains('is-active')) {
-            return;
-        }
-
-        this.$root.getElement().classList.remove('is-active');
-        this.updateMenuVisibility();
-
-        this.trigger('close');
-    }
-
-    updateMenuVisibility() {
+    protected updateMenuVisibility() {
         if (!this.$menuElement) {
             return;
         }
 
-        if (this.$root.getElement().classList.contains('is-active')) {
+        if (this.isOpen()) {
             this.$menuElement.classList.remove('is-hidden');
         } else {
             this.$menuElement.classList.add('is-hidden');
         }
     }
 
-    closeOtherDropdowns() {
+    protected closeOtherDropdowns() {
         let root = this.$root.getElement();
         let activeDropdowns = document.querySelectorAll<HTMLElement>('.dropdown.is-active');
 
@@ -125,6 +97,10 @@ export class Dropdown extends Plugin {
             let instance = Bulma(dropdown).data('dropdown') as Dropdown|null;
 
             if (instance) {
+                if (instance.isClosed()) {
+                    return;
+                }
+
                 instance.close();
                 return;
             }
@@ -134,6 +110,83 @@ export class Dropdown extends Plugin {
                 return element.classList.contains('dropdown-menu');
             })?.classList.add('is-hidden');
         });
+    }
+
+    public open() {
+        if (this.isOpen()) {
+            return;
+        }
+
+        if (this.getCloseOthers()) {
+            this.closeOtherDropdowns();
+        }
+
+        this.$root.getElement().classList.add('is-active');
+        this.updateMenuVisibility();
+
+        this.trigger('open');
+    }
+
+    public close() {
+        if (this.isClosed()) {
+            return;
+        }
+
+        this.$root.getElement().classList.remove('is-active');
+        this.updateMenuVisibility();
+
+        this.trigger('close');
+    }
+
+    public toggle() {
+        if (this.isOpen()) {
+            this.close();
+            return;
+        }
+
+        this.open();
+    }
+
+    public isOpen(): boolean {
+        return this.$root.getElement().classList.contains('is-active');
+    }
+
+    public isClosed(): boolean {
+        return !this.isOpen();
+    }
+
+    // noinspection JSUnusedGlobalSymbols
+    public getTriggerElement(): HTMLElement {
+        return this.$triggerElement;
+    }
+
+    // noinspection JSUnusedGlobalSymbols
+    public getMenuElement(): HTMLElement|null {
+        return this.$menuElement;
+    }
+
+    // noinspection JSUnusedGlobalSymbols
+    public setCloseOthers(enabled: boolean) {
+        this.config.set('closeOthers', enabled);
+    }
+
+    public getCloseOthers(): boolean {
+        return !!this.config.get('closeOthers');
+    }
+
+    // noinspection JSUnusedGlobalSymbols
+    public refresh() {
+        this.$triggerElement.removeEventListener('click', this._triggerClickHandler);
+        this.$triggerElement = this.findTriggerElement();
+        this.$menuElement = this.findMenuElement();
+        this.registerEvents();
+        this.updateMenuVisibility();
+    }
+
+    public destroy() {
+        this.$triggerElement.removeEventListener('click', this._triggerClickHandler);
+
+        super.destroy();
     }
 }
 

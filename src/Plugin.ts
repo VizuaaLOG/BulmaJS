@@ -42,6 +42,24 @@ export default class Plugin {
         this._events[event].push(callback);
     }
 
+    // noinspection JSUnusedGlobalSymbols
+    off(event: string, callback?: Function) {
+        if(!this._events.hasOwnProperty(event)) {
+            return;
+        }
+
+        if(!callback) {
+            delete this._events[event];
+            return;
+        }
+
+        this._events[event] = this._events[event].filter((eventCallback) => eventCallback !== callback);
+
+        if(this._events[event].length === 0) {
+            delete this._events[event];
+        }
+    }
+
     trigger(event: string, data: EventData = {}) {
         if(!this._events.hasOwnProperty(event)) {
             return;
