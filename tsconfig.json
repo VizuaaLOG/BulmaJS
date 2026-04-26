@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
+        "rootDir": "./src",
         "module": "esnext",
         "target": "esnext",
-        "moduleResolution": "node",
         "strict": true,
-        "baseUrl": ".",
         "declaration": true,
         "paths": {
             "*": [
-                "*"
+                "./*"
             ]
         }
     },

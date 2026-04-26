@@ -62,7 +62,7 @@ export declare class Core {
 	destroyData(): this;
 	getElement(): HTMLElement;
 }
-declare function Bulma(selector?: string | HTMLElement | Core | null): Core;
+export function Bulma(selector?: string | HTMLElement | Core | null): Core;
 export interface DismissableConfig extends PluginConfig {
 	isDismissable?: boolean;
 	dismissInterval?: number | null;
@@ -286,7 +286,6 @@ export interface Core {
 }
 
 export {
-	Bulma as default,
 	File$1 as File,
 	Notification$1 as Notification,
 };
