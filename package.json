@@ -16,12 +16,15 @@
     "devDependencies": {
         "bulma": "^1.0.4",
         "dts-bundle-generator": "^9.5.1",
+        "jsdom": "^29.0.2",
         "rimraf": "^6.1.3",
+        "typescript": "^6.0.3",
         "vite": "^8.0.10",
-        "typescript": "^6.0.3"
+        "vitest": "^4.1.5"
     },
     "scripts": {
         "dev": "vite dev",
+        "test": "TMPDIR=/tmp TEMP=/tmp TMP=/tmp vitest run",
         "build": "npm run build:lib && npm run build:types",
         "build:lib": "vite build",
         "build:types": "npx tsc --emitDeclarationOnly --outDir types-tmp && dts-bundle-generator -o dist/bulmajs.d.ts types-tmp/index.d.ts && rimraf types-tmp"

@@ -12,7 +12,7 @@ export default class ConfigBag<T extends PluginConfig> {
     }
 
     set(key: string, value: any): any {
-        if(!key || !value) {
+        if(!key || value === undefined) {
             throw new Error('A key and value must be provided when setting a new option.');
         }
 

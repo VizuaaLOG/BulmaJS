@@ -7,7 +7,7 @@ export class Dropdown extends Plugin {
     protected $menuElement: HTMLElement|null;
     protected readonly _triggerClickHandler: (event: MouseEvent) => void;
 
-    protected static parseDocument(context: HTMLElement|Document) {
+    static parseDocument(context: HTMLElement|Document) {
         let elements;
 
         if (context.hasOwnProperty('classList') && (context as HTMLElement).classList.contains('dropdown')) {
@@ -23,7 +23,7 @@ export class Dropdown extends Plugin {
         });
     }
 
-    protected static defaultConfig(): DropdownConfig {
+    static defaultConfig(): DropdownConfig {
         return {
             closeOthers: true
         };

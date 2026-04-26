@@ -10,8 +10,10 @@ export default class Plugin {
 
     _events: {[key: string]: Function[]};
 
+    // noinspection JSUnusedLocalSymbols,JSUnusedGlobalSymbols
     static parseDocument(context: HTMLElement|Document) {}
 
+    // noinspection JSUnusedGlobalSymbols
     static defaultConfig(): PluginConfig {
         return {};
     }
