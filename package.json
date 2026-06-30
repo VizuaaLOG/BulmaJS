@@ -15,8 +15,8 @@
     "homepage": "https://github.com/VizuaaLOG/BulmaJS",
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@babel/core": "^7.29.0",
-        "@babel/preset-env": "^7.29.0",
+        "@babel/core": "^8.0.1",
+        "@babel/preset-env": "^8.0.2",
         "babel-loader": "^10.1.1",
         "bulma": "^0.7.1",
         "eslint": "^10.2.1",
